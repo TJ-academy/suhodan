@@ -9,9 +9,9 @@ version = '0.0.1-SNAPSHOT'
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
+		languageVersion = JavaLanguageVersion.of(24)
 	}
-	java.targetCompatibility = JavaVersion.VERSION_17
+	java.targetCompatibility = JavaVersion.VERSION_24
 }
 
 configurations {
