@@ -5,15 +5,15 @@
 		select * from suho_user order by name
 	</select>
 	<insert id="insert">
-		insert into suho_user (user_id, passwd, name, address) 
-		values (#{user_id}, MYPACK.ENCRYPT(#{passwd}), #{name}, #{address});
+		insert into suho_user (user_id, passwd, name, address, gender, birth) 
+		values (#{user_id}, MYPACK.ENCRYPT(#{passwd}), #{name}, #{address}, #{gender}, #{birth})
 	</insert>
 	<select id="detail" resultType="com.example.suhodan.member.MemberDTO">
 		select * from suho_user where user_id=#{user_id}
 	</select>
 	<update id="update">
 		update suho_user
-		set passwd = MYPACK.ENCRYPT(#{passwd}), name=#{name}, address=#{address}
+		set passwd = MYPACK.ENCRYPT(#{passwd}), name=#{name}, address=#{address}, gender=#{gender}, birth=#{birth}
 		where user_id=#{user_id}
 	</update>
 	<delete id="delete">

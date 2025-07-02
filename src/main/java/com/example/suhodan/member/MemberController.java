@@ -23,6 +23,12 @@ public class MemberController {
 		return "join";
 	}
 	
+	//join_next 페이지 이동
+	@RequestMapping("join_next.do")
+	public String join_next() {
+		return "join_next";
+	}
+	
 	@PostMapping("insert.do")
 	public String insert(@ModelAttribute MemberDTO dto) {
 		memberDao.insert(dto);		
