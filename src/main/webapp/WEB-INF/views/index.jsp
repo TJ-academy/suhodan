@@ -8,5 +8,6 @@
 </head>
 <body>
 	<h2>테스트</h2>
+	<a href="join.do">회원가입</a>
 </body>
 </html>
