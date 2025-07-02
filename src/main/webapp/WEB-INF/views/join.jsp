@@ -7,7 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>테스트</h2>
-	<a href="join.do">회원가입</a>
+<h2>회원가입</h2>
+	<label>아이디를 입력하세요.</label>
+
 </body>
 </html>
