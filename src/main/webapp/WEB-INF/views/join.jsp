@@ -27,7 +27,7 @@
 	<input type="password" id="pass2"><br>
 	<p id="errorMsg" class="error"></p>
 	<p>아이디와 비밀번호는 영문/숫자로 이루어져야 합니다.</p>
-	<button type="submit">다음으로</button>
+	<button type="submit" id="submitBtn" disabled>다음으로</button>
 </form>
 <script>
 	function checkPasswordMatch() {
@@ -47,28 +47,34 @@
 	function checkIdDuplicate() {
 	    const userId = document.getElementById("user_id").value;
 	    const msg = document.getElementById("idCheckMsg");
+	    const submitBtn = document.getElementById("submitBtn");
 	    
 	    if (userId.trim() === "") {
-	    	msg.textContent = "아이디를 입력해주세요.";
-	    	return;
-	    }	
+	        msg.textContent = "아이디를 입력해주세요.";
+	        msg.style.color = "red";
+	        submitBtn.disabled = true; // 버튼 비활성화
+	        return;
+	    }   
 	    
-	    fetch(`/check_id.do?user_id=${encodeURIComponent(userId)}`)
+	    fetch("/check_id.do?user_id=" + encodeURIComponent(userId))
 	        .then(response => response.text())
 	        .then(result => {
 	            if (result === "OK") {
 	                msg.textContent = "사용 가능한 아이디입니다.";
 	                msg.style.color = "green";
+	                submitBtn.disabled = false; // 버튼 활성화
 	            } else {
 	                msg.textContent = "이미 사용 중인 아이디입니다.";
 	                msg.style.color = "red";
+	                submitBtn.disabled = true; // 버튼 비활성화
 	            }
 	        })
 	        .catch(err => {
 	            msg.textContent = "서버 오류. 다시 시도해주세요.";
 	            msg.style.color = "red";
+	            submitBtn.disabled = true; // 버튼 비활성화
 	        });
-}
+	}
 </script>
 </body>
 </html>
