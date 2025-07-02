@@ -22,4 +22,13 @@
 	<select id="check_passwd" resultType="int">
 		select count(*) from suho_user where user_id=#{user_id} and passwd=#{passwd}
 	</select>
+	<select id="check_id_duplicate" resultType="int">
+		select count(*) from suho_user where user_id=#{userid}
+	</select>
+	<select id="login" resultType="String">
+		SELECT name 
+		FROM suho_user
+		WHERE user_id = #{user_id}
+		  AND passwd = MYPACK.ENCRYPT(#{passwd})
+	</select>
 </mapper>
