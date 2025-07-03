@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<a href="/">메인화면</a> |
+<a href="/">메인</a> |
 <a href="#">설화 지도</a> |
 <a href="#">보따리 상점</a> |
 <a href="#">기부하기</a> |
