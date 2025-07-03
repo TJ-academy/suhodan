@@ -48,9 +48,7 @@
 	    <option value="<%= i %>"><%= i %></option>
 	  <% } %>
 	</select>일<br>
-	
-	<p>아이디와 비밀번호는 영문/숫자로 이루어져야 합니다.</p>
-	
+		
 	<button type="submit">저장하기</button>
 </form>
 <script>

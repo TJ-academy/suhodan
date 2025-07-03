@@ -11,12 +11,49 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class MemberController {
 	@Autowired 
 	MemberDAO memberDao;
 
+	//로그인 페이지 이동
+	@GetMapping("login.do")
+	public String login() {
+		return "login";
+	}
+
+	//로그인 처리
+	@PostMapping("login_check.do")
+	public ModelAndView login_check(MemberDTO dto, HttpSession session) {
+		String name = memberDao.login(dto);
+		if(name != null) {
+			session.setAttribute("user_id", dto.getUser_id());
+			session.setAttribute("name", name);
+		}
+		ModelAndView mav = new ModelAndView();
+		if(name != null) {
+			mav.setViewName("index");
+		} else {
+			mav.setViewName("login");
+			mav.addObject("message", "error");
+		}
+		return mav;
+	}
+	
+	//로그아웃
+	@GetMapping("logout.do")
+	public ModelAndView logout(HttpSession session, ModelAndView mav) {
+		session.invalidate();
+		mav.setViewName("login");
+		mav.addObject("message", "logout");
+		return mav;
+	}
+	
 	//회원가입 페이지 이동
 	@GetMapping("join.do")
 	public String join() {
@@ -27,6 +64,14 @@ public class MemberController {
 	@RequestMapping("join_next.do")
 	public String join_next() {
 		return "join_next";
+	}
+	
+	//아이디 중복체크
+	@GetMapping("/check_id.do")
+	@ResponseBody
+	public String checkId(@RequestParam("user_id") String user_id) {
+		boolean exists = memberDao.isUserIdExists(user_id);
+		return exists ? "DUPLICATE" : "OK";
 	}
 	
 	@PostMapping("insert.do")
