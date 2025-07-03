@@ -47,7 +47,8 @@ public class MemberController {
 	
 	//로그아웃
 	@GetMapping("/logout.do")
-	public ModelAndView logout(HttpSession session, ModelAndView mav) {
+	public ModelAndView logout(HttpSession session, 
+			ModelAndView mav) {
 		session.invalidate();
 		mav.setViewName("member/login");
 		mav.addObject("message", "logout");
@@ -74,6 +75,7 @@ public class MemberController {
 		return exists ? "DUPLICATE" : "OK";
 	}
 	
+	//회원가입 완료
 	@PostMapping("insert.do")
 	public String insert(@ModelAttribute MemberDTO dto) {
 		memberDao.insert(dto);		
@@ -81,14 +83,26 @@ public class MemberController {
 	}
 	
 	//마이페이지로 이동
+	@GetMapping("/mypage")
+	public String view(HttpSession session, 
+			Model model) {
+		String userid = (String) session.getAttribute("user_id");
+		if(userid == null) {
+			return "redirect:/login.do?message=nologin";
+		}
+		model.addAttribute("dto", memberDao.detail(userid));
+		return "member/mypage";
+	}
+	/*
+	//마이페이지로 이동
 	@GetMapping("/mypage/{user_id}")
 	public String view(@PathVariable(name="user_id") String user_id, Model model) {
 		model.addAttribute("dto", memberDao.detail(user_id));
 		return "member/mypage";
-	}
+	}*/
 	
 	//회원정보 수정페이지로 이동
-	@GetMapping("/mypage/{user_id}/update")
+	@GetMapping("/mypage/edit")
 	public String detail(@PathVariable(name="user_id") String user_id, Model model) {
 		model.addAttribute("dto", memberDao.detail(user_id));
 		return "/member/mypage_update";

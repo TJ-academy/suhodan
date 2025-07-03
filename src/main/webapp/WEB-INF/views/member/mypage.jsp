@@ -14,7 +14,7 @@
 <h2>마이페이지</h2>
 
 <a href="#">디지털 수호수</a>
-<a href="/mypage/${user_id}/update">회원정보 수정</a>
+<a href="/mypage/edit">회원정보 수정</a>
 
 <table border="1" width="500px">
 	<tr>
