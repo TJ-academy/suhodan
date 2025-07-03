@@ -19,7 +19,6 @@
 		<c:otherwise>
 			<h2>
 				환영합니다. 로그인 후 이용가능합니다.
-				<a href="join.do">회원가입</a>
 			</h2>
 		</c:otherwise>
 	</c:choose>
