@@ -24,7 +24,7 @@ public class MemberController {
 	//로그인 페이지 이동
 	@GetMapping("login.do")
 	public String login() {
-		return "login";
+		return "member/login";
 	}
 
 	//로그인 처리
@@ -39,17 +39,17 @@ public class MemberController {
 		if(name != null) {
 			mav.setViewName("index");
 		} else {
-			mav.setViewName("login");
+			mav.setViewName("member/login");
 			mav.addObject("message", "error");
 		}
 		return mav;
 	}
 	
 	//로그아웃
-	@GetMapping("logout.do")
+	@GetMapping("/logout.do")
 	public ModelAndView logout(HttpSession session, ModelAndView mav) {
 		session.invalidate();
-		mav.setViewName("login");
+		mav.setViewName("member/login");
 		mav.addObject("message", "logout");
 		return mav;
 	}
@@ -57,13 +57,13 @@ public class MemberController {
 	//회원가입 페이지 이동
 	@GetMapping("join.do")
 	public String join() {
-		return "join";
+		return "member/join";
 	}
 	
 	//join_next 페이지 이동
 	@RequestMapping("join_next.do")
 	public String join_next() {
-		return "join_next";
+		return "member/join_next";
 	}
 	
 	//아이디 중복체크
@@ -77,16 +77,25 @@ public class MemberController {
 	@PostMapping("insert.do")
 	public String insert(@ModelAttribute MemberDTO dto) {
 		memberDao.insert(dto);		
-		return "redirect:/";
+		return "member/join_finish";
 	}
 	
-	@GetMapping("view/{user_id}")
+	//마이페이지로 이동
+	@GetMapping("/mypage/{user_id}")
 	public String view(@PathVariable(name="user_id") String user_id, Model model) {
 		model.addAttribute("dto", memberDao.detail(user_id));
-		return "detail";
+		return "member/mypage";
 	}
 	
-	@PostMapping("update.do")
+	//회원정보 수정페이지로 이동
+	@GetMapping("/mypage/{user_id}/update")
+	public String detail(@PathVariable(name="user_id") String user_id, Model model) {
+		model.addAttribute("dto", memberDao.detail(user_id));
+		return "/member/mypage_update";
+	}
+	
+	//회원정보 수정사항 저장하기
+	@PostMapping("/mypage/update.do")
 	public String update(@ModelAttribute MemberDTO dto, Model model) {
 		boolean result = memberDao.check_passwd(dto.getUser_id(), dto.getPasswd());
 		if(result) { //비밀번호가 맞으면 true(1), 틀리면 false(0)
@@ -97,7 +106,7 @@ public class MemberController {
 			dto.setJoin_date(dto2.getJoin_date());
 			model.addAttribute("dto",dto);
 			model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
-			return "detail";
+			return "redirect:/";
 		}
 	}
 	
