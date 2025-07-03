@@ -93,13 +93,6 @@ public class MemberController {
 		model.addAttribute("dto", memberDao.detail(userid));
 		return "member/mypage";
 	}
-	/*
-	//마이페이지로 이동
-	@GetMapping("/mypage/{user_id}")
-	public String view(@PathVariable(name="user_id") String user_id, Model model) {
-		model.addAttribute("dto", memberDao.detail(user_id));
-		return "member/mypage";
-	}*/
 	
 	//회원정보 수정페이지로 이동
 	@GetMapping("/mypage/edit")
