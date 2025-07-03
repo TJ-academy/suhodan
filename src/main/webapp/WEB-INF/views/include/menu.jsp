@@ -7,6 +7,7 @@
 </a>
 <span style="display:inline-block; vertical-align:middle;">
 <a href="/">메인화면</a> |
+<a href="/">메인</a> |
 <a href="#">설화 지도</a> |
 <a href="#">보따리 상점</a> |
 <a href="#">기부하기</a> |

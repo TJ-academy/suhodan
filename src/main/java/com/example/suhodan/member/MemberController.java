@@ -75,9 +75,10 @@ public class MemberController {
 		return exists ? "DUPLICATE" : "OK";
 	}
 	
-	//회원가입 완료
-	@PostMapping("insert.do")
+	//회원가입 처리
+	@PostMapping("/insert.do")
 	public String insert(@ModelAttribute MemberDTO dto) {
+		System.out.println(dto);
 		memberDao.insert(dto);		
 		return "member/join_finish";
 	}
