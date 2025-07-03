@@ -14,4 +14,8 @@ public interface MemberDAO {
 	void update(MemberDTO dto);
 	
 	boolean check_passwd(String user_id, String passwd);
+	
+	boolean isUserIdExists(String user_id);
+	
+	String login(MemberDTO dto);
 }

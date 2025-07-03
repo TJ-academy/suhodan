@@ -50,5 +50,16 @@ public class MemberDAOImpl implements MemberDAO {
 			result = true;
 		return result;
 	}
+	
+	@Override
+	public boolean isUserIdExists(String user_id) {
+		int count = sqlSession.selectOne("check_id_duplicate", user_id);
+		return count > 0;
+	}
+	
+	@Override
+	public String login(MemberDTO dto) {
+		return sqlSession.selectOne("member.login", dto);
+	}
 
 }
