@@ -1,3 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mappers.legend"></mapper>
+<mapper namespace="legend">
+	<select id="list" resultType="com.example.suhodan.legend.LegendDTO">
+		select * from suho_legend order by legend_id
+	</select>
+	<insert id="insert">
+		insert into suho_legend (legend_id, title, story, tts_audio, img, location, reg_date) 
+		values (suho_legend_seq.nextval, #{title}, #{story}, #{ttsAudioFileName}, #{imgFileName}, #{location}, sysdate)
+	</insert>
+	<update id="update">
+		update suho_legend
+		set title = #{title}, location = #{location}, story = #{story}, img = #{img}, tts_audio = #{tts_audio}
+		where legend_id = #{legend_id} 
+	</update>
+	<delete id="delete">
+		delete from suho_legend where legend_id = #{legend_id}
+	</delete>
+</mapper>

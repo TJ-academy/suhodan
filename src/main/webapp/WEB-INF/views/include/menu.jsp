@@ -20,13 +20,8 @@
 			<a href="join.do">회원가입</a>
 		</c:when>
 		<c:otherwise>
-<<<<<<< HEAD
 			환영합니다, ${sessionScope.name} 님.&nbsp;
 			<a href="/logout.do">로그아웃</a>
-=======
-			${sessionScope.name}님이 로그인중입니다.
-			<a href="/logout.do">로그아웃</a> |
->>>>>>> guy
 		</c:otherwise>
 	</c:choose>
 </div>

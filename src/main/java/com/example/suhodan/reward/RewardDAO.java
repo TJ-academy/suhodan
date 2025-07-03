@@ -1,5 +1,8 @@
 package com.example.suhodan.reward;
 
-public interface RewardDAO {
+import java.util.List;
 
+public interface RewardDAO {
+	List<RewardDTO> list();
+	void insert(RewardDTO dto);
 }

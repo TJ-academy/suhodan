@@ -1,5 +1,8 @@
 package com.example.suhodan.badge;
 
-public interface BadgeDAO {
+import java.util.List;
 
+public interface BadgeDAO {
+	List<BadgeDTO> list();
+	void insert(BadgeDTO dto);
 }

@@ -83,5 +83,4 @@
 		</c:forEach>
 	</table>
 </body>
-</body>
 </html>

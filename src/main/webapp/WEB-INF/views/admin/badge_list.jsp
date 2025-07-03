@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-리워드리스트페이지
+배지리스트
 </body>
 </html>
