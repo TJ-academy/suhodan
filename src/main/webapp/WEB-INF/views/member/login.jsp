@@ -22,7 +22,7 @@ $(function() {
 			$("#passwd").focus();
 			return;
 		}
-		//document.form1.action="/member/login_check.do";
+		document.form1.action="/login_check.do";
 		document.form1.submit();
 	});
 });
