@@ -28,6 +28,6 @@ public class SuhoMapController {
 		
 		model.addAttribute("suhoListJson", jsonData);
 		
-		return "map";
+		return "map/map";
 	}
 }

@@ -7,6 +7,7 @@
 <title>회원 정보 입력</title>
 </head>
 <body>
+<%@ include file="../include/menu.jsp" %>
 <%
 	String user_id = request.getParameter("user_id");
 	String passwd = request.getParameter("passwd");

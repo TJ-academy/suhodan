@@ -13,6 +13,7 @@
 </style>
 </head>
 <body>
+<%@ include file="../include/menu.jsp" %>
 <h2>회원가입</h2>
 <form method="post" action="/join_next.do" onsubmit="return checkPasswordMatch()">
 	<label>아이디를 입력하세요.</label><br>

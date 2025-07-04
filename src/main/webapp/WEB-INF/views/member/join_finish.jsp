@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%@ include file="../include/menu.jsp" %>
 환영합니다!
 <a href="login.do">
 	<button type="button">로그인</button>
