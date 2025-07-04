@@ -10,23 +10,27 @@
 <title>마이페이지</title>
 </head>
 <body>
-<%@ include file="../include/menu.jsp" %>
+<%@ include file="../../include/menu.jsp" %>
 <h2>마이페이지</h2>
 
-<form action="/mypage/update.do">
-<table border="1" width="500px">
+<form action="/mypage/update.do" method="post">
+<table border="0" width="500px">
+	<tr>
+		<td>이름</td>
+		<td><input name="name" value="${dto.name}"></td>
+	</tr>
 	<tr>
 		<td>아이디</td>
-		<td><input name="user_id" value="${dto.user_id}" readonly></td>
+		<td>
+			${dto.user_id}
+			<input type="hidden" name="user_id" value="${dto.user_id}"/>
+		</td>
 	</tr>
 	<tr>
 		<td>비밀번호</td>
 		<td><input type="password" name="passwd"></td>
 	</tr>
-	<tr>
-		<td>이름</td>
-		<td><input name="name" value="${dto.name}"></td>
-	</tr>
+
 	<tr>
 		<td>성별</td>
 		<td>
@@ -42,7 +46,7 @@
 	</tr>
 	<tr>
 		<td>생년월일</td>
-		<td><fmt:formatDate value="${dto.birth}" pattern="yyyy-MM-dd" /></td>
+		<td><input type="date" name="birth" value="<fmt:formatDate value='${dto.birth}' pattern='yyyy-MM-dd' />" /></td>
 	</tr>
 	<tr>
 		<td>주소</td>
@@ -54,6 +58,7 @@
 	</tr>
 </table>
 <button type="submit">저장하기</button>
+<button type="button" onclick="location.href='/mypage'">뒤로가기</button>
 </form>
 </body>
 </html>

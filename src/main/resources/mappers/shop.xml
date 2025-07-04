@@ -12,8 +12,8 @@
 	
 	<insert id="insert" parameterType="com.example.suhodan.shop.ShopDTO">
 		insert into suho_reward 
-		(reward_id, name, description, legend_id, price) values 
-		(suho_reward_seq.nextval, #{name}, #{description}, #{legend_id}, #{price})
+		(reward_id, name, description, legend_id, price, img) values 
+		(suho_reward_seq.nextval, #{name}, #{description}, #{legend_id}, #{price}, #{img})
 	</insert>
 	
 	<update id="update" parameterType="com.example.suhodan.shop.ShopDTO">
@@ -21,7 +21,8 @@
 	  set name = #{name},
 	      description = #{description},
 	      legend_id = #{legend_id},
-	      price = #{price}
+	      price = #{price},
+	      img = #{img}
 	  where reward_id = #{reward_id}
 	</update>
 	

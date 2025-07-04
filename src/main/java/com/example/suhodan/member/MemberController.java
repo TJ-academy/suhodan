@@ -91,15 +91,16 @@ public class MemberController {
 		if(userid == null) {
 			return "redirect:/login.do?message=nologin";
 		}
-		model.addAttribute("dto", memberDao.detail(userid));
-		return "member/mypage";
+		//model.addAttribute("dto", memberDao.detail(userid));
+		return "member/mypage/mypage";
 	}
 	
 	//회원정보 수정페이지로 이동
 	@GetMapping("/mypage/edit")
-	public String detail(@PathVariable(name="user_id") String user_id, Model model) {
-		model.addAttribute("dto", memberDao.detail(user_id));
-		return "/member/mypage_update";
+	public String detail(HttpSession session, Model model) {
+		String userid = (String) session.getAttribute("user_id");
+		model.addAttribute("dto", memberDao.detail(userid));
+		return "/member/mypage/mypage_update";
 	}
 	
 	//회원정보 수정사항 저장하기
@@ -114,7 +115,7 @@ public class MemberController {
 			dto.setJoin_date(dto2.getJoin_date());
 			model.addAttribute("dto",dto);
 			model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
-			return "redirect:/";
+			return "redirect:/mypage";
 		}
 	}
 	

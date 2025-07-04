@@ -2,6 +2,8 @@ package com.example.suhodan.member;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,5 +20,7 @@ public class MemberDTO {
 	private int total_donation; //총 기부금액
 	private int badge_count; //획득한 배지 수
 	private String gender;
-	private String birth;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date birth;
 }

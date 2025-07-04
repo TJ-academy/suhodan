@@ -13,7 +13,9 @@
 <h2>상품정보</h2>
 <table>
 	<tr>
-		<td><img src="/resources/images/${dto.img}" width="300px" height="300px"></td>
+		<td><img src="/resources/images/${dto.img}" 
+				width="300px" height="300px" alt="${dto.name}"
+				onerror="this.onerror=null; this.src='/resources/images/설화수 로고.png';" /></td>
 		<td align="center">
 			<table>
 				<tr>
@@ -22,7 +24,7 @@
 				</tr>
 				<tr>
 					<td>가격</td>
-					<td><fmt:formatNumber value="${row.price}" pattern="#,###" /></td>
+					<td><fmt:formatNumber value="${dto.price}" pattern="#,###" />원</td>
 				</tr>
 				<tr>
 					<td>상품 설명</td>
@@ -39,7 +41,7 @@
 							</select> 개
 							<input type="submit" value="장바구니">
 						</form>
-						<a href="/shop/list.do">보따리 상점</a>
+						<button type="button" onclick="location.href='/shop/list.do'">보따리 상점</button>
 					</td>
 				</tr>
 			</table>
