@@ -16,7 +16,6 @@
 <div class="shop-container">
 	<c:forEach var="row" items="${list}">
 		<div class="shop-card">
-			<%-- ${row.reward_id} --%>
 			<img src="/resources/images/${row.img}" 
 				width="100px" height="auto" alt="${row.name}"
 				onerror="this.onerror=null; this.src='/resources/images/설화수 로고.png';" />

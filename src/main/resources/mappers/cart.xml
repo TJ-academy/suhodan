@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cart">
+	<insert id="insert">
+		insert into cart (cart_id, user_id, reward_id, amount)
+		values (cart_seq.nextval, #{user_id}, #{reward_id}, #{amount})
+	</insert>
+	
+	<select id="exists" resultType="com.example.suhodan.shop.cart.CartDTO">
+		select cart_id, amount 
+		from cart 
+		where user_id=#{user_id} and reward_id=#{reward_id}
+	</select>
+	
+	<update id="modify">
+		update cart set amount=#{amount} where cart_id=#{cart_id}
+	</update>
+	
+	<update id="addAmount">
+		update cart
+		set amount = amount + #{amount}
+		where cart_id=#{cart_id}
+	</update>
+	
+	<delete id="delete">
+		delete from cart where cart_id=#{cart_id}
+	</delete>
+	
+	<delete id="delete_all">
+		delete from cart where user_id=#{user_id}
+	</delete>
+	
+	<select id="list" resultType="com.example.suhodan.shop.cart.CartDTO">
+		select cart_id, r.reward_id reward_id, u.user_id user_id, u.name user_name, r.name reward_name, img, amount, price reward_price, price*amount money
+		from suho_user u, cart c, suho_reward r
+		where u.user_id=c.user_id and c.reward_id=r.reward_id and c.user_id=#{user_id}
+		order by cart_id
+	</select>
+	
+	<select id="sum_money" resultType="int">
+		select nvl(sum(price*amount), 0) from cart c, suho_reward r
+		where c.reward_id=r.reward_id and user_id=#{user_id}
+	</select>
+</mapper>
