@@ -18,6 +18,16 @@ public class LegendDAOImpl implements LegendDAO {
 	}
 	
 	@Override
+	public LegendDTO detail(int legend_id) {
+		return sqlSession.selectOne("legend.detail", legend_id);
+	}
+	
+	@Override
+	public List<LegendDTO> list_location(String location) {
+		return sqlSession.selectList("legend.list_location", location);
+	}
+	
+	@Override
 	public void insert(LegendDTO dto) {
 		sqlSession.insert("legend.insert", dto);
 	}

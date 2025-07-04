@@ -15,6 +15,7 @@ public class LegendDTO {
 	private MultipartFile img;
 	private String location;
 	private Date reg_date;
+	private String source;
 	
 	private String imgFileName;
 	private String ttsAudioFileName;

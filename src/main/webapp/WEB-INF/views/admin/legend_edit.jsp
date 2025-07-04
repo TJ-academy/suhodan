@@ -17,7 +17,12 @@
             <label for="content">설화 내용</label>
             <textarea id="content" name="story" rows="4" required>${story}</textarea>
         </div>
-
+        
+        <div class="form-item">
+            <label for="content">설화 출처</label>
+            <input type="text" id="source" name="source" value="${source}" required />
+        </div>
+        
         <div class="form-item">
             <label for="img">이미지 업로드</label>
             <input type="file" id="img" name="img" accept="image/*" />

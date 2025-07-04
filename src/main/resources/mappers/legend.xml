@@ -5,8 +5,8 @@
 		select * from suho_legend order by legend_id
 	</select>
 	<insert id="insert">
-		insert into suho_legend (legend_id, title, story, tts_audio, img, location, reg_date) 
-		values (suho_legend_seq.nextval, #{title}, #{story}, #{ttsAudioFileName}, #{imgFileName}, #{location}, sysdate)
+		insert into suho_legend (legend_id, title, story, tts_audio, img, location, reg_date, source) 
+		values (suho_legend_seq.nextval, #{title}, #{story}, #{ttsAudioFileName}, #{imgFileName}, #{location}, sysdate, #{source})
 	</insert>
 	<update id="update">
 		update suho_legend
@@ -16,4 +16,11 @@
 	<delete id="delete">
 		delete from suho_legend where legend_id = #{legend_id}
 	</delete>
+	<select id="detail" resultType="com.example.suhodan.legend.LegendDTO">
+		select * from suho_legend where legend_id=#{legend_id}
+	</select>
+	<select id="list_location" resultType="com.example.suhodan.legend.LegendDTO">
+		select * from suho_legend
+		where location like '%' || #{location} || '%'
+	</select>
 </mapper>
