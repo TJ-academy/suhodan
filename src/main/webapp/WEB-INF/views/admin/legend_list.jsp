@@ -97,6 +97,7 @@
     </script>
 </head>
 <body>
+<%@include file="../include/menu.jsp" %>
     <h2>설화 관리</h2>
 
     <table border="1" width="700px">

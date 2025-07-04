@@ -45,6 +45,12 @@ public class AdminController {
 		return mav;
 	}
 	
+	//설화추가 페이지 이동 - 테스트(삭제예정)
+	@GetMapping("/legend_reg")
+	public String home() {
+		return "/admin/legend_reg";
+	}
+
 	@PostMapping("legend_insert.do")
 	public String legend_insert(LegendDTO dto, HttpServletRequest request) {
 		
