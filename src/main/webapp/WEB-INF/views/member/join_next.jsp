@@ -28,7 +28,8 @@
 	<label for="gender-w">여</label><br>
 
 	<label>생년월일</label><br>
-	<select id="birth_year" required>
+	<input type="date" name="birth" required />
+	<%-- <select id="birth_year" required>
 	  <option value="">년</option>
 	  <% for (int i = 1950; i <= 2025; i++) { %>
 	    <option value="<%= i %>"><%= i %></option>
@@ -45,7 +46,8 @@
 	  <% for (int i = 1; i <= 31; i++) { %>
 	    <option value="<%= i %>"><%= i %></option>
 	  <% } %>
-	</select><br>
+	</select> --%>
+	<br><br>
 
 	<input type="hidden" name="birth" id="birth">
 	<button type="submit">저장하기</button>
