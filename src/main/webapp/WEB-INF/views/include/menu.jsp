@@ -11,9 +11,9 @@
 <a href="/">메인</a> |
 <a href="/map">설화 지도</a> |
 <a href="/shop/list.do">보따리 상점</a> |
-<a href="#">기부하기</a> |
+<a href="/donation/list.do">기부하기</a> |
 <a href="/mypage">마이페이지</a> |
-<a href="/admin/legend_reg">설화추가(작업용/삭제예정)</a>
+<!-- <a href="/admin/legend_reg">설화추가(작업용/삭제예정)</a> -->
 </span>
 
 <div style="text-align:right;">
