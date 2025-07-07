@@ -32,7 +32,7 @@
             <input type="file" id="tts_audio" name="tts_audio" accept="audio/*" />
         </div>
         
-        <input type="hidden" id="legend_id" name="legend_id" value="${legend_id}" />
+        <input type="hidden" id="legend_id" name="legend_id" />
         
         <button type="submit" class="button">수정</button>
         <button type="button" class="button" onclick="closeEditPopup()">닫기</button>

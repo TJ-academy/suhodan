@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.suhodan.badge.BadgeDAO;
+import com.example.suhodan.badge.BadgeDTO;
 import com.example.suhodan.legend.LegendDAO;
 import com.example.suhodan.legend.LegendDTO;
 import com.example.suhodan.member.MemberDAO;
@@ -71,6 +73,13 @@ public class AdminController {
 	public String legend_reg() {
 		return "/admin/legend_reg";
 	}
+	
+    @GetMapping("legend_edit.do")
+    public String legend_edit(@RequestParam(name = "legend_id") int legend_id, Model model) {
+        LegendDTO legendDTO = legendDao.detail(legend_id);
+        model.addAttribute("legendDTO", legendDTO);
+        return "admin/legend_edit";
+    }
 
 	@PostMapping("legend_insert.do")
 	public String legend_insert(LegendDTO dto, HttpServletRequest request) {
@@ -146,11 +155,23 @@ public class AdminController {
 	}
 	
 	@GetMapping("legend_delete.do")
-	public String legend_delete(@RequestParam(name = "legend_id") int legend_id) {
-		
-		/*
-		 * 수정시 파일 데이터도 같이 삭제되게끔!
-		 */
+	public String legend_delete(@RequestParam(name = "legend_id") int legend_id, HttpServletRequest request) {
+		String img = legendDao.img_file_info(legend_id);
+		String tts_audio = legendDao.tts_file_info(legend_id);
+		if (img != null && !img.equals("-")) {
+			ServletContext application = request.getSession().getServletContext();
+			String path1 = application.getRealPath("/resources/legend_img/");
+			File f = new File(path1 + img);
+			if (f.exists())
+				f.delete();
+		}
+		if (tts_audio != null && !tts_audio.equals("-")) {
+			ServletContext application = request.getSession().getServletContext();
+			String path2 = application.getRealPath("/resources/legend_tts/");
+			File f = new File(path2 + tts_audio);
+			if (f.exists())
+				f.delete();
+		}
 		legendDao.delete(legend_id);
 		return "redirect:/admin/legend_list.do";
 	}
@@ -164,10 +185,7 @@ public class AdminController {
 	
 	@PostMapping("reward_insert.do")
 	public String reward_insert(RewardDTO dto, HttpServletRequest request) {
-		
 		String img = "";
-		String tts_audio = "";
-		
 		try {
 	        if (!dto.getImgFile().isEmpty()) {
 	        	img = dto.getImgFile().getOriginalFilename();
@@ -175,9 +193,7 @@ public class AdminController {
 		        String path1 = application.getRealPath("/resources/reward_img/");
 		        dto.getImgFile().transferTo(new File(path1 + img));
 	        }
-
 	        dto.setImg(img);
-
 	        rewardDao.insert(dto);
 	    } catch (Exception e) {
 	        e.printStackTrace();
@@ -191,5 +207,24 @@ public class AdminController {
 		mav.setViewName("/admin/badge_list");
 		mav.addObject("list", badgeDao.list());
 		return mav;
+	}
+	
+	@PostMapping("badge_insert.do")
+	public String badge_insert(BadgeDTO dto, HttpServletRequest request) {
+		String img = "";
+		try {
+	        if (!dto.getImgFile().isEmpty()) {
+	        	img = dto.getImgFile().getOriginalFilename();
+	        	ServletContext application = request.getSession().getServletContext();
+		        String path1 = application.getRealPath("/resources/badge_img/");
+		        dto.getImgFile().transferTo(new File(path1 + img));
+	        }
+	        dto.setImg(img);
+	        badgeDao.insert(dto);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return "error";  // 예외 처리
+	    }
+		return "redirect:/admin/badge_list.do";
 	}
 }

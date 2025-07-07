@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<%@ include file="./include/admin_menu.jsp" %>
 관리자용 홈
 
 </body>

@@ -1,12 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<a href="/">회원 관리</a> |
-<a href="#">설화 지도</a> |
-<a href="#">리워드 관리</a> |
-<a href="#">배지 관리</a> |
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<a href="/" style="display:inline-block; vertical-align:middle; text-align: left;">
+  <img src="../../resources/images/설화수 로고.png" alt="설화수 로고" style="width:200px; height:auto;" />
+</a>
+
+<a href="/admin/member_list.do">회원 관리</a> |
+<a href="/admin/legend_list.do">설화 관리</a> |
+<a href="/admin/reward_list.do">리워드 관리</a> |
+<a href="/admin/badge_list.do">배지 관리</a> |
 <a href="#">통계 관리</a> |
-<a href="/mypage/${user_id}">마이페이지</a> |
 
 <div style="text-align:right;">
 	<c:choose>
