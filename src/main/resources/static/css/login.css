@@ -80,15 +80,15 @@
   }
 
   .message.error {
-    color: red;
+    color: #E64B4E;
   }
 
   .message.logout {
-    color: red;
+    color: #E64B4E;
   }
 
   .message.nologin {
-    color: blue;
+    color: rgb(0, 255, 128);
   }
 
   .signup-link {
