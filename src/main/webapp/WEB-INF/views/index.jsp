@@ -6,33 +6,57 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	.btnStyle {
+		background: #D9C2AD;
+		color: white;
+		width: 146px;
+		height: 57px;
+		font-size: 20px;
+		border-radius: 40px;
+		border-color: white;
+		font-weight: bold;
+	}
+	
+	.btnStyle:hover {
+		background: #11A13C;
+	}
+	
+	.donation_con {
+		width: 1280px;
+		height: 160px;
+		background: #F2D4B4;
+		margin: 40px 0;
+		padding: 10px;
+		position: absolute;
+	}
+	
+	.done_btn {
+		position: relative;
+		bottom: 110px;
+		left: 1150px;
+		background: #9C6B4F;
+		color: white;
+		width: 83px;
+		height: 83px;
+		font-size: 17px;
+		border-radius: 50px;
+		border: none;
+		font-weight: bold;
+		cursor: pointer;
+	}
+	
+	.done_btn:hover {
+		background: #80360C;
+	}
+</style>
 </head>
 <body>
-	<%@ include file="include/menu.jsp" %>
-	<c:choose>
-		<c:when test="${sessionScope.user_id != null}">
-			<h2>
-				${sessionScope.name} ( ${sessionScope.user_id} )님의 방문을 환영합니다.
-			</h2>
-		</c:when>
-		<c:otherwise>
-			<h2>
-				환영합니다. 로그인 후 이용가능합니다.
-			</h2>
-		</c:otherwise>
-	</c:choose>
-	<!-- 설화 페이지 이동 섹션 -->
-	<div>
-		<p>사라지는 마을, 잊지 말아야 할 이야기</p>
-		<button>자세히 보기</button>
-	</div>
-	<!-- 기부하기 페이지 이동 섹션 -->
-	<div>
-		<p>
-			할머니의 마지막 이야기, 우리가 잇습니다. 지금, 전설이 사라지기 전에 함께해주세요.
-		</p>
-		<button>선물하기</button>
-	</div>
-	<a href="/map">ddd</a>
+<%@ include file="include/menu.jsp" %>
+<%@ include file="include/carousel.jsp" %>
+<div class="donation_con">
+	<img src="/resources/images/donation.PNG" width="100%" height="100%">
+	<button class="done_btn">선물하기</button>
+</div>
 </body>
 </html>
