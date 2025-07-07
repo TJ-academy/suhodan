@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="reward">
+	
 	<select id="list" resultType="com.example.suhodan.reward.RewardDTO">
 		select * from suho_reward order by reward_id
 	</select>
+	
 	<insert id="insert">
 		insert into suho_reward (reward_id, name, description, img, legend_id) 
 		values (suho_reward_seq.nextval, #{name}, #{description}, #{img}, #{legend_id}
+	
 	</insert>
 </mapper>

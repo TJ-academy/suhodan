@@ -6,28 +6,105 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원 관리</title>
 <style>
-.details {
-	display: none; /* 기본적으로 숨기기 */
-	background-color: #f9f9f9;
+body {
+	font-family: '맑은 고딕', sans-serif;
+	background-color: #fdf9f4;
 }
+
+h2 {
+	margin-left: 20px;
+	color: #3c2c1e;
+}
+
+table {
+	margin: 20px auto;
+	width: 90%;
+	border-collapse: collapse;
+	background-color: white;
+}
+
+table, th, td {
+	border: 1px solid #dcdcdc;
+}
+
+td {
+	text-align: center;
+	padding: 10px;
+}
+
+button {
+	padding: 6px 12px;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.toggle-details {
+	background-color: #d6a77a;
+	color: white;
+}
+
+.details {
+	display: none;
+}
+
+.details-box {
+	background-color: #f9f4ef;
+	border: 1px solid #d1c6b9;
+	border-radius: 16px;
+	padding: 25px;
+	width: 400px;
+	margin: 20px auto;
+	text-align: center;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.details-box p {
+	margin: 10px 0;
+	color: #4e3d30;
+}
+
+.details-buttons {
+	margin-top: 20px;
+}
+
+.details-buttons button {
+	width: 80px;
+	margin: 0 10px;
+}
+
+.edit-btn {
+	background-color: #e0c7a3;
+	color: #3c2c1e;
+}
+
+.close-details {
+	background-color: #8b5e3c;
+	color: white;
+}
+
+/* .details {
+	display: none; 기본적으로 숨기기 
+	background-color: #f9f9f9;
+} */
 </style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-	function toggleDetails(button) {
-		var row = button.closest('tr').nextElementSibling;
-		if (row.style.display === 'none') {
-			row.style.display = 'table-row';
-		} else {
-			row.style.display = 'none';
-		}
-	}
-	
-	function closeDetails(button) {
-		var row = button.closest('tr').previousElementSibling; // 해당 상세보기의 이전 행을 찾음
-		var detailsRow = button.closest('tr');
-		detailsRow.style.display = 'none';
-	}
+	$(document).ready(function() {
+		// 상세 보기 토글
+		$(".toggle-details").click(function() {
+			let $detailsRow = $(this).closest("tr").next(".details");
+			$detailsRow.toggle();
+		});
+
+		// 상세 보기 닫기
+		$(".close-details").click(function() {
+			$(this).closest("tr.details").hide();
+		});
+	});
 </script>
 </head>
 <body>
@@ -47,40 +124,42 @@
 			<tr>
 				<td>${row.user_id}</td>
 				<td>${row.name}</td>
-				<td><fmt:formatDate value="${row.join_date}"
-						pattern="yyyy-MM-dd HH:mm:ss" /></td>
+				<td><fmt:formatDate value="${row.join_date}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 				<td>${row.total_donation}</td>
 				<td>${row.badge_count}</td>
 				<td>
-					<button  onclick="toggleDetails(this)">상세보기</button>
+					<button class="toggle-details">상세보기</button>
 					<button>정지</button>
 				</td>
 			</tr>
 			<tr class="details">
 				<td colspan="8">
-					<p>아이디: ${row.user_id}</p>
-					<p>이름: ${row.name}</p>
-					<p>성별: ${row.gender}</p>
-					<p>
-						생년월일:
-						<fmt:formatDate value="${row.birth}" pattern="yyyy-MM-dd" />
-					</p>
-					<p>
-						가입일:
-						<fmt:formatDate value="${row.join_date}" pattern="yyyy-MM-dd" />
-					</p>
-					<p>총 기부액: ${row.total_donation}</p>
-					<p>보유 배지: 보유 배지</p>
-					<p>기부 내역 보기: 기부 내역</p>
-					<p>
-						상태변경:
-						<button>수정</button>
-						<button>정지</button>
-					</p>
-					<button onclick="closeDetails(this)">확인</button>
+					<div class="details-box">
+						<h3>상세보기</h3>
+						<p>아이디: ${row.user_id}</p>
+						<p>이름: ${row.name}</p>
+						<p>성별: 
+							<c:choose>
+								<c:when test="${row.gender == 'w'}">여성</c:when>
+								<c:when test="${row.gender == 'm'}">남성</c:when>
+							</c:choose>
+						</p>
+						<p>생년월일: <fmt:formatDate value="${row.birth}" pattern="yyyy-MM-dd" /></p>
+						<p>가입일: <fmt:formatDate value="${row.join_date}" pattern="yyyy-MM-dd" /></p>
+						<p>총 기부액: ${row.total_donation}</p>
+						<p>보유 배지: 보유 배지</p>
+						<p>기부 내역 보기: 기부 내역</p>
+						<p>주소: ${row.address}</p>
+						<p>핸드폰 번호: 아직디비에필드없음</p>
+						<div class="detail-buttons">
+							<button class="edit-btn">수정</button>
+							<button class="close-details">확인</button>
+						</div>
+					</div>
 				</td>
 			</tr>
 		</c:forEach>
 	</table>
 </body>
 </html>
+

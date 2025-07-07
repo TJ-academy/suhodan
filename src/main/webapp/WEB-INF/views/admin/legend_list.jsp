@@ -110,6 +110,7 @@
             <td>TTS 등록</td>
             <td>상태 관리</td>
         </tr>
+        <c:if test="${not empty list}">
         <c:forEach var="row" items="${list}">
             <tr>
                 <td>${row.legend_id}</td>
@@ -124,7 +125,21 @@
                 </td>
             </tr>
         </c:forEach>
+        </c:if>
     </table>
+	<div>
+	    <c:forEach var="i" begin="1" end="${totalPage}">
+	        <c:choose>
+	            <c:when test="${i == currentPage}">
+	                <strong>[${i}]</strong>
+	            </c:when>
+	            <c:otherwise>
+	                <a href="legend_list.do?page=${i}">[${i}]</a>
+	            </c:otherwise>
+	        </c:choose>
+	    </c:forEach>
+	</div>
+    
     <button onclick="openPopup()">추가하기</button>
     <div id="overlay" class="overlay" onclick="closePopup()"></div>
 

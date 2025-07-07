@@ -1,6 +1,9 @@
 package com.example.suhodan.admin;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +18,8 @@ import com.example.suhodan.legend.LegendDAO;
 import com.example.suhodan.legend.LegendDTO;
 import com.example.suhodan.member.MemberDAO;
 import com.example.suhodan.reward.RewardDAO;
+import com.example.suhodan.reward.RewardDTO;
+import com.example.suhodan.util.PageUtil;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,6 +36,11 @@ public class AdminController {
 	@Autowired
 	BadgeDAO badgeDao;
 	
+	@GetMapping("/")
+	public String home() {
+		return "/admin/admin_index";
+	}
+	
 	@GetMapping("member_list.do")
 	public ModelAndView member_list(ModelAndView mav) {
 		mav.setViewName("/admin/member_list");
@@ -39,48 +49,58 @@ public class AdminController {
 	}
 	
 	@GetMapping("legend_list.do")
-	public ModelAndView legend_list(ModelAndView mav) {
+	public ModelAndView legend_list(@RequestParam(value = "page", defaultValue = "1") int page, ModelAndView mav) {
+		int totalCount = legendDao.getTotalCount();
+		PageUtil pu = new PageUtil(page, totalCount);
+		
+		Map<String, Integer> param = new HashMap<>();
+		param.put("start", pu.getStart());
+		param.put("end", pu.getEnd());
+		
+		List<LegendDTO> list = legendDao.listPaging(param);
+		
 		mav.setViewName("/admin/legend_list");
-		mav.addObject("list", legendDao.list());
+		mav.addObject("list", list);
+		mav.addObject("currentPage", pu.getCurrentPage());
+		mav.addObject("totalPage", pu.getTotalPage());
 		return mav;
 	}
 	
 	//설화추가 페이지 이동 - 테스트(삭제예정)
 	@GetMapping("/legend_reg")
-	public String home() {
+	public String legend_reg() {
 		return "/admin/legend_reg";
 	}
 
 	@PostMapping("legend_insert.do")
 	public String legend_insert(LegendDTO dto, HttpServletRequest request) {
 		
-		String imgFileName = "";
-		String ttsAudioFileName = "";
+		String img = "";
+		String tts_audio = "";
 		
 		try {
 	        // 첫 번째 파일 처리
-	        if (!dto.getImg().isEmpty()) {
-	        	imgFileName = dto.getImg().getOriginalFilename();
+	        if (!dto.getImgFile().isEmpty()) {
+	        	img = dto.getImgFile().getOriginalFilename();
 	        	ServletContext application = request.getSession().getServletContext();
 		        String path1 = application.getRealPath("/resources/legend_img/");
-		        dto.getImg().transferTo(new File(path1 + imgFileName));
+		        dto.getImgFile().transferTo(new File(path1 + img));
 	        }
 
 	        // 두 번째 파일 처리
-	        if (!dto.getTts_audio().isEmpty()) {
-	        	ttsAudioFileName = dto.getTts_audio().getOriginalFilename();
+	        if (!dto.getTtsAudioFile().isEmpty()) {
+	        	tts_audio = dto.getTtsAudioFile().getOriginalFilename();
 	            ServletContext application = request.getSession().getServletContext();
 	            String path2 = application.getRealPath("/resources/legend_tts/");
-	            dto.getTts_audio().transferTo(new File(path2 + ttsAudioFileName));
+	            dto.getTtsAudioFile().transferTo(new File(path2 + tts_audio));
 	        }
 
 	        // 파일명 설정 (둘 다 저장되면 DTO에 파일명 추가)
-	        dto.setImgFileName(imgFileName);
-	        dto.setTtsAudioFileName(ttsAudioFileName);
+	        dto.setImg(img);
+	        dto.setTts_audio(tts_audio);
 
 	        // 데이터베이스에 저장
 	        legendDao.insert(dto);
-
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	        return "error";  // 예외 처리
@@ -90,29 +110,29 @@ public class AdminController {
 	
 	@PostMapping("legend_update.do")
 	public String legend_update(LegendDTO dto, HttpServletRequest request) {
-        String imgFileName = "";
-        String ttsAudioFileName = "";
+        String img = "";
+        String tts_audio = "";
 
         try {
             // 첫 번째 파일 처리: 이미지 파일 업로드
-            if (!dto.getImg().isEmpty()) {
-                imgFileName = dto.getImg().getOriginalFilename();
+            if (!dto.getImgFile().isEmpty()) {
+                img = dto.getImgFile().getOriginalFilename();
                 ServletContext application = request.getSession().getServletContext();
                 String path1 = application.getRealPath("/resources/legend_img/");
-                dto.getImg().transferTo(new File(path1 + imgFileName));
+                dto.getImgFile().transferTo(new File(path1 + img));
             }
 
             // 두 번째 파일 처리: TTS 오디오 파일 업로드
-            if (!dto.getTts_audio().isEmpty()) {
-                ttsAudioFileName = dto.getTts_audio().getOriginalFilename();
+            if (!dto.getTtsAudioFile().isEmpty()) {
+                tts_audio = dto.getTtsAudioFile().getOriginalFilename();
                 ServletContext application = request.getSession().getServletContext();
                 String path2 = application.getRealPath("/resources/legend_tts/");
-                dto.getTts_audio().transferTo(new File(path2 + ttsAudioFileName));
+                dto.getTtsAudioFile().transferTo(new File(path2 + tts_audio));
             }
 
             // 파일명 설정 (둘 다 저장되면 DTO에 파일명 추가)
-            dto.setImgFileName(imgFileName);
-            dto.setTtsAudioFileName(ttsAudioFileName);
+            dto.setImg(img);
+            dto.setTts_audio(tts_audio);
 
             // 데이터베이스에서 수정
             legendDao.update(dto);
@@ -140,6 +160,30 @@ public class AdminController {
 		mav.setViewName("/admin/reward_list");
 		mav.addObject("list", rewardDao.list());
 		return mav;
+	}
+	
+	@PostMapping("reward_insert.do")
+	public String reward_insert(RewardDTO dto, HttpServletRequest request) {
+		
+		String img = "";
+		String tts_audio = "";
+		
+		try {
+	        if (!dto.getImgFile().isEmpty()) {
+	        	img = dto.getImgFile().getOriginalFilename();
+	        	ServletContext application = request.getSession().getServletContext();
+		        String path1 = application.getRealPath("/resources/reward_img/");
+		        dto.getImgFile().transferTo(new File(path1 + img));
+	        }
+
+	        dto.setImg(img);
+
+	        rewardDao.insert(dto);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return "error";  // 예외 처리
+	    }
+		return "redirect:/admin/reward_list.do";
 	}
 	
 	@GetMapping("badge_list.do")

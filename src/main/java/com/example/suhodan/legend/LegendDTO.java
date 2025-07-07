@@ -11,12 +11,12 @@ public class LegendDTO {
 	private int legend_id;
 	private String title;
 	private String story;
-	private MultipartFile tts_audio;
-	private MultipartFile img;
+	private String tts_audio;
+	private String img;
 	private String location;
 	private Date reg_date;
 	private String source;
 	
-	private String imgFileName;
-	private String ttsAudioFileName;
+	private MultipartFile imgFile;
+	private MultipartFile ttsAudioFile;
 }

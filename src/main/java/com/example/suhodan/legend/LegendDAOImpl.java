@@ -1,6 +1,7 @@
 package com.example.suhodan.legend;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,16 @@ public class LegendDAOImpl implements LegendDAO {
 	@Override
 	public List<LegendDTO> list() {
 		return sqlSession.selectList("legend.list");
+	}
+	
+	@Override
+	public List<LegendDTO> listPaging(Map<String, Integer> param) {
+		return sqlSession.selectList("legend.listPaging", param);
+	}
+	
+	@Override
+	public int getTotalCount() {
+		return sqlSession.selectOne("legend.getTotalCount");
 	}
 	
 	@Override
