@@ -52,4 +52,14 @@ public class LegendDAOImpl implements LegendDAO {
 	public void delete(int legend_id) {
 		sqlSession.delete("legend.delete", legend_id);
 	}
+	
+	@Override
+	public String img_file_info(int legend_id) {
+		return sqlSession.selectOne("legend.img_file_info", legend_id);
+	}
+	
+	@Override
+	public String tts_file_info(int legend_id) {
+		return sqlSession.selectOne("legend.tts_file_info", legend_id);
+	}
 }

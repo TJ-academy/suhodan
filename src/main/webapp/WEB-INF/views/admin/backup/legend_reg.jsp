@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="../include/menu.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@include file="../include/menu.jsp" %>
 <div id="reg_popup" class="popup">
     <h3>설화 등록</h3>
     <form action="legend_insert.do" method="post" enctype="multipart/form-data">

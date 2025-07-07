@@ -44,5 +44,13 @@
 		select * from suho_legend
 		where location like '%' || #{location} || '%'
 	</select>
+	
+	<select id="img_file_info" resultType="String">
+		select img from suho_legend where legend_id = #{legend_id}
+	</select>
+	
+	<select id="tts_file_info" resultType="String">
+		select tts_audio from suho_legend where legend_id = #{legend_id}
+	</select>
 
 </mapper>

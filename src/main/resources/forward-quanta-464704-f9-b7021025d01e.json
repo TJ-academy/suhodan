@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "forward-quanta-464704-f9",
+  "private_key_id": "b7021025d01e3b83147ad8d8b103cf55b7b5df85",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDbM31vwjBRyUt7\nDg9uiRsPZdyR8ASp2UWUsMY6Wc/7g2hkHc1QEpdxLNs7oBksIacT8j2EzDLgW6jh\nRQhZPeOFubYfZZQK/sOlMy9Xk9AHL9ew5bOw6uRN7dPktUkxVbo/qF6C7wiXSBnX\nMbEQiNGHkKnRUxVjM+qhfGKfEJId37V3hbDr3IMEEiwTBVBf1mZREl2FL1Cz9sYf\nwbdXsAUzYNMoBGBDEQb++dX6dw71JISG5L5u/hK2J+SkL2I80eHl/xg+LPRHMDYW\nv2NbIVTB2iYqnb5n+vuCRm5zO7wEDmneJB7x3UHATuLG6MF5Bf3K2q6bTn/YO/uT\nWDJHAJKjAgMBAAECggEAD7F8BYhNlU1oDgNPr4Y5XbzZMcmRS+e2R5LwXjUX4tXh\nn2lSzazHEt83QumPY810/MSXCu7jpZRqXtZmZp07sNM+6riHBNKAh09G0GpQtnMC\najPHzZ7DgaDJTtJ7zwBoOS6AtbcPUmVjFDkGiDyDY8VDoyzjlxqcbbtOBD1XeLPt\nidyZuyYLOMWHHEPCZ7OzZj7KhAYRoeQmXTwRyd9AndzwLXutAoUFUDdPYsLmq8xr\nT+yeBBe+f8BVpplg93tJ/vK3LN9n7CfdNShTEr9cDon1OL4pr941u9ItEs/XVnkm\nUAxWw61maCcXkTGtewew/taGSgjb3mH8yBpie4gSoQKBgQDwDfVd53FF+ymEqIB+\n+cPcg7I4imyINX4yUocpxbpmaalJEkHNVImbN31SwKMry157qiSi2znRaQ9wGe7E\nzH90WFDOyo5Tnvs3HfRUsJLGyyG3zKTs8cR5GvOdJQWzdi1vnwES2ez4c7JgtUNq\nEangzX30VkpDHZnd7fE7Cg5ZPQKBgQDpwu1RgNSFVpANrLVXNimAv4G2ZQOC4F2A\nTWxdqzgMgPT5CfueKSAzZ6Sw8a61L0eAcPEbUfqstGN0YUaIAQDxQCpaD4XsMX54\nQnnbpddLg5iUoXFf3TrJcLaBl7WWuRCDBShZkbWu6onBIDNFr/iXuRP9rSpTd7/X\nsatabziZXwKBgHPU2GuqTM8OxVbck7wxOqAB8BI2QO5smWsgxVWTskDOhT/cDmJM\ng2WhHdi7WUC9jeawD6OBkuGIB0n5SWwunOV/4+YUeR7CXMeYrZfb58cCp09v8Ljg\nZARny9sszRZuVLhCihsVirHL6eueK1xYD5eIsFkg9g5yjxc2RCtPy+KlAoGAC3FH\nPJ4ZyQ0bsA+sMMCt92doag03xshEy2r+yvb+n14Qn8AlWPCaaum/3gl2i9fsoBTn\nOHci1iFeXOwGD9I8wZJqgE4SOCWUEz7tyBquFzwx09SzQAYMQqAJzv4mHWKhtEgk\nWX4Qbqd8Zr+0wsyCVqrwl5JKaBuMgHpp8NtQ4fECgYEAu69ZF9fg8oGIlw0KrqaC\n8glA5OqPzOaTszkA0qMq9gINuMLzxGno0v8n5SOz/g7/vrHfDQHIsvJrXqYGCftA\nVoi98QWZlOfFCv9jT9kbkrAVYdYjtKNR5SoSQfSGfKzRY3vMQG5FmUmvXJexn5TZ\n7rqsJ5ugwY2vF8vHTQuplhE=\n-----END PRIVATE KEY-----\n",
+  "client_email": "tts-service-account@forward-quanta-464704-f9.iam.gserviceaccount.com",
+  "client_id": "112452134490436659713",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/tts-service-account%40forward-quanta-464704-f9.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

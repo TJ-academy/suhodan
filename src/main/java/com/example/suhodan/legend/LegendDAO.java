@@ -12,4 +12,6 @@ public interface LegendDAO {
 	void insert(LegendDTO dto);
 	void update(LegendDTO dto);
 	void delete(int legend_id);
+	String img_file_info(int legend_id);
+	String tts_file_info(int legend_id);
 }

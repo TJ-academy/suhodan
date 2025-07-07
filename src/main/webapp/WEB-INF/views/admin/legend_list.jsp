@@ -97,8 +97,11 @@
     </script>
 </head>
 <body>
-<%@include file="../include/menu.jsp" %>
-    <h2>설화 관리</h2>
+<%@ include file="../include/admin_menu.jsp" %>
+    <div>
+        <h2>설화 관리</h2>
+        <a href="tts_form.do">TTS 생성</a>
+    </div>
 
     <table border="1" width="700px">
         <tr>
@@ -127,18 +130,18 @@
         </c:forEach>
         </c:if>
     </table>
-	<div>
-	    <c:forEach var="i" begin="1" end="${totalPage}">
-	        <c:choose>
-	            <c:when test="${i == currentPage}">
-	                <strong>[${i}]</strong>
-	            </c:when>
-	            <c:otherwise>
-	                <a href="legend_list.do?page=${i}">[${i}]</a>
-	            </c:otherwise>
-	        </c:choose>
-	    </c:forEach>
-	</div>
+    <div>
+        <c:forEach var="i" begin="1" end="${totalPage}">
+            <c:choose>
+                <c:when test="${i == currentPage}">
+                    <strong>[${i}]</strong>
+                </c:when>
+                <c:otherwise>
+                    <a href="legend_list.do?page=${i}">[${i}]</a>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+    </div>
     
     <button onclick="openPopup()">추가하기</button>
     <div id="overlay" class="overlay" onclick="closePopup()"></div>
