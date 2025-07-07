@@ -19,6 +19,7 @@ import com.example.suhodan.badge.BadgeDTO;
 import com.example.suhodan.legend.LegendDAO;
 import com.example.suhodan.legend.LegendDTO;
 import com.example.suhodan.member.MemberDAO;
+import com.example.suhodan.member.MemberDTO;
 import com.example.suhodan.reward.RewardDAO;
 import com.example.suhodan.reward.RewardDTO;
 import com.example.suhodan.util.PageUtil;
@@ -44,9 +45,20 @@ public class AdminController {
 	}
 	
 	@GetMapping("member_list.do")
-	public ModelAndView member_list(ModelAndView mav) {
-		mav.setViewName("/admin/member_list");
-		mav.addObject("list", memberDao.list());
+	public ModelAndView member_list(@RequestParam(value = "page", defaultValue = "1") int page, ModelAndView mav) {
+		int totalCount = memberDao.getTotalCount();
+		PageUtil pu = new PageUtil(page, totalCount);
+		
+		Map<String, Integer> param = new HashMap<>();
+		param.put("start", pu.getStart());
+		param.put("end", pu.getEnd());
+		
+		List<MemberDTO> list = memberDao.listPaging(param);
+		
+		mav.setViewName("/admin/member/member_list");
+		mav.addObject("list", list);
+		mav.addObject("currentPage", pu.getCurrentPage());
+		mav.addObject("totalPage", pu.getTotalPage());
 		return mav;
 	}
 	
@@ -61,7 +73,7 @@ public class AdminController {
 		
 		List<LegendDTO> list = legendDao.listPaging(param);
 		
-		mav.setViewName("/admin/legend_list");
+		mav.setViewName("/admin/legend/legend_list");
 		mav.addObject("list", list);
 		mav.addObject("currentPage", pu.getCurrentPage());
 		mav.addObject("totalPage", pu.getTotalPage());
@@ -71,15 +83,8 @@ public class AdminController {
 	//설화추가 페이지 이동 - 테스트(삭제예정)
 	@GetMapping("/legend_reg")
 	public String legend_reg() {
-		return "/admin/legend_reg";
+		return "/admin/legend/legend_reg";
 	}
-	
-    @GetMapping("legend_edit.do")
-    public String legend_edit(@RequestParam(name = "legend_id") int legend_id, Model model) {
-        LegendDTO legendDTO = legendDao.detail(legend_id);
-        model.addAttribute("legendDTO", legendDTO);
-        return "admin/legend_edit";
-    }
 
 	@PostMapping("legend_insert.do")
 	public String legend_insert(LegendDTO dto, HttpServletRequest request) {
@@ -123,25 +128,25 @@ public class AdminController {
         String tts_audio = "";
 
         try {
-            // 첫 번째 파일 처리: 이미지 파일 업로드
-            if (!dto.getImgFile().isEmpty()) {
-                img = dto.getImgFile().getOriginalFilename();
-                ServletContext application = request.getSession().getServletContext();
-                String path1 = application.getRealPath("/resources/legend_img/");
-                dto.getImgFile().transferTo(new File(path1 + img));
-            }
+        	 // 첫 번째 파일 처리
+	        if (!dto.getImgFile().isEmpty()) {
+	        	img = dto.getImgFile().getOriginalFilename();
+	        	ServletContext application = request.getSession().getServletContext();
+		        String path1 = application.getRealPath("/resources/legend_img/");
+		        dto.getImgFile().transferTo(new File(path1 + img));
+	        }
 
-            // 두 번째 파일 처리: TTS 오디오 파일 업로드
-            if (!dto.getTtsAudioFile().isEmpty()) {
-                tts_audio = dto.getTtsAudioFile().getOriginalFilename();
-                ServletContext application = request.getSession().getServletContext();
-                String path2 = application.getRealPath("/resources/legend_tts/");
-                dto.getTtsAudioFile().transferTo(new File(path2 + tts_audio));
-            }
+	        // 두 번째 파일 처리
+	        if (!dto.getTtsAudioFile().isEmpty()) {
+	        	tts_audio = dto.getTtsAudioFile().getOriginalFilename();
+	            ServletContext application = request.getSession().getServletContext();
+	            String path2 = application.getRealPath("/resources/legend_tts/");
+	            dto.getTtsAudioFile().transferTo(new File(path2 + tts_audio));
+	        }
 
-            // 파일명 설정 (둘 다 저장되면 DTO에 파일명 추가)
-            dto.setImg(img);
-            dto.setTts_audio(tts_audio);
+	        // 파일명 설정 (둘 다 저장되면 DTO에 파일명 추가)
+	        dto.setImg(img);
+	        dto.setTts_audio(tts_audio);
 
             // 데이터베이스에서 수정
             legendDao.update(dto);
@@ -178,7 +183,7 @@ public class AdminController {
 	
 	@GetMapping("reward_list.do")
 	public ModelAndView reward_list(ModelAndView mav) {
-		mav.setViewName("/admin/reward_list");
+		mav.setViewName("/admin/reward/reward_list");
 		mav.addObject("list", rewardDao.list());
 		return mav;
 	}
@@ -201,10 +206,17 @@ public class AdminController {
 	    }
 		return "redirect:/admin/reward_list.do";
 	}
+	/*
+	@GetMapping("goods_list.do")
+	public ModelAndView goods_list(ModelAndView mav) {
+		mav.setViewName("/admin/goods_list");
+		mav.addObject("list", goodsDao.list());
+		return mav;
+	}*/
 	
 	@GetMapping("badge_list.do")
 	public ModelAndView badge_list(ModelAndView mav) {
-		mav.setViewName("/admin/badge_list");
+		mav.setViewName("/admin/badge/badge_list");
 		mav.addObject("list", badgeDao.list());
 		return mav;
 	}

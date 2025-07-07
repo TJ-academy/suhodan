@@ -1,11 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="badge">
+	
 	<select id="list" resultType="com.example.suhodan.badge.BadgeDTO">
 		select * from suho_badge order by badge_id
 	</select>
+
+	<select id="listPaging" resultType="com.example.suhodan.badge.BadgeDTO">
+	    SELECT * FROM (
+	        SELECT ROWNUM AS rnum, a.*
+	        FROM (
+	            SELECT * FROM suho_badge ORDER BY badge_id DESC
+	        ) a
+	        WHERE ROWNUM &lt;= #{end}
+	    )
+	    WHERE rnum &gt;= #{start}
+	</select>
+	
+	<select id="getTotalCount" resultType="int">
+	    SELECT COUNT(*) FROM suho_badge
+	</select>
+	
 	<insert id="insert">
 		insert into suho_badge (badge_id, name, description, img) 
 		values (suho_badge_seq.nextval, #{name}, #{description}, #{img}
 	</insert>
+	
+	<select id="img_file_info" resultType="String">
+		select img from suho_badge where badge_id = #{badge_id}
+	</select>
+
 </mapper>

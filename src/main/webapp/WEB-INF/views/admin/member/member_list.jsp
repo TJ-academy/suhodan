@@ -108,7 +108,7 @@ button {
 </script>
 </head>
 <body>
-	<%@ include file="../include/admin_menu.jsp"%>
+	<%@ include file="../../include/admin_menu.jsp"%>
 	<h2>회원관리</h2>
 
 	<table border="1" width="700px">
