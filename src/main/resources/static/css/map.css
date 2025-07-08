@@ -1,4 +1,9 @@
-    #map { height: 800px; width: 100%; z-index:1;}
+    #map { 
+    	position: relative;
+	    height: 800px; 
+	    width: 100%; 
+	    z-index:1;
+    }
     .label-text {
       font-family: "Noto Sans KR", sans-serif;
 	  font-optical-sizing: auto;
@@ -51,21 +56,30 @@
     text-shadow: none;
   }
   
-  .see {
-  	position: absolute;
-  	bottom: 730px;
-  	left: 1400px;
-  	z-index: 2;
-  	background: #9C6B4F;
-  	color: white;
-  	font-size: 20px;  	  	
-  	width: 175px;
-  	height: 57px;
-  	border-radius: 20px;
-  	border-style: none;
-  }
+.see {
+  background: #9C6B4F;
+  color: white;
+  font-size: 16px;
+  width: 160px;
+  height: 45px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 600;
+  padding: 10px;
+}
+
   
   .see:hover {
   	background: #5D290B;
   }
+  
+  .custom-see-container {
+  margin-top: 10px;
+  margin-right: 10px;
+}
+  
   
