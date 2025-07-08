@@ -23,7 +23,7 @@
 
 	<insert id="insert">
 		insert into suho_legend (legend_id, title, story, tts_audio, img, location, reg_date, source) 
-		values (suho_legend_seq.nextval, #{title}, #{story}, #{ttsAudioFileName}, #{imgFileName}, #{location}, sysdate, #{source})
+		values (suho_legend_seq.nextval, #{title}, #{story}, #{tts_audio}, #{img}, #{location}, sysdate, #{source})
 	</insert>
 
 	<update id="update">
