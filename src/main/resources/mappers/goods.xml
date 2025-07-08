@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goods">
+	
+	<select id="list" resultType="com.example.suhodan.goods.GoodsDTO">
+		select * from suho_goods order by goods_id
+	</select>
+
+	<select id="listPaging" resultType="com.example.suhodan.goods.GoodsDTO">
+	    SELECT * FROM (
+	        SELECT ROWNUM AS rnum, a.*
+	        FROM (
+	            SELECT * FROM suho_goods ORDER BY goods_id DESC
+	        ) a
+	        WHERE ROWNUM &lt;= #{end}
+	    )
+	    WHERE rnum &gt;= #{start}
+	</select>
+	
+	<select id="getTotalCount" resultType="int">
+	    SELECT COUNT(*) FROM suho_goods
+	</select>
+	
+	<insert id="insert">
+		insert into suho_goods (goods_id, name, description, img, detail_img, location, price) 
+		values (suho_goods_seq.nextval, #{name}, #{description}, #{img}, #{detail_img}, #{location}, #{price})
+	</insert>
+	
+	<delete id="delete">
+		delete from suho_goods where goods_id = #{goods_id}
+	</delete>
+	
+	<select id="img_file_info" resultType="String">
+		select img from suho_goods where goods_id = #{goods_id}
+	</select>
+	
+	<select id="detail_img_file_info" resultType="String">
+		select detail_img from suho_goods where goods_id = #{goods_id}
+	</select>
+	
+</mapper>

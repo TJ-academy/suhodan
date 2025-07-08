@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.suhodan.badge.BadgeDAO;
 import com.example.suhodan.badge.BadgeDTO;
+import com.example.suhodan.goods.GoodsDAO;
+import com.example.suhodan.goods.GoodsDTO;
 import com.example.suhodan.legend.LegendDAO;
 import com.example.suhodan.legend.LegendDTO;
 import com.example.suhodan.member.MemberDAO;
@@ -38,6 +39,8 @@ public class AdminController {
 	RewardDAO rewardDao;
 	@Autowired
 	BadgeDAO badgeDao;
+	@Autowired
+	GoodsDAO goodsDao;
 	
 	@GetMapping("/")
 	public String home() {
@@ -206,13 +209,64 @@ public class AdminController {
 	    }
 		return "redirect:/admin/reward_list.do";
 	}
-	/*
+	
 	@GetMapping("goods_list.do")
 	public ModelAndView goods_list(ModelAndView mav) {
-		mav.setViewName("/admin/goods_list");
+		mav.setViewName("/admin/goods/goods_list");
 		mav.addObject("list", goodsDao.list());
 		return mav;
-	}*/
+	}
+	
+	@PostMapping("goods_insert.do")
+	public String goods_insert(GoodsDTO dto, HttpServletRequest request) {
+		
+		String img = "";
+		String detail_img = "";
+		
+		try {
+	        if (!dto.getImgFile().isEmpty()) {
+	        	img = dto.getImgFile().getOriginalFilename();
+	        	ServletContext application = request.getSession().getServletContext();
+		        String path1 = application.getRealPath("/resources/goods_img/");
+		        dto.getImgFile().transferTo(new File(path1 + img));
+	        }
+	        if (!dto.getDetailImgFile().isEmpty()) {
+	        	detail_img = dto.getDetailImgFile().getOriginalFilename();
+	        	ServletContext application = request.getSession().getServletContext();
+		        String path2 = application.getRealPath("/resources/goods_detail_img/");
+		        dto.getDetailImgFile().transferTo(new File(path2 + detail_img));
+	        }
+	        dto.setImg(img);
+	        dto.setDetail_img(detail_img);
+	        goodsDao.insert(dto);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return "error";  // 예외 처리
+	    }
+		return "redirect:/admin/goods_list.do";
+	}
+	
+	@GetMapping("goods_delete.do")
+	public String goods_delete(@RequestParam(name = "goods_id") int goods_id, HttpServletRequest request) {
+		String img =goodsDao.img_file_info(goods_id);
+		String detail_img = goodsDao.detail_img_file_info(goods_id);
+		if (img != null && !img.equals("-")) {
+			ServletContext application = request.getSession().getServletContext();
+			String path1 = application.getRealPath("/resources/goods_img/");
+			File f = new File(path1 + img);
+			if (f.exists())
+				f.delete();
+		}
+		if (detail_img != null && !detail_img.equals("-")) {
+			ServletContext application = request.getSession().getServletContext();
+			String path2 = application.getRealPath("/resources/goods_datail_img/");
+			File f = new File(path2 + detail_img);
+			if (f.exists())
+				f.delete();
+		}
+		goodsDao.delete(goods_id);
+		return "redirect:/admin/goods_list.do";
+	}
 	
 	@GetMapping("badge_list.do")
 	public ModelAndView badge_list(ModelAndView mav) {
@@ -237,6 +291,20 @@ public class AdminController {
 	        e.printStackTrace();
 	        return "error";  // 예외 처리
 	    }
+		return "redirect:/admin/badge_list.do";
+	}
+	
+	@GetMapping("badge_delete.do")
+	public String badge_delete(@RequestParam(name = "badge_id") int badge_id, HttpServletRequest request) {
+		String img = badgeDao.img_file_info(badge_id);
+		if (img != null && !img.equals("-")) {
+			ServletContext application = request.getSession().getServletContext();
+			String path1 = application.getRealPath("/resources/badge_img/");
+			File f = new File(path1 + img);
+			if (f.exists())
+				f.delete();
+		}
+		badgeDao.delete(badge_id);
 		return "redirect:/admin/badge_list.do";
 	}
 }

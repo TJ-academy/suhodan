@@ -23,8 +23,12 @@
 	
 	<insert id="insert">
 		insert into suho_badge (badge_id, name, description, img) 
-		values (suho_badge_seq.nextval, #{name}, #{description}, #{img}
+		values (suho_badge_seq.nextval, #{name}, #{description}, #{img})
 	</insert>
+	
+	<delete id="delete">
+		delete from suho_badge where badge_id = #{badge_id}
+	</delete>
 	
 	<select id="img_file_info" resultType="String">
 		select img from suho_badge where badge_id = #{badge_id}

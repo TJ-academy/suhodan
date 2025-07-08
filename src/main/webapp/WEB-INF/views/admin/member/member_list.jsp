@@ -7,41 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 관리</title>
+<link rel="stylesheet" href="/css/admin.css">
 <style>
-body {
-	font-family: '맑은 고딕', sans-serif;
-	background-color: #fdf9f4;
-}
-
-h2 {
-	margin-left: 20px;
-	color: #3c2c1e;
-}
-
-table {
-	margin: 20px auto;
-	width: 90%;
-	border-collapse: collapse;
-	background-color: white;
-}
-
-table, th, td {
-	border: 1px solid #dcdcdc;
-}
-
-td {
-	text-align: center;
-	padding: 10px;
-}
-
-button {
-	padding: 6px 12px;
-	border: none;
-	border-radius: 6px;
-	cursor: pointer;
-	font-weight: bold;
-}
-
 .toggle-details {
 	background-color: #d6a77a;
 	color: white;
@@ -85,11 +52,6 @@ button {
 	background-color: #8b5e3c;
 	color: white;
 }
-
-/* .details {
-	display: none; 기본적으로 숨기기 
-	background-color: #f9f9f9;
-} */
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>

@@ -7,8 +7,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.example.suhodan.legend.LegendDTO;
-
 @Repository
 public class RewardDAOImpl implements RewardDAO {
 
@@ -27,7 +25,7 @@ public class RewardDAOImpl implements RewardDAO {
 	
 	@Override
 	public int getTotalCount() {
-		return sqlSession.selectOne("legend.getTotalCount");
+		return sqlSession.selectOne("reward.getTotalCount");
 	}
 
 	@Override
