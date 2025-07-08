@@ -51,10 +51,10 @@
 	<tr>
 		<td>주소</td>
 		<td>
-			<input type="text" name="address1" id="address1" style="width: 337px;" required readonly>
+			<input type="text" name="address1" id="address1" value="${address1}" style="width: 337px;" required readonly>
 			<button type="button" onclick="findPostcode()" style="width: 136px;">우편번호 검색</button>
 			<br>
-			<input type="text" name="address2" id="address2" placeholder="상세 주소를 입력하세요." style="width: 337px;" required>
+			<input type="text" name="address2" id="address2" value="${address2}" placeholder="상세 주소를 입력하세요." style="width: 337px;">
 			<input type="hidden" name="address" id="fullAddress">
 		</td>
 	</tr>
