@@ -78,12 +78,6 @@ public class MemberController {
 	//회원가입 처리
 	@PostMapping("/insert.do")
 	public String insert(@ModelAttribute MemberDTO dto) {
-		String address1 = dto.getAddress1();
-	    String address2 = dto.getAddress2();
-	    
-	    String fullAddress = String.format("%s %s", address1, address2);
-	    dto.setAddress(fullAddress);
-	    
 		System.out.println(dto);
 		memberDao.insert(dto);		
 		return "member/join_finish";
@@ -97,7 +91,6 @@ public class MemberController {
 		if(userid == null) {
 			return "redirect:/login.do?message=nologin";
 		}
-		//model.addAttribute("dto", memberDao.detail(userid));
 		return "member/mypage/mypage";
 	}
 	
@@ -107,32 +100,7 @@ public class MemberController {
 		String userid = (String) session.getAttribute("user_id");
 		
 		MemberDTO dto = memberDao.detail(userid);
-
-	    String fullAddress = dto.getAddress(); // (우편번호) 주소1 상세주소
-	    String address1 = "";
-	    String address2 = "";
-
-	    if(fullAddress != null && fullAddress.length() > 0) {
-	        int start = fullAddress.indexOf('(');
-	        int end = fullAddress.indexOf(')');
-	        if(start != -1 && end != -1 && end > start) {
-	        	address1 = fullAddress.substring(start + 1, end);
-	            String rest = fullAddress.substring(end + 1).trim();
-
-	            int start2 = rest.lastIndexOf('(');
-	            int end2 = rest.lastIndexOf(')');
-	            if(start2 != -1 && end2 != -1 && end2 > start2) {
-	                address2 = rest.substring(start2, end2 + 1);
-	                address1 += rest.substring(0, start2).trim();
-	            } else {
-	                address1 = rest;
-	            }
-	        }
-	    }
-
 	    model.addAttribute("dto", dto);
-	    model.addAttribute("address1", address1);
-	    model.addAttribute("address2", address2);
 
 		System.out.println("\n\n" + model + "\n\n");
 		return "/member/mypage/mypage_update";
@@ -143,15 +111,13 @@ public class MemberController {
 	public String update(@ModelAttribute MemberDTO dto, Model model) {
 		boolean result = memberDao.check_passwd(dto.getUser_id(), dto.getPasswd());
 		if(result) { //비밀번호가 맞으면 true(1), 틀리면 false(0)
-			String fullAddress = dto.getAddress1() + " " + dto.getAddress2();
-	        dto.setAddress(fullAddress);
 			memberDao.update(dto);
-			//model.addAttribute("dto",dto);
-			System.out.println("\n\n" + model + "\n\n");
 			return "member/mypage/mypage";
 		} else { //비밀번호가 틀릴경우
-			MemberDTO dto2 = memberDao.detail(dto.getUser_id());
-			dto.setJoin_date(dto2.getJoin_date());
+			/*
+			 * MemberDTO dto2 = memberDao.detail(dto.getUser_id());
+			 * dto.setJoin_date(dto2.getJoin_date());
+			 */
 			model.addAttribute("dto",dto);
 			model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
 			return "member/mypage/mypage_update";
@@ -160,15 +126,18 @@ public class MemberController {
 	
 	@PostMapping("/mypage/delete.do")
 	public String delete(@RequestParam(name="user_id") String user_id,
-			@RequestParam(name="passwd") String passwd, Model model) {
+			@RequestParam(name="passwd") String passwd,
+			HttpSession session,
+			Model model) {
 		boolean result = memberDao.check_passwd(user_id, passwd);
 		if(result) {
+			session.invalidate();
 			memberDao.delete(user_id);
 			return "redirect:/";
 		} else {
 			model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
 			model.addAttribute("dto", memberDao.detail(user_id));
-			return "detail";
+			return "member/mypage/mypage_update";
 		}
 	}
 }

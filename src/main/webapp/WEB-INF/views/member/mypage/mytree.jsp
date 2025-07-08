@@ -14,13 +14,8 @@
     position: relative;
     width: 893px;
     height: 644px;
-    margin: 0 auto; /* 가로 가운데 정렬 */
-    /* 세로 중앙 정렬을 위해 아래와 같이 할 수도 있음 */
-    top: 50%;
-    transform: translateY(-50%);
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin: 47px auto 47px auto;
+    position: relative;
   }
 
   .rectangle {
@@ -44,6 +39,9 @@
 <div class="container">
 	<div class="rectangle"></div>
 	<img class="image" src="../../resources/images/설화수 수호수.png" alt="설화수 수호수">
+<%-- 	<c:forEach var="badge" items="${badges}">
+		<button class="badge-btn" data-badge="${badge}" title="${badge}"></button>
+	</c:forEach> --%>
 </div>
 </body>
 </html>
