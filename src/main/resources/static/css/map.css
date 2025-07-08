@@ -1,4 +1,4 @@
-    #map { height: 800px; width: 100%; }
+    #map { height: 800px; width: 100%; z-index:1;}
     .label-text {
       font-family: "Noto Sans KR", sans-serif;
 	  font-optical-sizing: auto;
@@ -49,5 +49,23 @@
     text-align: center;
     border-radius: 8px;
     text-shadow: none;
+  }
+  
+  .see {
+  	position: absolute;
+  	bottom: 730px;
+  	left: 1400px;
+  	z-index: 2;
+  	background: #9C6B4F;
+  	color: white;
+  	font-size: 20px;  	  	
+  	width: 175px;
+  	height: 57px;
+  	border-radius: 20px;
+  	border-style: none;
+  }
+  
+  .see:hover {
+  	background: #5D290B;
   }
   

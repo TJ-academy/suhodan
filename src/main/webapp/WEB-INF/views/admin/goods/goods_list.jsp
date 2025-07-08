@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-배지리스트
+굿즈페이지
 </body>
 </html>

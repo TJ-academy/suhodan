@@ -50,14 +50,13 @@
 	</tr>
 	<tr>
 		<td>주소</td>
-		<td><input type="text" name="postcode" id="postcode" value="${postcode}" placeholder="우편번호" required readonly>
-		<button type="button" onclick="findPostcode()">우편번호 검색</button>
-		<br>
-		<input type="text" name="address1" id="address1" value="${address1}" placeholder="주소" required readonly>
-		<br>
-		<input type="text" name="address2" id="address2" value="${address2}" placeholder="상세주소" required>
-		<input type="hidden" name="address" id="fullAddress" value="${dto.address}">
-		<br></td>
+		<td>
+			<input type="text" name="address1" id="address1" style="width: 337px;" required readonly>
+			<button type="button" onclick="findPostcode()" style="width: 136px;">우편번호 검색</button>
+			<br>
+			<input type="text" name="address2" id="address2" placeholder="상세 주소를 입력하세요." style="width: 337px;" required>
+			<input type="hidden" name="address" id="fullAddress">
+		</td>
 	</tr>
 	<tr>
 		<td>가입 날짜</td>
@@ -112,11 +111,9 @@ function findPostcode() {
         }
 
         // 우편번호와 주소 정보를 해당 필드에 넣는다.
-        document.getElementById('postcode').value = data.zonecode;
-        document.getElementById("address1").value = addr;
+        document.getElementById("address1").value = "(" + data.zonecode+ ") " + addr;
         // 커서를 상세주소 필드로 이동한다.
         document.getElementById("address2").focus();
-        console.log("\n\nhello\n\n");
       }
     }).open();
   }

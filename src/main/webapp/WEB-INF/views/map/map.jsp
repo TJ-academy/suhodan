@@ -14,8 +14,8 @@
 </head>
 <body>
 <%@ include file="../include/menu.jsp" %>
-<a href="/legend/legend.do">전체 설화보기</a>
 <div id="map"></div>
+<button class="see" onclick="location.href='/legend/legend.do'">전체 설화 보기</button>
 <script>
   <% 
     String rawJson = (String) request.getAttribute("suhoListJson");

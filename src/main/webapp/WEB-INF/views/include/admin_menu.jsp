@@ -10,7 +10,8 @@
 <a href="/admin/member_list.do">회원 관리</a> |
 <a href="/admin/legend_list.do">설화 관리</a> |
 <a href="/admin/reward_list.do">리워드 관리</a> |
-<a href="/admin/badge_list.do">배지 관리</a> |
+<a href="/admin/goods_list.do">굿즈 관리</a> |
+<a href="/admin/badge_list.do">명패 관리</a> |
 <a href="#">통계 관리</a> |
 
 <div style="text-align:right;">

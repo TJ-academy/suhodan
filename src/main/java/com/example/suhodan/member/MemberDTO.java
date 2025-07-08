@@ -24,7 +24,6 @@ public class MemberDTO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birth;
 	
-	private String postcode;
     private String address1;
     private String address2;
 }
