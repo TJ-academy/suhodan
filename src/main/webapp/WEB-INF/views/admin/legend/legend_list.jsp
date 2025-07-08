@@ -7,63 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>설화 관리</title>
-<style>
-/* 팝업 스타일 */
-.popup {
-	display: none;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 400px;
-	background-color: white;
-	padding: 20px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	z-index: 1000;
-	max-height: 80vh; /* 팝업 최대 높이 설정 */
-	overflow-y: auto; /* 내부 내용이 많으면 세로 스크롤 가능 */
-}
-
-.overlay {
-	display: none;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
-	z-index: 999;
-}
-
-.form-item {
-	margin-bottom: 15px;
-}
-
-.form-item label {
-	display: block;
-	margin-bottom: 5px;
-}
-
-.form-item input, .form-item textarea {
-	width: 100%;
-	padding: 8px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-}
-
-.button {
-	padding: 10px 20px;
-	background-color: #ff7043;
-	color: white;
-	border: none;
-	cursor: pointer;
-	border-radius: 4px;
-}
-
-.button:hover {
-	background-color: #ff5722;
-}
-</style>
+<link rel="stylesheet" href="/css/admin.css">
+<link rel="stylesheet" href="/css/popup.css">
 </head>
 <body>
 	<%@ include file="../../include/admin_menu.jsp"%>

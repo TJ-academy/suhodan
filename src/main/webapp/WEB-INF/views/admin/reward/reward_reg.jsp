@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <div id="reg_popup" class="popup">
 	<h3>설화 등록</h3>
-	<form action="legend_insert.do" method="post"
+	<form action="reward_insert.do" method="post"
 		enctype="multipart/form-data">
 		<div class="form-item">
 			<label for="reg_popup_title">설화 제목</label> <input type="text"
@@ -26,17 +26,15 @@
 
 		<div class="form-item">
 			<label for="reg_popup_img">이미지 업로드</label> <input type="file"
-				id="reg_popup_img" name="imgFile" accept="image/*" />
+				id="reg_popup_img" name="img" accept="image/*" />
 		</div>
 
 		<div class="form-item">
 			<label for="reg_popup_tts_audio">TTS 오디오</label> <input type="file"
-				id="reg_popup_tts_audio" name="ttsAudioFile" accept="audio/*" />
+				id="reg_popup_tts_audio" name="tts_audio" accept="audio/*" />
 		</div>
 
 		<button type="submit" class="button">등록</button>
 		<button type="button" class="button close-reg-popup">닫기</button>
-		<%-- 닫기 버튼 class 추가 --%>
 	</form>
 </div>
-<%-- legend_reg.jsp 내용 끝 --%>
