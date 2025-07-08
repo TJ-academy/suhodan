@@ -20,7 +20,7 @@
 		delete from suho_user where user_id = #{user_id}
 	</delete>
 	<select id="check_passwd" resultType="int">
-		select count(*) from suho_user where user_id=#{user_id} and passwd=#{passwd}
+		select count(*) from suho_user where user_id=#{user_id} and passwd=MYPACK.ENCRYPT(#{passwd})
 	</select>
 	<select id="check_id_duplicate" resultType="int">
 		select count(*) from suho_user where user_id=#{userid}

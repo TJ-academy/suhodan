@@ -78,6 +78,13 @@ public class MemberController {
 	//회원가입 처리
 	@PostMapping("/insert.do")
 	public String insert(@ModelAttribute MemberDTO dto) {
+		String postcode = dto.getPostcode();
+		String address1 = dto.getAddress1();
+	    String address2 = dto.getAddress2();
+	    
+	    String fullAddress = String.format("(%s) %s %s", postcode, address1, address2);
+	    dto.setAddress(fullAddress);
+	    
 		System.out.println(dto);
 		memberDao.insert(dto);		
 		return "member/join_finish";
@@ -99,7 +106,38 @@ public class MemberController {
 	@GetMapping("/mypage/edit")
 	public String detail(HttpSession session, Model model) {
 		String userid = (String) session.getAttribute("user_id");
-		model.addAttribute("dto", memberDao.detail(userid));
+		
+		MemberDTO dto = memberDao.detail(userid);
+
+	    String fullAddress = dto.getAddress(); // (우편번호) 주소1 상세주소
+	    String postcode = "";
+	    String address1 = "";
+	    String address2 = "";
+
+	    if(fullAddress != null && fullAddress.length() > 0) {
+	        int start = fullAddress.indexOf('(');
+	        int end = fullAddress.indexOf(')');
+	        if(start != -1 && end != -1 && end > start) {
+	            postcode = fullAddress.substring(start + 1, end);
+	            String rest = fullAddress.substring(end + 1).trim();
+
+	            int start2 = rest.lastIndexOf('(');
+	            int end2 = rest.lastIndexOf(')');
+	            if(start2 != -1 && end2 != -1 && end2 > start2) {
+	                address2 = rest.substring(start2, end2 + 1);
+	                address1 = rest.substring(0, start2).trim();
+	            } else {
+	                address1 = rest;
+	            }
+	        }
+	    }
+
+	    model.addAttribute("dto", dto);
+	    model.addAttribute("postcode", postcode);
+	    model.addAttribute("address1", address1);
+	    model.addAttribute("address2", address2);
+
+		System.out.println("\n\n" + model + "\n\n");
 		return "/member/mypage/mypage_update";
 	}
 	
@@ -108,14 +146,18 @@ public class MemberController {
 	public String update(@ModelAttribute MemberDTO dto, Model model) {
 		boolean result = memberDao.check_passwd(dto.getUser_id(), dto.getPasswd());
 		if(result) { //비밀번호가 맞으면 true(1), 틀리면 false(0)
+			String fullAddress = "(" + dto.getPostcode() + ") " + dto.getAddress1() + " " + dto.getAddress2();
+	        dto.setAddress(fullAddress);
 			memberDao.update(dto);
-			return "redirect:/";
+			//model.addAttribute("dto",dto);
+			System.out.println("\n\n" + model + "\n\n");
+			return "member/mypage/mypage";
 		} else { //비밀번호가 틀릴경우
 			MemberDTO dto2 = memberDao.detail(dto.getUser_id());
 			dto.setJoin_date(dto2.getJoin_date());
 			model.addAttribute("dto",dto);
 			model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
-			return "redirect:/mypage";
+			return "member/mypage/mypage_update";
 		}
 	}
 	

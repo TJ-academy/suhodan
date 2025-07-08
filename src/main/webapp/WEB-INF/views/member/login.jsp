@@ -46,6 +46,8 @@ $(function() {
 	<tr>
 		<td colspan="2" align="center">
 			<button type="button" id="btnLogin">로그인</button>
+			<br>
+			<a href="join.do">회원가입</a>
 			<c:if test="${message == 'error'}">
 				<div style="color:red;">
 					아이디 또는 비밀번호가 일치하지 않습니다.
@@ -64,6 +66,7 @@ $(function() {
 		</td>
 	</tr>
 </table>
+
 </form>
 </body>
 </html>
