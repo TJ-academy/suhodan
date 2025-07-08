@@ -111,6 +111,22 @@
                 $('#edit_popup_img').val(''); 
                 $('#edit_popup_tts_audio').val(''); 
                 // 참고: 현재 이미지/TTS 오디오 파일명을 표시하려면 팝업 내에 별도의 텍스트 요소를 추가해야 합니다.
+                
+                if (img) {
+					$('#current_image_container').show();  // 기존 이미지 컨테이너를 보이게 함
+					$('#current_image').attr('src', '/resources/legend_img/' + img);  // 기존 이미지 경로 설정
+					$('#current_image_name').text(img);  // 파일명 텍스트로 설정
+				} else {
+					$('#current_image_container').hide();  // 이미지가 없다면 숨김
+				}
+                
+                if (tts_audio) {
+					$('#current_tts_audio_container').show();  // 기존 이미지 컨테이너를 보이게 함
+					$('#current_tts_audio').attr('src', '/resources/legend_tts/' + tts_audio);  // 기존 이미지 경로 설정
+					$('#current_tts_audio_name').text(tts_audio);  // 파일명 텍스트로 설정
+				} else {
+					$('#current_tts_audio_container').hide();  // 이미지가 없다면 숨김
+				}
             }
 
             // 팝업 닫기 (수정) 함수

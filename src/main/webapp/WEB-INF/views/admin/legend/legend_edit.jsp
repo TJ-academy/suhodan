@@ -25,24 +25,28 @@
 		</div>
 
 		<div class="form-item">
-			<label for="edit_popup_img">이미지 업로드</label> <input type="file"
-				id="edit_popup_img" name="img" accept="image/*"
-				onchange="previewImage(event)" /> <br /> <img id="imagePreview"
-				src="" alt="이미지 미리보기"
-				style="max-width: 200px; display: none; margin-top: 10px;" />
+			<label for="edit_popup_img">대표 이미지</label> <input type="file"
+				id="edit_popup_img" name="imgFile" accept="image/*" />
+			<!-- 현재 이미지 출력 -->
+			<div id="current_image_container" style="display: none;">
+				<label>현재 이미지:</label> <img id="current_image" src="" alt="배지 이미지"
+					width="100" />
+				<p>
+					파일명: <span id="current_image_name"></span>
+				</p>
+			</div>
 		</div>
 
 		<div class="form-item">
-			<label for="edit_popup_tts_audio">TTS 오디오</label> <input type="file"
-				id="edit_popup_tts_audio" name="tts_audio" accept="audio/*"
-				onchange="previewAudio(event)" /> <br />
-			<audio id="audioPreview" controls
-				style="display: none; margin-top: 10px;">
-				<source id="audioSource" type="audio/mp3">
-				Your browser does not support the audio element.
-			</audio>
-			<button type="button" id="playButton" style="display: none;"
-				onclick="playAudio()">🔊</button>
+			<label for="edit_popup_tts_audio">오디오 파일</label> <input type="file"
+				id="edit_popup_tts_audio" name="ttsAudioFile" accept="audio/*" />
+			<div id="current_tts_audio_container" style="display: none;">
+				<label>현재 오디오:</label> <img id="current_tts_audio" src=""
+					alt="오디오 파일" width="100" />
+				<p>
+					파일명: <span id="current_tts_audio"></span>
+				</p>
+			</div>
 		</div>
 
 		<input type="hidden" id="edit_popup_legend_id" name="legend_id" />
@@ -52,42 +56,3 @@
 		<%-- 닫기 버튼 class 추가 --%>
 	</form>
 </div>
-
-<script>
-	// 이미지 미리보기 함수
-	function previewImage(event) {
-		const file = event.target.files[0];
-		const reader = new FileReader();
-
-		reader.onload = function(e) {
-			const imagePreview = document.getElementById('imagePreview');
-			imagePreview.src = e.target.result; // 파일의 URL을 미리보기 이미지에 설정
-			imagePreview.style.display = 'block'; // 이미지 미리보기 표시
-		}
-
-		if (file) {
-			reader.readAsDataURL(file); // 파일을 DataURL로 읽어 들여 이미지 미리보기 생성
-		}
-	}
-
-	// 오디오 미리듣기 함수
-	function previewAudio(event) {
-		const file = event.target.files[0];
-		const audioPreview = document.getElementById('audioPreview');
-		const audioSource = document.getElementById('audioSource');
-		const playButton = document.getElementById('playButton');
-
-		if (file) {
-			const audioUrl = URL.createObjectURL(file); // 오디오 파일 URL 생성
-			audioSource.src = audioUrl; // 오디오 소스에 URL 할당
-			audioPreview.style.display = 'block'; // 오디오 미리듣기 표시
-			playButton.style.display = 'inline'; // 재생 버튼 표시
-		}
-	}
-
-	// 오디오 재생 함수
-	function playAudio() {
-		const audioPreview = document.getElementById('audioPreview');
-		audioPreview.play(); // 오디오 미리듣기 시작
-	}
-</script>
