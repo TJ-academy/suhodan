@@ -18,7 +18,7 @@
 <div>
 	<ul>
 		<li><a href="/mypage/edit">개인 정보 수정</a></li>
-		<li><a href="#">나의 수호수</a></li>
+		<li><a href="/mypage/mytree">나의 수호수</a></li>
 		<li><a href="#">리워드함</a></li>
 		<li><a href="#">구매 내역</a></li>
 		<li><a href="#">배송 조회</a></li>

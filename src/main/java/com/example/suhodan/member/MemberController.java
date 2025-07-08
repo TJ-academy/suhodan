@@ -158,7 +158,7 @@ public class MemberController {
 		}
 	}
 	
-	@PostMapping("delete.do")
+	@PostMapping("/mypage/delete.do")
 	public String delete(@RequestParam(name="user_id") String user_id,
 			@RequestParam(name="passwd") String passwd, Model model) {
 		boolean result = memberDao.check_passwd(user_id, passwd);
