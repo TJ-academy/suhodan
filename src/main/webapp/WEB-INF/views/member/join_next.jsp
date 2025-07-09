@@ -31,7 +31,10 @@
 			<input type="text" name="address1" id="address1" style="width: 337px;" required readonly>
 			<button type="button" onclick="findPostcode()" class="search_btn" style="border-radius:0 15px 15px 0;">우편번호 검색</button>
 			<br>
+<<<<<<< HEAD
 			<input type="text" name="address2" id="address2" placeholder="상세 주소를 입력하세요." style="width: 337px;" required>
+=======
+>>>>>>> narae
 			<input type="text" name="address2" id="address2" placeholder="상세 주소를 입력하세요." style="width: 337px; border-radius:10px;" required>
 			<input type="hidden" name="address" id="fullAddress">
 		</div>
