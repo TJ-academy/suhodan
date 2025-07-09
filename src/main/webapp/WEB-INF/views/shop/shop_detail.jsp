@@ -151,7 +151,7 @@ top: 50px; left: 50px;
 
 <div class="outer-box">
 
-<button class="back-button" onclick="history.back();">
+	<button class="back-button" onclick="history.back();">
 		<img src="/resources/images/back.png" alt="뒤로가기 아이콘">
 	</button>
 	<div class="logo-box">
@@ -160,7 +160,7 @@ top: 50px; left: 50px;
 	</div>
 
 	<div class="main-image">
-		<img src="/resources/images/${dto.img}"
+		<img src="/resources/goods_img/${dto.img}"
 			alt="${dto.name}"
 			onerror="this.onerror=null; this.src='/resources/images/설화수 로고.png';" />
 	</div>
@@ -172,7 +172,7 @@ top: 50px; left: 50px;
 
 	<div class="select-box">
 		<form name="form1" method="post" action="/shop/cart/insert.do">
-			<input type="hidden" name="reward_id" value="${dto.reward_id}">
+			<input type="hidden" name="goods_id" value="${dto.goods_id}">
 			<select name="amount">
 				<c:forEach begin="1" end="10" var="i">
 					<option value="${i}">${i}</option>
@@ -184,8 +184,8 @@ top: 50px; left: 50px;
 	<div class="product-description">${dto.description}</div>
 
 	<div class="detail-images">
-		<img src="/resources/images/${dto.img}" alt="디테일1">
-		<img src="/resources/images/${dto.img}" alt="디테일2">
+		<img src="/resources/goods_detail_img/${dto.detail_img}" alt="디테일1">
+		<img src="/resources/goods_detail_img/${dto.detail_img}" alt="디테일2">
 	</div>
 
 	<button class="add-to-cart-btn" onclick="document.form1.submit()">장바구니 담기</button>

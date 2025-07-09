@@ -44,10 +44,10 @@ public class CartDAOImpl implements CartDAO {
 	}
 	
 	@Override
-	public CartDTO exists(String user_id, int reward_id) {
+	public CartDTO exists(String user_id, int goods_id) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("user_id", user_id);
-		map.put("reward_id", reward_id);
+		map.put("goods_id", goods_id);
 		return sqlSession.selectOne("cart.exists", map);
 	}
 	

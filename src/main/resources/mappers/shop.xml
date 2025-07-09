@@ -2,31 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="shop">
 	<select id="list" resultType="com.example.suhodan.shop.ShopDTO">
-		select * from suho_reward order by name
+		select * from suho_goods order by goods_id
 	</select>
 
 	<select id="detail" parameterType="int" resultType="com.example.suhodan.shop.ShopDTO">
-		select * from suho_reward
-		where reward_id = #{reward_id}
+		select * from suho_goods
+		where goods_id = #{goods_id}
 	</select>
-	
-	<insert id="insert" parameterType="com.example.suhodan.shop.ShopDTO">
-		insert into suho_reward 
-		(reward_id, name, description, legend_id, price, img) values 
-		(suho_reward_seq.nextval, #{name}, #{description}, #{legend_id}, #{price}, #{img})
-	</insert>
-	
-	<update id="update" parameterType="com.example.suhodan.shop.ShopDTO">
-	  update suho_reward
-	  set name = #{name},
-	      description = #{description},
-	      legend_id = #{legend_id},
-	      price = #{price},
-	      img = #{img}
-	  where reward_id = #{reward_id}
-	</update>
-	
-	<delete id="delete" parameterType="int">
-		delete from suho_reward where reward_id = #{reward_id}
-	</delete>
 </mapper>

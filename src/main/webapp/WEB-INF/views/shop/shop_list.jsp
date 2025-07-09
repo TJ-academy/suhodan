@@ -152,33 +152,40 @@ width: 260px;
 <body>
 <%@ include file="../include/menu.jsp" %>
 
-	<div class="shop-header">
-		<img src="/resources/images/나무로고.png" alt="로고" />
-		<p>모든 수익금은 해당 마을을 지키는 데 사용됩니다.</p>
-	</div>
-
-	<div class="shop-grid">
-		<c:forEach var="row" items="${list}">
-<div class="shop-card">
-	<div class="image-container">
-		<img src="/resources/images/${row.img}" alt="${row.name}"
-			onerror="this.onerror=null; this.src='/resources/images/설화수 로고.png';" />
-		<a href="/shop/detail/${row.reward_id}" class="hover-button">자세히 보기</a>
-	</div>
-	<div class="card-text">
-		<div class="card-top">
-			<div class="product-name">${row.name}</div>
-			<div class="buy-icon">🛒</div>
-		</div>
-		<div class="product-price">
-			<fmt:formatNumber value="${row.price}" pattern="#,###" />원
-		</div>
-		<div class="product-desc">${row.description}</div>
-	</div>
+<div class="shop-header">
+	<img src="/resources/images/나무로고.png" alt="로고" />
+	<p>모든 수익금은 해당 마을을 지키는 데 사용됩니다.</p>
 </div>
 
-		</c:forEach>
-	</div>
-
+<div class="shop-grid">
+	<c:forEach var="row" items="${list}">
+		<div class="shop-card">
+			<div class="image-container">
+				<img src="/resources/goods_img/${row.img}" alt="${row.name}"
+					onerror="this.onerror=null; this.src='/resources/images/설화수 로고.png';" />
+				<a href="/shop/detail/${row.goods_id}" class="hover-button">자세히 보기</a>
+			</div>
+			<div class="card-text">
+				<div class="card-top">
+					<form action="/shop/cart/insert.do" method="post" onclick="success()">
+						<input type="hidden" name="goods_id" value="${row.goods_id}">
+						<input type="hidden" name="amount" value="1">
+						<div class="product-name">${row.name}</div>
+							<button type="submit" class="buy-icon">🛒</button>
+						</div>
+					</form>
+				<div class="product-price">
+					<fmt:formatNumber value="${row.price}" pattern="#,###" />원
+				</div>
+				<div class="product-desc">${row.description}</div>
+			</div>
+		</div>
+	</c:forEach>
+</div>
+<script>
+function success() {
+	alert("장바구니에 추가되었습니다.");
+}
+</script>
 </body>
 </html>

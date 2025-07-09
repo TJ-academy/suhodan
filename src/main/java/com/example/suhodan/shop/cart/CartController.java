@@ -49,9 +49,10 @@ public class CartController {
 		return "redirect:/shop/cart/list.do";
 	}
 	
-	@GetMapping("deleteAll.do")
+	@PostMapping("deleteAll.do")
 	public String deleteAll(HttpSession session) {
 		String user_id = (String) session.getAttribute("user_id");
+		System.out.println("user_id: " + user_id);
 		if(user_id != null) {
 			cartDao.delete_all(user_id);
 		}
@@ -71,7 +72,7 @@ public class CartController {
 			return "redirect:/login.do";
 		}
 		dto.setUser_id(user_id);
-		CartDTO existing = cartDao.exists(user_id, dto.getReward_id());
+		CartDTO existing = cartDao.exists(user_id, dto.getGoods_id());
 
         if (existing != null) {
             // 이미 같은 reward_id가 존재하면 amount 증가
