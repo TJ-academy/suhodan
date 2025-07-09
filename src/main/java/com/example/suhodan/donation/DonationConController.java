@@ -1,7 +1,9 @@
 package com.example.suhodan.donation;
 
 import java.io.File;
-
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,21 +60,32 @@ public class DonationConController {
 	    @RequestParam(value = "curPage", required = false, defaultValue = "1") int curPage,
 	    ModelAndView mav
 	) {
-	    int pageSize = 8; // ✅ 한 페이지에 보여줄 개수
-	    int totalCount = donationConDao.getCount(); // ✅ 전체 글 수 (DAO에 메서드 추가 필요)
-
-	    // ✅ 페이지 계산 유틸
+		//---------<페이지네이션>
+	    int pageSize = 8; // 한 페이지에 보여줄 개수
+	    int totalCount = donationConDao.getCount(); // 전체 글 수 (DAO에 메서드 추가 필요)
+	    // 페이지 계산 유틸
 	    PageInfo pageInfo = new PageInfo(totalCount, curPage, pageSize);
-
-	    // ✅ 범위만큼 데이터 조회 (DAO에 start/end 넘기는 메서드 필요)
+	    // 범위만큼 데이터 조회 (DAO에 start/end 넘기는 메서드 필요)
 	    Map<String, Object> paramMap = new HashMap<>();
 	    paramMap.put("start", pageInfo.getStartIndex());
 	    paramMap.put("end", pageInfo.getEndIndex());
 	    List<DonationConDTO> list = donationConDao.listPaging(paramMap);
-
-	    // ✅ View 및 데이터 전달
+		//---------<D-DAY 계산>
+	    for (DonationConDTO dto : list) {
+	        if (dto.getEnd_date() != null) {
+	            LocalDate end = dto.getEnd_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	            long dDay = ChronoUnit.DAYS.between(LocalDate.now(), end);
+	            dto.setDday(dDay);
+	        } else {
+	            //dto.setdday(0); // 또는 적절한 기본값
+	        	dto.setDday(0);
+	        }
+	        System.out.println("dDay: " + dto.getDday());
+	    }
+	    //---------<View 및 데이터 전달>
 	    mav.setViewName("/donation/con_list");
 	    mav.addObject("list", list);
+	    System.out.println("list:"+list.get(0));
 	    mav.addObject("map", Map.of("page_info", pageInfo)); // JSP에서 ${map.page_info.xxx}로 사용
 	    return mav;
 	}
@@ -171,7 +184,12 @@ public class DonationConController {
 	    return result;
 	}
 
+	@GetMapping("info/{content_id}")
+	public ModelAndView info(@PathVariable(name="content_id") int content_id, ModelAndView mav) {
+		mav.setViewName("/donation/donation_info");
+		mav.addObject("content_id", content_id);
+		return mav;
+	}
 
-	
 	
 }
