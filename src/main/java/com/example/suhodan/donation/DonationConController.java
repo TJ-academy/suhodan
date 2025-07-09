@@ -184,7 +184,12 @@ public class DonationConController {
 	    return result;
 	}
 
+	@GetMapping("info/{content_id}")
+	public ModelAndView info(@PathVariable(name="content_id") int content_id, ModelAndView mav) {
+		mav.setViewName("/donation/donation_info");
+		mav.addObject("content_id", content_id);
+		return mav;
+	}
 
-	
 	
 }

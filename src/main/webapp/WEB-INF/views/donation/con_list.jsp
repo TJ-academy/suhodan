@@ -93,23 +93,23 @@
     <a href="/donation/detail/${row.content_id}">
       <img src="../../resources/donation_img/${row.filename}" class="card-img-top" alt="썸네일 이미지" />
     </a>
-    <div class="card-body" onclick="location.href='/donation/detail/${row.content_id}'">
+    <div class="card-body" onclick="location.href='/donation/detail/${row.content_id}'"
+    style="border-color: #D8C2A6;">
       <p class="card-text">
-        <span><strong>${row.title}</strong></span>
-        <span>${row.content}</span>
+        <span style="font-size: 19px; text-align:center;">
+	        <strong>${row.location}</strong>
+        </span>
+        <span style="text-align:center; color: #504848; font-size: 13px;">${row.title}</span>
         <!-- 프로그레스바 추가 -->
         <div style="margin-top:10px;">
           <span style="color: #4C6B3C; font-weight: bold;">
 	          <fmt:formatNumber value="${progressPercent}" maxFractionDigits="0" />%
           </span>
-          ${row.dday}일 남음
+          <span style="float:right; font-size:12px; font-weight: bold;">${row.dday}일 남음</span>
           <div style="background:#eee; border-radius: 8px; height: 20px; width: 100%; overflow: hidden;">
-            <div style="background:#4caf50; height: 100%; width: ${fn:escapeXml((row.donated_amount / row.target_amount) * 100)}%;">
+            <div style="background:#7A9D54; height: 100%; width: ${fn:escapeXml((row.donated_amount / row.target_amount) * 100)}%;">
             </div>
           </div>
-          <small>
-            <fmt:formatNumber value="${row.donated_amount}" /> 원 후원 / 목표 <fmt:formatNumber value="${row.target_amount}" /> 원
-          </small>
         </div>
       </p>
     </div>
