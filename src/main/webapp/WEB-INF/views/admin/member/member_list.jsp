@@ -111,7 +111,7 @@
 						<p>총 기부액: ${row.total_donation}</p>
 						<p>보유 배지: 보유 배지</p>
 						<p>기부 내역 보기: 기부 내역</p>
-						<p>주소: ${row.address}</p>
+						<p>주소: ${row.address1} ${row.address2}</p>
 						<p>핸드폰 번호: 아직디비에필드없음</p>
 						<div class="detail-buttons">
 							<button class="edit-btn">수정</button>

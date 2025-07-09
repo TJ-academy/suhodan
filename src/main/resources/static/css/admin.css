@@ -4,8 +4,10 @@ body {
 }
 
 h2 {
-	margin-left: 20px;
+	margin: 0; /* 기존 여백 제거 */
 	color: #3c2c1e;
+	/* 수평 중앙 정렬 */
+	text-align: center;
 }
 
 table {

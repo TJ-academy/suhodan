@@ -19,4 +19,6 @@ public interface DonationConDAO {
 	int getCount(); //전체 게시물 수 조회(페이지네이션 계산용)
 	
 	List<DonationConDTO> listPaging(Map<String, Object> paramMap);
+	
+	void insertTransaction(DonationTransactionDTO dto); //결제처리
 }

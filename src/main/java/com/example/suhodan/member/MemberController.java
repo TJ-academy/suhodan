@@ -27,17 +27,21 @@ public class MemberController {
       return "member/login";
    }
 
-   //로그인 처리
+   //로그인 처리 (main 브랜치 기준)
    @PostMapping("login_check.do")
    public ModelAndView login_check(MemberDTO dto, HttpSession session) {
       String name = memberDao.login(dto);
-      if(name != null) {
+      ModelAndView mav = new ModelAndView();
+
+      if (name != null) {
          session.setAttribute("user_id", dto.getUser_id());
          session.setAttribute("name", name);
-      }
-      ModelAndView mav = new ModelAndView();
-      if(name != null) {
-         mav.setViewName("index");
+
+         if ("admin".equals(dto.getUser_id())) {
+            mav.setViewName("redirect:/admin/");
+         } else {
+            mav.setViewName("index");
+         }
       } else {
          mav.setViewName("member/login");
          mav.addObject("message", "error");
@@ -47,8 +51,7 @@ public class MemberController {
    
    //로그아웃
    @GetMapping("/logout.do")
-   public ModelAndView logout(HttpSession session, 
-         ModelAndView mav) {
+   public ModelAndView logout(HttpSession session, ModelAndView mav) {
       session.invalidate();
       mav.setViewName("member/login");
       mav.addObject("message", "logout");
@@ -85,60 +88,7 @@ public class MemberController {
    
    //마이페이지로 이동
    @GetMapping("/mypage")
-   public String view(HttpSession session, 
-         Model model) {
+   public String view(HttpSession session, Model model) {
       String userid = (String) session.getAttribute("user_id");
       if(userid == null) {
-         return "redirect:/login.do?message=nologin";
-      }
-      return "member/mypage/mypage";
-   }
-   
-   //회원정보 수정페이지로 이동
-   @GetMapping("/mypage/edit")
-   public String detail(HttpSession session, Model model) {
-      String userid = (String) session.getAttribute("user_id");
-      
-      MemberDTO dto = memberDao.detail(userid);
-       model.addAttribute("dto", dto);
-
-      System.out.println("\n\n" + model + "\n\n");
-      return "/member/mypage/mypage_update";
-   }
-   
-   //회원정보 수정사항 저장하기
-   @PostMapping("/mypage/update.do")
-   public String update(@ModelAttribute MemberDTO dto, Model model) {
-      boolean result = memberDao.check_passwd(dto.getUser_id(), dto.getPasswd());
-      if(result) { //비밀번호가 맞으면 true(1), 틀리면 false(0)
-         memberDao.update(dto);
-         return "member/mypage/mypage";
-      } else { //비밀번호가 틀릴경우
-         /*
-          * MemberDTO dto2 = memberDao.detail(dto.getUser_id());
-          * dto.setJoin_date(dto2.getJoin_date());
-          */
-         model.addAttribute("dto",dto);
-         model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
-         return "member/mypage/mypage_update";
-      }
-   }
-   
-   @PostMapping("/mypage/delete.do")
-   public String delete(@RequestParam(name="user_id") String user_id,
-         @RequestParam(name="passwd") String passwd,
-         HttpSession session,
-         Model model) {
-      boolean result = memberDao.check_passwd(user_id, passwd);
-      if(result) {
-         session.invalidate();
-         memberDao.delete(user_id);
-         return "redirect:/";
-      } else {
-         model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
-         model.addAttribute("dto", memberDao.detail(user_id));
-         return "member/mypage/mypage_update";
-      }
-   }
-}
-
+         ret

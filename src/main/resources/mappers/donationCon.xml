@@ -20,27 +20,63 @@
 		delete suho_donation_content where content_id=#{content_id}
 	</delete>
 	<select id="list" resultType="com.example.suhodan.donation.DonationConDTO">
-		select * from suho_donation_content order by created_at desc	
+	  SELECT c.*,
+	         NVL(d.total_donated, 0) AS donated_amount
+	    FROM suho_donation_content c
+	    LEFT JOIN (
+	      SELECT content_id, SUM(amount) AS total_donated
+	        FROM donation_transaction
+	       WHERE status = '완료'
+	       GROUP BY content_id
+	    ) d ON c.content_id = d.content_id
+	    ORDER BY c.created_at DESC
 	</select>
 	<select id="detail" resultType="com.example.suhodan.donation.DonationConDTO">
-		select * from suho_donation_content where content_id=#{content_id}
+	  SELECT c.*,
+	         NVL(d.total_donated, 0) AS donated_amount
+	    FROM suho_donation_content c
+	    LEFT JOIN (
+	      SELECT content_id, SUM(amount) AS total_donated
+	        FROM donation_transaction
+	       WHERE status = '완료'
+	       GROUP BY content_id
+	    ) d ON c.content_id = d.content_id
+	   WHERE c.content_id = #{content_id}
 	</select>
 	<select id="getCount" resultType="int">
 		select count(*)
 		from suho_donation_content
 	</select>
 	<select id="listPaging" parameterType="map" resultType="com.example.suhodan.donation.DonationConDTO">
-		select *
-		from (
-			select ROWNUM as rn, A.*
-			from (
-				select *
-				from suho_donation_content
-				order by created_at desc
-			) A
-			where ROWNUM &lt;= #{end}
-		)
-		where rn &gt;= #{start}
+	  SELECT * FROM (
+	    SELECT ROWNUM rn, A.*
+	      FROM (
+	        SELECT c.*,
+	               NVL(d.total_donated, 0) AS donated_amount
+	          FROM suho_donation_content c
+	          LEFT JOIN (
+	            SELECT content_id, SUM(amount) AS total_donated
+	              FROM donation_transaction
+	             WHERE status = '완료'
+	             GROUP BY content_id
+	          ) d ON c.content_id = d.content_id
+	         ORDER BY c.created_at DESC
+	      ) A
+	     WHERE ROWNUM &lt;= #{end}
+	  )
+	  WHERE rn &gt;= #{start}
 	</select>
+	<insert id="insertTransaction" parameterType="com.example.suhodan.donation.DonationTransactionDTO">
+		INSERT INTO donation_transaction (
+		  transaction_id, content_id, donor_id, amount,
+		  donation_date, payment_method, status,
+		  merchant_uid, imp_uid
+		) VALUES (
+		  donation_transaction_seq.nextval,
+		  #{content_id}, #{donor_id}, #{amount},
+		  #{donation_date}, #{payment_method}, #{status},
+		  #{merchant_uid}, #{imp_uid}
+		)
+	</insert>
 	
 </mapper>

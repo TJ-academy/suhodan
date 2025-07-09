@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -74,10 +73,25 @@
 	<p class="content_style">
 	  <c:out value="${fn:replace(dto.content, '.', '.<br>')}" escapeXml="false" />
 	</p>
-	<p style="text-align:center; color: red;">
-		목표금액: ${dto.target_amount}
-	</p>
-	<button class="donation_btn">후원하기</button>
+
+	<!--  프로그레스바 영역 -->
+	<div style="margin: 20px 0; text-align:center;">
+		<c:set var="progressPercent" value="${dto.target_amount > 0 ? (dto.donated_amount * 100) / dto.target_amount : 0}" />
+		<div style="background:#eee; border-radius: 8px; height: 20px; width: 100%; overflow: hidden;">
+			<div style="background:#4caf50; height: 100%; width: ${progressPercent}%;"></div>
+		</div>
+		<small>
+			<fmt:formatNumber value="${dto.donated_amount}" /> 원 후원 / 목표 
+			<fmt:formatNumber value="${dto.target_amount}" /> 원
+			(${progressPercent}% 달성)
+		</small>
+	</div>
+	<button class="donation_btn" onclick="goDonate(${dto.content_id})">후원하기</button>
 </div>
+<script>
+	function goDonate(contentId) {
+		location.href = '/donation/pay.do?content_id=' + contentId;
+	}
+</script>
 </body>
 </html>
