@@ -19,10 +19,8 @@
 			<input type="file" id="edit_popup_img" name="imgFile" accept="image/*" />
 			<!-- 현재 이미지 출력 -->
 			<div id="current_image_container" style="display:none;">
-				<label>현재 이미지:</label>
+				<label>현재 이미지: <span id="current_image_name"></span></label>
 				<img id="current_image" src="" alt="배지 이미지" width="100" />
-				<!-- 현재 이미지 파일명 표시 (hidden) -->
-				<p>파일명: <span id="current_image_name"></span></p> <!-- 파일명 표시 -->
 			</div>
 		</div>
 

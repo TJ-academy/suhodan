@@ -367,8 +367,8 @@ public class AdminController {
 			if (!dto.getImgFile().isEmpty()) {
 				img = dto.getImgFile().getOriginalFilename();
 				ServletContext application = request.getSession().getServletContext();
-				String path1 = application.getRealPath("/resources/badge_img/");
-				dto.getImgFile().transferTo(new File(path1 + img));
+				String path = application.getRealPath("/resources/badge_img/");
+				dto.getImgFile().transferTo(new File(path + img));
 			}
 			dto.setImg(img);
 			badgeDao.insert(dto);
@@ -410,8 +410,8 @@ public class AdminController {
 		String img = badgeDao.img_file_info(badge_id);
 		if (img != null && !img.equals("-")) {
 			ServletContext application = request.getSession().getServletContext();
-			String path1 = application.getRealPath("/resources/badge_img/");
-			File f = new File(path1 + img);
+			String path = application.getRealPath("/resources/badge_img/");
+			File f = new File(path + img);
 			if (f.exists())
 				f.delete();
 		}
@@ -435,5 +435,64 @@ public class AdminController {
 		mav.addObject("currentPage", pu.getCurrentPage());
 		mav.addObject("totalPage", pu.getTotalPage());
 		return mav;
+	}
+	
+	@PostMapping("donation_insert.do")
+	public String donation_insert(DonationConDTO dto, HttpServletRequest request) {
+		String filename = "";
+		try {
+			if (!dto.getFile1().isEmpty()) {
+				filename = dto.getFile1().getOriginalFilename();
+				ServletContext application = request.getSession().getServletContext();
+				String path = application.getRealPath("/resources/donation_img/");
+				dto.getFile1().transferTo(new File(path + filename));
+			}
+			dto.setFilename(filename);
+			donationDao.insert(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error"; // 예외 처리
+		}
+		return "redirect:/admin/donation_list.do";
+	}
+	
+	@PostMapping("donation_update.do")
+	public String donation_update(DonationConDTO dto, HttpServletRequest request) {
+		String filename = "";
+		try {
+			// 기존 이미지 파일명을 받는다.
+			String currentImg = donationDao.file_info(dto.getContent_id());
+
+			if (!dto.getFile1().isEmpty()) {
+				// 새 이미지가 업로드되면 기존 파일명을 덮어씌운다.
+				filename = dto.getFile1().getOriginalFilename();
+				ServletContext application = request.getSession().getServletContext();
+				String path = application.getRealPath("/resources/donation_img/");
+				dto.getFile1().transferTo(new File(path + filename));
+			} else {
+				// 새 이미지가 없으면 기존 이미지를 유지한다.
+				filename = currentImg;
+			}
+			dto.setFilename(filename);
+			donationDao.update(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error"; // 예외 처리
+		}
+		return "redirect:/admin/donation_list.do";
+	}
+	
+	@GetMapping("donation_delete.do")
+	public String donation_delete(@RequestParam(name = "content_id") int content_id, HttpServletRequest request) {
+		String filename = donationDao.file_info(content_id);
+		if (filename != null && !filename.equals("-")) {
+			ServletContext application = request.getSession().getServletContext();
+			String path = application.getRealPath("/resources/donation_img/");
+			File f = new File(path + filename);
+			if (f.exists())
+				f.delete();
+		}
+		donationDao.delete(content_id);
+		return "redirect:/admin/donation_list.do";
 	}
 }

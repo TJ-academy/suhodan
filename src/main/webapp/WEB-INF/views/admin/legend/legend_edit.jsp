@@ -29,11 +29,8 @@
 				id="edit_popup_img" name="imgFile" accept="image/*" />
 			<!-- 현재 이미지 출력 -->
 			<div id="current_image_container" style="display: none;">
-				<label>현재 이미지:</label> <img id="current_image" src="" alt="배지 이미지"
+				<label>현재 이미지: <span id="current_image_name"></span></label> <img id="current_image" src="" alt="설화 이미지"
 					width="100" />
-				<p>
-					파일명: <span id="current_image_name"></span>
-				</p>
 			</div>
 		</div>
 
@@ -41,11 +38,8 @@
 			<label for="edit_popup_tts_audio">오디오 파일</label> <input type="file"
 				id="edit_popup_tts_audio" name="ttsAudioFile" accept="audio/*" />
 			<div id="current_tts_audio_container" style="display: none;">
-				<label>현재 오디오:</label> <img id="current_tts_audio" src=""
+				<label>현재 오디오: <span id="current_tts_audio_name"></span></label> <img id="current_tts_audio" src=""
 					alt="오디오 파일" width="100" />
-				<p>
-					파일명: <span id="current_tts_audio"></span>
-				</p>
 			</div>
 		</div>
 
@@ -53,6 +47,5 @@
 
 		<button type="submit" class="button">수정</button>
 		<button type="button" class="button close-edit-popup">닫기</button>
-		<%-- 닫기 버튼 class 추가 --%>
 	</form>
 </div>
