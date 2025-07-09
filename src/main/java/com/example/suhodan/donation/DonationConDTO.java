@@ -2,6 +2,7 @@ package com.example.suhodan.donation;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Getter;
@@ -16,7 +17,9 @@ public class DonationConDTO {
 	private String title;
 	private String content;
 	private int target_amount;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date start_date;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date end_date;
 	private String location;
 	private Date created_at;

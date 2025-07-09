@@ -1,0 +1,121 @@
+	.error {
+		color: #E64B4E;
+		font-size: 14px;
+		margin-bottom: 10px;
+		display: block;
+		margin-left:4px;
+	}
+	
+	  body {
+    background-color: #F7EAD9;
+    margin: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: #6B4F3B;
+  }
+
+	.join_text {
+		text-align: center;
+		color: #9C6B4F;
+		font-size: 30px;
+		margin-top: 70px;
+		font-weight: bold;
+	}
+  /* 메뉴 포함된 상단 여백 조절 */
+  .join_box {
+    display: flex;
+    justify-content: center;
+  }
+
+  .join_container {
+    width: 777px;
+    background: #F5F1EB;
+    border-radius: 20px;
+    padding: 100px 80px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    color: #9C6B4F;
+  }
+
+  form {
+    text-align: left;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    color: #000000;
+  }
+
+  .input-group {
+  	display: flex;
+  	align-items: center;
+  	gap: 10px;
+  	margin-bottom: 5px;
+  }
+  
+  input[type="text"],
+  input[type="password"] {
+    height: 40px;
+    padding: 8px 12px;
+    border: 1.5px solid #C9B7A6;
+    border-radius: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+  }
+
+  input[type="text"]:focus,
+  input[type="password"]:focus {
+    border-color: #9C6B4F;
+    outline: none;
+  }
+
+  .dupliBtn {
+  	width: 121px;
+  	height: 40px;
+  	background: #9C6B4F;
+  	color: white;
+  	border-radius: 20px;
+  	border: none;
+  	cursor: pointer;
+  	transition: background-color 0.3s ease;
+  }
+  
+  .dupliBtn:hover {
+  	background: #7a5239;
+  }
+  
+  .text1 {
+  	color: #999999;
+  	font-size: 16px;
+  	margin-top: 20px;
+  	margin-bottom: 0;
+  }
+
+  #submitBtn {
+  margin-top: 30px;
+  width: 146px;
+  height: 57px;
+  background-color: #9C6B4F;
+  border-color: #9C6B4F;
+  border-radius: 15px;
+  font-size: 18px;
+  font-weight: 600;
+  color:white;
+  cursor: pointer;
+  align-items: center;
+  transition: background-color 0.3s ease;
+  margin-left: 100px;
+}
+
+#submitBtn:disabled {
+  color: #9C6B4F;
+  background-color: #D9C2AD;
+  cursor: not-allowed;
+}
+
+#submitBtn:not(:disabled):hover {
+  background-color: #602B0D;
+}
+

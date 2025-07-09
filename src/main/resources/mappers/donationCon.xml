@@ -25,4 +25,22 @@
 	<select id="detail" resultType="com.example.suhodan.donation.DonationConDTO">
 		select * from suho_donation_content where content_id=#{content_id}
 	</select>
+	<select id="getCount" resultType="int">
+		select count(*)
+		from suho_donation_content
+	</select>
+	<select id="listPaging" parameterType="map" resultType="com.example.suhodan.donation.DonationConDTO">
+		select *
+		from (
+			select ROWNUM as rn, A.*
+			from (
+				select *
+				from suho_donation_content
+				order by created_at desc
+			) A
+			where ROWNUM &lt;= #{end}
+		)
+		where rn &gt;= #{start}
+	</select>
+	
 </mapper>

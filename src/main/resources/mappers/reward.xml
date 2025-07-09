@@ -5,10 +5,29 @@
 	<select id="list" resultType="com.example.suhodan.reward.RewardDTO">
 		select * from suho_reward order by reward_id
 	</select>
+
+	<select id="listPaging" resultType="com.example.suhodan.reward.RewardDTO">
+	    SELECT * FROM (
+	        SELECT ROWNUM AS rnum, a.*
+	        FROM (
+	            SELECT * FROM suho_reward ORDER BY reward_id DESC
+	        ) a
+	        WHERE ROWNUM &lt;= #{end}
+	    )
+	    WHERE rnum &gt;= #{start}
+	</select>
+	
+	<select id="getTotalCount" resultType="int">
+	    SELECT COUNT(*) FROM suho_reward
+	</select>
 	
 	<insert id="insert">
 		insert into suho_reward (reward_id, name, description, img, legend_id) 
 		values (suho_reward_seq.nextval, #{name}, #{description}, #{img}, #{legend_id}
-	
 	</insert>
+	
+	<select id="img_file_info" resultType="String">
+		select img from suho_reward where reward_id = #{reward_id}
+	</select>
+	
 </mapper>

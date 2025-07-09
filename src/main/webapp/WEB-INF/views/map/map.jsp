@@ -14,9 +14,9 @@
 </head>
 <body>
 <%@ include file="../include/menu.jsp" %>
-<a href="/legend/legend.do" class="legend-button">전체 설화 보기</a>
 
 <div id="map"></div>
+
 <script>
   <% 
     String rawJson = (String) request.getAttribute("suhoListJson");
@@ -29,7 +29,29 @@
   var suhoList = [];
   console.error("DB에서 지도 데이터를 불러오지 못했습니다.");
   <% } %>
+  
+  L.Control.SeeButton = L.Control.extend({
+    onAdd: function(map) {
+      const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control custom-see-container');
+      
+      const btn = L.DomUtil.create('button', 'see', container);
+      btn.innerHTML = '전체 설화 보기';
+      btn.onclick = function () {
+        location.href = '/legend/legend.do';
+      };
+
+      L.DomEvent.disableClickPropagation(btn);
+      return container;
+    },
+
+    onRemove: function(map) {}
+  });
+
+  L.control.seeButton = function(opts) {
+    return new L.Control.SeeButton(opts);
+  };
 </script>
+
 <script src="/js/map.js"></script>
 </body>
 </html>
