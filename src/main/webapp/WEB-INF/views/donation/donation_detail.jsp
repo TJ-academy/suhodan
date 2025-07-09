@@ -51,6 +51,7 @@
 		line-height: 65px;
 		display: block;
 		margin: 0 auto;
+		border-color: #9C6B4F;
 	}
 	.donation_btn:hover {
 		background: #5E2200;
@@ -73,25 +74,21 @@
 	<p class="content_style">
 	  <c:out value="${fn:replace(dto.content, '.', '.<br>')}" escapeXml="false" />
 	</p>
-
 	<!--  프로그레스바 영역 -->
 	<div style="margin: 20px 0; text-align:center;">
+		<span style="float:left; font-size: 15px;">
+			<fmt:formatNumber value="${dto.donated_amount}" />&nbsp;원
+		</span>
 		<c:set var="progressPercent" value="${dto.target_amount > 0 ? (dto.donated_amount * 100) / dto.target_amount : 0}" />
 		<div style="background:#eee; border-radius: 8px; height: 20px; width: 100%; overflow: hidden;">
 			<div style="background:#4caf50; height: 100%; width: ${progressPercent}%;"></div>
 		</div>
-		<small>
-			<fmt:formatNumber value="${dto.donated_amount}" /> 원 후원 / 목표 
-			<fmt:formatNumber value="${dto.target_amount}" /> 원
-			(${progressPercent}% 달성)
-		</small>
+		<span style="display: block; text-align: right; color: #535353; font-size: 13px;">
+			<fmt:formatNumber value="${dto.target_amount}" />&nbsp;원
+		</span>
 	</div>
-	<button class="donation_btn" onclick="goDonate(${dto.content_id})">후원하기</button>
+	<button class="donation_btn" onclick="location.href='/donation/info/${dto.content_id}'">후원하기</button>
+	
 </div>
-<script>
-	function goDonate(contentId) {
-		location.href = '/donation/pay.do?content_id=' + contentId;
-	}
-</script>
 </body>
 </html>
