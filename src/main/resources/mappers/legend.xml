@@ -28,7 +28,7 @@
 
 	<update id="update">
 		update suho_legend
-		set title = #{title}, location = #{location}, story = #{story}, source = ${source}, img = #{img}, tts_audio = #{tts_audio}
+		set title = #{title}, location = #{location}, story = #{story}, source = #{source}, img = #{img}, tts_audio = #{tts_audio}
 		where legend_id = #{legend_id} 
 	</update>
 
