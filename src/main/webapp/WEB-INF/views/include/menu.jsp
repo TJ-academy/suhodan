@@ -13,9 +13,9 @@
             </a>
         </li>
         <li class="menu-item"><a href="/">메인</a></li>
-        <li class="menu-item"><a href="/map">설화 지도</a></li>
-        <li class="menu-item"><a href="/shop/list.do">보따리 상점</a></li>
-        <li class="menu-item"><a href="/donation/list.do">기부하기</a></li>
+        <li class="menu-item"><a href="/map" class="${currentCategory != null && currentCategory.equals('map') ? 'active' : ''}">설화 지도</a></li>
+        <li class="menu-item"><a href="/shop/list.do" class="${currentCategory != null && currentCategory.equals('shop') ? 'active' : ''}">보따리 상점</a></li>
+        <li class="menu-item"><a href="/donation/list.do" class="${currentCategory != null && currentCategory.equals('donation') ? 'active' : ''}">기부하기</a></li>
         <li class="user-menu">
             <c:choose>
                 <c:when test="${sessionScope.user_id == null}">

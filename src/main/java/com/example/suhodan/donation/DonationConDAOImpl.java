@@ -54,6 +54,11 @@ public class DonationConDAOImpl implements DonationConDAO {
 	public List<DonationConDTO> listPaging(Map<String, Object> paramMap) {
 		return sqlSession.selectList("donationCon.listPaging", paramMap);
 	}
-
+	
+	//결제관련
+	@Override
+	public void insertTransaction(DonationTransactionDTO dto) {
+	    sqlSession.insert("donationCon.insertTransaction", dto);
+	}
 
 }

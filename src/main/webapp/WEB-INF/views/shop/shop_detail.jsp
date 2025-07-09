@@ -17,17 +17,18 @@ body {
 
 .outer-box {
 	max-width: 1000px;
-	margin: 50px auto;
+	margin: 60px auto;
 	background-color: #F5F1EB;
 	border: 1px solid #D8C2A6;
 	border-radius: 20px;
-	padding: 50px;
+	padding: 50px 60px;
 	position: relative;
+	box-sizing: border-box;
 }
 
 .back-button {
 	position: absolute;
-top: 50px; left: 50px;
+	top: 30px; left: 30px;
 	display: flex;
 	align-items: center;
 	background-color: transparent;
@@ -38,78 +39,71 @@ top: 50px; left: 50px;
 }
 
 .back-button img {
-	width: 15px;
-	height: 25px;
-	margin-top: 40px;
+	width: 18px;
+	height: 26px;
+	margin-top: 30px;
 }
 
-
-.logo-box {
-	text-align: center;
-	margin-bottom: 10px;
-	color: #A49D9D;
-}
-
-.logo-box img {
-	width: 180px;
-	margin-bottom: 10px;
-}
-
-.logo-box p {
-	font-size: 17px;
-	color: #A49D9D;
-}
-
+/* 메인 이미지 */
 .main-image {
-	text-align: center;
-	margin-bottom: 70px;
+	width: 100%;
+	max-width: 900px;
+	height: 500px;
+	margin: 90px auto 40px;
+	overflow: hidden;
 }
 
 .main-image img {
 	width: 100%;
-	max-width: 500px;
-	border-radius: 10px;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* 상품 상단 정렬 */
+.product-top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
 }
 
 .product-title {
-	font-size: 18px;
+	font-size: 26px;
 	font-weight: bold;
-	margin: 10px 0 5px;
-	color: #222;
+	color: #000000;
 	text-align: left;
+}
+
+.product-meta {
+	display: flex;
+	align-items: center;
+	gap: 12px;
 }
 
 .product-price {
-	font-size: 20px;
+	font-size: 26px;
 	font-weight: bold;
-	color: #000;
-	text-align: left;
-	margin-bottom: 15px;
+	color: #000000;
 }
 
-.select-box {
-	text-align: left;
-	margin-bottom: 30px;
-}
-
-.select-box select {
+.amount-select {
 	padding: 6px 12px;
 	font-size: 16px;
 	border: 1px solid #ccc;
 	border-radius: 8px;
-	margin-right: 8px;
 }
 
-
+/* 설명 영역 */
 .product-description {
-	font-size: 15px;
-	line-height: 1.6;
+	font-size: 22px;
+	line-height: 1.7;
 	color: #333;
-	margin-bottom: 30px;
+	margin-bottom: 40px;
 	text-align: center;
 	white-space: pre-line;
 }
 
+/* 상세 이미지들 */
 .detail-images {
 	display: flex;
 	flex-direction: column;
@@ -124,6 +118,7 @@ top: 50px; left: 50px;
 	border-radius: 8px;
 }
 
+/* 버튼 */
 .add-to-cart-btn {
 	display: block;
 	width: 100%;
@@ -151,43 +146,46 @@ top: 50px; left: 50px;
 
 <div class="outer-box">
 
+	<!-- 뒤로가기 버튼 -->
 	<button class="back-button" onclick="history.back();">
 		<img src="/resources/images/back.png" alt="뒤로가기 아이콘">
 	</button>
-	<div class="logo-box">
-		<img src="/resources/images/나무로고.png" alt="로고" />
-		<p>이 상품의 수익금은<br>안동 지역 어르신들을 위한 버스 정류장 쉼터 설치에 사용됩니다.</p>
-	</div>
 
+	<!-- 메인 이미지 -->
 	<div class="main-image">
 		<img src="/resources/goods_img/${dto.img}"
 			alt="${dto.name}"
-			onerror="this.onerror=null; this.src='/resources/images/설화수 로고.png';" />
+			onerror="this.onerror=null; this.src='/resources/shop_img/설화수.png';" />
 	</div>
 
-	<div class="product-title">${dto.name}</div>
-	<div class="product-price">
-		<fmt:formatNumber value="${dto.price}" pattern="#,###" />원
+	<!-- 상품명 + 가격 + 수량 -->
+	<div class="product-top">
+		<div class="product-title">${dto.name}</div>
+		<div class="product-meta">
+			<div class="product-price">
+				<fmt:formatNumber value="${dto.price}" pattern="#,###" />원
+			</div>
+			<form name="form1" method="post" action="/shop/cart/insert.do">
+				<input type="hidden" name="goods_id" value="${dto.goods_id}">
+				<select name="amount" class="amount-select">
+					<c:forEach begin="1" end="10" var="i">
+						<option value="${i}">${i}</option>
+					</c:forEach>
+				</select>
+			</form>
+		</div>
 	</div>
 
-	<div class="select-box">
-		<form name="form1" method="post" action="/shop/cart/insert.do">
-			<input type="hidden" name="goods_id" value="${dto.goods_id}">
-			<select name="amount">
-				<c:forEach begin="1" end="10" var="i">
-					<option value="${i}">${i}</option>
-				</c:forEach>
-			</select>
-		</form>
-	</div>
-
+	<!-- 상품 설명 -->
 	<div class="product-description">${dto.description}</div>
 
+	<!-- 상세 이미지 -->
 	<div class="detail-images">
 		<img src="/resources/goods_detail_img/${dto.detail_img}" alt="디테일1">
 		<img src="/resources/goods_detail_img/${dto.detail_img}" alt="디테일2">
 	</div>
 
+	<!-- 장바구니 버튼 -->
 	<button class="add-to-cart-btn" onclick="document.form1.submit()">장바구니 담기</button>
 </div>
 

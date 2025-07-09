@@ -11,5 +11,8 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AdminInterceptor())
                 .addPathPatterns("/admin/**");
+        
+        registry.addInterceptor(new MenuInterceptor())
+        .addPathPatterns("/**"); // 인터셉터가 적용될 경로 설정
     }
 }

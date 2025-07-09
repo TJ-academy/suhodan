@@ -25,4 +25,7 @@ public class DonationConDTO {
 	private Date created_at;
 	private String filename;
 	private MultipartFile file1;
+	private int donated_amount; //누적 후원금액
+	//private long dDay; //D-DAY
+	private long dday;
 }
