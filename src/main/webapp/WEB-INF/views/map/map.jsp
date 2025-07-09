@@ -14,7 +14,8 @@
 </head>
 <body>
 <%@ include file="../include/menu.jsp" %>
-<a href="/legend/legend.do">전체 설화보기</a>
+<a href="/legend/legend.do" class="legend-button">전체 설화 보기</a>
+
 <div id="map"></div>
 <script>
   <% 
