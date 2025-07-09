@@ -198,18 +198,6 @@ body {
 </div>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script>
-function addToCart(reward_id) {
-    $.ajax({
-        url: "/shop/cart/insert.do",
-        method: "POST",
-        data: {
-            reward_id: reward_id,
-            amount: 1
-        },
-        success: function() {
-            alert("장바구니에 담겼습니다!");
-        },
 
 </script>
 </body>
