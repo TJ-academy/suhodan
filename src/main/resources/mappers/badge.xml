@@ -26,6 +26,12 @@
 		values (suho_badge_seq.nextval, #{name}, #{description}, #{img})
 	</insert>
 	
+	<update id="update">
+		update suho_badge
+		set name = #{name}, description = #{description}, img = #{img}
+		where badge_id = #{badge_id} 
+	</update>
+	
 	<delete id="delete">
 		delete from suho_badge where badge_id = #{badge_id}
 	</delete>

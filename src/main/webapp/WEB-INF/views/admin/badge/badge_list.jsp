@@ -77,14 +77,21 @@
 						$('#overlay').hide();
 					}
 
-					function openEditPopup(badgeId, location, name, price,
-							description, img, detail_img) {
+					function openEditPopup(badgeId, name, description, img) {
 						$('#edit_popup').show();
 						$('#overlay').show();
 						$('#edit_popup_badge_id').val(badgeId);
 						$('#edit_popup_name').val(name);
 						$('#edit_popup_description').val(description);
 						$('#edit_popup_img').val('');
+						
+						if (img) {
+							$('#current_image_container').show();  // 기존 이미지 컨테이너를 보이게 함
+							$('#current_image').attr('src', '/resources/badge_img/' + img);  // 기존 이미지 경로 설정
+							$('#current_image_name').text(img);  // 파일명 텍스트로 설정
+						} else {
+							$('#current_image_container').hide();  // 이미지가 없다면 숨김
+						}
 					}
 
 					function closeEditPopup() {
