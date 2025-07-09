@@ -91,6 +91,23 @@
                 $('#edit_popup_price').val(price);
                 $('#edit_popup_img').val('');
                 $('#edit_popup_detail_img').val('');
+                
+                if (img) {
+					$('#current_image_container').show();  // 기존 이미지 컨테이너를 보이게 함
+					$('#current_image').attr('src', '/resources/goods_img/' + img);  // 기존 이미지 경로 설정
+					$('#current_image_name').text(img);  // 파일명 텍스트로 설정
+				} else {
+					$('#current_image_container').hide();  // 이미지가 없다면 숨김
+				}
+                
+                if (detail_img) {
+					$('#current_detail_image_container').show();  // 기존 이미지 컨테이너를 보이게 함
+					$('#current_detail_image').attr('src', '/resources/goods_detail_img/' + detail_img);  // 기존 이미지 경로 설정
+					$('#current_detail_image_name').text(detail_img);  // 파일명 텍스트로 설정
+				} else {
+					$('#current_detail_image_container').hide();  // 이미지가 없다면 숨김
+				}       
+                
             }
 
             function closeEditPopup() {
@@ -99,7 +116,7 @@
             }
 
             function goods_delete(goods_id) {
-                if (confirm("굿즈를 삭제하시겠습니까?")) {
+                if (confirm("상품을 삭제하시겠습니까?")) {
                     window.location.href = "goods_delete.do?goods_id=" + goods_id;
                 }
             }

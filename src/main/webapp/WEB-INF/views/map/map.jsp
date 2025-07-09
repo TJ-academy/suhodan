@@ -14,7 +14,9 @@
 </head>
 <body>
 <%@ include file="../include/menu.jsp" %>
+
 <div id="map"></div>
+
 <script>
   <% 
     String rawJson = (String) request.getAttribute("suhoListJson");
@@ -29,27 +31,27 @@
   <% } %>
   
   L.Control.SeeButton = L.Control.extend({
-	  onAdd: function(map) {
-	    const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control custom-see-container');
-	    
-	    const btn = L.DomUtil.create('button', 'see', container);
-	    btn.innerHTML = '전체 설화 보기';
-	    btn.onclick = function () {
-	      location.href = '/legend/legend.do';
-	    };
+    onAdd: function(map) {
+      const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control custom-see-container');
+      
+      const btn = L.DomUtil.create('button', 'see', container);
+      btn.innerHTML = '전체 설화 보기';
+      btn.onclick = function () {
+        location.href = '/legend/legend.do';
+      };
 
-	    L.DomEvent.disableClickPropagation(btn);
-	    return container;
-	  },
+      L.DomEvent.disableClickPropagation(btn);
+      return container;
+    },
 
-	  onRemove: function(map) {}
-	});
+    onRemove: function(map) {}
+  });
 
-	L.control.seeButton = function(opts) {
-	  return new L.Control.SeeButton(opts);
-	};
-
+  L.control.seeButton = function(opts) {
+    return new L.Control.SeeButton(opts);
+  };
 </script>
+
 <script src="/js/map.js"></script>
 </body>
 </html>

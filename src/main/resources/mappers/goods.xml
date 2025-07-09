@@ -26,6 +26,12 @@
 		values (suho_goods_seq.nextval, #{name}, #{description}, #{img}, #{detail_img}, #{location}, #{price})
 	</insert>
 	
+	<update id="update">
+		update suho_goods
+		set location = #{location}, name = #{name}, price = #{price}, description = #{description}, img = #{img}, detail_img = #{detail_img}
+		where goods_id = #{goods_id} 
+	</update>
+	
 	<delete id="delete">
 		delete from suho_goods where goods_id = #{goods_id}
 	</delete>
