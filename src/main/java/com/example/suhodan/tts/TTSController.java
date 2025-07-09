@@ -17,7 +17,7 @@ public class TTSController {
 
     @GetMapping("/admin/tts_form.do")
     public String tts_form() {
-        return "/admin/tts_form";
+        return "/admin/legend/tts_form";
     }
     
     @PostMapping("/admin/generate_speech.do")

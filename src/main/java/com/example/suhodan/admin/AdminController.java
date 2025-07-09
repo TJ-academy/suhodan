@@ -15,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.suhodan.badge.BadgeDAO;
 import com.example.suhodan.badge.BadgeDTO;
+import com.example.suhodan.donation.DonationConDAO;
+import com.example.suhodan.donation.DonationConDTO;
 import com.example.suhodan.goods.GoodsDAO;
 import com.example.suhodan.goods.GoodsDTO;
 import com.example.suhodan.legend.LegendDAO;
@@ -41,6 +43,8 @@ public class AdminController {
 	BadgeDAO badgeDao;
 	@Autowired
 	GoodsDAO goodsDao;
+	@Autowired
+	DonationConDAO donationDao;
 
 	@GetMapping("/")
 	public String home() {
@@ -213,12 +217,31 @@ public class AdminController {
 	}
 
 	@GetMapping("goods_list.do")
+	public ModelAndView goods_list(@RequestParam(value = "page", defaultValue = "1") int page, ModelAndView mav) {
+		int totalCount = goodsDao.getTotalCount();
+		PageUtil pu = new PageUtil(page, totalCount);
+
+		Map<String, Integer> param = new HashMap<>();
+		param.put("start", pu.getStart());
+		param.put("end", pu.getEnd());
+
+		List<GoodsDTO> list = goodsDao.listPaging(param);
+
+		mav.setViewName("/admin/goods/goods_list");
+		mav.addObject("list", list);
+		mav.addObject("currentPage", pu.getCurrentPage());
+		mav.addObject("totalPage", pu.getTotalPage());
+		return mav;
+	}
+	
+	/*
+	@GetMapping("goods_list.do")
 	public ModelAndView goods_list(ModelAndView mav) {
 		mav.setViewName("/admin/goods/goods_list");
 		mav.addObject("list", goodsDao.list());
 		return mav;
 	}
-
+	*/
 	@PostMapping("goods_insert.do")
 	public String goods_insert(GoodsDTO dto, HttpServletRequest request) {
 
@@ -313,11 +336,29 @@ public class AdminController {
 	}
 
 	@GetMapping("badge_list.do")
+	public ModelAndView badge_list(@RequestParam(value = "page", defaultValue = "1") int page, ModelAndView mav) {
+		int totalCount = badgeDao.getTotalCount();
+		PageUtil pu = new PageUtil(page, totalCount);
+
+		Map<String, Integer> param = new HashMap<>();
+		param.put("start", pu.getStart());
+		param.put("end", pu.getEnd());
+
+		List<BadgeDTO> list = badgeDao.listPaging(param);
+
+		mav.setViewName("/admin/badge/badge_list");
+		mav.addObject("list", list);
+		mav.addObject("currentPage", pu.getCurrentPage());
+		mav.addObject("totalPage", pu.getTotalPage());
+		return mav;
+	}
+	/*
+	@GetMapping("badge_list.do")
 	public ModelAndView badge_list(ModelAndView mav) {
 		mav.setViewName("/admin/badge/badge_list");
 		mav.addObject("list", badgeDao.list());
 		return mav;
-	}
+	}*/
 
 	@PostMapping("badge_insert.do")
 	public String badge_insert(BadgeDTO dto, HttpServletRequest request) {
@@ -376,5 +417,23 @@ public class AdminController {
 		}
 		badgeDao.delete(badge_id);
 		return "redirect:/admin/badge_list.do";
+	}
+	
+	@GetMapping("donation_list.do")
+	public ModelAndView donation_list(@RequestParam(value = "page", defaultValue = "1") int page, ModelAndView mav) {
+		int totalCount = donationDao.getCount();
+		PageUtil pu = new PageUtil(page, totalCount);
+
+		Map<String, Object> param = new HashMap<>();
+		param.put("start", pu.getStart());
+		param.put("end", pu.getEnd());
+
+		List<DonationConDTO> list = donationDao.listPaging(param);
+
+		mav.setViewName("/admin/donation/donation_list");
+		mav.addObject("list", list);
+		mav.addObject("currentPage", pu.getCurrentPage());
+		mav.addObject("totalPage", pu.getTotalPage());
+		return mav;
 	}
 }
