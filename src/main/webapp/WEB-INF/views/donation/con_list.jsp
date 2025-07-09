@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,6 +88,7 @@
 
   <div class="card-container" style="margin-top: 20px;">
     <c:forEach var="row" items="${list}">
+    <c:set var="progressPercent" value="${row.target_amount > 0 ? (row.donated_amount * 100) / row.target_amount : 0}" />
   <div class="card">
     <a href="/donation/detail/${row.content_id}">
       <img src="../../resources/donation_img/${row.filename}" class="card-img-top" alt="썸네일 이미지" />
@@ -95,12 +97,12 @@
       <p class="card-text">
         <span><strong>${row.title}</strong></span>
         <span>${row.content}</span>
-        <span>
-          <fmt:formatDate value="${row.start_date}" pattern="yyyy-MM-dd" /> -
-          <fmt:formatDate value="${row.end_date}" pattern="yyyy-MM-dd" />
-        </span>
         <!-- 프로그레스바 추가 -->
         <div style="margin-top:10px;">
+          <span style="color: #4C6B3C; font-weight: bold;">
+	          <fmt:formatNumber value="${progressPercent}" maxFractionDigits="0" />%
+          </span>
+          ${row.dday}일 남음
           <div style="background:#eee; border-radius: 8px; height: 20px; width: 100%; overflow: hidden;">
             <div style="background:#4caf50; height: 100%; width: ${fn:escapeXml((row.donated_amount / row.target_amount) * 100)}%;">
             </div>

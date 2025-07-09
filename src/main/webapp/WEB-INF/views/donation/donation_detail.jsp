@@ -83,7 +83,7 @@
 		<small>
 			<fmt:formatNumber value="${dto.donated_amount}" /> 원 후원 / 목표 
 			<fmt:formatNumber value="${dto.target_amount}" /> 원
-			(${progressPercent}% 달성)
+			<fmt:formatNumber value="${progressPercent}" maxFractionDigits="0" />% 달성
 		</small>
 	</div>
 	<button class="donation_btn" onclick="goDonate(${dto.content_id})">후원하기</button>
