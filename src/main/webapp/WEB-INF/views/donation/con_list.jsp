@@ -87,25 +87,36 @@
 
   <div class="card-container" style="margin-top: 20px;">
     <c:forEach var="row" items="${list}">
-      <div class="card">
-        <a href="/donation/detail/${row.content_id}">
-          <img src="../../resources/donation_img/${row.filename}" class="card-img-top" alt="썸네일 이미지" />
-        </a>
-        <div class="card-body" onclick="location.href='/donation/detail/${row.content_id}'">
-          <p class="card-text">
-            <span><strong>${row.title}</strong></span>
-            <span>${row.content}</span>
-            <span>
-              <fmt:formatDate value="${row.start_date}" pattern="yyyy-MM-dd" /> -
-              <fmt:formatDate value="${row.end_date}" pattern="yyyy-MM-dd" />
-            </span>
-          </p>
+  <div class="card">
+    <a href="/donation/detail/${row.content_id}">
+      <img src="../../resources/donation_img/${row.filename}" class="card-img-top" alt="썸네일 이미지" />
+    </a>
+    <div class="card-body" onclick="location.href='/donation/detail/${row.content_id}'">
+      <p class="card-text">
+        <span><strong>${row.title}</strong></span>
+        <span>${row.content}</span>
+        <span>
+          <fmt:formatDate value="${row.start_date}" pattern="yyyy-MM-dd" /> -
+          <fmt:formatDate value="${row.end_date}" pattern="yyyy-MM-dd" />
+        </span>
+        <!-- 프로그레스바 추가 -->
+        <div style="margin-top:10px;">
+          <div style="background:#eee; border-radius: 8px; height: 20px; width: 100%; overflow: hidden;">
+            <div style="background:#4caf50; height: 100%; width: ${fn:escapeXml((row.donated_amount / row.target_amount) * 100)}%;">
+            </div>
+          </div>
+          <small>
+            <fmt:formatNumber value="${row.donated_amount}" /> 원 후원 / 목표 <fmt:formatNumber value="${row.target_amount}" /> 원
+          </small>
         </div>
-        <c:if test="${sessionScope.user_id == 'admin'}">
-          <button onclick="location.href='/donation/edit/${row.content_id}'">편집</button>
-        </c:if>
-      </div>
-    </c:forEach>
+      </p>
+    </div>
+    <c:if test="${sessionScope.user_id == 'admin'}">
+      <button onclick="location.href='/donation/edit/${row.content_id}'">편집</button>
+    </c:if>
+  </div>
+</c:forEach>
+
 
     <!-- 페이지네이션 부분 -->
     <div class="container">
