@@ -74,4 +74,6 @@ body {
 
 .nav .menu-item a.active {
 	font-weight: bold !important; /* 현재 페이지에 해당하는 링크를 bold 처리 */
+	text-decoration: underline;
+	
 }

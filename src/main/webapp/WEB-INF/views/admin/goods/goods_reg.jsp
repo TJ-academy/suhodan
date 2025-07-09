@@ -15,8 +15,8 @@
 		</div>
 
 		<div class="form-item">
-			<label for="reg_popup_price">가격</label> <input type="text"
-				id="reg_popup_price" name="price" required />
+			<label for="reg_popup_price">가격</label> <input type="number"
+				id="reg_popup_price" name="price" required />원
 		</div>
 		
 		<div class="form-item">
