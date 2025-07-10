@@ -23,38 +23,44 @@
 	</select>
 
 	<select id="listPagingSearch"
-		resultType="com.example.suhodan.donation.DonationListDTO">
-		SELECT *
-		FROM (
-		SELECT ROWNUM AS rnum, dt.transaction_id,
-		dt.content_id, c.title AS content_title,
-		dt.donor_id, dt.amount, dt.donation_date,
-		dt.payment_method, dt.status,
-		dt.merchant_uid, dt.refund_amount,
-		dt.refund_date, dt.refund_reason,
-		dt.reward_id, r.name AS reward_name
-		FROM (
-		SELECT *
-		FROM donation_transaction
-		<choose>
-			<when test="search_option == 'donor_id'">
-				WHERE dt.donor_id = #{keyword}  <!-- donor_id 조건 -->
-			</when>
-			<when test="search_option == 'content_title'">
-				WHERE c.title LIKE CONCAT('%', #{keyword}, '%')  <!-- content_title 조건 -->
-			</when>
-			<otherwise>
-				<!-- 기본적으로 전체 조회 -->
-			</otherwise>
-		</choose>
-		ORDER BY donation_date DESC
-		) dt
-		JOIN suho_donation_content c ON dt.content_id = c.content_id
-		LEFT JOIN suho_reward r ON dt.reward_id = r.reward_id
-		WHERE ROWNUM &lt;= #{end}
-		)
-		WHERE rnum &gt;= #{start};
-	</select>
+        resultType="com.example.suhodan.donation.DonationListDTO">
+    SELECT *
+    FROM (
+        SELECT
+            ROWNUM AS rnum,
+            dt.transaction_id,
+            dt.content_id,
+            c.title AS content_title,
+            dt.donor_id,
+            dt.amount,
+            dt.donation_date,
+            dt.payment_method,
+            dt.status,
+            dt.merchant_uid,
+            dt.refund_amount,
+            dt.refund_date,
+            dt.refund_reason,
+            dt.reward_id,
+            r.name AS reward_name
+        FROM
+            donation_transaction dt
+        JOIN
+            suho_donation_content c ON dt.content_id = c.content_id
+        LEFT JOIN
+            suho_reward r ON dt.reward_id = r.reward_id
+        <where>
+            <if test="search_option == 'donor_id' and keyword != ''">
+                dt.donor_id = #{keyword}
+            </if>
+            <if test="search_option == 'content_title' and keyword != ''">
+                AND c.title LIKE '%' || #{keyword} || '%'
+            </if>
+            </where>
+        ORDER BY dt.donation_date DESC
+    )
+    WHERE rnum BETWEEN #{start} AND #{end}
+</select>
+
 
 	<select id="getTotalCount" resultType="int">
 		SELECT COUNT(*)
