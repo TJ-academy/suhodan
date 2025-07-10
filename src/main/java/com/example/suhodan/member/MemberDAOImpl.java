@@ -71,5 +71,10 @@ public class MemberDAOImpl implements MemberDAO {
 	public String login(MemberDTO dto) {
 		return sqlSession.selectOne("member.login", dto);
 	}
+	
+	@Override
+	public void updatePassword(MemberDTO dto) {
+		sqlSession.update("member.updatePassword", dto);
+	}
 
 }

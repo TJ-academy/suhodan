@@ -36,6 +36,13 @@
 		where user_id=#{user_id}
 	</update>
 	
+	<update id="updatePassword">
+    UPDATE suho_user
+    SET passwd = MYPACK.ENCRYPT(#{passwd})
+    WHERE user_id = #{user_id}
+	</update>
+	
+	
 	<delete id="delete">
 		delete from suho_user where user_id = #{user_id}
 	</delete>
