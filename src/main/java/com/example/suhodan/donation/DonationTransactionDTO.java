@@ -26,4 +26,5 @@ public class DonationTransactionDTO {
     private int refund_amount;
     private Date refund_date;
     private String refund_reason;
+    private int reward_id;
 }

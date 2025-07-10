@@ -74,7 +74,7 @@ body {
 }
 
 .product-price {
-	font-size: 19px;
+	font-size: 21px;
 	font-weight: bold;
 	color: #000000;
 	margin-top: -10px;
@@ -107,6 +107,7 @@ body {
 	align-items: center;
 	justify-content: center;
 	margin-top: 20px;
+	margin-left: auto;
 }
 
 .cart-icon {
@@ -114,6 +115,7 @@ body {
 	height: 22px;
 	object-fit: contain;
 	display: block;
+	margin-left: auto;
 }
 
 .image-container {
@@ -169,7 +171,7 @@ body {
 <%@ include file="../include/menu.jsp" %>
 
 <div class="shop-header">
-	<img src="/resources/images/나무로고.png" alt="로고" />
+	<img src="/resources/images/logo_no_text.png" alt="로고" />
 	<p>당신의 따뜻한 마음이 작은 마을의 내일을 지켜줍니다.</p>
 </div>
 
@@ -183,15 +185,16 @@ body {
 			</div>
 			<div class="card-text">
 				<div class="card-top">
-					<form action="/shop/cart/insert.do" method="post">
-						<input type="hidden" name="goods_id" value="${row.goods_id}">
-						<input type="hidden" name="amount" value="1">
-						<div class="product-name">${row.name}</div>
-						<button type="submit" class="buy-icon-btn">
-							<img src="../../resources/shop_img/cart_plus.png" class="cart-icon" />
-						</button>
-					</form>
-				</div>
+    <div class="product-name">${row.name}</div>
+    <form action="/shop/cart/insert.do" method="post">
+        <input type="hidden" name="goods_id" value="${row.goods_id}">
+        <input type="hidden" name="amount" value="1">
+        <button type="submit" class="buy-icon-btn">
+            <img src="../../resources/shop_img/cart_plus.png" class="cart-icon" />
+        </button>
+    </form>
+</div>
+
 				<div class="product-price">
 					<fmt:formatNumber value="${row.price}" pattern="#,###" />원
 				</div>

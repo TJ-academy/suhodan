@@ -29,25 +29,21 @@ public class MemberController {
 
    //로그인 처리
    @PostMapping("login_check.do")
-    public ModelAndView login_check(MemberDTO dto, HttpSession session) {
-        String name = memberDao.login(dto);
-        ModelAndView mav = new ModelAndView();
-
-        if (name != null) {
-            session.setAttribute("user_id", dto.getUser_id());
-            session.setAttribute("name", name);
-
-            if ("admin".equals(dto.getUser_id())) {
-                mav.setViewName("redirect:/admin/");
-            } else {
-                mav.setViewName("index");
-            }
-        } else {
-            mav.setViewName("member/login");
-            mav.addObject("message", "error");
-        }
-        return mav;
-    }
+   public ModelAndView login_check(MemberDTO dto, HttpSession session) {
+      String name = memberDao.login(dto);
+      if(name != null) {
+         session.setAttribute("user_id", dto.getUser_id());
+         session.setAttribute("name", name);
+      }
+      ModelAndView mav = new ModelAndView();
+      if(name != null) {
+         mav.setViewName("index");
+      } else {
+         mav.setViewName("member/login");
+         mav.addObject("message", "error");
+      }
+      return mav;
+   }
    
    //로그아웃
    @GetMapping("/logout.do")

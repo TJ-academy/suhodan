@@ -26,7 +26,7 @@
 	width: 400px;
 	margin: 20px auto;
 	text-align: center;
-	box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .details-box p {
@@ -86,35 +86,47 @@
 			<tr>
 				<td>${row.user_id}</td>
 				<td>${row.name}</td>
-				<td><fmt:formatDate value="${row.join_date}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-				<td>${row.total_donation}</td>
+				<td><fmt:formatDate value="${row.join_date}"
+						pattern="yyyy-MM-dd" /></td>
+				<td><fmt:formatNumber value="${row.total_donation}"
+							pattern="#,###" />원</td>
 				<td>${row.badge_count}</td>
 				<td>
 					<button class="toggle-details">상세보기</button>
-					<button>정지</button>
 				</td>
 			</tr>
 			<tr class="details">
 				<td colspan="8">
 					<div class="details-box">
 						<h3>상세보기</h3>
-						<p>아이디: ${row.user_id}</p>
-						<p>이름: ${row.name}</p>
-						<p>성별: 
+						<p>아이디 : ${row.user_id}</p>
+						<p>이름 : ${row.name}</p>
+						<p>
+							성별 :
 							<c:choose>
 								<c:when test="${row.gender == 'w'}">여성</c:when>
 								<c:when test="${row.gender == 'm'}">남성</c:when>
 							</c:choose>
 						</p>
-						<p>생년월일: <fmt:formatDate value="${row.birth}" pattern="yyyy-MM-dd" /></p>
-						<p>가입일: <fmt:formatDate value="${row.join_date}" pattern="yyyy-MM-dd" /></p>
-						<p>총 기부액: ${row.total_donation}</p>
-						<p>보유 배지: 보유 배지</p>
-						<p>기부 내역 보기: 기부 내역</p>
-						<p>주소: ${row.address1} ${row.address2}</p>
-						<p>핸드폰 번호: 아직디비에필드없음</p>
+						<p>
+							생년월일 :
+							<fmt:formatDate value="${row.birth}" pattern="yyyy-MM-dd" />
+						</p>
+						<p>
+							가입일 :
+							<fmt:formatDate value="${row.join_date}" pattern="yyyy-MM-dd" />
+						</p>
+						<p>총 기부액 : <fmt:formatNumber value="${row.total_donation}"
+							pattern="#,###" />원</p>
+						<p>
+							<a
+								href="donation_list.do?search_option=donor_id&keyword=${row.user_id}"><button
+									type="button">기부 내역 보기</button></a>
+						</p>
+						<p>보유 배지 : 보유 배지</p>
+						<p>주소 : ${row.address1} ${row.address2}</p>
+						<p>핸드폰 번호 : 아직디비에필드없음</p>
 						<div class="detail-buttons">
-							<button class="edit-btn">수정</button>
 							<button class="close-details">확인</button>
 						</div>
 					</div>
@@ -122,6 +134,7 @@
 			</tr>
 		</c:forEach>
 	</table>
+	<%@ include file="../../include/admin_paging.jsp"%>
 </body>
 </html>
 
