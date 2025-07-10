@@ -34,8 +34,8 @@
 				<tr>
 					<td>${row.content_id}</td>
 					<td>${row.title}</td>
-					<td><fmt:formatNumber value="${row.target_amount}"
-							pattern="#,###" />원</td>
+					<td><fmt:formatNumber value="${row.target_amount / 10000}"
+							pattern="#,###" />만원</td>
 					<td><fmt:formatDate value="${row.start_date}"
 							pattern="yyyy-MM-dd" /></td>
 					<td><fmt:formatDate value="${row.end_date}"
