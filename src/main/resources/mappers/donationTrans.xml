@@ -51,9 +51,9 @@
 		) dt
 		JOIN suho_donation_content c ON dt.content_id = c.content_id
 		LEFT JOIN suho_reward r ON dt.reward_id = r.reward_id
-		WHERE ROWNUM <= #{end}
+		WHERE ROWNUM &lt;= #{end}
 		)
-		WHERE rnum >= #{start};
+		WHERE rnum &gt;= #{start};
 	</select>
 
 	<select id="getTotalCount" resultType="int">
