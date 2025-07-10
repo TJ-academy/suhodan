@@ -52,8 +52,8 @@ top: 50px; left: 50px;
 	margin-bottom: 40px;
 }
 
-.logo img {
-	width: 180px;
+.list img {
+	width: 130px;
 	margin-bottom: 10px;
 }
 
@@ -201,7 +201,7 @@ top: 50px; left: 50px;
 	</button>
 		<!-- 상단 로고 및 제목 -->
 		<div class="list">
-			<img src="/resources/images/나무로고.png" alt="로고">
+			<img src="/resources/images/logo_no_text.png" alt="로고">
 			<h2>전체 설화 보기</h2>
 		</div>
 		
@@ -223,7 +223,7 @@ top: 50px; left: 50px;
 
 					<!-- 이미지: DB에서 가져온 이미지 경로 -->
 					<div class="image-container">
-						<img src="${row.img}" alt="설화 이미지"> <a
+						<img src="../../resources/legend_img/${row.img}" alt="설화 이미지"> <a
 							href="/legend/detail/${row.legend_id}">
 							<button class="hover-button">자세히 보기</button>
 						</a>

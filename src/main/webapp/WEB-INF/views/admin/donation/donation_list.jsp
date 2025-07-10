@@ -1,151 +1,64 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>명패 관리</title>
-<link rel="stylesheet" href="/css/admin.css">
-<link rel="stylesheet" href="/css/popup.css">
+    <meta charset="UTF-8">
+    <title>기부 내역</title>
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/popup.css">
 </head>
 <body>
-	<%@ include file="../../include/admin_menu.jsp"%>
-	<div class="header-container">
-		<h2>기부 관리</h2>
-		<button id="addButton">추가하기</button>
-	</div>
-	<br>
-	<table border="1" width="700px">
-		<tr>
-			<td>No.</td>
-			<td>제목</td>
-			<td>목표 금액</td>
-			<td>시작일</td>
-			<td>마감일</td>
-			<td>등록일</td>
-			<td>지역</td>
-			<td>이미지</td>
-			<td>상태 관리</td>
-		</tr>
-		<c:if test="${not empty list}">
-			<c:forEach var="row" items="${list}">
-				<tr>
-					<td>${row.content_id}</td>
-					<td>${row.title}</td>
-					<td><fmt:formatNumber value="${row.target_amount}"
-							pattern="#,###" />원</td>
-					<td><fmt:formatDate value="${row.start_date}"
-							pattern="yyyy-MM-dd" /></td>
-					<td><fmt:formatDate value="${row.end_date}"
-							pattern="yyyy-MM-dd" /></td>
-					<td><fmt:formatDate value="${row.created_at}"
-							pattern="yyyy-MM-dd" /></td>
-					<td>${row.location}</td>
-					<td>${row.filename}</td>
-					<td>
-						<button class="edit-button" data-content-id="${row.content_id}"
-							data-title="${row.title}" data-content="${row.content}"
-							data-target-amount="${row.target_amount}"
-							data-start-date="<fmt:formatDate value="${row.start_date}" pattern="yyyy-MM-dd" />"
-							data-end-date="<fmt:formatDate value="${row.end_date}" pattern="yyyy-MM-dd" />"
-							data-created-at="${row.created_at}"
-							data-location="${row.location}" data-filename="${row.filename}">수정</button>
-						<button class="delete-button" data-content-id="${row.content_id}">삭제</button>
-					</td>
-				</tr>
-			</c:forEach>
-		</c:if>
-	</table>
-	<%@ include file="../../include/admin_paging.jsp"%>
-	<div id="overlay" class="overlay"></div>
+    <%@ include file="../../include/admin_menu.jsp" %>
+    <div class="header-container">
+        <h2>기부 내역 조회</h2>
+        
+        <!-- 검색 기능 -->
+        <form action="donation_list.do" method="get">
+            <select name="search_option">
+                <option value="donor_id" ${searchOption == 'donor_id' ? 'selected' : ''}>기부자</option>
+                <option value="content_title" ${searchOption == 'content_title' ? 'selected' : ''}>기부 프로젝트</option>
+                <option value="">전체</option>
+            </select>
+            <input type="text" name="keyword" value="${keyword}" placeholder="검색어를 입력하세요" />
+            <button type="submit">검색</button>
+        </form>
+    </div>
+    <br>
+    <table border="1" width="100%">
+        <tr>
+            <td>No.</td>
+            <td>기부 제목</td>
+            <td>기부자</td>
+            <td>기부 금액</td>
+            <td>기부일</td>
+            <td>결제 방식</td>
+            <td>보상</td>
+        </tr>
 
-	<%@ include file="donation_reg.jsp"%>
-	<%@ include file="donation_edit.jsp"%>
+        <c:if test="${not empty list}">
+            <c:forEach var="row" items="${list}">
+                <tr>
+                    <td>${row.transaction_id}</td>
+                    <td>${row.content_title}</td>
+                    <td>${row.donor_id}</td>
+                    <td><fmt:formatNumber value="${row.amount}" pattern="#,###" /> 원</td>
+                    <td><fmt:formatDate value="${row.donation_date}" pattern="yyyy-MM-dd" /></td>
+                    <td>
+                    	<c:choose>	
+							<c:when test="${row.payment_method == 'point'}">포인트</c:when>
+							<c:when test="${row.payment_method == 'card'}">카드</c:when>
+						</c:choose>
+                    </td>
+                    <td>${row.reward_name}</td>
+                </tr>
+            </c:forEach>
+        </c:if>
+    </table>
 
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script>
-		$(document).ready(
-				function() {
-					function openRegPopup() {
-						$('#reg_popup').show();
-						$('#overlay').show();
-						
-						$('#reg_popup_title').val('');
-						$('#reg_popup_content').val('');
-						$('#reg_popup_target_amount').val('');
-						$('#reg_popup_start_date').val('');
-						$('#reg_popup_end_date').val('');
-						$('#reg_popup_created_at').val('');
-						$('#reg_popup_location').val('');
-						$('#reg_popup_filename').val('');
-					}
+    <!-- 페이지 네비게이션 -->
+    <%@ include file="../../include/admin_paging.jsp" %>
 
-					function closeRegPopup() {
-						$('#reg_popup').hide();
-						$('#overlay').hide();
-					}
-
-					function openEditPopup(contentId, title, content, targetAmount, startDate, endDate, createdAt, location, filename) {
-						$('#edit_popup').show();
-						$('#overlay').show();
-						$('#edit_popup_content_id').val(contentId);
-						$('#edit_popup_title').val(title);
-						$('#edit_popup_content').val(content);
-						$('#edit_popup_target_amount').val(targetAmount);
-						$('#edit_popup_start_date').val(startDate);
-						$('#edit_popup_end_date').val(endDate);
-						$('#edit_popup_created_at').val(createdAt);
-						$('#edit_popup_location').val(location);
-						$('#edit_popup_filename').val('');
-						
-						if (filename) {
-							$('#current_image_container').show();  // 기존 이미지 컨테이너를 보이게 함
-							$('#current_image').attr('src', '/resources/donation_img/' + filename);  // 기존 이미지 경로 설정
-							$('#current_image_name').text(filename);  // 파일명 텍스트로 설정
-						} else {
-							$('#current_image_container').hide();  // 이미지가 없다면 숨김
-						}
-					}
-
-					function closeEditPopup() {
-						$('#edit_popup').hide();
-						$('#overlay').hide();
-					}
-
-					function donation_delete(content_id) {
-						if (confirm("기부 프로젝트를 삭제하시겠습니까?")) {
-							window.location.href = "donation_delete.do?content_id="
-									+ content_id;
-						}
-					}
-
-					$('#addButton').on('click', openRegPopup);
-					$('#overlay').on('click', function() {
-						closeRegPopup();
-						closeEditPopup();
-					});
-					$('.close-reg-popup').on('click', closeRegPopup);
-					$('.close-edit-popup').on('click', closeEditPopup);
-					$('table').on('click', '.edit-button', function() {
-						const contentId = $(this).data('content-id');
-						const title = $(this).data('title');
-						const content = $(this).data('content');
-						const targetAmount = $(this).data('target-amount');
-						const startDate = $(this).data('start-date');
-						const endDate = $(this).data('end-date');
-						const createdAt = $(this).data('created-at');
-						const location = $(this).data('location');
-						const filename = $(this).data('filename');
-						openEditPopup(contentId, title, content, targetAmount, startDate, endDate, createdAt, location, filename);
-					});
-
-					$('table').on('click', '.delete-button', function() {
-						const contentId = $(this).data('content-id');
-						donation_delete(contentId);
-					});
-				});
-	</script>
 </body>
 </html>

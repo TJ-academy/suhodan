@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.suhodan.userbadge.UserBadgeDAO;
 import com.example.suhodan.util.PageInfo;
 
 import jakarta.servlet.ServletContext;
@@ -30,6 +31,8 @@ import jakarta.servlet.http.HttpSession;
 public class DonationConController {
 	@Autowired
 	DonationConDAO donationConDao;
+	@Autowired
+	UserBadgeDAO userBadgeDao;
 	
 	@GetMapping("write.do")
 	public String write() {
@@ -140,7 +143,7 @@ public class DonationConController {
 		return mav;
 	}
 	
-	//후원하기 처리
+	//후원하기
 	@GetMapping("pay.do")
 	public ModelAndView pay(@RequestParam("content_id") int content_id, ModelAndView mav) {
 		//캠페인 상세 정보 조회
@@ -152,6 +155,7 @@ public class DonationConController {
 	}
 	
 	// 결제처리
+	// DonationConController.java
 	@PostMapping("payment/verify.do")
 	@ResponseBody
 	public Map<String, Object> verifyPayment(@RequestBody Map<String, Object> payload, HttpSession session) {
@@ -176,13 +180,24 @@ public class DonationConController {
 
 	        donationConDao.insertTransaction(tx); // DAO 메서드 호출
 
+	        // 뱃지 발급 (5만원 이상 결제 시)
+	        String badgeMessage = null;
+	        String location = null;
+	        if (tx.getAmount() >= 50000) {
+	            userBadgeDao.insertBadgeForQualifiedUsers();
+	            location = userBadgeDao.getBadgeLocationForUser(userId);  // 지역 이름 가져오기
+	            badgeMessage = location + " 뱃지가 발급되었습니다."; // 지역 뱃지 발급 메시지
+	        }
+
 	        result.put("result", "success");
+	        result.put("badge", badgeMessage); // 뱃지 발급 메시지 포함
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	        result.put("result", "error");
 	    }
 	    return result;
 	}
+
 
 	@GetMapping("info/{content_id}")
 	public ModelAndView info(@PathVariable(name="content_id") int content_id, ModelAndView mav) {

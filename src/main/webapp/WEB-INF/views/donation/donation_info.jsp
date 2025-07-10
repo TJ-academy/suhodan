@@ -68,14 +68,22 @@
 		º 해당 내용에 동의하지 않을 경우 기부 기능을 이용하실 수 없습니다.<br>
 	</p>
 	<div class="checkbox_con">
-		<input type="checkbox"> <strong>(필수) 위 내용을 충분히 이해하였으며, 기부 흐름 체험에 동의합니다.</strong><br>
+		<input type="checkbox" id="myCheck"> <strong>(필수) 위 내용을 충분히 이해하였으며, 기부 흐름 체험에 동의합니다.</strong><br>
 		<input type="checkbox"> (선택) 기부 후기 알림 수신에 동의합니다.<br>
-		<button class="next_btn" onclick="goDonate(${content_id})">다음으로</button>
+		<button  class="next_btn" onclick="checkAgree(${content_id})">다음으로</button>		
 	</div>
 </div>
 <script>
-	function goDonate(contentId) {
-		location.href = '/donation/pay.do?content_id=' + contentId;
+	
+	function checkAgree(contentId) {
+		let checkbox = document.getElementById("myCheck");
+		
+		if(!checkbox.checked) {
+			alert("필수 항목에 동의해주세요.");
+			return;
+		} else {
+			location.href = '/donation/pay.do?content_id=' + contentId;
+		}
 	}
 </script>
 </body>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userbadge">
+    <insert id="insertBadgeForQualifiedUsers">
+        INSERT INTO suho_userbadge (user_id, badge_id)
+        SELECT dt.donor_id, b.badge_id
+        FROM donation_transaction dt
+        JOIN suho_donation_content dc ON dt.content_id = dc.content_id
+        JOIN suho_badge b 
+          ON REGEXP_SUBSTR(dc.location, '^[^군시]+') = REGEXP_SUBSTR(b.name, '^[^ ]+')
+        GROUP BY dt.donor_id, b.badge_id
+        HAVING SUM(dt.amount) >= 50000
+           AND NOT EXISTS (
+               SELECT 1 FROM suho_userbadge ub
+               WHERE ub.user_id = dt.donor_id
+                 AND ub.badge_id = b.badge_id
+           )
+    </insert>
+	<select id="checkBadgeGranted" parameterType="String" resultType="String">
+	    SELECT b.name
+	    FROM suho_userbadge ub
+	    JOIN suho_badge b ON ub.badge_id = b.badge_id
+	    JOIN suho_donation_content dc 
+	        ON REGEXP_SUBSTR(dc.location, '^[^군시]+') = REGEXP_SUBSTR(b.name, '^[^ ]+')
+	    WHERE ub.user_id = #{userId} 
+	    AND dc.content_id IN (
+	        SELECT content_id
+	        FROM donation_transaction
+	        WHERE donor_id = #{userId}
+	    )
+	</select>
+    <select id="getBadgeLocationForUser" parameterType="String" resultType="String">
+	    SELECT dc.location
+	    FROM suho_donation_content dc
+	    JOIN suho_badge b ON REGEXP_SUBSTR(dc.location, '^[^군시]+') = REGEXP_SUBSTR(b.name, '^[^ ]+')
+	    WHERE dc.content_id IN (
+	        SELECT content_id
+	        FROM donation_transaction
+	        WHERE donor_id = #{userId}
+	    )
+	    AND ROWNUM = 1
+	</select>
+
+    
+
+</mapper>

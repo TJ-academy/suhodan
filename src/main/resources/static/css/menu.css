@@ -75,5 +75,43 @@ body {
 .nav .menu-item a.active {
 	font-weight: bold !important; /* 현재 페이지에 해당하는 링크를 bold 처리 */
 	text-decoration: underline;
-	
+}
+
+/* 서브 메뉴 스타일링 */
+.nav ul li.menu-item {
+	position: relative; /* 부모 메뉴 항목에 relative 추가 */
+}
+
+.nav ul li .submenu {
+	display: none; /* 기본적으로 서브 메뉴는 숨깁니다 */
+	position: absolute; /* 부모 메뉴 아래에 서브 메뉴를 위치시킵니다 */
+	left: 0;
+	top: 100%; /* 부모 메뉴 항목 바로 아래에 위치 */
+	background-color: #f5e9d9;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	width: 200px;
+}
+
+.nav ul li:hover .submenu {
+	display: block; /* 부모 메뉴에 hover 시 서브 메뉴가 보이도록 설정 */
+}
+
+.nav ul li .submenu li {
+	padding: 10px;
+	border-bottom: 1px solid #ddd;
+}
+
+.nav ul li .submenu li a {
+	color: #2E2E2E;
+	padding: 10px;
+	text-decoration: none;
+	display: block;
+	transition: background-color 0.3s ease;
+	font-size: 14px; /* 글자 크기 설정 */
+}
+
+.nav ul li .submenu li a:hover {
+	background-color: #ddd; /* 서브 메뉴 항목에 hover 시 배경색 변경 */
 }
