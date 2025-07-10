@@ -12,10 +12,12 @@
 </head>
 <body>
 	<%@ include file="../../include/admin_menu.jsp"%>
-	<div>
+	<div class="header-container">
 		<h2>설화 관리</h2>
-		<a href="tts_form.do">TTS 생성</a>
+		<button id="addButton">추가하기</button>
+		<a href="legend/tts_form.do">TTS 생성</a>
 	</div>
+	<br>
 	<table border="1" width="700px">
 		<tr>
 			<td>No.</td>
@@ -50,37 +52,18 @@
 			</c:forEach>
 		</c:if>
 	</table>
-	<div>
-		<c:forEach var="i" begin="1" end="${totalPage}">
-			<c:choose>
-				<c:when test="${i == currentPage}">
-					<strong>[${i}]</strong>
-				</c:when>
-				<c:otherwise>
-					<a href="legend_list.do?page=${i}">[${i}]</a>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-	</div>
-	<%-- 추가하기 버튼: onclick 대신 id 사용 --%>
-	<button id="addLegendButton">추가하기</button>
-	<%-- 오버레이: onclick 제거, JS에서 이벤트 처리 --%>
+	<%@ include file="../../include/admin_paging.jsp"%>
 	<div id="overlay" class="overlay"></div>
 
 	<%@ include file="legend_reg.jsp"%>
 	<%@ include file="legend_edit.jsp"%>
-	<%-- jQuery 라이브러리 포함 --%>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<%-- JavaScript 코드 --%>
 	<script>
-        // 모든 JavaScript 코드는 DOM이 완전히 로드된 후에 실행되도록 $(document).ready() 안에 넣습니다.
         $(document).ready(function() {
 
-            // 팝업 열기 (등록) 함수
             function openRegPopup() {
                 $('#reg_popup').show();
                 $('#overlay').show();
-                // 등록 팝업을 열 때 입력 필드를 초기화합니다.
                 $('#reg_popup_title').val('');
                 $('#reg_popup_location').val('');
                 $('#reg_popup_content').val('');
@@ -145,7 +128,7 @@
             //--- 이벤트 리스너 연결 ---//
 
             // 1. '추가하기' 버튼 클릭 시 등록 팝업 열기
-            $('#addLegendButton').on('click', openRegPopup);
+            $('#addButton').on('click', openRegPopup);
 
             // 2. 오버레이 클릭 시 모든 팝업 닫기
             $('#overlay').on('click', function() {

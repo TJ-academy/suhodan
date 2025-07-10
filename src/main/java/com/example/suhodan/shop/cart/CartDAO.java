@@ -9,6 +9,6 @@ public interface CartDAO {
 	void delete_all(String user_id);
 	int sum_money(String user_id);
 	void modify(CartDTO dto);
-	CartDTO exists(String user_id, int reward_id);
+	CartDTO exists(String user_id, int goods_id);
 	void addAmount(CartDTO dto);
 }

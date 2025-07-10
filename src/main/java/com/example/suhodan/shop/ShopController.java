@@ -20,11 +20,11 @@ public class ShopController {
 		return mav;
 	}
 	
-	@GetMapping("detail/{reward_id}")
-	public ModelAndView detail(@PathVariable("reward_id") int reward_id, 
+	@GetMapping("detail/{goods_id}")
+	public ModelAndView detail(@PathVariable("goods_id") int goods_id, 
 			ModelAndView mav) {
 		mav.setViewName("/shop/shop_detail");
-		mav.addObject("dto", shopDao.detail(reward_id));
+		mav.addObject("dto", shopDao.detail(goods_id));
 		return mav;
 
 	}

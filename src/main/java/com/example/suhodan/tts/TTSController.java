@@ -15,12 +15,12 @@ public class TTSController {
     @Autowired
     private TextToSpeechService textToSpeechService;
 
-    @GetMapping("/admin/tts_form.do")
+    @GetMapping("/admin/legend/tts_form.do")
     public String tts_form() {
         return "/admin/legend/tts_form";
     }
     
-    @PostMapping("/admin/generate_speech.do")
+    @PostMapping("/admin/legend/generate_speech.do")
     public String generateSpeech(@RequestParam("text") String text,
                                  @RequestParam("filename") String filename,
                                  HttpServletRequest request) {

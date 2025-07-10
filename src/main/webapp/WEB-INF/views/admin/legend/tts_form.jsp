@@ -5,7 +5,7 @@
 </head>
 <body>
     <h2>음성 생성기</h2>
-    <form action="/admin/generate_speech.do" method="post">
+    <form action="/admin/legend/generate_speech.do" method="post">
         <label for="text">텍스트 입력:</label><br>
         <textarea name="text" id="text" rows="5" cols="50"></textarea><br><br>
 
