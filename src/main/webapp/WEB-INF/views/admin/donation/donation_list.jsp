@@ -34,7 +34,6 @@
             <td>기부 금액</td>
             <td>기부일</td>
             <td>결제 방식</td>
-            <td>상태</td>
             <td>보상</td>
         </tr>
 
@@ -46,8 +45,12 @@
                     <td>${row.donor_id}</td>
                     <td><fmt:formatNumber value="${row.amount}" pattern="#,###" /> 원</td>
                     <td><fmt:formatDate value="${row.donation_date}" pattern="yyyy-MM-dd" /></td>
-                    <td>${row.payment_method}</td>
-                    <td>${row.status}</td>
+                    <td>
+                    	<c:choose>	
+							<c:when test="${row.payment_method == 'point'}">포인트</c:when>
+							<c:when test="${row.payment_method == 'card'}">카드</c:when>
+						</c:choose>
+                    </td>
                     <td>${row.reward_name}</td>
                 </tr>
             </c:forEach>

@@ -1,58 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
-	
-	<select id="list" resultType="com.example.suhodan.member.MemberDTO">
+
+	<select id="list"
+		resultType="com.example.suhodan.member.MemberDTO">
 		select * from suho_user order by name
 	</select>
-	
-	<select id="listPaging" resultType="com.example.suhodan.member.MemberDTO">
-	    SELECT * FROM (
-	        SELECT ROWNUM AS rnum, a.*
-	        FROM (
-	            SELECT * FROM suho_user ORDER BY name DESC
-	        ) a
-	        WHERE ROWNUM &lt;= #{end}
-	    )
-	    WHERE rnum &gt;= #{start}
+
+	<resultMap id="memberDtoMap"
+		type="com.example.suhodan.member.MemberDTO">
+		<id property="user_id" column="user_id" />
+		<result property="passwd" column="passwd" />
+		<result property="name" column="name" />
+		<result property="join_date" column="join_date" />
+		<result property="gender" column="gender" />
+		<result property="birth" column="birth" />
+		<result property="address1" column="address1" />
+		<result property="address2" column="address2" />
+
+		<result property="total_donation" column="total_donation" />
+		<result property="badge_count" column="badge_count" />
+	</resultMap>
+
+	<select id="listPaging" resultMap="memberDtoMap">
+		SELECT
+		u.user_id, u.passwd,
+		u.name,
+		u.join_date,
+		u.gender,
+		u.birth,
+		u.address1,
+		u.address2,
+		COALESCE(ub.badge_count, 0) AS badge_count,
+		COALESCE(dt.total_donation, 0) AS total_donation
+		FROM (
+		SELECT
+		ROWNUM AS rnum,
+		a.*
+		FROM (
+		SELECT *
+		FROM suho_user
+		ORDER BY name DESC
+		) a
+		WHERE ROWNUM &lt;= #{end}
+		) u
+		LEFT JOIN (
+		SELECT user_id, COUNT(*) AS badge_count
+		FROM suho_userbadge
+		GROUP BY user_id
+		) ub ON u.user_id = ub.user_id
+		LEFT JOIN (
+		SELECT donor_id, SUM(amount) AS total_donation
+		FROM donation_transaction
+		GROUP BY donor_id
+		) dt ON u.user_id = dt.donor_id
+		WHERE u.rnum &gt;= #{start}
 	</select>
-	
+
 	<select id="getTotalCount" resultType="int">
-	    SELECT COUNT(*) FROM suho_user
+		SELECT COUNT(*) FROM
+		suho_user
 	</select>
-	
+
 	<insert id="insert">
-		insert into suho_user (user_id, passwd, name, address1, address2, gender, birth) 
-		values (#{user_id}, MYPACK.ENCRYPT(#{passwd}), #{name}, #{address1}, #{address2}, #{gender}, #{birth})
+		insert into suho_user (user_id, passwd, name,
+		address1, address2, gender, birth)
+		values (#{user_id},
+		MYPACK.ENCRYPT(#{passwd}), #{name}, #{address1},
+		#{address2},
+		#{gender}, #{birth})
 	</insert>
-	
-	<select id="detail" resultType="com.example.suhodan.member.MemberDTO">
+
+	<select id="detail"
+		resultType="com.example.suhodan.member.MemberDTO">
 		select * from suho_user where user_id=#{user_id}
 	</select>
-	
+
 	<update id="update">
 		update suho_user
-		set passwd = MYPACK.ENCRYPT(#{passwd}), name=#{name}, address1=#{address1}, address2=#{address2}, gender=#{gender}, birth=#{birth}
-		where user_id=#{user_id}
+		set passwd =
+		MYPACK.ENCRYPT(#{passwd}), name=#{name}, address1=#{address1},
+		address2=#{address2}, gender=#{gender}, birth=#{birth}
+		where
+		user_id=#{user_id}
 	</update>
-	
+
 	<delete id="delete">
 		delete from suho_user where user_id = #{user_id}
 	</delete>
-	
+
 	<select id="check_passwd" resultType="int">
-		select count(*) from suho_user where user_id=#{user_id} and passwd=MYPACK.ENCRYPT(#{passwd})
+		select count(*) from
+		suho_user where user_id=#{user_id} and
+		passwd=MYPACK.ENCRYPT(#{passwd})
 	</select>
-	
+
 	<select id="check_id_duplicate" resultType="int">
-		select count(*) from suho_user where user_id=#{userid}
+		select count(*) from
+		suho_user where user_id=#{userid}
 	</select>
-	
+
 	<select id="login" resultType="String">
-		SELECT name 
+		SELECT name
 		FROM suho_user
-		WHERE user_id = #{user_id}
-		  AND passwd = MYPACK.ENCRYPT(#{passwd})
+		WHERE
+		user_id = #{user_id}
+		AND passwd = MYPACK.ENCRYPT(#{passwd})
 	</select>
-	
+
 </mapper>

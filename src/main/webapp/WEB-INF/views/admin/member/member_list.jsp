@@ -88,11 +88,11 @@
 				<td>${row.name}</td>
 				<td><fmt:formatDate value="${row.join_date}"
 						pattern="yyyy-MM-dd" /></td>
-				<td>${row.total_donation}</td>
+				<td><fmt:formatNumber value="${row.total_donation}"
+							pattern="#,###" />원</td>
 				<td>${row.badge_count}</td>
 				<td>
 					<button class="toggle-details">상세보기</button>
-					<button>정지</button>
 				</td>
 			</tr>
 			<tr class="details">
@@ -116,15 +116,17 @@
 							가입일 :
 							<fmt:formatDate value="${row.join_date}" pattern="yyyy-MM-dd" />
 						</p>
+						<p>총 기부액 : <fmt:formatNumber value="${row.total_donation}"
+							pattern="#,###" />원</p>
 						<p>
-							총 기부액 : ${row.total_donation}원 <a href="#"><button
+							<a
+								href="donation_list.do?search_option=donor_id&keyword=${row.user_id}"><button
 									type="button">기부 내역 보기</button></a>
 						</p>
 						<p>보유 배지 : 보유 배지</p>
 						<p>주소 : ${row.address1} ${row.address2}</p>
 						<p>핸드폰 번호 : 아직디비에필드없음</p>
 						<div class="detail-buttons">
-							<button class="edit-btn">수정</button>
 							<button class="close-details">확인</button>
 						</div>
 					</div>
@@ -132,6 +134,7 @@
 			</tr>
 		</c:forEach>
 	</table>
+	<%@ include file="../../include/admin_paging.jsp"%>
 </body>
 </html>
 

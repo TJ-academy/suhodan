@@ -1,12 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<<<<<<< HEAD
 
-=======
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
->>>>>>> narae
 <head>
 <!-- Link to the external CSS file -->
 <link rel="stylesheet" type="text/css" href="../css/menu.css">
@@ -52,6 +49,9 @@
 				<li><a href="/admin/donation_contents_list.do">기부 프로젝트 관리</a></li>
 				<li><a href="/admin/donation_list.do">기부 내역 조회</a></li>
 			</ul></li>
+		<li class="menu-item"><a href="#"
+			class="${currentCategory != null && currentCategory.equals('admin_statistics') ? 'active' : ''}">통계</a>
+			</li>
 
 		<!-- User Menu -->
 		<li class="user-menu"><c:choose>
