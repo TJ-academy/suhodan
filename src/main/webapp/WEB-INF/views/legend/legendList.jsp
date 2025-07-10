@@ -94,14 +94,14 @@ top: 50px; left: 50px;
 .image-container {
 	position: relative;
 	width: 100%;
-	height: 131px;
+	height: 150px;
 	overflow: hidden;
-	margin-top: 50px;
+	margin-top: 30px;
 }
 
 .image-container img {
 	width: 354px;
-	height: 131px;
+	height: 150px;
 	object-fit: cover;
 	display: block;
 	margin: 0 auto;

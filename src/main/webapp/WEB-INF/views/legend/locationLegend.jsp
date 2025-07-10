@@ -92,14 +92,14 @@ top: 50px; left: 50px;
 .image-container {
 	position: relative;
 	width: 100%;
-	height: 131px;
+	height: 150px;
 	overflow: hidden;
-	margin-top: 50px;
+	margin-top: 30px;
 }
 
 .image-container img {
 	width: 354px;
-	height: 131px;
+	height: 150px;
 	object-fit: cover;
 	display: block;
 	margin: 0 auto;
@@ -190,10 +190,9 @@ top: 50px; left: 50px;
 						<fmt:formatDate value="${row.reg_date}" pattern="yyyy.MM.dd" />
 					</div>
 					
-
-					<!-- 이미지 + hover 버튼 -->
+					<!-- 이미지: DB에서 가져온 이미지 경로 -->
 					<div class="image-container">
-						<img src="${row.img}" alt="설화 이미지"> <a
+						<img src="../../resources/legend_img/${row.img}" alt="설화 이미지"> <a
 							href="/legend/detail/${row.legend_id}">
 							<button class="hover-button">자세히 보기</button>
 						</a>
