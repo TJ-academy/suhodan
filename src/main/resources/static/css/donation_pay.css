@@ -96,3 +96,19 @@
         padding: 0; /* 패딩 제거 */
     }
     
+    .confirm_btn {
+		background: #9C6B4F;
+		text-align: center;
+		width: 146px;
+		height: 57px;
+		color: white;
+		font-size: 20px;
+		border-radius: 15px;
+		line-height: 57px;
+		border-color: #9C6B4F;
+	}
+
+	.confirm_btn:hover {
+		background: #602300;
+	}
+    
