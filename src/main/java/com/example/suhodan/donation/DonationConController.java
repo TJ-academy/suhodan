@@ -140,7 +140,7 @@ public class DonationConController {
 		return mav;
 	}
 	
-	//후원하기 처리
+	//후원하기
 	@GetMapping("pay.do")
 	public ModelAndView pay(@RequestParam("content_id") int content_id, ModelAndView mav) {
 		//캠페인 상세 정보 조회

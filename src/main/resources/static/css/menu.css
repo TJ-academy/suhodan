@@ -76,6 +76,7 @@ body {
 	font-weight: bold !important; /* 현재 페이지에 해당하는 링크를 bold 처리 */
 	text-decoration: underline;
 	
+<<<<<<< HEAD
 }
 
 /* 서브 메뉴 스타일링 */
@@ -116,4 +117,5 @@ body {
 
 .nav ul li .submenu li a:hover {
     background-color: #ddd;  /* 서브 메뉴 항목에 hover 시 배경색 변경 */
+}
 }

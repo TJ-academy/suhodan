@@ -106,7 +106,6 @@
         padding: 0; /* 패딩 제거 */
     }
     
-
 </style>
 <body>
 <%@ include file="../include/menu.jsp" %>
@@ -141,8 +140,8 @@
 	</span>
 	<input type="hidden" id="buyer_name" value="${sessionScope.name}">
 	<div style="text-align:center; margin-top: 30px; font-size: 17px;">
-		<input type="checkbox"> <strong> (필수) 이 플랫폼은 해커톤 교육 프로젝트이며 실제 후원/기부 단체가 아님을 확인했습니다.</strong><br>
-		<input type="checkbox"> <strong> (필수) 기부금은 환불되지 않으며, 현금영수증/세금공제는 발급되지 않음을 이해합니다.</strong><br>
+		<input type="checkbox" id="check1"> <strong> (필수) 이 플랫폼은 해커톤 교육 프로젝트이며 실제 후원/기부 단체가 아님을 확인했습니다.</strong><br>
+		<input type="checkbox" id="check2"> <strong> (필수) 기부금은 환불되지 않으며, 현금영수증/세금공제는 발급되지 않음을 이해합니다.</strong><br>
 		<input type="checkbox"> (선택) 이메일로 기부내역을 받겠습니다.
 	</div>
   <button class="next_btn" onclick="requestPay()">결제하기</button>
@@ -196,6 +195,16 @@
     });
 
     function requestPay() {
+      let money = document.getElementById("amount_for_payment").value;
+      let check1 = document.getElementById("check1");
+      let check2 = document.getElementById("check2");
+      if(money == 0 || money == null) {
+    	  alert("금액을 선택해주세요.");
+    	  return;
+      } else if(!check1.checked || !check2.checked) {
+    	  alert("필수사항에 동의해주세요.");
+    	  return;
+      }
       IMP.init("imp58115315");
       IMP.request_pay({
         pg: "kakaopay.TC0ONETIME", // 연동된 PG사와 CID 참고
