@@ -12,7 +12,11 @@
 </head>
 <body>
 	<%@ include file="../../include/admin_menu.jsp"%>
-	<h2>굿즈 관리</h2>
+	<div class="header-container">
+		<h2>상품 관리</h2>
+		<button id="addButton">추가하기</button>
+	</div>
+	<br>
 	<table border="1" width="700px">
 		<tr>
 			<td>No.</td>
@@ -29,9 +33,10 @@
 					<td>${row.goods_id}</td>
 					<td>${row.location}</td>
 					<td>${row.name}</td>
-					<td>${row.price}</td>
+					<td><fmt:formatNumber value="${row.price}"
+							pattern="#,###" />원</td>
 					<td><fmt:formatDate value="${row.reg_date}"
-							pattern="yyyy-MM-dd HH:mm:ss" /></td>
+							pattern="yyyy-MM-dd" /></td>
 					<td>${row.img}</td>
 					<td>
 						<%-- 수정 버튼: onclick 대신 class와 data-* 속성 사용 --%>
@@ -45,19 +50,8 @@
 			</c:forEach>
 		</c:if>
 	</table>
-	<div>
-		<c:forEach var="i" begin="1" end="${totalPage}">
-			<c:choose>
-				<c:when test="${i == currentPage}">
-					<strong>[${i}]</strong>
-				</c:when>
-				<c:otherwise>
-					<a href="goods_list.do?page=${i}">[${i}]</a>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-	</div>
-	<button id="addGoodsButton">추가하기</button>
+	<%@ include file="../../include/admin_paging.jsp"%>
+	
 	<div id="overlay" class="overlay"></div>
 	
 	<%@ include file="goods_reg.jsp"%>
@@ -83,6 +77,7 @@
             }
 
             function openEditPopup(goodsId, location, name, price, description, img, detail_img) {
+            	    
                 $('#edit_popup').show();
                 $('#overlay').show();
                 $('#edit_popup_goods_id').val(goodsId);
@@ -121,7 +116,7 @@
                 }
             }
 
-            $('#addGoodsButton').on('click', openRegPopup);
+            $('#addButton').on('click', openRegPopup);
             $('#overlay').on('click', function() {
                 closeRegPopup();
                 closeEditPopup();
@@ -135,7 +130,7 @@
                 const price = $(this).data('price');
                 const description = $(this).data('description');
                 const img = $(this).data('img');
-                const detail_img = $(this).data('detail_img');
+                const detail_img = $(this).data('detail-img');
                 openEditPopup(goodsId, location, name, price, description, img, detail_img);
             });
 

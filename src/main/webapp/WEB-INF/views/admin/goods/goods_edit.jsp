@@ -15,7 +15,7 @@
 		</div>
 		
 		<div class="form-item">
-			<label for="edit_popup_price">가격</label> <input type="text"
+			<label for="edit_popup_price">가격</label> <input type="number"
 				id="edit_popup_price" name="price" required /> 원
 		</div>
 		
@@ -29,10 +29,8 @@
 			<input type="file" id="edit_popup_img" name="imgFile" accept="image/*" />
 			<!-- 현재 이미지 출력 -->
 			<div id="current_image_container" style="display:none;">
-				<label>현재 이미지:</label>
-				<img id="current_image" src="" alt="배지 이미지" width="100" />
-				<!-- 현재 이미지 파일명 표시 (hidden) -->
-				<p>파일명: <span id="current_image_name"></span></p> <!-- 파일명 표시 -->
+				<label>현재 대표 이미지: <span id="current_image_name"></span></label>
+				<img id="current_image" src="" alt="상품 대표 이미지" width="100" />
 			</div>
 		</div>
 		
@@ -41,10 +39,8 @@
 			<input type="file" id="edit_popup_detail_img" name="detailImgFile" accept="image/*" />
 			<!-- 현재 이미지 출력 -->
 			<div id="current_detail_image_container" style="display:none;">
-				<label>현재 이미지:</label>
-				<img id="current_detail_image" src="" alt="배지 이미지" width="100" />
-				<!-- 현재 이미지 파일명 표시 (hidden) -->
-				<p>파일명: <span id="current_detail_image_name"></span></p> <!-- 파일명 표시 -->
+				<label>현재 상세 이미지: <span id="current_detail_image_name"></span></label>
+				<img id="current_detail_image" src="" alt="상품 상세 이미지" width="100" />
 			</div>
 		</div>
 

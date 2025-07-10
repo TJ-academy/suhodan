@@ -8,10 +8,11 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ShopDTO {
-	private int reward_id;
+	private int goods_id;
 	private String name;
 	private String description;
 	private String img;
-    private int legend_id;
+	private String detail_img;
     private int price;
+    private String location;
 }

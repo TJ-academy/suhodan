@@ -12,7 +12,11 @@
 </head>
 <body>
 	<%@ include file="../../include/admin_menu.jsp"%>
-	<h2>명패 관리</h2>
+	<div class="header-container">
+		<h2>명패 관리</h2>
+		<button id="addButton">추가하기</button>
+	</div>
+	<br>
 	<table border="1" width="700px">
 		<tr>
 			<td>No.</td>
@@ -29,7 +33,7 @@
 					<td>${row.name}</td>
 					<td>${row.description}</td>
 					<td><fmt:formatDate value="${row.reg_date}"
-							pattern="yyyy-MM-dd HH:mm:ss" /></td>
+							pattern="yyyy-MM-dd" /></td>
 					<td align="center"><img src="/resources/badge_img/${row.img}"
 						width="50px" height="50px"></td>
 					<td>
@@ -42,19 +46,7 @@
 			</c:forEach>
 		</c:if>
 	</table>
-	<div>
-		<c:forEach var="i" begin="1" end="${totalPage}">
-			<c:choose>
-				<c:when test="${i == currentPage}">
-					<strong>[${i}]</strong>
-				</c:when>
-				<c:otherwise>
-					<a href="badge_list.do?page=${i}">[${i}]</a>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-	</div>
-	<button id="addBadgeButton">추가하기</button>
+	<%@ include file="../../include/admin_paging.jsp"%>
 	<div id="overlay" class="overlay"></div>
 
 	<%@ include file="badge_reg.jsp"%>
@@ -106,7 +98,7 @@
 						}
 					}
 
-					$('#addBadgeButton').on('click', openRegPopup);
+					$('#addButton').on('click', openRegPopup);
 					$('#overlay').on('click', function() {
 						closeRegPopup();
 						closeEditPopup();

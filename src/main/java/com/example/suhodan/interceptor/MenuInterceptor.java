@@ -32,6 +32,8 @@ public class MenuInterceptor implements HandlerInterceptor {
             currentCategory = "shop";
         } else if (currentUrl.contains("/donation")) {
             currentCategory = "donation";
+        } else if (currentUrl.contains("/mypage")) {
+            currentCategory = "mypage";
         }
         
         // currentPage를 request에 저장 (JSP에서 사용할 수 있게)

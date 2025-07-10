@@ -11,6 +11,162 @@ h2 {
 }
 
 table {
+    width: 100%;
+    border-collapse: collapse; /* 테이블의 모든 경계선 합침 */
+    border: none; /* 테이블의 외부 경계선 제거 */
+    text-align: center; /* 테이블 내용 가운데 정렬 */
+}
+
+table tr:first-child {
+    border-bottom: 2px solid black; /* 첫 번째 tr에 실선 추가 */
+}
+
+th, td {
+    padding: 10px; /* 셀 안의 여백 */
+    text-align: center; /* 테이블 내용 가운데 정렬 */
+}
+
+th {
+    background-color: #f4f0e9; /* 헤더 배경 색상 */
+    text-align: left; /* 좌측 정렬 */
+}
+
+tr:hover {
+    background-color: #f9f9f9; /* 마우스 오버 시 배경 색상 */
+}
+
+button {
+    background-color: #c98f6f;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #9e704f; /* 버튼 호버 시 색상 변경 */
+}
+
+/* 페이징 컨테이너 중앙 정렬 */
+.pagination {
+    display: flex; /* Flexbox로 중앙 정렬 */
+    justify-content: center; /* 항목들을 수평으로 중앙 정렬 */
+    margin-top: 20px;
+    padding: 10px;
+    width: 100%; /* 부모 요소를 전체 너비로 확장 */
+}
+
+/* 페이징 항목 스타일 */
+.pagination a, .pagination strong {
+    font-size: 14px;
+    color: #7d7d7d;
+    text-decoration: none;
+    padding: 5px 10px;
+    margin: 0 5px;
+    border-radius: 4px;
+    display: inline-block; /* 중앙 정렬을 위한 인라인 블록 */
+}
+
+/* 마우스 오버 시 링크 스타일 */
+.pagination a:hover {
+    background-color: #f1f1f1;
+}
+
+/* 현재 페이지 번호 강조 */
+.pagination #current-page {
+    background-color: #c98f6f;
+    color: white;
+}
+
+/* '이전' 버튼 스타일 */
+.pagination #prev-page {
+    font-weight: bold;
+    padding: 5px 10px;
+}
+
+/* '다음' 버튼 스타일 */
+.pagination #next-page {
+    font-weight: bold;
+    padding: 5px 10px;
+}
+
+#prev-page-disabled, #next-page-disabled {
+    color: #ddd; /* 비활성화된 버튼의 색상 */
+    cursor: not-allowed; /* 마우스 커서 변경 */
+}
+
+/* 헤더 컨테이너 스타일 */
+.header-container {
+    display: flex; /* Flexbox로 레이아웃을 수평으로 설정 */
+    justify-content: space-between; /* 버튼을 우측 끝으로 배치 */
+    align-items: center; /* 수직으로 중앙 정렬 */
+    width: 100%; /* 전체 너비 */
+    margin-bottom: 20px; /* 제목과 버튼 사이에 여백 추가 */
+}
+
+/* 기부 관리 제목 가운데 정렬 */
+h2 {
+    margin: 0;
+    flex: 1; /* 제목 영역을 차지하도록 함 */
+    text-align: center; /* 제목을 가운데 정렬 */
+    color: #3c2c1e;
+}
+
+/* 추가하기 버튼 스타일 */
+#addButton {
+    background-color: #c98f6f;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 25px;
+}
+
+#addButton:hover {
+    background-color: #9e704f; /* 버튼 호버 시 색상 변경 */
+}
+
+.action-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.edit-button {
+    background-color: #4CAF50; /* 수정 버튼은 초록색 */
+    color: white;
+}
+
+.edit-button:hover {
+    background-color: #45a049; /* 수정 버튼 호버 시 색상 */
+}
+
+.delete-button {
+    background-color: #f44336; /* 삭제 버튼은 빨간색 */
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: #e53935; /* 삭제 버튼 호버 시 색상 */
+}
+
+/*
+table {
 	margin: 20px auto;
 	width: 90%;
 	border-collapse: collapse;
@@ -32,4 +188,4 @@ button {
 	border-radius: 6px;
 	cursor: pointer;
 	font-weight: bold;
-}
+}*/

@@ -223,7 +223,7 @@ top: 50px; left: 50px;
 
 					<!-- 이미지: DB에서 가져온 이미지 경로 -->
 					<div class="image-container">
-						<img src="${row.img}" alt="설화 이미지"> <a
+						<img src="../../resources/legend_img/${row.img}" alt="설화 이미지"> <a
 							href="/legend/detail/${row.legend_id}">
 							<button class="hover-button">자세히 보기</button>
 						</a>

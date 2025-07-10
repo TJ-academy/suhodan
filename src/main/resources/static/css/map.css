@@ -63,12 +63,12 @@
 }
 
 .see {
-  background: #9C6B4F;
+  background: #D9C2AD;
   color: white;
   font-size: 16px;
   width: 160px;
   height: 45px;
-  border-radius: 12px;
+  border-radius: 2px;
   border: none;
   cursor: pointer;
   z-index: 9999;
@@ -79,7 +79,7 @@
 }
 
 .see:hover {
-  background: #5D290B;
+  background: #9C6B4F;
 }
 
 .custom-see-container {

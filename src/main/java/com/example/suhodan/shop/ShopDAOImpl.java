@@ -17,22 +17,7 @@ public class ShopDAOImpl implements ShopDAO {
 	}
 
 	@Override
-	public ShopDTO detail(int reward_id) {
-		return sqlSession.selectOne("shop.detail", reward_id);
-	}
-
-	@Override
-	public void update(ShopDTO dto) {
-		sqlSession.update("shop.update", dto);
-	}
-
-	@Override
-	public void delete(int reward_id) {
-		sqlSession.delete("shop.delete", reward_id);
-	}
-
-	@Override
-	public void insert(ShopDTO dto) {
-		sqlSession.insert("shop.insert", dto);
+	public ShopDTO detail(int goods_id) {
+		return sqlSession.selectOne("shop.detail", goods_id);
 	}
 }

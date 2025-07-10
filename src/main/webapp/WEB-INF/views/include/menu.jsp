@@ -12,10 +12,10 @@
                 <img src="../../resources/images/설화수 로고.png" alt="설화수 로고" />
             </a>
         </li>
-        <li class="menu-item"><a href="/">메인</a></li>
         <li class="menu-item"><a href="/map" class="${currentCategory != null && currentCategory.equals('map') ? 'active' : ''}">설화 지도</a></li>
         <li class="menu-item"><a href="/shop/list.do" class="${currentCategory != null && currentCategory.equals('shop') ? 'active' : ''}">보따리 상점</a></li>
         <li class="menu-item"><a href="/donation/list.do" class="${currentCategory != null && currentCategory.equals('donation') ? 'active' : ''}">기부하기</a></li>
+        <li class="menu-item"><a href="/mypage" class="${currentCategory != null && currentCategory.equals('mypage') ? 'active' : ''}">마이페이지</a></li>
         <li class="user-menu">
             <c:choose>
                 <c:when test="${sessionScope.user_id == null}">
