@@ -17,23 +17,36 @@
 
 		<!-- Navigation Links -->
 		<li class="menu-item"><a href="/admin/member_list.do"
-			class="${currentCategory != null && currentCategory.equals('admin_member') ? 'active' : ''}">회원
-				관리</a></li>
+			class="${currentCategory != null && currentCategory.equals('admin_member') ? 'active' : ''}">회원</a>
+			<ul class="submenu">
+				<li><a href="/admin/member_list.do">회원 관리</a></li>
+			</ul></li>
 		<li class="menu-item"><a href="/admin/legend_list.do"
-			class="${currentCategory != null && currentCategory.equals('admin_legend') ? 'active' : ''}">설화
-				관리</a></li>
+			class="${currentCategory != null && currentCategory.equals('admin_legend') ? 'active' : ''}">설화</a>
+			<ul class="submenu">
+				<li><a href="/admin/legend_list.do">설화 관리</a></li>
+			</ul></li>
 		<li class="menu-item"><a href="/admin/reward_list.do"
-			class="${currentCategory != null && currentCategory.equals('admin_reward') ? 'active' : ''}">리워드
-				관리</a></li>
+			class="${currentCategory != null && currentCategory.equals('admin_reward') ? 'active' : ''}">리워드</a>
+			<ul class="submenu">
+				<li><a href="/admin/reward_list.do">리워드 관리</a></li>
+			</ul></li>
 		<li class="menu-item"><a href="/admin/goods_list.do"
-			class="${currentCategory != null && currentCategory.equals('admin_goods') ? 'active' : ''}">굿즈
-				관리</a></li>
+			class="${currentCategory != null && currentCategory.equals('admin_goods') ? 'active' : ''}">상품</a>
+			<ul class="submenu">
+				<li><a href="/admin/goods_list.do">상품 관리</a></li>
+			</ul></li>
 		<li class="menu-item"><a href="/admin/badge_list.do"
-			class="${currentCategory != null && currentCategory.equals('admin_badge') ? 'active' : ''}">명패
-				관리</a></li>
-		<li class="menu-item"><a href="/admin/donation_list.do"
-			class="${currentCategory != null && currentCategory.equals('admin_donation') ? 'active' : ''}">기부
-				관리</a></li>
+			class="${currentCategory != null && currentCategory.equals('admin_badge') ? 'active' : ''}">명패</a>
+			<ul class="submenu">
+				<li><a href="/admin/badge_list.do">명패 관리</a></li>
+			</ul></li>
+		<li class="menu-item"><a href="/admin/donation_contents_list.do"
+			class="${currentCategory != null && currentCategory.equals('admin_donation') ? 'active' : ''}">기부</a>
+			<ul class="submenu">
+				<li><a href="/admin/donation_contents_list.do">기부 프로젝트 관리</a></li>
+				<li><a href="/admin/donation_list.do">기부 내역 조회</a></li>
+			</ul></li>
 
 		<!-- User Menu -->
 		<li class="user-menu"><c:choose>

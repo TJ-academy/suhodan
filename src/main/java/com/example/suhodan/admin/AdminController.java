@@ -17,6 +17,8 @@ import com.example.suhodan.badge.BadgeDAO;
 import com.example.suhodan.badge.BadgeDTO;
 import com.example.suhodan.donation.DonationConDAO;
 import com.example.suhodan.donation.DonationConDTO;
+import com.example.suhodan.donation.DonationListDTO;
+import com.example.suhodan.donation.DonationTransactionDAO;
 import com.example.suhodan.goods.GoodsDAO;
 import com.example.suhodan.goods.GoodsDTO;
 import com.example.suhodan.legend.LegendDAO;
@@ -44,7 +46,9 @@ public class AdminController {
 	@Autowired
 	GoodsDAO goodsDao;
 	@Autowired
-	DonationConDAO donationDao;
+	DonationConDAO donationConDao;
+	@Autowired
+	DonationTransactionDAO donationTADao;
 
 	@GetMapping("/")
 	public String home() {
@@ -419,26 +423,26 @@ public class AdminController {
 		return "redirect:/admin/badge_list.do";
 	}
 	
-	@GetMapping("donation_list.do")
-	public ModelAndView donation_list(@RequestParam(value = "page", defaultValue = "1") int page, ModelAndView mav) {
-		int totalCount = donationDao.getCount();
+	@GetMapping("donation_contents_list.do")
+	public ModelAndView donation_contents_list(@RequestParam(value = "page", defaultValue = "1") int page, ModelAndView mav) {
+		int totalCount = donationConDao.getCount();
 		PageUtil pu = new PageUtil(page, totalCount);
 
 		Map<String, Object> param = new HashMap<>();
 		param.put("start", pu.getStart());
 		param.put("end", pu.getEnd());
 
-		List<DonationConDTO> list = donationDao.listPaging(param);
+		List<DonationConDTO> list = donationConDao.listPaging(param);
 
-		mav.setViewName("/admin/donation/donation_list");
+		mav.setViewName("/admin/donation/donation_contents_list");
 		mav.addObject("list", list);
 		mav.addObject("currentPage", pu.getCurrentPage());
 		mav.addObject("totalPage", pu.getTotalPage());
 		return mav;
 	}
 	
-	@PostMapping("donation_insert.do")
-	public String donation_insert(DonationConDTO dto, HttpServletRequest request) {
+	@PostMapping("donation_contents_insert.do")
+	public String donation_contents_insert(DonationConDTO dto, HttpServletRequest request) {
 		String filename = "";
 		try {
 			if (!dto.getFile1().isEmpty()) {
@@ -448,20 +452,20 @@ public class AdminController {
 				dto.getFile1().transferTo(new File(path + filename));
 			}
 			dto.setFilename(filename);
-			donationDao.insert(dto);
+			donationConDao.insert(dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error"; // 예외 처리
 		}
-		return "redirect:/admin/donation_list.do";
+		return "redirect:/admin/donation_contents_list.do";
 	}
 	
-	@PostMapping("donation_update.do")
-	public String donation_update(DonationConDTO dto, HttpServletRequest request) {
+	@PostMapping("donation_contents_update.do")
+	public String donation_contents_update(DonationConDTO dto, HttpServletRequest request) {
 		String filename = "";
 		try {
 			// 기존 이미지 파일명을 받는다.
-			String currentImg = donationDao.file_info(dto.getContent_id());
+			String currentImg = donationConDao.file_info(dto.getContent_id());
 
 			if (!dto.getFile1().isEmpty()) {
 				// 새 이미지가 업로드되면 기존 파일명을 덮어씌운다.
@@ -474,17 +478,17 @@ public class AdminController {
 				filename = currentImg;
 			}
 			dto.setFilename(filename);
-			donationDao.update(dto);
+			donationConDao.update(dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error"; // 예외 처리
 		}
-		return "redirect:/admin/donation_list.do";
+		return "redirect:/admin/donation_contents_list.do";
 	}
 	
-	@GetMapping("donation_delete.do")
-	public String donation_delete(@RequestParam(name = "content_id") int content_id, HttpServletRequest request) {
-		String filename = donationDao.file_info(content_id);
+	@GetMapping("donation_contents_delete.do")
+	public String donation_contents_delete(@RequestParam(name = "content_id") int content_id, HttpServletRequest request) {
+		String filename = donationConDao.file_info(content_id);
 		if (filename != null && !filename.equals("-")) {
 			ServletContext application = request.getSession().getServletContext();
 			String path = application.getRealPath("/resources/donation_img/");
@@ -492,7 +496,41 @@ public class AdminController {
 			if (f.exists())
 				f.delete();
 		}
-		donationDao.delete(content_id);
+		donationConDao.delete(content_id);
 		return "redirect:/admin/donation_list.do";
+	}
+	
+	@GetMapping("donation_list.do")
+	public ModelAndView donation_list(
+	    @RequestParam(value = "page", defaultValue = "1") int page,
+	    @RequestParam(value = "search_option", defaultValue = "") String searchOption,  // 검색 옵션
+	    @RequestParam(value = "keyword", defaultValue = "") String keyword,  // 검색 키워드
+	    ModelAndView mav) {
+	    
+		System.out.println("donation_list.do 요청 처리 시작");
+		
+	    // 검색 조건을 추가한 전체 레코드 개수 계산
+	    int totalCount = donationTADao.getTotalCount(searchOption, keyword);  // getTotalCount 메서드를 수정해서 검색된 레코드 개수를 반환하도록 수정
+	    System.out.println("총 개수: " + totalCount);
+	    PageUtil pu = new PageUtil(page, totalCount);
+
+	    Map<String, Object> param = new HashMap<>();
+	    param.put("start", pu.getStart());
+	    param.put("end", pu.getEnd());
+	    param.put("search_option", searchOption);  // 검색 옵션
+	    param.put("keyword", keyword);  // 검색 키워드
+
+	    // 리스트 조회
+	    List<DonationListDTO> list = donationTADao.listPagingSearch(param);
+	    System.out.println("조회된 리스트 크기: " + list.size());
+	    
+	    mav.setViewName("/admin/donation/donation_list");
+	    mav.addObject("list", list);
+	    mav.addObject("currentPage", pu.getCurrentPage());
+	    mav.addObject("totalPage", pu.getTotalPage());
+	    mav.addObject("searchOption", searchOption);  // 현재 검색 옵션을 JSP로 전달
+	    mav.addObject("keyword", keyword);  // 현재 검색 키워드를 JSP로 전달
+
+	    return mav;
 	}
 }

@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <div id="edit_popup" class="popup">
 	<h3>기부 수정</h3>
-	<form action="donation_update.do" method="post"
+	<form action="donation_contents_update.do" method="post"
 		enctype="multipart/form-data">
 		<div class="form-item">
 			<label for="edit_popup_title">제목</label> <input type="text"
