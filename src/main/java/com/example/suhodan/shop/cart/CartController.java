@@ -49,7 +49,7 @@ public class CartController {
 		return "redirect:/shop/cart/list.do";
 	}
 	
-	@PostMapping("deleteAll.do")
+	@GetMapping("deleteAll.do")
 	public String deleteAll(HttpSession session) {
 		String user_id = (String) session.getAttribute("user_id");
 		System.out.println("user_id: " + user_id);
@@ -69,7 +69,7 @@ public class CartController {
 	public String insert(CartDTO dto, HttpSession session) {
 		String user_id = (String) session.getAttribute("user_id");
 		if(user_id == null) {
-			return "redirect:/login.do";
+			return "redirect:/login.do?message=nologin";
 		}
 		dto.setUser_id(user_id);
 		CartDTO existing = cartDao.exists(user_id, dto.getGoods_id());
@@ -82,7 +82,7 @@ public class CartController {
             // 새 항목으로 insert
             cartDao.insert(dto);
         }
-		return "redirect:/shop/list.do";
+		return "redirect:/shop/list.do?message=success";
 	}
 	
 	@PostMapping("buy.do")

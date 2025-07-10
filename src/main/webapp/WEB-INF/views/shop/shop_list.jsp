@@ -177,18 +177,18 @@ body {
 	<c:forEach var="row" items="${list}">
 		<div class="shop-card">
 			<div class="image-container">
-				<img class="product-img" src="/resources/goods_img/${row.img}" alt="${row.name}"
-					onerror="this.onerror=null; this.src='/resources/images/설화수 로고.png';" />
+				<img class="product-img" src="../../resources/goods_img/${row.img}" alt="${row.name}"
+					onerror="this.onerror=null; this.src='../../resources/images/설화수 로고.png';" />
 				<a href="/shop/detail/${row.goods_id}" class="hover-button">자세히 보기</a>
 			</div>
 			<div class="card-text">
 				<div class="card-top">
-					<form action="/shop/cart/insert.do" method="post" onclick="success()">
+					<form action="/shop/cart/insert.do" method="post">
 						<input type="hidden" name="goods_id" value="${row.goods_id}">
 						<input type="hidden" name="amount" value="1">
 						<div class="product-name">${row.name}</div>
 						<button type="submit" class="buy-icon-btn">
-							<img src="/resources/shop_img/cart_plus.png" class="cart-icon" />
+							<img src="../../resources/shop_img/cart_plus.png" class="cart-icon" />
 						</button>
 					</form>
 				</div>
@@ -200,10 +200,8 @@ body {
 		</div>
 	</c:forEach>
 </div>
-<script>
-function success() {
-	alert("장바구니에 추가되었습니다.");
-}
-</script>
+<c:if test="${param.message == 'success'}">
+	<script>alert("장바구니에 추가되었습니다.");</script>
+</c:if>
 </body>
 </html>
