@@ -1,0 +1,294 @@
+@charset "UTF-8";
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #fdf4ec;
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 40px;
+    color: #3f2e1d;
+}
+
+.mypage-container {
+    width: 500px;
+    margin: 30px auto;
+    background-color: #f9f7f2;
+    padding: 30px 40px;
+    border-radius: 16px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.06);
+    text-align: center;
+}
+
+.mypage-container h3 {
+    font-size: 18px;
+    color: #3f2e1d;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mypage-container h3::before {
+    content: url('/resources/suhodan_images/icon/user.png');
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+.menu-box {
+    background-color: #ffffff;
+    border: 1px solid #e5d2bd;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.menu-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-box li {
+    border-bottom: 1px solid #ddd0bb;
+    padding: 12px 0;
+    display: flex;
+    align-items: center;
+}
+
+.menu-box li:last-child {
+    border-bottom: none;
+}
+
+.menu-box img {
+    width: 20px;
+    margin-right: 10px;
+}
+
+.menu-box a {
+    text-decoration: none;
+    color: #3f2e1d;
+    font-weight: 500;
+    flex: 1;
+    text-align: left;
+}
+
+.logout {
+    margin-top: 20px;
+    text-align: center;
+    color: #5c4531;
+}
+
+.logout a {
+    color: #5c4531;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.logout a:hover {
+    text-decoration: underline;
+}
+
+/* Form style */
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    font-size: 14px;
+    border-bottom: 1px solid #e0d6c8;
+}
+
+.form-row input[type="date"] {
+    width: 160px;
+    font-size: 14px;
+    padding: 4px 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+.form-row input[type="radio"] {
+    margin-left: 6px;
+}
+
+.form-row a img {
+    height: 25px;
+    margin-left: 4px;
+}
+
+.buttons {
+    text-align: center;
+    margin-top: 28px;
+}
+
+.save-btn {
+    background-color: #936f4d;
+    color: white;
+    border: none;
+    padding: 8px 24px;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.withdraw-btn {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 13px;
+    margin-top: 12px;
+    cursor: pointer;
+}
+
+.save-btn:hover {
+    background-color: #7d5e3f;
+}
+
+.withdraw-btn:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+/* 모달 배경 */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+/* 모달 내용 영역 */
+.modal-content {
+    width: 400px;
+    max-width: 30%;  /* 모달 너비를 80%로 설정하여 화면 크기에 맞게 좁게 조정 */
+    margin: 100px auto;
+    background-color: #f5f1eb;
+    border-radius: 18px;
+    padding: 30px 24px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* 모달 제목 스타일 */
+.modal-content h4 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #3f2b1c;
+    text-align: center;
+}
+
+/* 모달에서 입력 필드 스타일 */
+.modal-content input {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+/* 버튼 영역 */
+.modal-content .modal-buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* 버튼 스타일 */
+.modal-content .modal-buttons button {
+    width: 100%;
+    padding: 12px;
+    background-color: #936f4d;
+    color: white;
+    border: none;
+    font-size: 16px;
+    border-radius: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.modal-content .modal-buttons button:hover {
+    background-color: #7d5e3f;
+}
+
+/* 뒤로가기 아이콘 */
+.modal-content .back-icon {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #936f4d;
+    transition: color 0.3s;
+}
+
+.modal-content .back-icon:hover {
+    color: #7d5e3f;
+}
+
+/* 주소 수정 모달 */
+.modal-content .address-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.address-wrapper input[type="text"] {
+    flex-grow: 1;
+    margin-right: 8px;
+    padding: 12px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+/* 우편번호 검색 버튼 */
+.postcode-btn {
+	width: 80px;
+    background-color: #D1D1D1;
+    color: white;
+    font-size: 14px;
+    padding: 8px 12px;
+    border-radius: 18px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.postcode-btn:hover {
+    background-color: #A5A5A5;
+}
+
+/* 모달 안에 있는 텍스트 및 버튼 스타일 */
+.modal-buttons button {
+    width: 100%;
+    padding: 12px;
+    background-color: #936f4d;
+    color: white;
+    border: none;
+    font-size: 16px;
+    border-radius: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.flip-icon {
+    transform: rotate(180deg);
+}
+
+/* 버튼 hover 효과 */
+.modal-content .modal-buttons button:hover {
+    background-color: #7d5e3f;
+}

@@ -1,133 +1,243 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>마이페이지</title>
+    <meta charset="UTF-8">
+    <title>개인 정보 수정</title>
+    <link rel="stylesheet" href="/css/mypage.css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
+
 <body>
 <%@ include file="../../include/menu.jsp" %>
-<h2>마이페이지 - 개인 정보 수정</h2>
 <br>
-<form method="post" name="form1">
-<table border="0" width="500px">
-	<tr>
-		<td>이름</td>
-		<td><input name="name" value="${dto.name}"></td>
-	</tr>
-	<tr>
-		<td>아이디</td>
-		<td>
-			${dto.user_id}
-			<input type="hidden" name="user_id" value="${dto.user_id}"/>
-		</td>
-	</tr>
-	<tr>
-		<td>비밀번호</td>
-		<td><input type="password" name="passwd" required></td>
-	</tr>
 
-	<tr>
-		<td>성별</td>
-		<td>
-			<input type="radio" name="gender" value="m" id="gender-m"
-				<c:if test="${dto.gender == 'm'}">checked</c:if>
-			/>
-			<label for="gender-m">남자</label>
-			<input type="radio" name="gender" value="w" id="gender-w" 
-				<c:if test="${dto.gender == 'w'}">checked</c:if>
-			/>
-			<label for="gender-w">여자</label>
-		</td>
-	</tr>
-	<tr>
-		<td>생년월일</td>
-		<td><input type="date" name="birth" value="<fmt:formatDate value='${dto.birth}' pattern='yyyy-MM-dd' />" /></td>
-	</tr>
-	<tr>
-		<td>주소</td>
-		<td>
-			<input type="text" name="address1" id="address1" value="${dto.address1}" style="width: 337px;" required readonly>
-			<button type="button" onclick="findPostcode()" style="width: 136px;">우편번호 검색</button>
-			<br>
-			<input type="text" name="address2" id="address2" value="${dto.address2}" placeholder="상세 주소를 입력하세요." style="width: 337px;">
-		</td>
-	</tr>
-	<tr>
-		<td>가입 날짜</td>
-		<td><fmt:formatDate value="${dto.join_date}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-	</tr>
-</table>
-<br>
-<c:if test="${not empty message}">
-	<p style="color:red;">${message}</p>
-</c:if>
-<button type="button" onclick="btnSave()">저장하기</button>
-<a href="javascript:void(0)" onclick="btnDelete()">회원 탈퇴</a>
-<button type="button" onclick="location.href='/mypage'">뒤로가기</button>
-</form>
+<div class="mypage-container">
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <div align="left">
+        <img src="/resources/suhodan_images/icon/edit.png" alt="수정 아이콘">
+        <span>개인 정보 수정</span>
+    </div>
+
+    <form name="form1" method="post" action="/mypage/update.do">
+        <div class="form-row">
+            <label>이름</label>
+            <input type="text" name="name" value="${dto.name}" />
+        </div>
+        <div class="form-row">
+            <label>아이디</label>
+            <span>${dto.user_id}</span>
+            <input type="hidden" name="user_id" value="${dto.user_id}" />
+        </div>
+        <div class="form-row">
+            <label>비밀번호 재설정</label>
+            <a href="javascript:void(0);" onclick="openResetPasswordModal()">
+                <img src="/resources/suhodan_images/icon/arrow_right.png" alt="화살표" />
+            </a>
+        </div>
+        <div class="form-row">
+            <label>성별</label>
+            <span>
+                <input type="radio" name="gender" value="m" id="gender-m" <c:if test="${dto.gender == 'm'}">checked</c:if>>
+                <label for="gender-m">남자</label>
+                <input type="radio" name="gender" value="w" id="gender-w" <c:if test="${dto.gender == 'w'}">checked</c:if>>
+                <label for="gender-w">여자</label>
+            </span>
+        </div>
+        <div class="form-row">
+            <label>생년월일</label>
+            <input type="date" name="birth" value="<fmt:formatDate value='${dto.birth}' pattern='yyyy-MM-dd' />" />
+        </div>
+        <div class="form-row">
+            <label>주소</label>
+            <a href="javascript:void(0);" onclick="openAddressModal()">
+                <img src="/resources/suhodan_images/icon/arrow_right.png" alt="화살표" />
+            </a>
+        </div>
+
+        <input type="hidden" name="address1" id="address1" value="${dto.address1}" />
+        <input type="hidden" name="address2" id="address2" value="${dto.address2}" />
+        <input type="hidden" name="passwd" id="form_passwd" />
+
+        <div class="buttons">
+            <button type="button" class="save-btn" onclick="openCheckPasswordModal()">저장하기</button>
+            <br />
+            <button type="button" class="withdraw-btn" onclick="btnDelete()">회원 탈퇴</button>
+        </div>
+    </form>
+</div>
+
+<!-- 주소 모달 -->
+<div id="addressModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="back-icon" onclick="closeAddressModal()">
+                <img src="/resources/suhodan_images/icon/arrow_right.png" class="flip-icon" alt="뒤로가기" />
+            </span>
+            <h4>주소 수정</h4>
+        </div>
+        
+        <div class="address-wrapper">
+            <input type="text" id="modal_address1" placeholder="도로명 주소" readonly />
+            <button type="button" class="postcode-btn" onclick="findPostcode()">검색</button>
+        </div>
+        
+        <input type="text" id="modal_address2" placeholder="상세주소" />
+        
+        <div class="modal-buttons">
+            <button onclick="applyAddress()">확인</button>
+        </div>
+    </div>
+</div>
+
+<!-- 비밀번호 재설정 모달 -->
+<div id="resetPasswordModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="back-icon" onclick="closeResetPasswordModal()">
+                <img src="/resources/suhodan_images/icon/arrow_right.png" class="flip-icon" alt="뒤로가기" />
+            </span>
+            <h4>비밀번호 재설정</h4>
+        </div>
+        <input type="password" id="current_passwd" placeholder="현재 비밀번호" />
+        <input type="password" id="new_passwd" placeholder="새 비밀번호" />
+        <input type="password" id="confirm_passwd" placeholder="비밀번호 확인" />
+        <p id="passwd_error" class="error-message" style="display:none;">비밀번호가 일치하지 않습니다</p>
+        <p id="same_password_error" class="error-message" style="display:none;">이전 비밀번호와 동일한 비밀번호입니다</p>
+        <p id="new_passwd_error" class="error-message" style="display:none;">새 비밀번호를 입력하세요</p>
+        <div class="modal-buttons">
+            <button onclick="submitPasswordChange()">확인</button>
+        </div>
+    </div>
+</div>
+
+<!-- 비밀번호 확인 모달 -->
+<div id="checkPasswordModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="back-icon" onclick="closeCheckPasswordModal()">
+                <img src="/resources/suhodan_images/icon/arrow_right.png" class="flip-icon" alt="뒤로가기" />
+            </span>
+            <h4>비밀번호 확인</h4>
+        </div>
+        <input type="password" id="modal_passwd" placeholder="비밀번호 입력" />
+        <div class="modal-buttons">
+            <button onclick="submitWithPassword()">확인</button>
+        </div>
+    </div>
+</div>
+
 <script>
-function findPostcode() {
-	new daum.Postcode({
-		oncomplete: function(data) {
-			// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-			// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-			var addr = ''; // 주소 변수
-			var extraAddr = ''; // 참고항목 변수
-			
-			//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-			if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-				addr = data.roadAddress;
-			} else { // 사용자가 지번 주소를 선택했을 경우(J)
-				addr = data.jibunAddress;
-			}
-			
-			// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-			if(data.userSelectedType === 'R'){
-				// 법정동명이 있을 경우 추가한다. (법정리는 제외)
-				// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-				if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-				    extraAddr += data.bname;
-				}
-				// 건물명이 있고, 공동주택일 경우 추가한다.
-				if(data.buildingName !== '' && data.apartment === 'Y'){
-				    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-				}
-				// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-				if(extraAddr !== ''){
-				    extraAddr = '(' + extraAddr + ')';
-				}
-				// 조합된 참고항목을 해당 필드에 넣는다.
-				document.getElementById("address2").value = extraAddr;
-			} else {
-				document.getElementById("address2").value = '';
-			}
+function openAddressModal() {
+    document.getElementById("modal_address1").value = document.getElementById("address1").value;
+    document.getElementById("modal_address2").value = document.getElementById("address2").value;
+    document.getElementById("addressModal").style.display = "block";
+}
 
-			// 우편번호와 주소 정보를 해당 필드에 넣는다.
-			document.getElementById("address1").value = "(" + data.zonecode+ ") " + addr;
-			// 커서를 상세주소 필드로 이동한다.
-			document.getElementById("address2").focus();
-		}
-	}).open();
+function closeAddressModal() {
+    document.getElementById("addressModal").style.display = "none";
+}
+
+function applyAddress() {
+    document.getElementById("address1").value = document.getElementById("modal_address1").value;
+    document.getElementById("address2").value = document.getElementById("modal_address2").value;
+    closeAddressModal();
+}
+
+function findPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            var addr = (data.userSelectedType === 'R') ? data.roadAddress : data.jibunAddress;
+            document.getElementById("modal_address1").value = "(" + data.zonecode + ") " + addr;
+            document.getElementById("modal_address2").focus();
+        }
+    }).open();
 }
 
 function btnDelete() {
-	if (confirm("회원 탈퇴 하시겠습니까?")) {
-		document.form1.action = "/mypage/delete.do";
-		document.form1.submit();
-	}
+    if (confirm("회원 탈퇴 하시겠습니까?")) {
+        document.form1.action = "/mypage/delete.do";
+        document.form1.submit();
+    }
 }
-function btnSave() {
-	document.form1.action = "/mypage/update.do";
-	document.form1.submit();
+
+function openCheckPasswordModal() {
+    document.getElementById("modal_passwd").value = "";
+    document.getElementById("checkPasswordModal").style.display = "block";
+}
+
+function closeCheckPasswordModal() {
+    document.getElementById("checkPasswordModal").style.display = "none";
+}
+
+function submitWithPassword() {
+    var pw = document.getElementById("modal_passwd").value.trim();
+    if (!pw) {
+        alert("비밀번호를 입력해주세요.");
+        return;
+    }
+    document.getElementById("form_passwd").value = pw;
+    closeCheckPasswordModal();
+    document.form1.submit();
+}
+
+function openResetPasswordModal() {
+    document.getElementById("resetPasswordModal").style.display = "block";
+}
+
+function closeResetPasswordModal() {
+    document.getElementById("resetPasswordModal").style.display = "none";
+}
+
+function submitPasswordChange() {
+    const current = document.getElementById("current_passwd").value.trim();
+    const newPass = document.getElementById("new_passwd").value.trim();
+    const confirm = document.getElementById("confirm_passwd").value.trim();
+    
+    const validCurrentPassword = "${dto.passwd}"; // 실제 서버에서 확인하는 로직이 필요
+
+    // 현재 비밀번호와 일치하지 않으면
+    if (current !== validCurrentPassword) {
+        document.getElementById("passwd_error").style.display = "block";
+        document.getElementById("same_password_error").style.display = "none";
+        document.getElementById("new_passwd_error").style.display = "none";
+        return;
+    }
+
+    // 새 비밀번호를 입력하지 않았을 경우
+    if (newPass === "") {
+        document.getElementById("new_passwd_error").style.display = "block";
+        return;
+    }
+
+    // 새 비밀번호와 확인 비밀번호가 일치하지 않으면
+    if (newPass !== confirm) {
+        document.getElementById("passwd_error").style.display = "block";
+        document.getElementById("same_password_error").style.display = "none";
+        document.getElementById("new_passwd_error").style.display = "none";
+        return;
+    }
+
+    // 새 비밀번호와 현재 비밀번호가 동일하면
+    if (current === newPass) {
+        document.getElementById("same_password_error").style.display = "block";
+        document.getElementById("passwd_error").style.display = "none";
+        document.getElementById("new_passwd_error").style.display = "none";
+        return;
+    }
+
+    // 비밀번호 변경 후 form_passwd에 새로운 비밀번호를 저장
+    document.getElementById("form_passwd").value = newPass;
+
+    // 비밀번호 변경을 서버로 전송하는 로직 추가
+    alert("비밀번호가 변경되었습니다.");
+    closeResetPasswordModal();
 }
 </script>
+
 </body>
 </html>
