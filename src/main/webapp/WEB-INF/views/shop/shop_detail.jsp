@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -28,7 +27,7 @@ body {
 
 .back-button {
 	position: absolute;
-	top: 30px; left: 30px;
+	top: 40px; left: 60px;
 	display: flex;
 	align-items: center;
 	background-color: transparent;
@@ -39,8 +38,8 @@ body {
 }
 
 .back-button img {
-	width: 18px;
-	height: 26px;
+	width: 15px;
+	height: 25px;
 	margin-top: 30px;
 }
 
@@ -59,12 +58,11 @@ body {
 	object-fit: cover;
 }
 
-/* 상품 상단 정렬 */
-.product-top {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 20px;
+/* 상품 정보 */
+.product-info {
+	position: relative;
+	min-height: 100px;
+	margin-bottom: 30px;
 }
 
 .product-title {
@@ -75,9 +73,12 @@ body {
 }
 
 .product-meta {
+	position: absolute;
+	bottom: 0;
+	right: 0;
 	display: flex;
 	align-items: center;
-	gap: 12px;
+	gap: 20px;
 }
 
 .product-price {
@@ -86,11 +87,21 @@ body {
 	color: #000000;
 }
 
-.amount-select {
-	padding: 6px 12px;
+.amount-input {
+	width: 60px;
+	padding: 6px 10px;
 	font-size: 16px;
 	border: 1px solid #ccc;
 	border-radius: 8px;
+	text-align: center;
+}
+
+/* 구분선 */
+.divider-line {
+	border: none;
+	border-top: 2px solid #C4C4C4;
+	width: 100%;
+	margin: 40px auto 20px;
 }
 
 /* 설명 영역 */
@@ -115,21 +126,20 @@ body {
 .detail-images img {
 	width: 100%;
 	max-width: 360px;
-	border-radius: 8px;
 }
 
 /* 버튼 */
 .add-to-cart-btn {
 	display: block;
 	width: 100%;
-	max-width: 250px;
+	max-width: 430px;
 	margin: 0 auto;
 	padding: 14px 0;
 	text-align: center;
 	background-color: #D9C2AD;
 	color: #fff;
 	font-weight: bold;
-	font-size: 16px;
+	font-size: 19px;
 	border: none;
 	border-radius: 10px;
 	cursor: pointer;
@@ -158,8 +168,8 @@ body {
 			onerror="this.onerror=null; this.src='/resources/shop_img/설화수.png';" />
 	</div>
 
-	<!-- 상품명 + 가격 + 수량 -->
-	<div class="product-top">
+	<!-- 상품명 + 가격/수량 -->
+	<div class="product-info">
 		<div class="product-title">${dto.name}</div>
 		<div class="product-meta">
 			<div class="product-price">
@@ -167,14 +177,13 @@ body {
 			</div>
 			<form name="form1" method="post" action="/shop/cart/insert.do">
 				<input type="hidden" name="goods_id" value="${dto.goods_id}">
-				<select name="amount" class="amount-select">
-					<c:forEach begin="1" end="10" var="i">
-						<option value="${i}">${i}</option>
-					</c:forEach>
-				</select>
+				<input type="number" name="amount" class="amount-input" value="1" min="1" max="10">
 			</form>
 		</div>
 	</div>
+
+	<!-- 구분선 -->
+	<hr class="divider-line">
 
 	<!-- 상품 설명 -->
 	<div class="product-description">${dto.description}</div>
