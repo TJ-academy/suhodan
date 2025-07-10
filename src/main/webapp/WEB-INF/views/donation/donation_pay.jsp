@@ -172,10 +172,7 @@
       뱃지가 발급되었습니다.
     </p>
     <p>
-      당신은 분명 이 설화의 수호자입니다!
-    </p>
-    <p>
-      *뱃지는 [나의 수호수]에서 확인할 수 있습니다.
+      당신은 분명 이 지역의 수호자입니다!
     </p>
     <button onclick="closeBadgeModal()">
       확인
@@ -265,7 +262,7 @@
       let check1 = document.getElementById("check1");
       let check2 = document.getElementById("check2");
 
-      if (money == 0 || money == null || money === "") { // 빈 문자열도 0과 같게 처리
+      if (money == 0 || money == null || money === "") {
           alert("금액을 선택하거나 입력해주세요.");
           return;
       } else if (!check1.checked || !check2.checked) {
@@ -275,7 +272,7 @@
 
       IMP.init("imp58115315");
       IMP.request_pay({
-          pg: "kakaopay.TC0ONETIME", // 연동된 PG사와 CID 참고
+          pg: "kakaopay.TC0ONETIME",
           pay_method: "card",
           merchant_uid: "donation_" + new Date().getTime(),
           name: "${dto.title}",
@@ -284,7 +281,7 @@
           buyer_name: document.getElementById("buyer_name").value,
       }, function(rsp) {
           if (rsp.success) {
-              // 서버에 결제 정보 보내고 응답 받아서 모달 띄우는 부분은 위처럼 처리
+        	  alert("결제가 완료되었습니다. 영수증 ID: " + rsp.imp_uid);
               fetch("/donation/payment/verify.do", {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
@@ -302,16 +299,19 @@
               }).then(res => res.json())
                 .then(data => {
                     if (data.result === "success") {
-                        // data.badge가 있으면 그 값을 showBadgeModal에 전달
-                        // 없으면 showBadgeModal 기본값 ("뱃지가 발급되었습니다.") 사용
-                        showBadgeModal(data.badge);
+                        if (data.badge) {
+                            showBadgeModal(data.badge); // 뱃지 메시지가 있을 때 (5만원 이상)
+                        } else {
+                        	showBadgeModal("후원해 주셔서 감사합니다.");
+                        }
                     } else {
-                        alert("서버 저장 중 오류 발생: " + data.message); // 서버에서 넘어오는 오류 메시지 표시
+                        // 서버에서 result: "success"가 아닌 다른 응답을 보냈을 때
+                        showBadgeModal(data.message || "후원 처리 중 오류가 발생했습니다. 다시 시도해주세요.");
                     }
                 })
                 .catch(error => {
                     console.error('Fetch error:', error);
-                    alert("결제 후 정보 저장 중 네트워크 오류가 발생했습니다.");
+                    showBadgeModal("결제 후 정보 저장 중 네트워크 오류가 발생했습니다. 관리자에게 문의해주세요.");
                 });
           } else {
               alert("결제 실패: " + rsp.error_msg);
