@@ -15,6 +15,7 @@
 		background: #F5F1EB;
 		border-radius: 20px;
 		margin-top: 10px;
+		margin-bottom: 50px;
 		padding: 20px;
 	}
 	.title_style {
@@ -50,7 +51,7 @@
 		font-weight: 700;
 		line-height: 65px;
 		display: block;
-		margin: 0 auto;
+		margin: 0 auto 50px auto;
 		border-color: #9C6B4F;
 	}
 	.donation_btn:hover {
