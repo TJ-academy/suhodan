@@ -115,7 +115,7 @@
             <li><img src="/resources/suhodan_images/icon/reward.png"><a href="#">리워드함</a></li>
             <li><img src="/resources/suhodan_images/icon/clipboard.png"><a href="#">구매 내역</a></li>
             <li><img src="/resources/suhodan_images/icon/delivery.png"><a href="#">배송 조회</a></li>
-            <li><img src="/resources/suhodan_images/icon/badge.png"><a href="#">명패함</a></li>
+            <li><img src="/resources/suhodan_images/icon/badge.png"><a href="/mypage/mybadges">명패함</a></li>
             <li><img src="/resources/suhodan_images/icon/donation.png"><a href="#">기부 내역</a></li>
         </ul>
     </div>

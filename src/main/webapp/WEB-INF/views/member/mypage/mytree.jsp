@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>나의 수호수</title>
 </head>
 <body>
 <%@ include file="../../include/menu.jsp" %>

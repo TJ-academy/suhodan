@@ -23,4 +23,14 @@ public class MypageController {
 		model.addAttribute("blist", blist);
 		return "member/mypage/mytree";
 	}
+	
+	//명패함
+		@GetMapping("/mypage/mybadges")
+		public String mybadges(HttpSession session, Model model) {
+			String user_id = (String) session.getAttribute("user_id");
+			
+			List<MypageDTO> blist = mypageDAO.getUserBadge(user_id);
+			model.addAttribute("blist", blist);
+			return "member/mypage/mybadges";
+		}
 }
