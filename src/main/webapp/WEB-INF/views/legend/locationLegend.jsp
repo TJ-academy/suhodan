@@ -50,8 +50,8 @@ top: 50px; left: 50px;
 	margin-bottom: 40px;
 }
 
-.logo-img {
-	width: 180px;
+.location img {
+	width: 170px;
 	margin-bottom: 10px;
 }
 
@@ -177,7 +177,7 @@ top: 50px; left: 50px;
 
 		<!-- 상단 로고 + 지역명 -->
 		<div class="location">
-			<img src="/resources/images/나무로고.png" alt="로고 이미지">
+			<img src="/resources/images/logo_no_text.png" alt="로고">
 			<h2>${location}</h2>
 		</div>
 
