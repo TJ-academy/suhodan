@@ -139,13 +139,13 @@ audio {
         <img src="/resources/legend_img/${dto.img}" alt="설화 이미지" onerror="this.onerror=null; this.src='/resources/images/설화수 로고.png';">
         <!-- MP3 아이콘 -->
         <audio controls>
-            <source src="/resources/output_tts/샘플.mp3" type="audio/mp3">
+            <source src="/resources/legend_tts/${dto.tts_audio}" type="audio/mp3">
             
         </audio>
+        
     </div>
 </div>
 <hr class="divider-line">
-
 	<!-- 설화 본문 -->
 	<div class="story">${dto.story}</div>
 
