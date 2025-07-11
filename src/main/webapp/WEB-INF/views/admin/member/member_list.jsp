@@ -73,6 +73,26 @@
 	<%@ include file="../../include/admin_menu.jsp"%>
 	<h2>회원관리</h2>
 
+	<form method="get" action="member_list.do">
+		<label for="searchType">검색 기준</label> <select name="searchType">
+			<option value="user_id" ${searchType == 'user_id' ? 'selected' : ''}>아이디</option>
+			<option value="name" ${searchType == 'name' ? 'selected' : ''}>이름</option>
+		</select> <label for="searchKeyword">검색어</label> <input type="text"
+			name="searchKeyword" value="${searchKeyword}" /> <label for="sortBy">정렬
+			기준</label> <select name="sortBy">
+			<option value="join_date" ${sortBy == 'join_date' ? 'selected' : ''}>가입일</option>
+			<option value="total_donation"
+				${sortBy == 'total_donation' ? 'selected' : ''}>기부금액</option>
+			<option value="badge_count"
+				${sortBy == 'badge_count' ? 'selected' : ''}>배지 수</option>
+		</select> <label for="sortOrder">정렬 순서</label> <select name="sortOrder">
+			<option value="asc" ${sortOrder == 'asc' ? 'selected' : ''}>오름차순</option>
+			<option value="desc" ${sortOrder == 'desc' ? 'selected' : ''}>내림차순</option>
+		</select>
+
+		<button type="submit">검색</button>
+	</form>
+
 	<table border="1" width="700px">
 		<tr>
 			<td>아이디</td>
@@ -89,7 +109,7 @@
 				<td><fmt:formatDate value="${row.join_date}"
 						pattern="yyyy-MM-dd" /></td>
 				<td><fmt:formatNumber value="${row.total_donation}"
-							pattern="#,###" />원</td>
+						pattern="#,###" />원</td>
 				<td>${row.badge_count}</td>
 				<td>
 					<button class="toggle-details">상세보기</button>
@@ -116,8 +136,11 @@
 							가입일 :
 							<fmt:formatDate value="${row.join_date}" pattern="yyyy-MM-dd" />
 						</p>
-						<p>총 기부액 : <fmt:formatNumber value="${row.total_donation}"
-							pattern="#,###" />원</p>
+						<p>
+							총 기부액 :
+							<fmt:formatNumber value="${row.total_donation}" pattern="#,###" />
+							원
+						</p>
 						<p>
 							<a
 								href="donation_list.do?search_option=donor_id&keyword=${row.user_id}"><button
@@ -134,6 +157,7 @@
 			</tr>
 		</c:forEach>
 	</table>
+
 	<%@ include file="../../include/admin_paging.jsp"%>
 </body>
 </html>

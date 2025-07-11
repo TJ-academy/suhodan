@@ -9,8 +9,12 @@ public class RewardDTO {
 	private int reward_id;
 	private String name;
 	private String description;
+	private String price_type;
 	private String img;
-	private int legend_id;
+	private int goods_1;
+	private int goods_2;
+	private int goods_3;
+	private int goods_4;
 	
 	private MultipartFile imgFile;
 }

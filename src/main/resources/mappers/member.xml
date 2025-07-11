@@ -22,6 +22,21 @@
 		<result property="badge_count" column="badge_count" />
 	</resultMap>
 
+	<select id="getTotalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM suho_user
+		<where>
+			<choose>
+				<when test="searchType == 'user_id'">
+					AND user_id LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test="searchType == 'name'">
+					AND name LIKE '%' || #{searchKeyword} || '%'
+				</when>
+			</choose>
+		</where>
+	</select>
+
 	<select id="listPaging" resultMap="memberDtoMap">
 		SELECT
 		u.user_id, u.passwd,
@@ -35,14 +50,22 @@
 		COALESCE(dt.total_donation, 0) AS total_donation
 		FROM (
 		SELECT
-		ROWNUM AS rnum,
+		ROW_NUMBER() OVER (ORDER BY ${sortBy} ${sortOrder}) AS rnum,
 		a.*
 		FROM (
 		SELECT *
 		FROM suho_user
-		ORDER BY name DESC
+		<where>
+			<choose>
+				<when test="searchType == 'user_id'">
+					AND user_id LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test="searchType == 'name'">
+					AND name LIKE '%' || #{searchKeyword} || '%'
+				</when>
+			</choose>
+		</where>
 		) a
-		WHERE ROWNUM &lt;= #{end}
 		) u
 		LEFT JOIN (
 		SELECT user_id, COUNT(*) AS badge_count
@@ -54,13 +77,9 @@
 		FROM donation_transaction
 		GROUP BY donor_id
 		) dt ON u.user_id = dt.donor_id
-		WHERE u.rnum &gt;= #{start}
+		WHERE u.rnum BETWEEN #{start} AND #{end}
 	</select>
 
-	<select id="getTotalCount" resultType="int">
-		SELECT COUNT(*) FROM
-		suho_user
-	</select>
 
 	<insert id="insert">
 		insert into suho_user (user_id, passwd, name,
@@ -86,9 +105,10 @@
 	</update>
 
 	<update id="updatePassword">
-    UPDATE suho_user
-    SET passwd = MYPACK.ENCRYPT(#{passwd})
-    WHERE user_id = #{user_id}
+		UPDATE suho_user
+		SET passwd =
+		MYPACK.ENCRYPT(#{passwd})
+		WHERE user_id = #{user_id}
 	</update>
 
 	<delete id="delete">
