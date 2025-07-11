@@ -32,6 +32,16 @@ public class RewardDAOImpl implements RewardDAO {
 	public void insert(RewardDTO dto) {
 		sqlSession.insert("reward.insert", dto);	
 	}
+	
+	@Override
+	public void update(RewardDTO dto) {
+		sqlSession.update("reward.update", dto);
+	}
+
+	@Override
+	public void delete(int reward_id) {
+		sqlSession.delete("reward.delete", reward_id);
+	}
 
 	@Override
 	public String img_file_info(int reward_id) {

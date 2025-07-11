@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>기부 내역</title>
+    <title>기부 내역 조회</title>
     <link rel="stylesheet" href="/css/admin.css">
     <link rel="stylesheet" href="/css/popup.css">
 </head>

@@ -1,37 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <div id="reg_popup" class="popup">
-	<h3>설화 등록</h3>
+	<h3>리워드 등록</h3>
 	<form action="reward_insert.do" method="post"
 		enctype="multipart/form-data">
 		<div class="form-item">
-			<label for="reg_popup_title">설화 제목</label> <input type="text"
-				id="reg_popup_title" name="title" required />
+			<label for="reg_popup_name">이름</label> <input type="text"
+				id="reg_popup_name" name="name" required />
 		</div>
 
 		<div class="form-item">
-			<label for="reg_popup_location">지역 입력</label> <input type="text"
-				id="reg_popup_location" name="location" required />
+			<label for="reg_popup_description">내용</label>
+			<textarea id="reg_popup_description" name="description" rows="4" required></textarea>
 		</div>
 
 		<div class="form-item">
-			<label for="reg_popup_content">설화 내용</label>
-			<textarea id="reg_popup_content" name="story" rows="4" required></textarea>
+    <label for="reg_popup_price_type">가격 구간</label>
+    <select id="reg_popup_price_type" name="price_type" required>
+        <option value="a">15,000원 이상 30,000원 미만</option>
+        <option value="b">30,000원 이상 50,000원 미만</option>
+        <option value="c">50,000원 이상 100,000원 미만</option>
+        <option value="d">100,000원 이상</option>
+    </select>
+</div>
+		
+		<div class="form-item">
+			<label for="reg_popup_goods_1">구성상품 1</label> <input type="text"
+				id="reg_popup_goods_1" name="goods_1" required />
 		</div>
+		
+		<div class="form-item">
+			<label for="reg_popup_goods_2">구성상품 2</label> <input type="text"
+				id="reg_popup_goods_2" name="goods_2" />
+		</div>
+		
+		<div class="form-item">
+			<label for="reg_popup_goods_3">구성상품 3</label> <input type="text"
+				id="reg_popup_goods_3" name="goods_3" />
+		</div>
+		
+		<div class="form-item">
+			<label for="reg_popup_goods_4">구성상품 4</label> <input type="text"
+				id="reg_popup_goods_4" name="goods_4" />
+		</div>		
 
 		<div class="form-item">
-			<label for="reg_popup_source">설화 출처</label> <input type="text"
-				id="reg_popup_source" name="source" required />
-		</div>
-
-		<div class="form-item">
-			<label for="reg_popup_img">이미지 업로드</label> <input type="file"
-				id="reg_popup_img" name="img" accept="image/*" />
-		</div>
-
-		<div class="form-item">
-			<label for="reg_popup_tts_audio">TTS 오디오</label> <input type="file"
-				id="reg_popup_tts_audio" name="tts_audio" accept="audio/*" />
+			<label for="reg_popup_img">이미지</label> <input type="file"
+				id="reg_popup_img" name="imgFile" accept="image/*" />
 		</div>
 
 		<button type="submit" class="button">등록</button>

@@ -22,9 +22,19 @@
 	</select>
 	
 	<insert id="insert">
-		insert into suho_reward (reward_id, name, description, img, legend_id) 
-		values (suho_reward_seq.nextval, #{name}, #{description}, #{img}, #{legend_id}
+		insert into suho_reward (reward_id, name, description, price_type, img, goods_1, goods_2, goods_3, goods_4) 
+		values (suho_reward_seq.nextval, #{name}, #{description}, #{price_type}, #{img}, #{goods_1}, #{goods_2}, #{goods_3}, #{goods_4})
 	</insert>
+	
+	<update id="update">
+		update suho_reward
+		set name = #{name}, description = #{description}, price_type = #{price_type}, img = #{img}, goods_1 = #{goods_1}, goods_2 = #{goods_2}, goods_3 = #{goods_3}, goods_4 = #{goods_4} 
+		where reward_id = #{reward_id} 
+	</update>
+	
+	<delete id="delete">
+		delete from suho_reward where reward_id = #{reward_id}
+	</delete>
 	
 	<select id="img_file_info" resultType="String">
 		select img from suho_reward where reward_id = #{reward_id}

@@ -44,7 +44,7 @@
 	<!-- 다음 버튼 -->
 	<c:choose>
 		<c:when test="${currentPage < totalPage}">
-            <<a
+            <a
 				href="${currentCategory == 'admin_goods' ? 'goods_list.do' : 
             currentCategory == 'admin_member' ? 'member_list.do' : 
             currentCategory == 'admin_legend' ? 'legend_list.do' : 

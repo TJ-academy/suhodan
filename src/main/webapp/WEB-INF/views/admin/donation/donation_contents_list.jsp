@@ -6,14 +6,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>명패 관리</title>
+<title>기부 프로젝트 관리</title>
 <link rel="stylesheet" href="/css/admin.css">
 <link rel="stylesheet" href="/css/popup.css">
 </head>
 <body>
 	<%@ include file="../../include/admin_menu.jsp"%>
 	<div class="header-container">
-		<h2>기부 관리</h2>
+		<h2>기부 프로젝트 관리</h2>
 		<button id="addButton">추가하기</button>
 	</div>
 	<br>

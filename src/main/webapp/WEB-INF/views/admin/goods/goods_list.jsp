@@ -42,6 +42,7 @@
 						<%-- 수정 버튼: onclick 대신 class와 data-* 속성 사용 --%>
 						<button class="edit-button" data-goods-id="${row.goods_id}"
 							data-location="${row.location}" data-name="${row.name}"
+							data-description="${row.description}"
 							data-price="${row.price}" data-img="${row.img}"
 							data-detail-img="${row.detail_img}">수정</button>
 						<button class="delete-button" data-goods-id="${row.goods_id}">삭제</button>
@@ -84,6 +85,7 @@
                 $('#edit_popup_location').val(location);
                 $('#edit_popup_name').val(name);
                 $('#edit_popup_price').val(price);
+                $('#edit_popup_description').val(description);
                 $('#edit_popup_img').val('');
                 $('#edit_popup_detail_img').val('');
                 

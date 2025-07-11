@@ -17,16 +17,6 @@ public class MemberDAOImpl implements MemberDAO {
 	public List<MemberDTO> list() {
 		return sqlSession.selectList("member.list");
 	}
-	
-	@Override
-	public List<MemberDTO> listPaging(Map<String, Integer> param) {
-		return sqlSession.selectList("member.listPaging", param);
-	}
-	
-	@Override
-	public int getTotalCount() {
-		return sqlSession.selectOne("member.getTotalCount");
-	}
 
 	@Override
 	public void insert(MemberDTO dto) {
@@ -75,6 +65,16 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public void updatePassword(MemberDTO dto) {
 		sqlSession.update("member.updatePassword", dto);
+	}
+
+	@Override
+	public List<MemberDTO> listPaging(Map<String, Object> param) {
+	    return sqlSession.selectList("member.listPaging", param);
+	}
+
+	@Override
+	public int getTotalCount(Map<String, Object> param) {
+	    return sqlSession.selectOne("member.getTotalCount", param);
 	}
 
 }
