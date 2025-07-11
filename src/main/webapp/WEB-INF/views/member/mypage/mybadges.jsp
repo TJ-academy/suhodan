@@ -13,14 +13,13 @@
 	.container {
 		position: relative;
 		width: 893px;
-		height: 644px;
+		height: auto;
 		margin: 47px auto 47px auto;
-		position: relative;
 	}
 	
 	.rectangle {
 		width: 893px;
-		height: 644px;
+		height: 553px;
 		background-color: #F5F1EB;
 		border: 1.67px solid #D8C2A6;
 		border-radius: 16.65px;
@@ -28,22 +27,25 @@
 	}
 	
 	.back-button {
+		position: absolute;
 		width: 14px; height: 28px;
 		border: none;
-		/* background-color: transparent; */
 		cursor: pointer;
-		margin-top: 50px;
-		margin-left: 50px;
+		top: 70px; left: 50px;
+		background: url('/resources/images/back.png') no-repeat center;
+		background-size: contain;
+		z-index: 10;
 	}
 	
 	.badgepage-title {
 		position: absolute;
-		top:50px; left: 50px; 
+		top:70px; left: 50px;
+		display: flex;
+		align-items: center;
 	}
 	
 	.badgepage-title-img {
 		margin-left: 50px;
-		margin-bottom: 5px;
 		width: 25px; height: 25px;
 	}
 	
@@ -54,10 +56,10 @@
 		color: #504848;
 	}
 	
-	.expand-btn {
+	.badgepage-expand-btn {
       position: absolute;
-      top: 20px;
-      right: 20px;
+      top: 70px;
+      right: 50px;
       background-color: #9C6B4F;
       color: white;
       border: none;
@@ -67,42 +69,124 @@
       width: 146.78px; height: 57.46px;
     }
     
+    .badgepage-cardlist {
+    	position: relative;
+    	top: 160px;
+    	width: 722px; height: auto;
+    	margin: 0 auto;
+    	display: flex;
+		justify-content: flex-start;  /* 좌측 정렬 */
+		gap: 34px;
+		flex-wrap: nowrap;
+		overflow: hidden;
+		/* transition: all 0.3s ease; */
+    }
     
-	.bimg {
+    .badgepage-card {
+    	width: 218px; height: 294px;
+    	flex: 0 0 218px;
+		text-align: center;
+		border: 1.67px solid #BABABA;
+		border-radius: 16.65px;
+		/* padding: 10px; */
+		background-color: #F5F1EB;
+    }
+    
+	.badgepage-card img {
 		position: relative;
-		width: 59px;
-		height: 88px;
+		width: 152px;
+		height: 196px;
+	}
+	
+	.badgepage-card p {
+		font-size: 19px;
+		font-weight: bold;
+		color: #2E2E2E;
+		position: relative;
+		top: -20px;
+	}
+	
+	.badgepage-card button {
+		background-color: #BABABA;
+		color: white;
+		border: 1px solid #BABABA;
+		border-radius: 16.65px;
+		position: relative;
+		top: -30px;
 		cursor: pointer;
+		font-size: 17px;
+		width: 116.11px; height: 35.11px;
+	}
+	
+	.badgepage-card:hover {
+		border: 1.67px solid #9C6B4F;
+	}
+	
+	.badgepage-card:hover button {
+		background-color: #9C6B4F;
+		border: 1px solid #9C6B4F;
+	}
+	
+	.nav-buttons {
+		position: absolute;
+		top: 330px;
+		left: 30px;
+		width: 833px;
+		display: flex;
+		justify-content: space-between;
+		padding: 0 10px;
+		box-sizing: border-box;
+	}
+	
+	.nav-buttons button {
+		width: 23px;
+		height: 23px;
+		background: none;
+		border: none;
+		cursor: pointer;
+		pointer-events: auto; /* 버튼 클릭 가능하게 복원 */
+	}
+	
+	/* 화살표 이미지 적용 */
+	.nav-buttons button.right {
+		background: url('/resources/images/arrow right.png') no-repeat center;
+		background-size: contain;
+	}
+	
+	.nav-buttons button.left {
+		background: url('/resources/images/arrow right.png') no-repeat center;
+		background-size: contain;
+		transform: scaleX(-1); /* 좌우 반전 */
 	}
 </style>
 
 <div class="container">
 	<div class="rectangle">
 		<!-- 뒤로가기 버튼 -->
-		<button class="back-button" onclick="location.href='/mypage'">
-			<img src="/resources/images/back.png" alt="뒤로가기 아이콘">
-		</button>
+		<button class="back-button" onclick="location.href='/mypage'"></button>
 		
 		<div class="badgepage-title">
 			<img class="badgepage-title-img" src="/resources/suhodan_images/icon/badge.png">
 			<span class="badgepage-title-text">명패함</span>
 		</div>
 		
-		<button class="expand-btn" onclick="toggleView()">펼쳐서 보기</button>
+		<button class="badgepage-expand-btn" onclick="toggleView()">펼쳐서 보기</button>
 		
 		<!-- 배지 카드 리스트 -->
-		<div id="badgeList" class="badgepage-list">
+		<div id="badgeList" class="badgepage-cardlist">
 		 	<c:forEach var="row" items="${blist}" varStatus="status">
-		 		<img class="bimg" src="../../resources/badge_img/${row.badge_img}" alt="${row.badge_name}" />
-		 		<p>${row.badge_name}</p>
-		 		<button type="button">자세히 보기</button>
+		 		<div class="badgepage-card">
+			 		<img src="../../resources/badge_img/${row.badge_img}" alt="${row.badge_name}" />
+			 		<p>${row.badge_name}</p>
+			 		<button onclick="location.href='/mypage/mybadges/${row.badge_id}'">자세히 보기</button>
+			 	</div>
 			</c:forEach>
 		</div>
 		
 		<!-- 넘기기 버튼 -->
 		<div class="nav-buttons" id="navButtons">
-			<button onclick="scrollBadges('left')">&lt;</button>
-			<button onclick="scrollBadges('right')">&gt;</button>
+			<button class="left" onclick="scrollBadges('left')"></button>
+			<button class="right" onclick="scrollBadges('right')"></button>
 		</div>
 	</div>
 </div>
@@ -114,24 +198,40 @@
   function toggleView() {
     const badgeList = document.getElementById('badgeList');
     const navBtns = document.getElementById('navButtons');
-    const btn = document.querySelector('.expand-btn');
+    const btn = document.querySelector('.badgepage-expand-btn');
+    const rect = document.querySelector('.rectangle');
+    const badgeCount = document.querySelectorAll('.badgepage-card').length;
 
     expanded = !expanded;
 
     if (expanded) {
-      badgeList.style.flexWrap = 'wrap';
-      navBtns.style.display = 'none';
-      btn.innerText = '넘겨서 보기';
+    	badgeList.style.width = "722px";
+		badgeList.style.flexWrap = 'wrap';
+		badgeList.style.height = 'auto';
+		badgeList.style.paddingBottom = '30px';
+		
+		navBtns.style.display = 'none';
+		btn.innerText = '넘겨서 보기';
+		
+		const originHeight = 553;
+		const rowHeight = 328;
+		const rows = Math.floor(badgeCount / 3);
+		
+		rect.style.height = (originHeight + rows * rowHeight) + 'px';
     } else {
-      badgeList.style.flexWrap = 'nowrap';
-      navBtns.style.display = 'flex';
-      btn.innerText = '펼쳐서 보기';
+    	badgeList.style.width = "722px";
+    	badgeList.style.height = '350px';
+		badgeList.style.flexWrap = 'nowrap';
+		navBtns.style.display = 'flex';
+		btn.innerText = '펼쳐서 보기';
+		rect.style.height = '553px';
+		badgeList.scrollLeft = 0;
     }
   }
 
   function scrollBadges(direction) {
     const list = document.getElementById('badgeList');
-    const scrollAmount = list.clientWidth;
+    const scrollAmount = 252;
 
     if (direction === 'left') {
       list.scrollLeft -= scrollAmount;
