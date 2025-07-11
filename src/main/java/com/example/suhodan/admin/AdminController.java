@@ -56,21 +56,38 @@ public class AdminController {
 	}
 
 	@GetMapping("member_list.do")
-	public ModelAndView member_list(@RequestParam(value = "page", defaultValue = "1") int page, ModelAndView mav) {
-		int totalCount = memberDao.getTotalCount();
-		PageUtil pu = new PageUtil(page, totalCount);
+	public ModelAndView member_list(@RequestParam(value = "page", defaultValue = "1") int page,
+	                                @RequestParam(value = "searchType", required = false) String searchType,
+	                                @RequestParam(value = "searchKeyword", required = false) String searchKeyword,
+	                                @RequestParam(value = "sortBy", defaultValue = "join_date") String sortBy,
+	                                @RequestParam(value = "sortOrder", defaultValue = "asc") String sortOrder,
+	                                ModelAndView mav) {
+	    
+	    // 검색과 정렬 조건을 param에 담기
+	    Map<String, Object> param = new HashMap<>();
+	    param.put("searchType", searchType);
+	    param.put("searchKeyword", searchKeyword);
+	    param.put("sortBy", sortBy);
+	    param.put("sortOrder", sortOrder);
+	    
+	    // 총 레코드 수 가져오기
+	    int totalCount = memberDao.getTotalCount(param);
+	    PageUtil pu = new PageUtil(page, totalCount);
 
-		Map<String, Integer> param = new HashMap<>();
-		param.put("start", pu.getStart());
-		param.put("end", pu.getEnd());
+	    param.put("start", pu.getStart());
+	    param.put("end", pu.getEnd());
 
-		List<MemberDTO> list = memberDao.listPaging(param);
+	    List<MemberDTO> list = memberDao.listPaging(param);
 
-		mav.setViewName("/admin/member/member_list");
-		mav.addObject("list", list);
-		mav.addObject("currentPage", pu.getCurrentPage());
-		mav.addObject("totalPage", pu.getTotalPage());
-		return mav;
+	    mav.setViewName("/admin/member/member_list");
+	    mav.addObject("list", list);
+	    mav.addObject("currentPage", pu.getCurrentPage());
+	    mav.addObject("totalPage", pu.getTotalPage());
+	    mav.addObject("searchType", searchType);
+	    mav.addObject("searchKeyword", searchKeyword);
+	    mav.addObject("sortBy", sortBy);
+	    mav.addObject("sortOrder", sortOrder);
+	    return mav;
 	}
 
 	@GetMapping("legend_list.do")
@@ -204,7 +221,6 @@ public class AdminController {
 		param.put("end", pu.getEnd());
 
 		List<RewardDTO> list = rewardDao.listPaging(param);
-
 		mav.setViewName("/admin/reward/reward_list");
 		mav.addObject("list", list);
 		mav.addObject("currentPage", pu.getCurrentPage());
@@ -216,20 +232,25 @@ public class AdminController {
 	public String reward_insert(RewardDTO dto, HttpServletRequest request) {
 
 		String img = "";
-		/*
-		 * try { if (!dto.getImgFile().isEmpty()) { img =
-		 * dto.getImgFile().getOriginalFilename(); ServletContext application =
-		 * request.getSession().getServletContext(); String path1 =
-		 * application.getRealPath("/resources/goods_img/");
-		 * dto.getImgFile().transferTo(new File(path1 + img)); } if
-		 * (!dto.getDetailImgFile().isEmpty()) { detail_img =
-		 * dto.getDetailImgFile().getOriginalFilename(); ServletContext application =
-		 * request.getSession().getServletContext(); String path2 =
-		 * application.getRealPath("/resources/goods_detail_img/");
-		 * dto.getDetailImgFile().transferTo(new File(path2 + detail_img)); }
-		 * dto.setImg(img); dto.setDetail_img(detail_img); goodsDao.insert(dto); } catch
-		 * (Exception e) { e.printStackTrace(); return "error"; // 예외 처리 }
-		 */
+
+		try {
+			if (!dto.getImgFile().isEmpty()) {
+
+				img = dto.getImgFile().getOriginalFilename();
+				ServletContext application = request.getSession().getServletContext();
+				String path = application.getRealPath("/resources/reward_img/");
+				dto.getImgFile().transferTo(new File(path + img));
+
+			}
+
+			dto.setImg(img);
+			rewardDao.insert(dto);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+
 		return "redirect:/admin/reward_list.do";
 	}
 
@@ -237,47 +258,41 @@ public class AdminController {
 	public String reward_update(RewardDTO dto, HttpServletRequest request) {
 		String img = "";
 
-		/*
-		 * try { // 기존 이미지 파일명을 받는다. String currentImg =
-		 * goodsDao.img_file_info(dto.getGoods_id()); String currentDetailImg =
-		 * goodsDao.detail_img_file_info(dto.getGoods_id());
-		 * 
-		 * if (!dto.getImgFile().isEmpty()) { // 새 이미지가 업로드되면 기존 파일명을 덮어씌운다. img =
-		 * dto.getImgFile().getOriginalFilename(); ServletContext application =
-		 * request.getSession().getServletContext(); String path1 =
-		 * application.getRealPath("/resources/goods_img/");
-		 * dto.getImgFile().transferTo(new File(path1 + img)); } else { // 새 이미지가 없으면 기존
-		 * 이미지를 유지한다. img = currentImg; }
-		 * 
-		 * if (!dto.getDetailImgFile().isEmpty()) { // 새 이미지가 업로드되면 기존 파일명을 덮어씌운다.
-		 * detail_img = dto.getDetailImgFile().getOriginalFilename(); ServletContext
-		 * application = request.getSession().getServletContext(); String path2 =
-		 * application.getRealPath("/resources/goods_detail_img/");
-		 * dto.getDetailImgFile().transferTo(new File(path2 + detail_img)); } else { //
-		 * 새 이미지가 없으면 기존 이미지를 유지한다. detail_img = currentDetailImg; }
-		 * 
-		 * dto.setImg(img); dto.setDetail_img(detail_img);
-		 * 
-		 * goodsDao.update(dto); } catch (Exception e) { e.printStackTrace(); return
-		 * "error"; // 예외 처리 }
-		 */
+		try {
+			String currentImg = rewardDao.img_file_info(dto.getReward_id());
+
+			if (!dto.getImgFile().isEmpty()) { // 새 이미지가 업로드되면 기존 파일명을 덮어씌운다.
+				img = dto.getImgFile().getOriginalFilename();
+				ServletContext application = request.getSession().getServletContext();
+				String path1 = application.getRealPath("/resources/reward_img/");
+				dto.getImgFile().transferTo(new File(path1 + img));
+
+			} else {
+				img = currentImg;
+			}
+
+			dto.setImg(img);
+
+			rewardDao.update(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+
 		return "redirect:/admin/reward_list.do";
 	}
 
 	@GetMapping("reward_delete.do")
 	public String reward_delete(@RequestParam(name = "reward_id") int reward_id, HttpServletRequest request) {
-		String img = rewardDao.img_file_info(reward_id);
-	/*
+		String img = goodsDao.img_file_info(reward_id);
 		if (img != null && !img.equals("-")) {
 			ServletContext application = request.getSession().getServletContext();
-			String path1 = application.getRealPath("/resources/goods_img/");
-			File f = new File(path1 + img);
+			String path = application.getRealPath("/resources/reward_img/");
+			File f = new File(path + img);
 			if (f.exists())
 				f.delete();
 		}
-
-		goodsDao.delete(goods_id);
-	*/
+		rewardDao.delete(reward_id);
 		return "redirect:/admin/reward_list.do";
 	}
 
@@ -550,7 +565,7 @@ public class AdminController {
 				f.delete();
 		}
 		donationConDao.delete(content_id);
-		return "redirect:/admin/donation_list.do";
+		return "redirect:/admin/donation_contetns_list.do";
 	}
 
 	@GetMapping("donation_list.do")

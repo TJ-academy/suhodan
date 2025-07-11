@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <div id="reg_popup" class="popup">
-	<h3>상품 등록</h3>
+	<h3>명패 등록</h3>
 	<form action="badge_insert.do" method="post"
 		enctype="multipart/form-data">
 		<div class="form-item">

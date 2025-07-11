@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <div id="reg_popup" class="popup">
-	<h3>상품 등록</h3>
-	<form action="donation_insert.do" method="post"
+	<h3>기부 프로젝트 등록</h3>
+	<form action="donation_contents_insert.do" method="post"
 		enctype="multipart/form-data">
 				<div class="form-item">
 			<label for="reg_popup_title">제목</label> <input type="text"
@@ -16,7 +16,7 @@
 
 		<div class="form-item">
 			<label for="reg_popup_target_amount">목표 금액</label> <input type="number"
-				id="reg_popup_target_amount" name="target_amount" required />
+				id="reg_popup_target_amount" name="target_amount" required />원
 		</div>
 		
 		<div class="form-item">
