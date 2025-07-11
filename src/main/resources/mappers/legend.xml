@@ -52,5 +52,5 @@
 	<select id="tts_file_info" resultType="String">
 		select tts_audio from suho_legend where legend_id = #{legend_id}
 	</select>
-
+	
 </mapper>
