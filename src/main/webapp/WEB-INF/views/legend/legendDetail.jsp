@@ -32,6 +32,7 @@ body {
 	color: #3e2d17;
 	font-size: 16px;
 	cursor: pointer;
+	transform: scaleX(-1); 
 }
 
 .back-button img {
@@ -128,7 +129,7 @@ audio {
 
 	<div class="outer-box">
 	<button class="back-button" onclick="history.back();">
-		<img src="/resources/images/back.png" alt="뒤로가기 아이콘">
+		<img src="/resources/suhodan_images/icon/arrow_right.png" alt="뒤로가기 아이콘">
 	</button>
 	<div class="title">${dto.title}</div>
 	

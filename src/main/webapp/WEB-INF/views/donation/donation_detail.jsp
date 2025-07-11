@@ -17,6 +17,8 @@
 		margin-top: 10px;
 		margin-bottom: 50px;
 		padding: 20px;
+		border: 1px solid #D8C2A6;
+		
 	}
 	.title_style {
 		color: #2E2E2E;
@@ -41,10 +43,11 @@
 		margin: 15px 0;
 	}
 	.donation_btn {
+	border: none;
 		width: 474px;
 		height: 68px;
 		border-radius: 20px;
-		background: #9C6B4F;
+		background: #D8C2A6;
 		color: white;
 		font-size: 24px;
 		text-align: center;
@@ -52,10 +55,9 @@
 		line-height: 65px;
 		display: block;
 		margin: 0 auto 50px auto;
-		border-color: #9C6B4F;
 	}
 	.donation_btn:hover {
-		background: #5E2200;
+		background: #9C6B4F;
 	}
 </style>
 </head>
@@ -81,8 +83,8 @@
 			<fmt:formatNumber value="${dto.donated_amount}" />&nbsp;원
 		</span>
 		<c:set var="progressPercent" value="${dto.target_amount > 0 ? (dto.donated_amount * 100) / dto.target_amount : 0}" />
-		<div style="background:#eee; border-radius: 8px; height: 20px; width: 100%; overflow: hidden;">
-			<div style="background:#4caf50; height: 100%; width: ${progressPercent}%;"></div>
+		<div style="background:#7A9D54; border-radius: 8px; height: 20px; width: 100%; overflow: hidden;">
+			<div style="background:#4C6B3C; height: 100%; width: ${progressPercent}%;"></div>
 		</div>
 		<span style="display: block; text-align: right; color: #535353; font-size: 13px;">
 			<fmt:formatNumber value="${dto.target_amount}" />&nbsp;원
