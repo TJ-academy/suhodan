@@ -107,7 +107,7 @@
 	}
 	
 	.badge-title {
-		width: 240px; height: 57px;
+		width: 230px; height: 57px;
 		background-color: #9C6B4F;
 		border: 1px solid #9C6B4F;
 		border-radius: 25px;
