@@ -16,5 +16,10 @@ public class RewardDTO {
 	private int goods_3;
 	private int goods_4;
 	
+	private String goods_1_name;
+	private String goods_2_name;
+	private String goods_3_name;
+	private String goods_4_name;
+	
 	private MultipartFile imgFile;
 }

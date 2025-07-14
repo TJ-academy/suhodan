@@ -17,6 +17,27 @@
 		<button id="addButton">추가하기</button>
 	</div>
 	<br>
+
+	<form method="get" action="reward_list.do">
+		<label for="searchType">검색 기준</label> <select name="searchType">
+			<option value="name" ${searchType == 'name' ? 'selected' : ''}>리워드
+				이름</option>
+			<option value="description"
+				${searchType == 'description' ? 'selected' : ''}>내용</option>
+		</select> <label for="searchKeyword">검색어</label> <input type="text"
+			name="searchKeyword" value="${searchKeyword}" /> <label for="sortBy">정렬
+			기준</label> <select name="sortBy">
+			<option value="price_type"
+				${sortBy == 'price_type' ? 'selected' : ''}>금액</option>
+			<option value="reg_date" ${sortBy == 'reg_date' ? 'selected' : ''}>작성일자</option>
+		</select> <label for="sortOrder">정렬 순서</label> <select name="sortOrder">
+			<option value="asc" ${sortOrder == 'asc' ? 'selected' : ''}>오름차순</option>
+			<option value="desc" ${sortOrder == 'desc' ? 'selected' : ''}>내림차순</option>
+		</select>
+		<button type="submit">검색</button>
+	</form>
+	<br>
+
 	<table border="1" width="700px">
 		<tr>
 			<td>No.</td>
@@ -39,12 +60,11 @@
 							<c:when test="${row.price_type == 'c'}">50,000원 이상 100,000원 미만</c:when>
 							<c:when test="${row.price_type == 'd'}">100,000원 이상</c:when>
 						</c:choose></td>
-					<td>${row.goods_1}</td>
-					<td>${row.goods_2}</td>
-					<td>${row.goods_3}</td>
-					<td>${row.goods_4}</td>
+					<td>${empty row.goods_1_name ? '' : row.goods_1_name}</td>
+					<td>${empty row.goods_2_name ? '' : row.goods_2_name}</td>
+					<td>${empty row.goods_3_name ? '' : row.goods_3_name}</td>
+					<td>${empty row.goods_4_name ? '' : row.goods_4_name}</td>
 					<td>
-						<%-- 수정 버튼: onclick 대신 class와 data-* 속성 사용 --%>
 						<button class="edit-button" data-reward-id="${row.reward_id}"
 							data-name="${row.name}" data-description="${row.description}"
 							data-price-type="${row.price_type}" data-img="${row.img}"
@@ -65,103 +85,83 @@
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
-		$(document)
-				.ready(
-						function() {
-							function openRegPopup() {
-								$('#reg_popup').show();
-								$('#overlay').show();
-								$('#reg_popup_name').val('');
-								$('#reg_popup_description').val('');
-								$('#reg_popup_price_type').val('');
-								$('#reg_popup_goods_1').val('');
-								$('#reg_popup_goods_2').val('');
-								$('#reg_popup_goods_3').val('');
-								$('#reg_popup_goods_4').val('');
-								$('#reg_popup_img').val('');
-							}
+        $(document).ready(function() {
+            function openRegPopup() {
+                $('#reg_popup').show();
+                $('#overlay').show();
+                $('#reg_popup_name').val('');
+                $('#reg_popup_description').val('');
+                $('#reg_popup_price_type').val('');
+                $('#reg_popup_goods_1').val('');
+                $('#reg_popup_goods_2').val('');
+                $('#reg_popup_goods_3').val('');
+                $('#reg_popup_goods_4').val('');
+                $('#reg_popup_img').val('');
+            }
 
-							function closeRegPopup() {
-								$('#reg_popup').hide();
-								$('#overlay').hide();
-							}
+            function closeRegPopup() {
+                $('#reg_popup').hide();
+                $('#overlay').hide();
+            }
 
-							function openEditPopup(rewardId, name, description,
-									priceType, goods1, goods2, goods3, goods4,
-									img) {
+            function openEditPopup(rewardId, name, description, priceType, goods1, goods2, goods3, goods4, img) {
+                $('#edit_popup').show();
+                $('#overlay').show();
+                $('#edit_popup_reward_id').val(rewardId);
+                $('#edit_popup_name').val(name);
+                $('#edit_popup_description').val(description);
+                $('#edit_popup_price_type').val(priceType);
+                $('#edit_popup_goods_1').val(goods1);
+                $('#edit_popup_goods_2').val(goods2);
+                $('#edit_popup_goods_3').val(goods3);
+                $('#edit_popup_goods_4').val(goods4);
+                $('#edit_popup_img').val('');
 
-								$('#edit_popup').show();
-								$('#overlay').show();
-								$('#edit_popup_reward_id').val(rewardId);
-								$('#edit_popup_name').val(name);
-								$('#edit_popup_description').val(description);
-								$('#edit_popup_price_type').val(priceType);
-								$('#edit_popup_goods_1').val(goods1);
-								$('#edit_popup_goods_2').val(goods2);
-								$('#edit_popup_goods_3').val(goods3);
-								$('#edit_popup_goods_4').val(goods4);
-								$('#edit_popup_img').val('');
+                if (img) {
+                    $('#current_image_container').show();
+                    $('#current_image').attr('src', '/resources/reward_img/' + img);
+                    $('#current_image_name').text(img);
+                } else {
+                    $('#current_image_container').hide();
+                }
+            }
 
-								if (img) {
-									$('#current_image_container').show(); // 기존 이미지 컨테이너를 보이게 함
-									$('#current_image').attr('src',
-											'/resources/reward_img/' + img); // 기존 이미지 경로 설정
-									$('#current_image_name').text(img); // 파일명 텍스트로 설정
-								} else {
-									$('#current_image_container').hide(); // 이미지가 없다면 숨김
-								}
-							}
+            function closeEditPopup() {
+                $('#edit_popup').hide();
+                $('#overlay').hide();
+            }
 
-							function closeEditPopup() {
-								$('#edit_popup').hide();
-								$('#overlay').hide();
-							}
+            function reward_delete(reward_id) {
+                if (confirm("리워드을 삭제하시겠습니까?")) {
+                    window.location.href = "reward_delete.do?reward_id=" + reward_id;
+                }
+            }
 
-							function reward_delete(reward_id) {
-								if (confirm("리워드을 삭제하시겠습니까?")) {
-									window.location.href = "reward_delete.do?reward_id="
-											+ reward_id;
-								}
-							}
+            $('#addButton').on('click', openRegPopup);
+            $('#overlay').on('click', function() {
+                closeRegPopup();
+                closeEditPopup();
+            });
+            $('.close-reg-popup').on('click', closeRegPopup);
+            $('.close-edit-popup').on('click', closeEditPopup);
+            $('table').on('click', '.edit-button', function() {
+                const rewardId = $(this).data('reward-id');
+                const name = $(this).data('name');
+                const priceType = $(this).data('price-type');
+                const description = $(this).data('description');
+                const goods1 = $(this).data('goods-1');
+                const goods2 = $(this).data('goods-2');
+                const goods3 = $(this).data('goods-3');
+                const goods4 = $(this).data('goods-4');
+                const img = $(this).data('img');
+                openEditPopup(rewardId, name, description, priceType, goods1, goods2, goods3, goods4, img);
+            });
 
-							$('#addButton').on('click', openRegPopup);
-							$('#overlay').on('click', function() {
-								closeRegPopup();
-								closeEditPopup();
-							});
-							$('.close-reg-popup').on('click', closeRegPopup);
-							$('.close-edit-popup').on('click', closeEditPopup);
-							$('table').on(
-									'click',
-									'.edit-button',
-									function() {
-										const rewardId = $(this).data(
-												'reward-id');
-										const name = $(this).data('name');
-										const priceType = $(this).data(
-												'price-type');
-										const description = $(this).data(
-												'description');
-										const goods1 = $(this).data('goods-1');
-										const goods2 = $(this).data('goods-2');
-										const goods3 = $(this).data('goods-3');
-										const goods4 = $(this).data('goods-4');
-										const img = $(this).data('img');
-										openEditPopup(rewardId, name,
-												description, priceType, goods1,
-												goods2, goods3, goods4, img);
-
-									});
-
-							$('table').on(
-									'click',
-									'.delete-button',
-									function() {
-										const rewardId = $(this).data(
-												'reward-id');
-										reward_delete(rewardId);
-									});
-						});
-	</script>
+            $('table').on('click', '.delete-button', function() {
+                const rewardId = $(this).data('reward-id');
+                reward_delete(rewardId);
+            });
+        });
+    </script>
 </body>
 </html>

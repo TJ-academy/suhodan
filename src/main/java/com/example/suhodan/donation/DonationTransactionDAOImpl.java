@@ -30,10 +30,10 @@ public class DonationTransactionDAOImpl implements DonationTransactionDAO {
 	}
 		
 	@Override
-	public int getTotalCount(String searchOption, String keyword) {
+	public int getTotalCount(String searchType, String searchKeyword) {
 	    Map<String, String> param = new HashMap<>();
-	    param.put("search_option", searchOption);
-	    param.put("keyword", keyword);
+	    param.put("searchType", searchType);
+	    param.put("searchKeyword", searchKeyword);
 	    return sqlSession.selectOne("donationTrans.getTotalCount", param);
 	}
 }

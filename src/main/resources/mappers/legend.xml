@@ -53,4 +53,47 @@
 		select tts_audio from suho_legend where legend_id = #{legend_id}
 	</select>
 	
+	<select id="listPagingSearch"
+		resultType="com.example.suhodan.legend.LegendDTO">
+		SELECT * FROM (
+		SELECT ROWNUM AS rnum, a.*
+		FROM (
+		SELECT * FROM suho_legend
+		<where>
+			<choose>
+				<when test="searchType == 'title' and searchKeyword != ''">
+					AND title LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test="location == 'location' and searchKeyword != ''">
+					AND location LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test="searchType == 'story' and searchKeyword != ''">
+					AND story LIKE '%' || #{searchKeyword} || '%'
+				</when>
+			</choose>
+		</where>
+		ORDER BY legend_id DESC  ) a
+		WHERE ROWNUM &lt;= #{end}
+		)
+		WHERE rnum &gt;= #{start}
+	</select>
+
+	<select id="getTotalCountSearch" resultType="int">
+		SELECT COUNT(*) FROM suho_legend
+		<where>
+			<choose>
+				<when test="searchType == 'title' and searchKeyword != ''">
+					AND title LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test="searchType == 'location' and searchKeyword != ''">
+					AND location LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when
+					test="searchType == 'story' and searchKeyword != ''">
+					AND story LIKE '%' || #{searchKeyword} || '%'
+				</when>
+			</choose>
+		</where>
+	</select>
+	
 </mapper>

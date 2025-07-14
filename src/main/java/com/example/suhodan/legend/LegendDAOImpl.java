@@ -7,6 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.example.suhodan.goods.GoodsDTO;
+
 @Repository
 public class LegendDAOImpl implements LegendDAO {
 
@@ -61,5 +63,15 @@ public class LegendDAOImpl implements LegendDAO {
 	@Override
 	public String tts_file_info(int legend_id) {
 		return sqlSession.selectOne("legend.tts_file_info", legend_id);
+	}
+	
+	@Override
+	public int getTotalCountSearch(Map<String, Object> param) {
+	    return sqlSession.selectOne("legend.getTotalCountSearch", param);
+	}
+	
+	@Override
+	public List<LegendDTO> listPagingSearch(Map<String, Object> param) {
+	    return sqlSession.selectList("legend.listPagingSearch", param);
 	}
 }

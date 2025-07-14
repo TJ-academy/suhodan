@@ -89,7 +89,6 @@
 			<option value="asc" ${sortOrder == 'asc' ? 'selected' : ''}>오름차순</option>
 			<option value="desc" ${sortOrder == 'desc' ? 'selected' : ''}>내림차순</option>
 		</select>
-
 		<button type="submit">검색</button>
 	</form>
 
@@ -102,60 +101,67 @@
 			<td>배지 수</td>
 			<td>상태 관리</td>
 		</tr>
-		<c:forEach var="row" items="${list}">
-			<tr>
-				<td>${row.user_id}</td>
-				<td>${row.name}</td>
-				<td><fmt:formatDate value="${row.join_date}"
-						pattern="yyyy-MM-dd" /></td>
-				<td><fmt:formatNumber value="${row.total_donation}"
-						pattern="#,###" />원</td>
-				<td>${row.badge_count}</td>
-				<td>
-					<button class="toggle-details">상세보기</button>
-				</td>
-			</tr>
-			<tr class="details">
-				<td colspan="8">
-					<div class="details-box">
-						<h3>상세보기</h3>
-						<p>아이디 : ${row.user_id}</p>
-						<p>이름 : ${row.name}</p>
-						<p>
-							성별 :
-							<c:choose>
-								<c:when test="${row.gender == 'w'}">여성</c:when>
-								<c:when test="${row.gender == 'm'}">남성</c:when>
-							</c:choose>
-						</p>
-						<p>
-							생년월일 :
-							<fmt:formatDate value="${row.birth}" pattern="yyyy-MM-dd" />
-						</p>
-						<p>
-							가입일 :
-							<fmt:formatDate value="${row.join_date}" pattern="yyyy-MM-dd" />
-						</p>
-						<p>
-							총 기부액 :
-							<fmt:formatNumber value="${row.total_donation}" pattern="#,###" />
-							원
-						</p>
-						<p>
-							<a
-								href="donation_list.do?search_option=donor_id&keyword=${row.user_id}"><button
-									type="button">기부 내역 보기</button></a>
-						</p>
-						<p>보유 배지 : 보유 배지</p>
-						<p>주소 : ${row.address1} ${row.address2}</p>
-						<p>핸드폰 번호 : 아직디비에필드없음</p>
-						<div class="detail-buttons">
-							<button class="close-details">확인</button>
+		<c:if test="${not empty list}">
+			<c:forEach var="row" items="${list}">
+				<tr>
+					<td>${row.user_id}</td>
+					<td>${row.name}</td>
+					<td><fmt:formatDate value="${row.join_date}"
+							pattern="yyyy-MM-dd" /></td>
+					<td><fmt:formatNumber value="${row.total_donation}"
+							pattern="#,###" />원</td>
+					<td>${row.badge_count}</td>
+					<td>
+						<button class="toggle-details">상세보기</button>
+					</td>
+				</tr>
+				<tr class="details">
+					<td colspan="8">
+						<div class="details-box">
+							<h3>상세보기</h3>
+							<p>아이디 : ${row.user_id}</p>
+							<p>이름 : ${row.name}</p>
+							<p>
+								성별 :
+								<c:choose>
+									<c:when test="${row.gender == 'w'}">여성</c:when>
+									<c:when test="${row.gender == 'm'}">남성</c:when>
+								</c:choose>
+							</p>
+							<p>
+								생년월일 :
+								<fmt:formatDate value="${row.birth}" pattern="yyyy-MM-dd" />
+							</p>
+							<p>
+								가입일 :
+								<fmt:formatDate value="${row.join_date}" pattern="yyyy-MM-dd" />
+							</p>
+							<p>
+								총 기부액 :
+								<fmt:formatNumber value="${row.total_donation}" pattern="#,###" />
+								원
+							</p>
+							<p>
+								<a
+									href="donation_list.do?search_option=donor_id&keyword=${row.user_id}"><button
+										type="button">기부 내역 보기</button></a>
+							</p>
+							<p>보유 배지 : 보유 배지</p>
+							<p>주소 : ${row.address1} ${row.address2}</p>
+							<p>핸드폰 번호 : 아직디비에필드없음</p>
+							<div class="detail-buttons">
+								<button class="close-details">확인</button>
+							</div>
 						</div>
-					</div>
-				</td>
+					</td>
+				</tr>
+			</c:forEach>
+		</c:if>
+		<c:if test="${empty list}">
+			<tr>
+				<td colspan="7" align="center">검색 결과가 없습니다.</td>
 			</tr>
-		</c:forEach>
+		</c:if>
 	</table>
 
 	<%@ include file="../../include/admin_paging.jsp"%>

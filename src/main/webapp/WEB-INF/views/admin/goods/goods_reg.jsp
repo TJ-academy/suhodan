@@ -15,13 +15,17 @@
 		</div>
 
 		<div class="form-item">
-			<label for="reg_popup_price">가격</label> <input type="number"
-				id="reg_popup_price" name="price" required />원
+			<label for="reg_popup_price">가격</label>
+			<div class="price-container">
+				<input type="number" id="reg_popup_price" name="price" required />
+				<span class="currency">원</span>
+			</div>
 		</div>
-		
+
 		<div class="form-item">
 			<label for="reg_popup_description">내용</label>
-			<textarea id="reg_popup_description" name="description" rows="4" required></textarea>
+			<textarea id="reg_popup_description" name="description" rows="4"
+				required></textarea>
 		</div>
 
 		<div class="form-item">

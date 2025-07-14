@@ -17,6 +17,19 @@
 		<button id="addButton">추가하기</button>
 	</div>
 	<br>
+	
+	<form method="get" action="badge_list.do">
+		<label for="searchType">검색 기준</label> <select name="searchType">
+			<option value="name" ${searchType == 'name' ? 'selected' : ''}>명패 이름</option>
+			<option value="description"
+				${searchType == 'description' ? 'selected' : ''}>설명</option>
+		</select> <label for="searchKeyword">검색어</label> <input type="text"
+			name="searchKeyword" value="${searchKeyword}" />
+
+		<button type="submit">검색</button>
+	</form>
+	<br>
+	
 	<table border="1" width="700px">
 		<tr>
 			<td>No.</td>
@@ -39,11 +52,16 @@
 					<td>
 						<button class="edit-button" data-badge-id="${row.badge_id}"
 							data-name="${row.name}" data-description="${row.description}"
-							data-reg-date="${row.reg_date}"	data-img="${row.img}">수정</button>
+							data-reg-date="${row.reg_date}" data-img="${row.img}">수정</button>
 						<button class="delete-button" data-badge-id="${row.badge_id}">삭제</button>
 					</td>
 				</tr>
 			</c:forEach>
+		</c:if>
+		<c:if test="${empty list}">
+			<tr>
+				<td colspan="7" align="center">검색 결과가 없습니다.</td>
+			</tr>
 		</c:if>
 	</table>
 	<%@ include file="../../include/admin_paging.jsp"%>

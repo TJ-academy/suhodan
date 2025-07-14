@@ -164,3 +164,40 @@ h2 {
 .delete-button:hover {
 	background-color: #e53935; /* 삭제 버튼 호버 시 색상 */
 }
+
+
+/*input + 원 한 줄로 CSS */
+.price-container {
+    display: flex;
+    align-items: center;
+}
+
+.price-container input {
+    width: 80%;
+    padding: 5px;
+    margin-right: 5px; /* 선택 사항: input과 '원' 사이에 간격 추가 */
+}
+
+.price-container .currency {
+    font-size: 16px;
+    padding: 5px;
+}
+
+/* reward_list 상품 선택 돋보기랑 한 줄로 CSS */
+.input-container {
+    display: flex;
+    align-items: center;
+}
+
+.price-container input {
+    width: 80%;
+    padding: 5px;
+    margin-right: 5px; /* 선택 사항: input과 '원' 사이에 간격 추가 */
+}
+
+.search-icon {
+    width: 20px; /* 아이콘 크기 */
+    height: 20px; /* 아이콘 크기 */
+    cursor: pointer;
+    margin-left: 10px; /* input과 아이콘 사이에 여백 추가 */
+}

@@ -47,4 +47,15 @@ public class RewardDAOImpl implements RewardDAO {
 	public String img_file_info(int reward_id) {
 		return sqlSession.selectOne("reward.img_file_info", reward_id);
 	}
+	
+	@Override
+	public int getTotalCountSearch(Map<String, Object> param) {
+	    return sqlSession.selectOne("reward.getTotalCountSearch", param);
+	}
+	
+	@Override
+	public List<RewardDTO> listPagingSearch(Map<String, Object> param) {
+	    return sqlSession.selectList("reward.listPagingSearch", param);
+	}
+	
 }

@@ -11,4 +11,6 @@ public interface BadgeDAO {
 	void update(BadgeDTO dto);
 	void delete(int badge_id);
 	String img_file_info(int badge_id);
+	int getTotalCountSearch(Map<String, Object> param);
+	List<BadgeDTO> listPagingSearch(Map<String, Object> param);
 }

@@ -52,4 +52,20 @@ public class GoodsDAOImpl implements GoodsDAO {
 	public String detail_img_file_info(int goods_id) {
 		return sqlSession.selectOne("goods.detail_img_file_info", goods_id);
 	}
+	
+	@Override
+	public int getTotalCountSearch(Map<String, Object> param) {
+	    return sqlSession.selectOne("goods.getTotalCountSearch", param);
+	}
+	
+	@Override
+	public List<GoodsDTO> listPagingSearch(Map<String, Object> param) {
+	    return sqlSession.selectList("goods.listPagingSearch", param);
+	}
+	
+	@Override
+	public String getGoodsName(int goods_id) {
+	    return sqlSession.selectOne("goods.getGoodsName", goods_id);
+	}
+
 }

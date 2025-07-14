@@ -39,5 +39,42 @@
 	<select id="img_file_info" resultType="String">
 		select img from suho_badge where badge_id = #{badge_id}
 	</select>
+	
+	<select id="listPagingSearch"
+		resultType="com.example.suhodan.badge.BadgeDTO">
+		SELECT * FROM (
+		SELECT ROWNUM AS rnum, a.*
+		FROM (
+		SELECT * FROM suho_badge
+		<where>
+			<choose>
+				<when test="searchType == 'name' and searchKeyword != ''">
+					AND name LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when
+					test="searchType == 'description' and searchKeyword != ''">
+					AND description LIKE '%' || #{searchKeyword} || '%'
+				</when>
+			</choose>
+		</where>
+		ORDER BY badge_id DESC ) a
+		WHERE ROWNUM &lt;= #{end}
+		)
+		WHERE rnum &gt;= #{start}
+	</select>
 
+	<select id="getTotalCountSearch" resultType="int">
+		SELECT COUNT(*) FROM suho_badge
+		<where>
+			<choose>
+				<when test="searchType == 'name' and searchKeyword != ''">
+					AND name LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when
+					test="searchType == 'description' and searchKeyword != ''">
+					AND description LIKE '%' || #{searchKeyword} || '%'
+				</when>
+			</choose>
+		</where>
+	</select>
 </mapper>

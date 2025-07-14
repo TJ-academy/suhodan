@@ -14,10 +14,11 @@
 			<textarea id="reg_popup_content" name="content" rows="4" required></textarea>
 		</div>
 
-		<div class="form-item">
-			<label for="reg_popup_target_amount">목표 금액</label> <input type="number"
-				id="reg_popup_target_amount" name="target_amount" required />원
-		</div>
+		<label for="reg_popup_target_amount">목표 금액</label>
+			<div class="price-container">
+				<input type="number" id="reg_popup_target_amount"
+					name="target_amount" required /> <span class="currency">원</span>
+			</div>
 		
 		<div class="form-item">
 			<label for="reg_popup_start_date">시작일</label> <input type="date"

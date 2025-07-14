@@ -47,4 +47,14 @@ public class BadgeDAOImpl implements BadgeDAO {
 	public String img_file_info(int badge_id) {
 		return sqlSession.selectOne("badge.img_file_info", badge_id);
 	}
+	
+	@Override
+	public int getTotalCountSearch(Map<String, Object> param) {
+	    return sqlSession.selectOne("badge.getTotalCountSearch", param);
+	}
+	
+	@Override
+	public List<BadgeDTO> listPagingSearch(Map<String, Object> param) {
+	    return sqlSession.selectList("badge.listPagingSearch", param);
+	}
 }
