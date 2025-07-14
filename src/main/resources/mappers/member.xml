@@ -27,19 +27,24 @@
 		FROM suho_user
 		<where>
 			<choose>
-				<when test="searchType == 'user_id'">
-					AND user_id LIKE '%' || #{searchKeyword} || '%'
+				<when test="searchType == 'user_id' and searchKeyword != ''">
+					user_id LIKE '%' || #{searchKeyword} || '%'
 				</when>
-				<when test="searchType == 'name'">
-					AND name LIKE '%' || #{searchKeyword} || '%'
+				<when test="searchType == 'name' and searchKeyword != ''">
+					name LIKE '%' || #{searchKeyword} || '%'
 				</when>
 			</choose>
 		</where>
 	</select>
 
-	<select id="listPaging" resultMap="memberDtoMap">
+	<select id="listPagingSearch" resultMap="memberDtoMap">
+		SELECT *
+		FROM (
+		SELECT ROWNUM AS rnum, inner_query.*
+		FROM (
 		SELECT
-		u.user_id, u.passwd,
+		u.user_id,
+		u.passwd,
 		u.name,
 		u.join_date,
 		u.gender,
@@ -48,36 +53,51 @@
 		u.address2,
 		COALESCE(ub.badge_count, 0) AS badge_count,
 		COALESCE(dt.total_donation, 0) AS total_donation
-		FROM (
-		SELECT
-		ROW_NUMBER() OVER (ORDER BY ${sortBy} ${sortOrder}) AS rnum,
-		a.*
-		FROM (
-		SELECT *
-		FROM suho_user
+		FROM suho_user u
+		LEFT
+		JOIN (
+		SELECT user_id, COUNT(*) AS badge_count
+		FROM suho_userbadge
+		GROUP
+		BY user_id
+		) ub ON u.user_id = ub.user_id
+		LEFT JOIN (
+		SELECT donor_id,
+		SUM(amount) AS total_donation
+		FROM donation_transaction
+		GROUP BY
+		donor_id
+		) dt ON u.user_id = dt.donor_id
 		<where>
 			<choose>
-				<when test="searchType == 'user_id'">
-					AND user_id LIKE '%' || #{searchKeyword} || '%'
+				<when test="searchType == 'user_id' and searchKeyword != ''">
+					u.user_id LIKE '%' || #{searchKeyword} || '%'
 				</when>
-				<when test="searchType == 'name'">
-					AND name LIKE '%' || #{searchKeyword} || '%'
+				<when test="searchType == 'name' and searchKeyword != ''">
+					u.name LIKE '%' || #{searchKeyword} || '%'
 				</when>
 			</choose>
 		</where>
-		) a
-		) u
-		LEFT JOIN (
-		SELECT user_id, COUNT(*) AS badge_count
-		FROM suho_userbadge
-		GROUP BY user_id
-		) ub ON u.user_id = ub.user_id
-		LEFT JOIN (
-		SELECT donor_id, SUM(amount) AS total_donation
-		FROM donation_transaction
-		GROUP BY donor_id
-		) dt ON u.user_id = dt.donor_id
-		WHERE u.rnum BETWEEN #{start} AND #{end}
+		<choose>
+			<when test="sortBy == 'total_donation'">
+				ORDER BY COALESCE(dt.total_donation, 0) ${sortOrder}
+			</when>
+			<when test="sortBy == 'badge_count'">
+				ORDER BY COALESCE(ub.badge_count, 0) ${sortOrder}
+			</when>
+			<when test="sortBy == 'user_id'">
+				ORDER BY u.user_id ${sortOrder}
+			</when>
+			<when test="sortBy == 'name'">
+				ORDER BY u.name ${sortOrder}
+			</when>
+			<otherwise>
+				ORDER BY u.join_date ${sortOrder}
+			</otherwise>
+		</choose>
+		) inner_query
+		)
+		WHERE rnum BETWEEN #{start} AND #{end}
 	</select>
 
 

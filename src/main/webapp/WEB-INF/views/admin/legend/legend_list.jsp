@@ -18,6 +18,18 @@
 		<a href="legend/tts_form.do">TTS 생성</a>
 	</div>
 	<br>
+	
+	<form method="get" action="legend_list.do">
+		<label for="searchType">검색 기준</label> <select name="searchType">
+			<option value="title" ${searchType == 'title' ? 'selected' : ''}>제목</option>
+			<option value="location" ${searchType == 'location' ? 'selected' : ''}>지역</option>
+			<option value="story" ${searchType == 'story' ? 'selected' : ''}>내용</option>
+		</select> <label for="searchKeyword">검색어</label> <input type="text"
+			name="searchKeyword" value="${searchKeyword}" />
+		<button type="submit">검색</button>
+	</form>
+	<br>
+	
 	<table border="1" width="700px">
 		<tr>
 			<td>No.</td>
@@ -35,7 +47,7 @@
 					<td>${row.title}</td>
 					<td>${row.location}</td>
 					<td><fmt:formatDate value="${row.reg_date}"
-							pattern="yyyy-MM-dd HH:mm:ss" /></td>
+							pattern="yyyy-MM-dd" /></td>
 					<td>${row.img}</td>
 					<td>${row.tts_audio}</td>
 					<td>
@@ -50,6 +62,11 @@
 					</td>
 				</tr>
 			</c:forEach>
+		</c:if>
+		<c:if test="${empty list}">
+			<tr>
+				<td colspan="7" align="center">검색 결과가 없습니다.</td>
+			</tr>
 		</c:if>
 	</table>
 	<%@ include file="../../include/admin_paging.jsp"%>

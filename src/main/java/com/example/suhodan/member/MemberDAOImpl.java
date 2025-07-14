@@ -69,7 +69,7 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public List<MemberDTO> listPaging(Map<String, Object> param) {
-	    return sqlSession.selectList("member.listPaging", param);
+	    return sqlSession.selectList("member.listPagingSearch", param);
 	}
 
 	@Override

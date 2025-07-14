@@ -1,43 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="reward">
-	
-	<select id="list" resultType="com.example.suhodan.reward.RewardDTO">
+
+	<select id="list"
+		resultType="com.example.suhodan.reward.RewardDTO">
 		select * from suho_reward order by reward_id
 	</select>
 
-	<select id="listPaging" resultType="com.example.suhodan.reward.RewardDTO">
-	    SELECT * FROM (
-	        SELECT ROWNUM AS rnum, a.*
-	        FROM (
-	            SELECT * FROM suho_reward ORDER BY reward_id DESC
-	        ) a
-	        WHERE ROWNUM &lt;= #{end}
-	    )
-	    WHERE rnum &gt;= #{start}
+	<select id="listPaging"
+		resultType="com.example.suhodan.reward.RewardDTO">
+		SELECT * FROM (
+		SELECT ROWNUM AS rnum, a.*
+		FROM (
+		SELECT *
+		FROM suho_reward ORDER BY reward_id DESC
+		) a
+		WHERE ROWNUM &lt;= #{end}
+		)
+		WHERE rnum &gt;= #{start}
 	</select>
-	
+
 	<select id="getTotalCount" resultType="int">
-	    SELECT COUNT(*) FROM suho_reward
+		SELECT COUNT(*) FROM
+		suho_reward
 	</select>
-	
+
 	<insert id="insert">
-		insert into suho_reward (reward_id, name, description, price_type, img, goods_1, goods_2, goods_3, goods_4) 
-		values (suho_reward_seq.nextval, #{name}, #{description}, #{price_type}, #{img}, #{goods_1}, #{goods_2}, #{goods_3}, #{goods_4})
+		insert into suho_reward (reward_id, name,
+		description, price_type, img, goods_1, goods_2, goods_3, goods_4)
+		values (suho_reward_seq.nextval, #{name}, #{description},
+		#{price_type}, #{img}, #{goods_1}, #{goods_2}, #{goods_3}, #{goods_4})
 	</insert>
-	
+
 	<update id="update">
 		update suho_reward
-		set name = #{name}, description = #{description}, price_type = #{price_type}, img = #{img}, goods_1 = #{goods_1}, goods_2 = #{goods_2}, goods_3 = #{goods_3}, goods_4 = #{goods_4} 
-		where reward_id = #{reward_id} 
+		set name = #{name}, description =
+		#{description}, price_type = #{price_type}, img = #{img}, goods_1 =
+		#{goods_1}, goods_2 = #{goods_2}, goods_3 = #{goods_3}, goods_4 =
+		#{goods_4}
+		where reward_id = #{reward_id}
 	</update>
-	
+
 	<delete id="delete">
-		delete from suho_reward where reward_id = #{reward_id}
+		delete from suho_reward where reward_id =
+		#{reward_id}
 	</delete>
-	
+
 	<select id="img_file_info" resultType="String">
-		select img from suho_reward where reward_id = #{reward_id}
+		select img from
+		suho_reward where reward_id = #{reward_id}
 	</select>
-	
+
+	<select id="listPagingSearch"
+		resultType="com.example.suhodan.reward.RewardDTO">
+		SELECT * FROM (
+		SELECT r.*,
+		g1.name AS goods_1_name,
+		g2.name AS goods_2_name,
+		g3.name AS goods_3_name,
+		g4.name AS goods_4_name,
+		ROW_NUMBER() OVER (ORDER BY r.price_type DESC) AS row_num
+		FROM suho_reward r
+		LEFT JOIN suho_goods g1 ON r.goods_1 = g1.goods_id
+		LEFT JOIN suho_goods g2 ON r.goods_2 = g2.goods_id
+		LEFT JOIN suho_goods g3 ON r.goods_3 = g3.goods_id
+		LEFT JOIN suho_goods g4 ON r.goods_4 = g4.goods_id
+		<where>
+			<choose>
+				<when test="searchType == 'name' and searchKeyword != ''">
+					AND r.name LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when
+					test="searchType == 'description' and searchKeyword != ''">
+					AND r.description LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test="searchType == 'location' and searchKeyword != ''">
+					AND r.location LIKE '%' || #{searchKeyword} || '%'
+				</when>
+			</choose>
+		</where>
+		)
+		WHERE row_num BETWEEN #{start} AND #{end}
+	</select>
+
+	<select id="getTotalCountSearch" resultType="int">
+		SELECT COUNT(*)
+		FROM suho_reward r
+		LEFT JOIN suho_goods g1 ON r.goods_1
+		= g1.goods_id
+		LEFT JOIN suho_goods g2 ON r.goods_2 = g2.goods_id
+		LEFT
+		JOIN suho_goods g3 ON r.goods_3 = g3.goods_id
+		LEFT JOIN suho_goods g4
+		ON r.goods_4 = g4.goods_id
+		<where>
+			<choose>
+				<when test="searchType == 'name' and searchKeyword != ''">
+					AND r.name LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when
+					test="searchType == 'description' and searchKeyword != ''">
+					AND r.description LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test="searchType == 'location' and searchKeyword != ''">
+					AND r.location LIKE '%' || #{searchKeyword} || '%'
+				</when>
+			</choose>
+		</where>
+	</select>
 </mapper>

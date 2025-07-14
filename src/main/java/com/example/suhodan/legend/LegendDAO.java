@@ -14,4 +14,6 @@ public interface LegendDAO {
 	void delete(int legend_id);
 	String img_file_info(int legend_id);
 	String tts_file_info(int legend_id);
+	int getTotalCountSearch(Map<String, Object> param);
+	List<LegendDTO> listPagingSearch(Map<String, Object> param);
 }

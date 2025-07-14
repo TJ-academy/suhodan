@@ -17,6 +17,21 @@
 		<button id="addButton">추가하기</button>
 	</div>
 	<br>
+	
+	<form method="get" action="goods_list.do">
+		<label for="searchType">검색 기준</label> <select name="searchType">
+			<option value="name" ${searchType == 'name' ? 'selected' : ''}>상품명</option>
+			<option value="description"
+				${searchType == 'description' ? 'selected' : ''}>설명</option>
+			<option value="location"
+				${searchType == 'location' ? 'selected' : ''}>지역</option>
+		</select> <label for="searchKeyword">검색어</label> <input type="text"
+			name="searchKeyword" value="${searchKeyword}" />
+
+		<button type="submit">검색</button>
+	</form>
+	<br>
+	
 	<table border="1" width="700px">
 		<tr>
 			<td>No.</td>
@@ -33,8 +48,7 @@
 					<td>${row.goods_id}</td>
 					<td>${row.location}</td>
 					<td>${row.name}</td>
-					<td><fmt:formatNumber value="${row.price}"
-							pattern="#,###" />원</td>
+					<td><fmt:formatNumber value="${row.price}" pattern="#,###" />원</td>
 					<td><fmt:formatDate value="${row.reg_date}"
 							pattern="yyyy-MM-dd" /></td>
 					<td>${row.img}</td>
@@ -42,22 +56,26 @@
 						<%-- 수정 버튼: onclick 대신 class와 data-* 속성 사용 --%>
 						<button class="edit-button" data-goods-id="${row.goods_id}"
 							data-location="${row.location}" data-name="${row.name}"
-							data-description="${row.description}"
-							data-price="${row.price}" data-img="${row.img}"
-							data-detail-img="${row.detail_img}">수정</button>
+							data-description="${row.description}" data-price="${row.price}"
+							data-img="${row.img}" data-detail-img="${row.detail_img}">수정</button>
 						<button class="delete-button" data-goods-id="${row.goods_id}">삭제</button>
 					</td>
 				</tr>
 			</c:forEach>
 		</c:if>
+		<c:if test="${empty list}">
+			<tr>
+				<td colspan="7" align="center">검색 결과가 없습니다.</td>
+			</tr>
+		</c:if>
 	</table>
 	<%@ include file="../../include/admin_paging.jsp"%>
-	
+
 	<div id="overlay" class="overlay"></div>
-	
+
 	<%@ include file="goods_reg.jsp"%>
 	<%@ include file="goods_edit.jsp"%>
-	
+
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
         $(document).ready(function() {

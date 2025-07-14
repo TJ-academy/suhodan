@@ -44,7 +44,8 @@
 				<li><a href="/admin/badge_list.do">명패 관리</a></li>
 			</ul></li>
 		<li class="menu-item"><a href="/admin/donation_contents_list.do"
-			class="${currentCategory != null && currentCategory.equals('admin_donation') ? 'active' : ''}">기부</a>
+			class="${currentCategory != null && currentCategory.equals('admin_donation') ? 'active' : ''}
+			${currentCategory != null && currentCategory.equals('admin_donation_contents') ? 'active' : ''}">기부</a>
 			<ul class="submenu">
 				<li><a href="/admin/donation_contents_list.do">기부 프로젝트 관리</a></li>
 				<li><a href="/admin/donation_list.do">기부 내역 조회</a></li>

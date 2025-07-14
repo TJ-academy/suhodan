@@ -1,47 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goods">
-	
-	<select id="list" resultType="com.example.suhodan.goods.GoodsDTO">
+
+	<select id="list"
+		resultType="com.example.suhodan.goods.GoodsDTO">
 		select * from suho_goods order by goods_id
 	</select>
 
-	<select id="listPaging" resultType="com.example.suhodan.goods.GoodsDTO">
-	    SELECT * FROM (
-	        SELECT ROWNUM AS rnum, a.*
-	        FROM (
-	            SELECT * FROM suho_goods ORDER BY goods_id DESC
-	        ) a
-	        WHERE ROWNUM &lt;= #{end}
-	    )
-	    WHERE rnum &gt;= #{start}
+	<select id="listPaging"
+		resultType="com.example.suhodan.goods.GoodsDTO">
+		SELECT * FROM (
+		SELECT ROWNUM AS rnum, a.*
+		FROM (
+		SELECT *
+		FROM suho_goods ORDER BY goods_id DESC
+		) a
+		WHERE ROWNUM &lt;= #{end}
+		)
+		WHERE rnum &gt;= #{start}
 	</select>
-	
+
 	<select id="getTotalCount" resultType="int">
-	    SELECT COUNT(*) FROM suho_goods
+		SELECT COUNT(*) FROM
+		suho_goods
 	</select>
-	
+
 	<insert id="insert">
-		insert into suho_goods (goods_id, name, description, img, detail_img, location, price) 
-		values (suho_goods_seq.nextval, #{name}, #{description}, #{img}, #{detail_img}, #{location}, #{price})
+		insert into suho_goods (goods_id, name, description,
+		img, detail_img, location, price)
+		values (suho_goods_seq.nextval,
+		#{name}, #{description}, #{img},
+		#{detail_img}, #{location}, #{price})
 	</insert>
-	
+
 	<update id="update">
 		update suho_goods
-		set location = #{location}, name = #{name}, price = #{price}, description = #{description}, img = #{img}, detail_img = #{detail_img}
-		where goods_id = #{goods_id} 
+		set location = #{location}, name =
+		#{name}, price = #{price}, description = #{description}, img = #{img},
+		detail_img = #{detail_img}
+		where goods_id = #{goods_id}
 	</update>
-	
+
 	<delete id="delete">
 		delete from suho_goods where goods_id = #{goods_id}
 	</delete>
-	
+
 	<select id="img_file_info" resultType="String">
-		select img from suho_goods where goods_id = #{goods_id}
+		select img from suho_goods
+		where goods_id = #{goods_id}
 	</select>
-	
+
 	<select id="detail_img_file_info" resultType="String">
-		select detail_img from suho_goods where goods_id = #{goods_id}
+		select detail_img
+		from suho_goods where goods_id = #{goods_id}
 	</select>
-	
+
+	<select id="listPagingSearch"
+		resultType="com.example.suhodan.goods.GoodsDTO">
+		SELECT * FROM (
+		SELECT ROWNUM AS rnum, a.*
+		FROM (
+		SELECT * FROM suho_goods
+		<where>
+			<choose>
+				<when test="searchType == 'name' and searchKeyword != ''">
+					AND name LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when
+					test="searchType == 'description' and searchKeyword != ''">
+					AND description LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test="searchType == 'location' and searchKeyword != ''">
+					AND location LIKE '%' || #{searchKeyword} || '%'
+				</when>
+			</choose>
+		</where>
+		) a
+		WHERE ROWNUM &lt;= #{end}
+		)
+		WHERE rnum &gt;= #{start}
+	</select>
+
+	<select id="getTotalCountSearch" resultType="int">
+		SELECT COUNT(*) FROM suho_goods
+		<where>
+			<choose>
+				<when test="searchType == 'name' and searchKeyword != ''">
+					AND name LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when
+					test="searchType == 'description' and searchKeyword != ''">
+					AND description LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test="searchType == 'location' and searchKeyword != ''">
+					AND location LIKE '%' || #{searchKeyword} || '%'
+				</when>
+			</choose>
+		</where>
+	</select>
+
+	<select id="getGoodsName" resultType="String">
+	    SELECT name FROM suho_goods WHERE goods_id = #{goods_id}
+	</select>
 </mapper>

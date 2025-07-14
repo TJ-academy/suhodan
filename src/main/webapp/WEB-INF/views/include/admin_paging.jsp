@@ -3,59 +3,134 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <div class="pagination">
-	<!-- 이전 버튼 -->
 	<c:choose>
 		<c:when test="${currentPage > 1}">
-			<a
-				href="${currentCategory == 'admin_goods' ? 'goods_list.do' : 
-            currentCategory == 'admin_member' ? 'member_list.do' : 
-            currentCategory == 'admin_legend' ? 'legend_list.do' : 
-            currentCategory == 'admin_donation' ? 'donation_list.do' : 
-            currentCategory == 'admin_badge' ? 'badge_list.do' : ''}?page=${currentPage-1}"
-				id="prev-page">&lt; 이전</a>
-			<!-- '이전' 버튼 -->
+			<c:url var="prevPageLink" value="">
+				<c:choose>
+					<c:when test="${currentCategory == 'admin_goods'}">
+						<c:set var="baseUrl" value="goods_list.do" />
+					</c:when>
+					<c:when test="${currentCategory == 'admin_member'}">
+						<c:set var="baseUrl" value="member_list.do" />
+					</c:when>
+					<c:when test="${currentCategory == 'admin_legend'}">
+						<c:set var="baseUrl" value="legend_list.do" />
+					</c:when>
+					<c:when test="${currentCategory == 'admin_donation'}">
+						<c:set var="baseUrl" value="donation_list.do" />
+					</c:when>
+					<c:when test="${currentCategory == 'admin_badge'}">
+						<c:set var="baseUrl" value="badge_list.do" />
+					</c:when>
+					<c:when test="${currentCategory == 'admin_reward'}">
+						<c:set var="baseUrl" value="reward_list.do" />
+					</c:when>
+					<c:when test="${currentCategory == 'admin_reward_find_goods'}">
+						<c:set var="baseUrl" value="reward_find_goods.do" />
+					</c:when>
+					<c:otherwise>
+						<c:set var="baseUrl" value="#" />
+						<%-- 정의되지 않은 카테고리를 위한 대체 URL --%>
+					</c:otherwise>
+				</c:choose>
+				<c:param name="page" value="${currentPage - 1}" />
+				<c:param name="searchType" value="${searchType}" />
+				<c:param name="searchKeyword" value="${searchKeyword}" />
+				<c:param name="sortBy" value="${sortBy}" />
+				<c:param name="sortOrder" value="${sortOrder}" />
+			</c:url>
+			<a href="${prevPageLink}" id="prev-page">&lt; 이전</a>
 		</c:when>
 		<c:otherwise>
 			<span id="prev-page-disabled">&lt; 이전</span>
-			<!-- 비활성화된 '이전' 버튼 -->
 		</c:otherwise>
 	</c:choose>
 
-	<!-- 페이지 번호들 -->
 	<c:forEach var="i" begin="1" end="${totalPage}">
+		<c:url var="pageLink" value="">
+			<c:choose>
+				<c:when test="${currentCategory == 'admin_goods'}">
+					<c:set var="baseUrl" value="goods_list.do" />
+				</c:when>
+				<c:when test="${currentCategory == 'admin_member'}">
+					<c:set var="baseUrl" value="member_list.do" />
+				</c:when>
+				<c:when test="${currentCategory == 'admin_legend'}">
+					<c:set var="baseUrl" value="legend_list.do" />
+				</c:when>
+				<c:when test="${currentCategory == 'admin_donation'}">
+					<c:set var="baseUrl" value="donation_list.do" />
+				</c:when>
+				<c:when test="${currentCategory == 'admin_badge'}">
+					<c:set var="baseUrl" value="badge_list.do" />
+				</c:when>
+				<c:when test="${currentCategory == 'admin_reward'}">
+					<c:set var="baseUrl" value="reward_list.do" />
+				</c:when>
+				<c:when test="${currentCategory == 'admin_reward_find_goods'}">
+					<c:set var="baseUrl" value="reward_find_goods.do" />
+				</c:when>
+				<c:otherwise>
+					<c:set var="baseUrl" value="#" />
+					<%-- 정의되지 않은 카테고리를 위한 대체 URL --%>
+				</c:otherwise>
+			</c:choose>
+			<c:param name="page" value="${i}" />
+			<c:param name="searchType" value="${searchType}" />
+			<c:param name="searchKeyword" value="${searchKeyword}" />
+			<c:param name="sortBy" value="${sortBy}" />
+			<c:param name="sortOrder" value="${sortOrder}" />
+		</c:url>
 		<c:choose>
 			<c:when test="${i == currentPage}">
 				<strong id="current-page">[${i}]</strong>
-				<!-- 현재 페이지 강조 -->
 			</c:when>
 			<c:otherwise>
-				<a
-					href="${currentCategory == 'admin_goods' ? 'goods_list.do' : 
-            currentCategory == 'admin_member' ? 'member_list.do' : 
-            currentCategory == 'admin_legend' ? 'legend_list.do' : 
-            currentCategory == 'admin_donation' ? 'donation_list.do' : 
-            currentCategory == 'admin_badge' ? 'badge_list.do' : ''}?page=${i}"
-					id="page-${i}">[${i}]</a>
-				<!-- 페이지 링크 -->
+				<a href="${pageLink}" id="page-${i}">[${i}]</a>
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
 
-	<!-- 다음 버튼 -->
 	<c:choose>
 		<c:when test="${currentPage < totalPage}">
-            <a
-				href="${currentCategory == 'admin_goods' ? 'goods_list.do' : 
-            currentCategory == 'admin_member' ? 'member_list.do' : 
-            currentCategory == 'admin_legend' ? 'legend_list.do' : 
-            currentCategory == 'admin_donation' ? 'donation_list.do' : 
-            currentCategory == 'admin_badge' ? 'badge_list.do' : ''}?page=${currentPage+1}"
-				id="next-page">다음 &gt;</a>
-			<!-- '다음' 버튼 -->
+			<c:url var="nextPageLink" value="">
+				<c:choose>
+					<c:when test="${currentCategory == 'admin_goods'}">
+						<c:set var="baseUrl" value="goods_list.do" />
+					</c:when>
+					<c:when test="${currentCategory == 'admin_member'}">
+						<c:set var="baseUrl" value="member_list.do" />
+					</c:when>
+					<c:when test="${currentCategory == 'admin_legend'}">
+						<c:set var="baseUrl" value="legend_list.do" />
+					</c:when>
+					<c:when test="${currentCategory == 'admin_donation'}">
+						<c:set var="baseUrl" value="donation_list.do" />
+					</c:when>
+					<c:when test="${currentCategory == 'admin_badge'}">
+						<c:set var="baseUrl" value="badge_list.do" />
+					</c:when>
+					<c:when test="${currentCategory == 'admin_reward'}">
+						<c:set var="baseUrl" value="reward_list.do" />
+					</c:when>
+					<c:when test="${currentCategory == 'admin_reward_find_goods'}">
+						<c:set var="baseUrl" value="reward_find_goods.do" />
+					</c:when>
+					<c:otherwise>
+						<c:set var="baseUrl" value="#" />
+						<%-- 정의되지 않은 카테고리를 위한 대체 URL --%>
+					</c:otherwise>
+				</c:choose>
+				<c:param name="page" value="${currentPage + 1}" />
+				<c:param name="searchType" value="${searchType}" />
+				<c:param name="searchKeyword" value="${searchKeyword}" />
+				<c:param name="sortBy" value="${sortBy}" />
+				<c:param name="sortOrder" value="${sortOrder}" />
+			</c:url>
+			<a href="${nextPageLink}" id="next-page">다음 &gt;</a>
 		</c:when>
 		<c:otherwise>
 			<span id="next-page-disabled">다음 &gt;</span>
-			<!-- 비활성화된 '다음' 버튼 -->
 		</c:otherwise>
 	</c:choose>
 </div>

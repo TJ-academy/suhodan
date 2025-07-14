@@ -58,8 +58,8 @@ public class AdminController {
 
 	@GetMapping("member_list.do")
 	public ModelAndView member_list(@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "searchType", required = false) String searchType,
-			@RequestParam(value = "searchKeyword", required = false) String searchKeyword,
+			@RequestParam(value = "searchType", defaultValue = "") String searchType,
+			@RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyword,
 			@RequestParam(value = "sortBy", defaultValue = "join_date") String sortBy,
 			@RequestParam(value = "sortOrder", defaultValue = "asc") String sortOrder, ModelAndView mav) {
 
@@ -89,23 +89,34 @@ public class AdminController {
 		mav.addObject("sortOrder", sortOrder);
 		return mav;
 	}
-
+	
 	@GetMapping("legend_list.do")
-	public ModelAndView legend_list(@RequestParam(value = "page", defaultValue = "1") int page, ModelAndView mav) {
-		int totalCount = legendDao.getTotalCount();
-		PageUtil pu = new PageUtil(page, totalCount);
+	public ModelAndView legend_list(@RequestParam(value = "page", defaultValue = "1") int page,
+	        @RequestParam(value = "searchType", defaultValue = "") String searchType,
+	        @RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyword,
+	        ModelAndView mav) {
 
-		Map<String, Integer> param = new HashMap<>();
-		param.put("start", pu.getStart());
-		param.put("end", pu.getEnd());
+	    // 검색 조건을 param에 담기
+	    Map<String, Object> param = new HashMap<>();
+	    param.put("searchType", searchType);
+	    param.put("searchKeyword", searchKeyword);
 
-		List<LegendDTO> list = legendDao.listPaging(param);
+	    // 총 레코드 수 가져오기
+	    int totalCount = legendDao.getTotalCountSearch(param);
+	    PageUtil pu = new PageUtil(page, totalCount);
 
-		mav.setViewName("/admin/legend/legend_list");
-		mav.addObject("list", list);
-		mav.addObject("currentPage", pu.getCurrentPage());
-		mav.addObject("totalPage", pu.getTotalPage());
-		return mav;
+	    param.put("start", pu.getStart());
+	    param.put("end", pu.getEnd());
+
+	    List<LegendDTO> list = legendDao.listPagingSearch(param);
+
+	    mav.setViewName("/admin/legend/legend_list");
+	    mav.addObject("list", list);
+	    mav.addObject("currentPage", pu.getCurrentPage());
+	    mav.addObject("totalPage", pu.getTotalPage());
+	    mav.addObject("searchType", searchType);
+	    mav.addObject("searchKeyword", searchKeyword);
+	    return mav;
 	}
 
 	@PostMapping("legend_insert.do")
@@ -228,20 +239,42 @@ public class AdminController {
 	}
 
 	@GetMapping("reward_list.do")
-	public ModelAndView reward_list(@RequestParam(value = "page", defaultValue = "1") int page, ModelAndView mav) {
-		int totalCount = rewardDao.getTotalCount();
-		PageUtil pu = new PageUtil(page, totalCount);
+	public ModelAndView reward_list(@RequestParam(value = "page", defaultValue = "1") int page, 
+	                                @RequestParam(value = "searchType", required = false) String searchType,
+	                                @RequestParam(value = "searchKeyword", required = false) String searchKeyword,
+	                                @RequestParam(value = "sortBy", defaultValue = "reg_date") String sortBy,
+	                                @RequestParam(value = "sortOrder", defaultValue = "desc") String sortOrder, 
+	                                ModelAndView mav) {
+	    int totalCount = rewardDao.getTotalCount();
+	    PageUtil pu = new PageUtil(page, totalCount);
+	    
+	    Map<String, Object> param = new HashMap<>();
+	    param.put("start", pu.getStart());
+	    param.put("end", pu.getEnd());
+	    param.put("searchType", searchType);
+	    param.put("searchKeyword", searchKeyword);
+	    param.put("sortBy", sortBy);
+	    param.put("sortOrder", sortOrder);
+	    
+	    List<RewardDTO> list = rewardDao.listPagingSearch(param);
 
-		Map<String, Integer> param = new HashMap<>();
-		param.put("start", pu.getStart());
-		param.put("end", pu.getEnd());
+	    // goods1~4에 대한 이름 조회
+	    for (RewardDTO reward : list) {
+	        reward.setGoods_1_name(goodsDao.getGoodsName(reward.getGoods_1()));
+	        reward.setGoods_2_name(goodsDao.getGoodsName(reward.getGoods_2()));
+	        reward.setGoods_3_name(goodsDao.getGoodsName(reward.getGoods_3()));
+	        reward.setGoods_4_name(goodsDao.getGoodsName(reward.getGoods_4()));
+	    }
 
-		List<RewardDTO> list = rewardDao.listPaging(param);
-		mav.setViewName("/admin/reward/reward_list");
-		mav.addObject("list", list);
-		mav.addObject("currentPage", pu.getCurrentPage());
-		mav.addObject("totalPage", pu.getTotalPage());
-		return mav;
+	    mav.setViewName("/admin/reward/reward_list");
+	    mav.addObject("list", list);
+	    mav.addObject("currentPage", pu.getCurrentPage());
+	    mav.addObject("totalPage", pu.getTotalPage());
+	    mav.addObject("searchType", searchType);
+	    mav.addObject("searchKeyword", searchKeyword);
+	    mav.addObject("sortBy", sortBy);
+	    mav.addObject("sortOrder", sortOrder);
+	    return mav;
 	}
 
 	@PostMapping("reward_insert.do")
@@ -324,24 +357,65 @@ public class AdminController {
 		rewardDao.delete(reward_id);
 		return "redirect:/admin/reward_list.do";
 	}
+	
+	@GetMapping("reward_find_goods.do")
+	public ModelAndView reward_find_goods(@RequestParam(value = "page", defaultValue = "1") int page,
+	        @RequestParam(value = "searchType", defaultValue = "") String searchType,
+	        @RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyword,
+	        ModelAndView mav) {
+
+	    // 검색 조건을 param에 담기
+	    Map<String, Object> param = new HashMap<>();
+	    param.put("searchType", searchType);
+	    param.put("searchKeyword", searchKeyword);
+
+	    // 총 레코드 수 가져오기
+	    int totalCount = goodsDao.getTotalCountSearch(param);
+	    PageUtil pu = new PageUtil(page, totalCount);
+
+	    param.put("start", pu.getStart());
+	    param.put("end", pu.getEnd());
+
+	    List<GoodsDTO> list = goodsDao.listPagingSearch(param);
+
+	    mav.setViewName("/admin/reward/find_goods");
+	    mav.addObject("list", list);
+	    mav.addObject("currentPage", pu.getCurrentPage());
+	    mav.addObject("totalPage", pu.getTotalPage());
+	    mav.addObject("searchType", searchType);
+	    mav.addObject("searchKeyword", searchKeyword);
+	    return mav;
+	}
 
 	@GetMapping("goods_list.do")
-	public ModelAndView goods_list(@RequestParam(value = "page", defaultValue = "1") int page, ModelAndView mav) {
-		int totalCount = goodsDao.getTotalCount();
-		PageUtil pu = new PageUtil(page, totalCount);
+	public ModelAndView goods_list(@RequestParam(value = "page", defaultValue = "1") int page,
+	        @RequestParam(value = "searchType", defaultValue = "") String searchType,
+	        @RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyword,
+	        ModelAndView mav) {
 
-		Map<String, Integer> param = new HashMap<>();
-		param.put("start", pu.getStart());
-		param.put("end", pu.getEnd());
+	    // 검색 조건을 param에 담기
+	    Map<String, Object> param = new HashMap<>();
+	    param.put("searchType", searchType);
+	    param.put("searchKeyword", searchKeyword);
 
-		List<GoodsDTO> list = goodsDao.listPaging(param);
+	    // 총 레코드 수 가져오기
+	    int totalCount = goodsDao.getTotalCountSearch(param);
+	    PageUtil pu = new PageUtil(page, totalCount);
 
-		mav.setViewName("/admin/goods/goods_list");
-		mav.addObject("list", list);
-		mav.addObject("currentPage", pu.getCurrentPage());
-		mav.addObject("totalPage", pu.getTotalPage());
-		return mav;
+	    param.put("start", pu.getStart());
+	    param.put("end", pu.getEnd());
+
+	    List<GoodsDTO> list = goodsDao.listPagingSearch(param);
+
+	    mav.setViewName("/admin/goods/goods_list");
+	    mav.addObject("list", list);
+	    mav.addObject("currentPage", pu.getCurrentPage());
+	    mav.addObject("totalPage", pu.getTotalPage());
+	    mav.addObject("searchType", searchType);
+	    mav.addObject("searchKeyword", searchKeyword);
+	    return mav;
 	}
+
 
 	@PostMapping("goods_insert.do")
 	public String goods_insert(GoodsDTO dto, HttpServletRequest request) {
@@ -473,21 +547,32 @@ public class AdminController {
 	}
 
 	@GetMapping("badge_list.do")
-	public ModelAndView badge_list(@RequestParam(value = "page", defaultValue = "1") int page, ModelAndView mav) {
-		int totalCount = badgeDao.getTotalCount();
-		PageUtil pu = new PageUtil(page, totalCount);
+	public ModelAndView badge_list(@RequestParam(value = "page", defaultValue = "1") int page,
+	        @RequestParam(value = "searchType", defaultValue = "") String searchType,
+	        @RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyword,
+	        ModelAndView mav) {
 
-		Map<String, Integer> param = new HashMap<>();
-		param.put("start", pu.getStart());
-		param.put("end", pu.getEnd());
+	    // 검색 조건을 param에 담기
+	    Map<String, Object> param = new HashMap<>();
+	    param.put("searchType", searchType);
+	    param.put("searchKeyword", searchKeyword);
 
-		List<BadgeDTO> list = badgeDao.listPaging(param);
+	    // 총 레코드 수 가져오기
+	    int totalCount = badgeDao.getTotalCountSearch(param);
+	    PageUtil pu = new PageUtil(page, totalCount);
 
-		mav.setViewName("/admin/badge/badge_list");
-		mav.addObject("list", list);
-		mav.addObject("currentPage", pu.getCurrentPage());
-		mav.addObject("totalPage", pu.getTotalPage());
-		return mav;
+	    param.put("start", pu.getStart());
+	    param.put("end", pu.getEnd());
+
+	    List<BadgeDTO> list = badgeDao.listPagingSearch(param);
+
+	    mav.setViewName("/admin/badge/badge_list");
+	    mav.addObject("list", list);
+	    mav.addObject("currentPage", pu.getCurrentPage());
+	    mav.addObject("totalPage", pu.getTotalPage());
+	    mav.addObject("searchType", searchType);
+	    mav.addObject("searchKeyword", searchKeyword);
+	    return mav;
 	}
 
 	@PostMapping("badge_insert.do")
@@ -665,19 +750,19 @@ public class AdminController {
 
 	@GetMapping("donation_list.do")
 	public ModelAndView donation_list(@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "search_option", defaultValue = "") String searchOption, // 검색 옵션
-			@RequestParam(value = "keyword", defaultValue = "") String keyword, // 검색 키워드
+			@RequestParam(value = "searchType", defaultValue = "") String searchType, // 검색 옵션
+			@RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyword, // 검색 키워드
 			ModelAndView mav) {
 
 		// 검색 조건을 추가한 전체 레코드 개수 계산
-		int totalCount = donationTADao.getTotalCount(searchOption, keyword); // getTotalCount 메서드를 수정해서 검색된 레코드 개수를
+		int totalCount = donationTADao.getTotalCount(searchType, searchKeyword); // getTotalCount 메서드를 수정해서 검색된 레코드 개수를
 		PageUtil pu = new PageUtil(page, totalCount);
 
 		Map<String, Object> param = new HashMap<>();
 		param.put("start", pu.getStart());
 		param.put("end", pu.getEnd());
-		param.put("search_option", searchOption); // 검색 옵션
-		param.put("keyword", keyword); // 검색 키워드
+		param.put("searchType", searchType); // 검색 옵션
+		param.put("keyword", searchKeyword); // 검색 키워드
 
 		// 리스트 조회
 		List<DonationListDTO> list = donationTADao.listPagingSearch(param);
@@ -686,8 +771,8 @@ public class AdminController {
 		mav.addObject("list", list);
 		mav.addObject("currentPage", pu.getCurrentPage());
 		mav.addObject("totalPage", pu.getTotalPage());
-		mav.addObject("searchOption", searchOption); // 현재 검색 옵션을 JSP로 전달
-		mav.addObject("keyword", keyword); // 현재 검색 키워드를 JSP로 전달
+		mav.addObject("searchType", searchType); // 현재 검색 옵션을 JSP로 전달
+		mav.addObject("searchKeywrod", searchKeyword); // 현재 검색 키워드를 JSP로 전달
 
 		return mav;
 	}
