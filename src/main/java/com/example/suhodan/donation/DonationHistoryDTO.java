@@ -10,8 +10,10 @@ import lombok.ToString;
 @Setter
 @ToString
 public class DonationHistoryDTO {
+	private String location;
 	private String title;
 	private String content;
+	private String filename;
 	private int amount;
 	private Date donationDate;
 }

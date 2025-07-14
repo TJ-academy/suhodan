@@ -16,8 +16,10 @@
     
     <select id="myDonationHistory" parameterType="string" resultType="com.example.suhodan.donation.DonationHistoryDTO">
 	     SELECT
+	     	c.location		   AS location,
 	        c.title            AS title,
 	        c.content          AS content,
+	        c.filename		   AS filename,
 	        t.amount           AS amount,
 	        t.donation_date    AS donationDate
 	    FROM donation_transaction       t

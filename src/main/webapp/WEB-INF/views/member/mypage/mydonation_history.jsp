@@ -7,32 +7,50 @@
 <head>
 <meta charset="UTF-8">
 <title>기부내역</title>
-<style>
-	.dona_con {
-	}
-</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/mydonation_history.css">
 </head>
 <body>
 <%@ include file="../../include/menu.jsp" %>
-<!-- 날짜, 제목, 내용, 기부금액 -->
-<div class="dona_con">
 
-</div>
-<table>
-	<tr>
-		<th>제목</th>
-		<th>내용</th>
-		<th>기부금액</th>
-		<th>기부일</th>
-	</tr>
+<div class="dona_con">
+	<div class="title">
+		<div class="con1">
+			<a href="/mypage"><img alt="뒤로가기" src="/resources/images/back.png"></a>
+		</div>
+		<div class="con2">
+			<img alt="로고" src="/resources/suhodan_images/logo/logo_no_text.png" width="120" height="auto"> 
+		</div>
+		<div style="width: 25px;"></div> 
+	</div>
+	<div class="donation-title-section">
+		<img src="/resources/suhodan_images/icon/donation.png" alt="기부 아이콘">
+		<span>기부 내역</span>
+	</div>
+
 	<c:forEach var="d" items="${dlist}">
-		<tr>
-			<td>${d.title}</td>
-			<td>${d.content}</td>
-			<td><fmt:formatNumber value="${d.amount}" type="currency"/></td>
-			<td><fmt:formatDate value="${d.donationDate}" pattern="yyyy-MM-dd"/></td>
-		</tr>
+	<div class="card-custom d-flex"> 
+		<div class="card-image-wrapper me-4"> 
+			<img src="/resources/donation_img/${d.filename}" alt="기부 이미지">
+			<button class="view-details-btn">자세히 보기</button>
+		</div>
+		
+		<div class="d-flex flex-column justify-content-between flex-grow-1"> 
+			<div class="d-flex justify-content-end">
+				<p class="card-header-meta"><fmt:formatDate value="${d.donationDate}" pattern="yyyy-MM-dd"/></p>
+			</div>
+			
+			<div class="d-flex flex-column align-items-start my-auto">
+				<p class="location mb-1">${d.location}</p>
+				<p class="project-title mb-0">${d.title}</p>
+			</div>
+			
+			<div class="d-flex justify-content-end mt-auto"> 
+				<span class="total-amount"><span style="color:#2E2E2E;">총</span> <fmt:formatNumber value="${d.amount}" type="currency"/></span>
+			</div>
+		</div>
+	</div>
 	</c:forEach>
-</table>
+</div>
 </body>
 </html>
