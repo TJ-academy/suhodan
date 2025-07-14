@@ -21,4 +21,9 @@ public interface DonationConDAO {
 	List<DonationConDTO> listPaging(Map<String, Object> paramMap);
 	
 	void insertTransaction(DonationTransactionDTO dto); //결제처리
+	
+	int getTotalCountSearch(Map<String, Object> param);
+	
+	List<DonationConDTO> listPagingSearch(Map<String, Object> param);
+
 }

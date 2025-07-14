@@ -49,7 +49,7 @@
 		<where>
 			<choose>
 				<when test="searchType == 'donor_id' and searchKeyword != ''">
-					dt.donor_id = #{searchKeyword, jdbcType=VARCHAR}
+					dt.donor_id = #{searchKeyword}
 				</when>
 				<when test="searchType == 'content_title' and searchKeyword != ''">
 					c.title LIKE '%' || #{searchKeyword, jdbcType=VARCHAR} || '%'

@@ -64,6 +64,6 @@
 
 <script>
 document.getElementById('find_goods_button').addEventListener('click', function() {
-    window.open('reward_find_goods.do', 'findGoodsPopup', 'width=600,height=400');
+    window.open('reward_find_goods.do', 'findGoodsPopup', 'width=600,height=800');
 });
 </script>

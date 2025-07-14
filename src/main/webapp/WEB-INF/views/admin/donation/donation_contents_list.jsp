@@ -17,6 +17,27 @@
 		<button id="addButton">추가하기</button>
 	</div>
 	<br>
+	
+	<form method="get" action="donation_contents_list.do">
+		<label for="searchType">검색 기준</label> <select name="searchType">
+			<option value="title" ${searchType == 'title' ? 'selected' : ''}>제목</option>
+			<option value="content" ${searchType == 'content' ? 'selected' : ''}>내용</option>
+			<option value="location" ${searchType == 'location' ? 'selected' : ''}>지역</option>
+		</select> <label for="searchKeyword">검색어</label> <input type="text"
+			name="searchKeyword" value="${searchKeyword}" /> <label for="sortBy">정렬
+			기준</label> <select name="sortBy">
+			<option value="target_amount" ${sortBy == 'target_amount' ? 'selected' : ''}>목표금액</option>
+			<option value="start_date" ${sortBy == 'start_date' ? 'selected' : ''}>시작일자</option>
+			<option value="end_date" ${sortBy == 'end_date' ? 'selected' : ''}>종료일자</option>
+			<option value="created_at" ${sortBy == 'created_at' ? 'selected' : ''}>등록일자</option>
+		</select> <label for="sortOrder">정렬 순서</label> <select name="sortOrder">
+			<option value="asc" ${sortOrder == 'asc' ? 'selected' : ''}>오름차순</option>
+			<option value="desc" ${sortOrder == 'desc' ? 'selected' : ''}>내림차순</option>
+		</select>
+		<button type="submit">검색</button>
+	</form>
+	<br>
+	
 	<table border="1" width="700px">
 		<tr>
 			<td>No.</td>

@@ -16,7 +16,7 @@
     </div>
     <br>
     
-    <form method="get" action="goods_list.do">
+    <form method="get" action="reward_find_goods.do">
         <label for="searchType">검색 기준</label>
         <select name="searchType">
             <option value="name" ${searchType == 'name' ? 'selected' : ''}>상품명</option>

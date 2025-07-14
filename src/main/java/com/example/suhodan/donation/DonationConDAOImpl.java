@@ -60,5 +60,15 @@ public class DonationConDAOImpl implements DonationConDAO {
 	public void insertTransaction(DonationTransactionDTO dto) {
 	    sqlSession.insert("donationCon.insertTransaction", dto);
 	}
+	
+	@Override
+	public List<DonationConDTO> listPagingSearch(Map<String, Object> param) {
+	    return sqlSession.selectList("donationCon.listPagingSearch", param);
+	}
+
+	@Override
+	public int getTotalCountSearch(Map<String, Object> param) {
+	    return sqlSession.selectOne("donationCon.getTotalCountSearch", param);
+	}
 
 }

@@ -1,82 +1,173 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="donationCon">
+
 	<insert id="insert">
-		insert into suho_donation_content (content_id, title, content, target_amount, start_date, end_date, location, created_at, filename)
-		values (donation_content_seq.nextval, #{title}, #{content}, #{target_amount}, #{start_date}, #{end_date}, #{location}, sysdate, #{filename})
+		insert into suho_donation_content (content_id, title,
+		content, target_amount, start_date, end_date, location, created_at,
+		filename)
+		values (donation_content_seq.nextval, #{title}, #{content},
+		#{target_amount}, #{start_date}, #{end_date}, #{location}, sysdate,
+		#{filename})
 	</insert>
+
 	<update id="update">
 		update suho_donation_content
-		set title=#{title}, content=#{content}, target_amount=#{target_amount}, start_date=#{start_date},
+		set title=#{title},
+		content=#{content}, target_amount=#{target_amount},
+		start_date=#{start_date},
 		end_date=#{end_date}, location=#{location},
 		filename=#{filename}
 		where content_id=#{content_id}
 	</update>
+
 	<select id="file_info" resultType="String">
-		select filename from suho_donation_content 
+		select filename from
+		suho_donation_content
 		where content_id=#{content_id}
 	</select>
+
 	<delete id="delete">
-		delete suho_donation_content where content_id=#{content_id}
+		delete suho_donation_content where
+		content_id=#{content_id}
 	</delete>
-	<select id="list" resultType="com.example.suhodan.donation.DonationConDTO">
-	  SELECT c.*,
-	         NVL(d.total_donated, 0) AS donated_amount
-	    FROM suho_donation_content c
-	    LEFT JOIN (
-	      SELECT content_id, SUM(amount) AS total_donated
-	        FROM donation_transaction
-	       WHERE status = '완료'
-	       GROUP BY content_id
-	    ) d ON c.content_id = d.content_id
-	    ORDER BY c.created_at DESC
+
+	<select id="list"
+		resultType="com.example.suhodan.donation.DonationConDTO">
+		SELECT c.*,
+		NVL(d.total_donated, 0) AS donated_amount
+		FROM suho_donation_content c
+		LEFT JOIN (
+		SELECT content_id, SUM(amount) AS total_donated
+		FROM donation_transaction
+		WHERE status = '완료'
+		GROUP BY content_id
+		) d ON c.content_id = d.content_id
+		ORDER BY c.created_at DESC
 	</select>
-	<select id="detail" resultType="com.example.suhodan.donation.DonationConDTO">
-	  SELECT c.*,
-	         NVL(d.total_donated, 0) AS donated_amount
-	    FROM suho_donation_content c
-	    LEFT JOIN (
-	      SELECT content_id, SUM(amount) AS total_donated
-	        FROM donation_transaction
-	       WHERE status = '완료'
-	       GROUP BY content_id
-	    ) d ON c.content_id = d.content_id
-	   WHERE c.content_id = #{content_id}
+
+	<select id="detail"
+		resultType="com.example.suhodan.donation.DonationConDTO">
+		SELECT c.*,
+		NVL(d.total_donated, 0) AS donated_amount
+		FROM suho_donation_content c
+		LEFT JOIN (
+		SELECT content_id, SUM(amount) AS total_donated
+		FROM donation_transaction
+		WHERE status = '완료'
+		GROUP BY content_id
+		) d ON c.content_id = d.content_id
+		WHERE c.content_id = #{content_id}
 	</select>
+
 	<select id="getCount" resultType="int">
 		select count(*)
-		from suho_donation_content
+		from
+		suho_donation_content
 	</select>
-	<select id="listPaging" parameterType="map" resultType="com.example.suhodan.donation.DonationConDTO">
-	  SELECT * FROM (
-	    SELECT ROWNUM rn, A.*
-	      FROM (
-	        SELECT c.*,
-	               NVL(d.total_donated, 0) AS donated_amount
-	          FROM suho_donation_content c
-	          LEFT JOIN (
-	            SELECT content_id, SUM(amount) AS total_donated
-	              FROM donation_transaction
-	             WHERE status = '완료'
-	             GROUP BY content_id
-	          ) d ON c.content_id = d.content_id
-	         ORDER BY c.created_at DESC
-	      ) A
-	     WHERE ROWNUM &lt;= #{end}
-	  )
-	  WHERE rn &gt;= #{start}
+
+	<select id="listPaging" parameterType="map"
+		resultType="com.example.suhodan.donation.DonationConDTO">
+		SELECT * FROM (
+		SELECT ROWNUM rn, A.*
+		FROM (
+		SELECT c.*,
+		NVL(d.total_donated, 0) AS donated_amount
+		FROM suho_donation_content c
+		LEFT JOIN (
+		SELECT content_id, SUM(amount) AS total_donated
+		FROM donation_transaction
+		WHERE status = '완료'
+		GROUP BY content_id
+		) d ON c.content_id = d.content_id
+		ORDER BY c.created_at DESC
+		) A
+		WHERE ROWNUM &lt;= #{end}
+		)
+		WHERE rn &gt;= #{start}
 	</select>
-	<insert id="insertTransaction" parameterType="com.example.suhodan.donation.DonationTransactionDTO">
+
+	<insert id="insertTransaction"
+		parameterType="com.example.suhodan.donation.DonationTransactionDTO">
 		INSERT INTO donation_transaction (
-		  transaction_id, content_id, donor_id, amount,
-		  donation_date, payment_method, status,
-		  merchant_uid, imp_uid
+		transaction_id, content_id, donor_id, amount,
+		donation_date, payment_method, status,
+		merchant_uid, imp_uid
 		) VALUES (
-		  donation_transaction_seq.nextval,
-		  #{content_id}, #{donor_id}, #{amount},
-		  #{donation_date}, #{payment_method}, #{status},
-		  #{merchant_uid}, #{imp_uid}
+		donation_transaction_seq.nextval,
+		#{content_id}, #{donor_id}, #{amount},
+		#{donation_date}, #{payment_method}, #{status},
+		#{merchant_uid}, #{imp_uid}
 		)
 	</insert>
-	
+
+	<select id="listPagingSearch" parameterType="map"
+		resultType="com.example.suhodan.donation.DonationConDTO">
+		SELECT * FROM (
+		SELECT ROWNUM rn, A.*
+		FROM (
+		SELECT c.*,
+		NVL(d.total_donated, 0) AS donated_amount
+		FROM suho_donation_content c
+		LEFT JOIN (
+		SELECT content_id, SUM(amount) AS total_donated
+		FROM donation_transaction
+		GROUP BY content_id
+		) d ON c.content_id = d.content_id
+		<where>
+			<choose>
+				<when test="searchType == 'title' and searchKeyword != ''">
+					AND c.title LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test="searchType == 'content' and searchKeyword != ''">
+					AND c.content LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test="searchType == 'location' and searchKeyword != ''">
+					AND c.location LIKE '%' || #{searchKeyword} || '%'
+				</when>
+			</choose>
+		</where>
+		<choose>
+			<when test="sortBy == 'target_amount'">
+				ORDER BY c.target_amount ${sortOrder}
+			</when>
+			<when test="sortBy == 'start_date'">
+				ORDER BY c.start_date ${sortOrder}
+			</when>
+			<when test="sortBy == 'end_date'">
+				ORDER BY c.end_date ${sortOrder}
+			</when>
+			<when test="sortBy == 'created_at'">
+				ORDER BY c.created_at ${sortOrder}
+			</when>
+			<otherwise>
+				ORDER BY c.created_at DESC
+			</otherwise>
+		</choose>
+		) A
+		WHERE ROWNUM &lt;= #{end}
+		)
+		WHERE rn &gt;= #{start}
+	</select>
+
+	<select id="getTotalCountSearch" resultType="int">
+		SELECT COUNT(*)
+		FROM suho_donation_content c
+		<where>
+			<choose>
+				<when test="searchType == 'title' and searchKeyword != ''">
+					AND c.title LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test="searchType == 'content' and searchKeyword != ''">
+					AND c.content LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test="searchType == 'location' and searchKeyword != ''">
+					AND c.location LIKE '%' || #{searchKeyword} || '%'
+				</when>
+			</choose>
+		</where>
+	</select>
+
+
+
 </mapper>

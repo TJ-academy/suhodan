@@ -75,7 +75,7 @@
 				</when>
 			</choose>
 		</where>
-		) a
+		ORDER BY goods_id DESC ) a
 		WHERE ROWNUM &lt;= #{end}
 		)
 		WHERE rnum &gt;= #{start}

@@ -61,7 +61,7 @@ public class AdminController {
 			@RequestParam(value = "searchType", defaultValue = "") String searchType,
 			@RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyword,
 			@RequestParam(value = "sortBy", defaultValue = "join_date") String sortBy,
-			@RequestParam(value = "sortOrder", defaultValue = "asc") String sortOrder, ModelAndView mav) {
+			@RequestParam(value = "sortOrder", defaultValue = "desc") String sortOrder, ModelAndView mav) {
 
 		// 검색과 정렬 조건을 param에 담기
 		Map<String, Object> param = new HashMap<>();
@@ -650,23 +650,38 @@ public class AdminController {
 		badgeDao.delete(badge_id);
 		return "redirect:/admin/badge_list.do";
 	}
-
+	
 	@GetMapping("donation_contents_list.do")
 	public ModelAndView donation_contents_list(@RequestParam(value = "page", defaultValue = "1") int page,
-			ModelAndView mav) {
-		int totalCount = donationConDao.getCount();
+			@RequestParam(value = "searchType", defaultValue = "") String searchType,
+			@RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyword,
+			@RequestParam(value = "sortBy", defaultValue = "created_at") String sortBy,
+			@RequestParam(value = "sortOrder", defaultValue = "desc") String sortOrder, ModelAndView mav) {
+
+		// 검색과 정렬 조건을 param에 담기
+		Map<String, Object> param = new HashMap<>();
+		param.put("searchType", searchType);
+		param.put("searchKeyword", searchKeyword);
+		param.put("sortBy", sortBy);
+		param.put("sortOrder", sortOrder);
+
+		// 총 레코드 수 가져오기
+		int totalCount = donationConDao.getTotalCountSearch(param);
 		PageUtil pu = new PageUtil(page, totalCount);
 
-		Map<String, Object> param = new HashMap<>();
 		param.put("start", pu.getStart());
 		param.put("end", pu.getEnd());
 
-		List<DonationConDTO> list = donationConDao.listPaging(param);
+		List<DonationConDTO> list = donationConDao.listPagingSearch(param);
 
 		mav.setViewName("/admin/donation/donation_contents_list");
 		mav.addObject("list", list);
 		mav.addObject("currentPage", pu.getCurrentPage());
 		mav.addObject("totalPage", pu.getTotalPage());
+		mav.addObject("searchType", searchType);
+		mav.addObject("searchKeyword", searchKeyword);
+		mav.addObject("sortBy", sortBy);
+		mav.addObject("sortOrder", sortOrder);
 		return mav;
 	}
 
@@ -762,7 +777,7 @@ public class AdminController {
 		param.put("start", pu.getStart());
 		param.put("end", pu.getEnd());
 		param.put("searchType", searchType); // 검색 옵션
-		param.put("keyword", searchKeyword); // 검색 키워드
+		param.put("searchKeyword", searchKeyword); // 검색 키워드
 
 		// 리스트 조회
 		List<DonationListDTO> list = donationTADao.listPagingSearch(param);
@@ -772,7 +787,7 @@ public class AdminController {
 		mav.addObject("currentPage", pu.getCurrentPage());
 		mav.addObject("totalPage", pu.getTotalPage());
 		mav.addObject("searchType", searchType); // 현재 검색 옵션을 JSP로 전달
-		mav.addObject("searchKeywrod", searchKeyword); // 현재 검색 키워드를 JSP로 전달
+		mav.addObject("searchKeyword", searchKeyword); // 현재 검색 키워드를 JSP로 전달
 
 		return mav;
 	}
