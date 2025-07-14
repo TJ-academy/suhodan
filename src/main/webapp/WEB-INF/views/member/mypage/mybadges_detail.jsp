@@ -97,14 +97,6 @@
       top: -10px;
       text-align: center;
    }
-   .badgepagedetail-left p {
-      font-size: 19px;
-      font-weight: bold;
-      color: #2E2E2E;
-      position: relative;
-      top: -10px;
-      text-align: center;
-   }
 
    .badgepagedetail-right {
       flex-grow: 1;

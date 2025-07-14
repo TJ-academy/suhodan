@@ -13,4 +13,17 @@
         FROM suho_userbadge ub, suho_badge b
         WHERE ub.user_id = #{user_id} and ub.badge_id = b.badge_id and b.badge_id = #{badge_id}
     </select>
+    
+    <select id="myDonationHistory" parameterType="string" resultType="com.example.suhodan.donation.DonationHistoryDTO">
+	     SELECT
+	        c.title            AS title,
+	        c.content          AS content,
+	        t.amount           AS amount,
+	        t.donation_date    AS donationDate
+	    FROM donation_transaction       t
+	         JOIN suho_donation_content c
+	           ON c.content_id = t.content_id
+	    WHERE t.donor_id = #{donorId}
+	    ORDER BY t.donation_date DESC
+    </select>
 </mapper>
