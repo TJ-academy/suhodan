@@ -132,8 +132,13 @@
 
 <script>
     function openModal(badge_name, badge_desc) {
+    	const modalTxt = `<strong>${badge_name}</strong>의 설화를 보고 기부했던 인증패예요!<br>
+    	    수호자님의 후원으로<br>
+    	    <strong>${badge_desc}</strong>가<br>
+    	    성공적으로 완수될 수 있었어요!`;
+		
         /* document.getElementById('modalTitle').innerText = title; */
-        document.getElementById('modalDesc').innerText = badge_name + "의 설화를 보고 기부했던 인증패예요!\n수호자님의 후원으로\n" + badge_desc + "가\n성공적으로 완수될 수 있었어요!";
+        document.getElementById('modalDesc').innerText = modalTxt;
         document.getElementById('badgeModal').style.display = 'block';
     }
 
