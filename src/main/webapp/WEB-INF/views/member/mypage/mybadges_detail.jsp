@@ -107,7 +107,7 @@
 	}
 	
 	.badge-title {
-		width: 300px; height: 57px;
+		width: 230px; height: 57px;
 		background-color: #9C6B4F;
 		border: 1px solid #9C6B4F;
 		border-radius: 25px;
@@ -169,7 +169,10 @@
 				</div>
 				<div class="badgepagedetail-right">
 					<div class="badge-title">${dto.badge_name} 도깨비 설화 명패</div>
-					<div class="badge-desc"><b>${dto.badge_desc}</b></div>
+					<div class="badge-desc">
+						기부 참여 리워드로 획득<br>
+						<b>${dto.badge_desc}</b>
+					</div>
 					<div class="badge-date">
 						<fmt:formatDate value="${dto.get_date}" pattern="yyyy/MM/dd" /> 획득
 					</div>
