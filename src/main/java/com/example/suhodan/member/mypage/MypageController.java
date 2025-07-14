@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.suhodan.donation.DonationDetailDAO;
+import com.example.suhodan.donation.DonationDetailDTO;
 import com.example.suhodan.donation.DonationHistoryDAO;
 import com.example.suhodan.donation.DonationHistoryDTO;
 
@@ -20,6 +22,8 @@ public class MypageController {
 	MypageDAO mypageDAO;
 	@Autowired
 	DonationHistoryDAO mydonationDAO;
+	@Autowired
+	DonationDetailDAO donationDetailDAO;
 	
 	//나의 수호수
 	@GetMapping("/mypage/mytree")
@@ -58,5 +62,15 @@ public class MypageController {
 		List<DonationHistoryDTO> dlist = mydonationDAO.list(donor_id);
 		model.addAttribute("dlist", dlist);
 		return "member/mypage/mydonation_history";
+	}
+	
+	//기부내역 상세
+    @GetMapping("/mypage/mydonation/{content_id}")
+    public String donationDetail(@PathVariable("content_id") int contentId,
+            HttpSession session, Model model) {
+		String donorId = (String) session.getAttribute("user_id");
+		List<DonationDetailDTO> detailList = donationDetailDAO.getDetail(contentId, donorId);
+		model.addAttribute("detailList", detailList);
+		return "member/mypage/mydonation_detail";
 	}
 }

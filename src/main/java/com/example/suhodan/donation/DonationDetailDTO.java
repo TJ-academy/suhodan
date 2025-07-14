@@ -9,12 +9,13 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class DonationHistoryDTO {
-	private int content_id;
-	private String location;
+public class DonationDetailDTO {
 	private String title;
-	private String content;
 	private String filename;
+	private Date startDate;
+	private Date endDate;
+	private String location;
+	private String paymentMethod;
 	private int amount;
 	private Date donationDate;
 }

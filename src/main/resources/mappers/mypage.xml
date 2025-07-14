@@ -16,6 +16,7 @@
     
     <select id="myDonationHistory" parameterType="string" resultType="com.example.suhodan.donation.DonationHistoryDTO">
 	     SELECT
+	     	c.content_id	   AS content_id,
 	     	c.location		   AS location,
 	        c.title            AS title,
 	        c.content          AS content,
@@ -27,5 +28,22 @@
 	           ON c.content_id = t.content_id
 	    WHERE t.donor_id = #{donorId}
 	    ORDER BY t.donation_date DESC
+    </select>
+    
+    <select id="selectDonationDetail" resultType="com.example.suhodan.donation.DonationDetailDTO">
+	     SELECT 
+		    c.title               AS title,
+   	     	c.filename		   	  AS filename,
+		    c.start_date          AS startDate,
+		    c.end_date            AS endDate,
+		    c.location            AS location,
+		    t.payment_method      AS paymentMethod,
+		    t.amount              AS amount,
+		    t.donation_date       AS donationDate
+	    FROM donation_transaction t
+	    JOIN suho_donation_content c
+	      ON t.content_id = c.content_id
+	    WHERE t.content_id = #{contentId}
+	      AND t.donor_id = #{donorId}
     </select>
 </mapper>

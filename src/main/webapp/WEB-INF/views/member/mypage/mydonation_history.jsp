@@ -32,7 +32,8 @@
 	<div class="card-custom d-flex"> 
 		<div class="card-image-wrapper me-4"> 
 			<img src="/resources/donation_img/${d.filename}" alt="기부 이미지">
-			<button class="view-details-btn">자세히 보기</button>
+			<button class="view-details-btn"
+			onclick="location.href='/mypage/mydonation/${d.content_id}'">자세히 보기</button>
 		</div>
 		
 		<div class="d-flex flex-column justify-content-between flex-grow-1"> 
