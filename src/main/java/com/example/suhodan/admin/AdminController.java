@@ -669,12 +669,8 @@ public class AdminController {
 			@RequestParam(value = "keyword", defaultValue = "") String keyword, // 검색 키워드
 			ModelAndView mav) {
 
-		System.out.println("donation_list.do 요청 처리 시작");
-
 		// 검색 조건을 추가한 전체 레코드 개수 계산
 		int totalCount = donationTADao.getTotalCount(searchOption, keyword); // getTotalCount 메서드를 수정해서 검색된 레코드 개수를
-																				// 반환하도록 수정
-		System.out.println("총 개수: " + totalCount);
 		PageUtil pu = new PageUtil(page, totalCount);
 
 		Map<String, Object> param = new HashMap<>();
@@ -685,7 +681,6 @@ public class AdminController {
 
 		// 리스트 조회
 		List<DonationListDTO> list = donationTADao.listPagingSearch(param);
-		System.out.println("조회된 리스트 크기: " + list.size());
 
 		mav.setViewName("/admin/donation/donation_list");
 		mav.addObject("list", list);
