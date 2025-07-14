@@ -122,7 +122,12 @@
 	<div id="badgeModal" class="modal">
 	    <div class="modal-content">
 	        <p id="modalTitle" class="modal-title">명패 보기</p>
-	        <p id="modalDesc" class="modal-desc"></p>
+	        <p id="modalDesc" class="modal-desc">
+	        	<strong id="badgeName"></strong>의 설화를 보고 기부했던 인증패예요!<br>
+	        	수호자님의 후원으로<br>
+	        	<strong id="badgeDesc"></strong>가<br>
+	        	성공적으로 완수될 수 있었어요!
+	        </p>
 	        <button type="button" class="modal-checkbtn" onclick="closeModal()">확인</button>
 	    </div>
 	</div>
@@ -132,13 +137,8 @@
 
 <script>
     function openModal(badge_name, badge_desc) {
-    	const modalTxt = `<strong>${badge_name}</strong>의 설화를 보고 기부했던 인증패예요!<br>
-    	    수호자님의 후원으로<br>
-    	    <strong>${badge_desc}</strong>가<br>
-    	    성공적으로 완수될 수 있었어요!`;
-		
-        /* document.getElementById('modalTitle').innerText = title; */
-        document.getElementById('modalDesc').innerText = modalTxt;
+        document.getElementById('badgeName').innerText = badge_name;
+        document.getElementById('badgeDesc').innerText = badge_desc;
         document.getElementById('badgeModal').style.display = 'block';
     }
 
