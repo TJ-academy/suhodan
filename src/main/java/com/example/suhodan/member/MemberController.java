@@ -96,6 +96,37 @@ public class MemberController {
 		return "member/mypage/mypage";
 	}
 
+	// 회원정보 수정페이지로 이동 전 비번 확인 페이지
+	@GetMapping("/mypage/pwdcheck")
+	public String pwdcheck() {
+		/*HttpSession session, Model model
+		 * String userid = (String) session.getAttribute("user_id");
+		 * 
+		 * MemberDTO dto = memberDao.detail(userid); model.addAttribute("dto", dto);
+		 * 
+		 * System.out.println("\n\n" + model + "\n\n"); return
+		 * "/member/mypage/mypage_update";
+		 */
+		return "member/mypage/mypage_pwdcheck";
+	}
+	
+	// 회원정보 수정페이지로 이동 전 비번 확인
+	@PostMapping("/mypage/pwdcheck.do")
+	public String pwdchecking(HttpSession session, 
+			MemberDTO dto, Model model) {
+		String user_id = (String) session.getAttribute("user_id");
+		ModelAndView mav = new ModelAndView();
+		
+		boolean result = memberDao.check_passwd(dto.getUser_id(), dto.getPasswd());
+		
+		if (result) { // 비밀번호가 맞으면 true(1), 틀리면 false(0)
+			model.addAttribute("dto", memberDao.detail(user_id));
+			return "member/mypage/mypage_update";
+		} else { // 비밀번호가 틀릴경우
+			return "member/mypage";
+		}
+	}
+
 	// 회원정보 수정페이지로 이동
 	@GetMapping("/mypage/edit")
 	public String detail(HttpSession session, Model model) {
