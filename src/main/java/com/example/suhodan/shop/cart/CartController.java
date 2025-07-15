@@ -1,11 +1,14 @@
 package com.example.suhodan.shop.cart;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -86,13 +89,53 @@ public class CartController {
 	}
 	
 	@PostMapping("buy.do")
-	public String buy(@RequestParam(name = "cart_id") int[] cart_id,
-			HttpSession session) {
-		String user_id = (String) session.getAttribute("user_id");
-		if(user_id == null) {
-			return "redirect:/login.do";
-		}
-		
-		return "redirect:/shop/cart/list.do";
+	public ModelAndView buy(@RequestParam(name = "cart_id") int[] cartIds, HttpSession session) {
+	    String user_id = (String) session.getAttribute("user_id");
+	    if (user_id == null) {
+	        return new ModelAndView("redirect:/login.do");
+	    }
+
+	    List<CartDTO> cartList = cartDao.list(user_id);
+	    int total = cartDao.sum_money(user_id);
+
+	    ModelAndView mav = new ModelAndView();
+	    mav.setViewName("shop/buy"); // buy.jsp를 보여줌
+	    mav.addObject("cartList", cartList);
+	    mav.addObject("total", total);
+	    return mav;
 	}
+	@PostMapping("complete.do")
+	public String completeOrder(
+	    @RequestParam("receiver") String receiver,
+	    @RequestParam("address1") String address1,
+	    @RequestParam("address2") String address2,
+	    @RequestParam("phone1") String phone1,
+	    @RequestParam("phone2") String phone2,
+	    @RequestParam("phone3") String phone3,
+	    HttpSession session,
+	    Model model) {
+
+	    String phone = phone1 + "-" + phone2 + "-" + phone3;
+	    String user_id = (String) session.getAttribute("user_id");
+	    int total = cartDao.sum_money(user_id);
+
+	    LocalDateTime deadline = LocalDateTime.now().plusDays(7);
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M월 d일 H시 m분");
+
+	    model.addAttribute("receiver", receiver);
+	    model.addAttribute("address1", address1);
+	    model.addAttribute("address2", address2);
+	    model.addAttribute("phone", phone);
+	    model.addAttribute("total", total);
+	    model.addAttribute("bankName", "기업은행");
+	    model.addAttribute("accountNumber", "987654321987");
+	    model.addAttribute("deadline", deadline.format(formatter));
+
+	    return "shop/complete";
+	}
+	
+	
+	
+	
+
 }

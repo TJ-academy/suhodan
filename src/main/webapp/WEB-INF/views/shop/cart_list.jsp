@@ -14,7 +14,6 @@ body {
 	margin: 0;
 	padding: 0;
 }
-
 .outer-box {
 	max-width: 1000px;
 	margin: 60px auto;
@@ -22,96 +21,71 @@ body {
 	border: 1px solid #D8C2A6;
 	border-radius: 20px;
 	padding: 50px 60px;
-	position: relative;
 	box-sizing: border-box;
+	position: relative;
 }
-
 .back-button {
 	position: absolute;
 	top: 40px; left: 60px;
-	display: flex;
-	align-items: center;
-	background-color: transparent;
+	background: none;
 	border: none;
-	color: #3e2d17;
-	font-size: 16px;
 	cursor: pointer;
 }
-
 .back-button img {
-	width: 15px;
-	height: 25px;
-	margin-top: 30px;
+	width: 15px; height: 25px;
 }
-
 .cart-title {
 	font-size: 30px;
 	font-weight: bold;
-	margin-bottom: 65px;
 	text-align: center;
+	margin-bottom: 65px;
 	color: #9C6B4F;
 }
-
 .cart-box {
 	display: flex;
 	flex-direction: column;
 	gap: 30px;
 }
-
 .cart-item {
 	border-bottom: 1px solid #ddd;
 	padding-bottom: 30px;
 }
-
 .cart-content {
 	display: flex;
 	gap: 20px;
 }
-
 .product-image {
 	width: 100px;
 	height: 100px;
-	border-radius: 10px;
 	object-fit: cover;
+	border-radius: 10px;
 }
-
 .item-details {
 	flex: 1;
 	display: flex;
 	flex-direction: column;
-	position: relative;
 }
-
 .product-header {
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
 }
-
 .product-name {
 	font-size: 17px;
 	font-weight: bold;
-	color: #000;
 }
-
 .delete-btn {
 	color: #760000;
 	text-decoration: none;
-	font-size: 15px;
 }
-
 .product-info {
 	display: flex;
 	align-items: center;
 	gap: 15px;
 	margin-top: 10px;
 }
-
 .product-price {
 	font-size: 15px;
-	color: #000;
 }
-
 .amount {
 	width: 50px;
 	padding: 4px 8px;
@@ -119,26 +93,19 @@ body {
 	border-radius: 6px;
 	text-align: center;
 }
-
 .money {
 	text-align: right;
 	margin-top: 19px;
-	color: #000;
 }
-
 .summary {
 	margin-top: 40px;
 	text-align: right;
-	font-size: 16px;
-	color: #444;
 }
 .summary .total {
 	font-size: 20px;
 	font-weight: bold;
 	margin-top: 10px;
-	color: #000;
 }
-
 .cart-actions {
 	margin-top: 30px;
 	text-align: center;
@@ -146,7 +113,6 @@ body {
 	justify-content: center;
 	gap: 20px;
 }
-
 .action-btn {
 	background-color: #D8C2A6;
 	color: white;
@@ -183,41 +149,41 @@ $(function() {
 	}
 
 	$("input[name='amount']").on("change", function() {
-		let $amountInput = $(this);
-		let $item = $amountInput.closest(".cart-item");
-		let cart_id = $item.find(".cart_id").val();
-		let price = parseInt($item.find(".product-price").data("price"));
-		let amount = parseInt($amountInput.val());
+		const $item = $(this).closest(".cart-item");
+		const cart_id = $item.find(".cart_id").val();
+		const price = parseInt($item.find(".product-price").data("price"));
+		let amount = parseInt($(this).val());
 
-		if (isNaN(amount) || amount < 1) {
+		if (amount < 1) {
 			if (confirm("수량이 1보다 작습니다. 삭제하시겠습니까?")) {
 				location.href = "/shop/cart/delete.do?cart_id=" + cart_id;
 			} else {
-				$amountInput.val(1);
+				$(this).val(1);
 			}
 			return;
 		}
 
-		let total = price * amount;
+		const total = price * amount;
 		$item.find(".money").text(total.toLocaleString() + "원");
-
 		updateSummary();
 
-		$.post("/shop/cart/update.do", { cart_id: cart_id, amount: amount })
+		$.post("/shop/cart/update.do", { cart_id, amount })
 		 .fail(() => alert("수량 업데이트 실패"));
 	});
 
-	updateSummary(); // 초기 계산
+	updateSummary();
 });
 </script>
 </head>
 <body>
+
 <%@ include file="../include/menu.jsp" %>
 
 <div class="outer-box">
 	<button class="back-button" onclick="location.href='/shop/list.do'">
-		<img src="/resources/images/back.png" alt="뒤로가기 아이콘">
+		<img src="/resources/images/back.png" alt="뒤로가기">
 	</button>
+
 	<div class="cart-title">장바구니</div>
 
 	<c:choose>
@@ -226,50 +192,50 @@ $(function() {
 		</c:when>
 		<c:otherwise>
 			<form method="post" action="/shop/cart/buy.do">
-			<div class="cart-box">
-				<c:forEach var="row" items="${map.list}">
-					<div class="cart-item">
-						<div class="cart-content">
-							<img class="product-image" src="/resources/goods_img/${row.goods_img}" alt="${row.goods_name}"
-								 onerror="this.onerror=null; this.src='/resources/images/설화수 로고.png';" />
+				<div class="cart-box">
+					<c:forEach var="row" items="${map.list}">
+						<div class="cart-item">
+							<div class="cart-content">
+								<img class="product-image" src="/resources/goods_img/${row.goods_img}" alt="${row.goods_name}" onerror="this.onerror=null; this.src='/resources/images/설화수 로고.png';" />
 
-							<div class="item-details">
-								<div class="product-header">
-									<div class="product-name">${row.goods_name}</div>
-									<a class="delete-btn" href="/shop/cart/delete.do?cart_id=${row.cart_id}">삭제</a>
-								</div>
-
-								<input type="hidden" class="cart_id" name="cart_id" value="${row.cart_id}" />
-
-								<div class="product-info">
-									<div class="product-price" data-price="${row.goods_price}">
-										<fmt:formatNumber value="${row.goods_price}" pattern="#,###" />원
+								<div class="item-details">
+									<div class="product-header">
+										<div class="product-name">${row.goods_name}</div>
+										<a class="delete-btn" href="/shop/cart/delete.do?cart_id=${row.cart_id}">삭제</a>
 									</div>
-									<input type="number" name="amount" class="amount" min="1" max="10" value="${row.amount}" />
-								</div>
 
-								<div class="money">
-									<fmt:formatNumber value="${row.money}" pattern="#,###" />원
+									<input type="hidden" class="cart_id" name="cart_id" value="${row.cart_id}" />
+
+									<div class="product-info">
+										<div class="product-price" data-price="${row.goods_price}">
+											<fmt:formatNumber value="${row.goods_price}" pattern="#,###" />원
+										</div>
+										<input type="number" name="amount" class="amount" min="1" max="10" value="${row.amount}" />
+									</div>
+
+									<div class="money">
+										<fmt:formatNumber value="${row.money}" pattern="#,###" />원
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</c:forEach>
-			</div>
+					</c:forEach>
+				</div>
 
-			<div class="summary">
-				장바구니 금액 합계: <span class="summary-sum"><fmt:formatNumber value="${map.sumMoney}" pattern="#,###,###" /></span><br>
-				배송료: <span class="summary-fee"><fmt:formatNumber value="${map.fee}" pattern="#,###,###" /></span><br>
-				<div class="total">총합계: <span class="summary-total"><fmt:formatNumber value="${map.sum}" pattern="#,###,###" /></span></div>
-			</div>
+				<div class="summary">
+					장바구니 금액 합계: <span class="summary-sum"><fmt:formatNumber value="${map.sumMoney}" pattern="#,###" /></span><br>
+					배송료: <span class="summary-fee"><fmt:formatNumber value="${map.fee}" pattern="#,###" /></span><br>
+					<div class="total">총합계: <span class="summary-total"><fmt:formatNumber value="${map.sum}" pattern="#,###" /></span></div>
+				</div>
 
-			<div class="cart-actions">
-				<button type="button" class="action-btn" onclick="location.href='/shop/cart/deleteAll.do'">장바구니 비우기</button>
-				<button type="submit" class="action-btn">구매하기</button>
-			</div>
+				<div class="cart-actions">
+					<button type="button" class="action-btn" onclick="location.href='/shop/cart/deleteAll.do'">장바구니 비우기</button>
+					<button type="submit" class="action-btn">구매하기</button>
+				</div>
 			</form>
 		</c:otherwise>
 	</c:choose>
 </div>
+
 </body>
 </html>
