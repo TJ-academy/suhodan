@@ -1,5 +1,7 @@
 package com.example.suhodan.legend;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class LegendController {
 	@Autowired
 	LegendDAO legendDao;
+	@Autowired
+	SearchDonationDAO sdonationDao;
 	
 	@GetMapping("legend.do")
 	public ModelAndView legend_main(ModelAndView mav) {
@@ -40,6 +44,14 @@ public class LegendController {
 	public ModelAndView legend_source(ModelAndView mav) {
 		mav.setViewName("/source/legend_source");
 		mav.addObject("list", legendDao.list());
+		return mav;
+	}
+	
+	@GetMapping("donationListPopup")
+	public ModelAndView getDonationListPopup(@RequestParam("location") String location, ModelAndView mav) {
+		List<SearchDonationDTO> donationList = sdonationDao.searchFromLocation(location);
+		mav.addObject("donationList", donationList);
+		mav.setViewName("/legend/donationListPopup");
 		return mav;
 	}
 

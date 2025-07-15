@@ -135,3 +135,13 @@
 	table {
 		display: none;
 	}
+	
+	.page_btn {
+		width: 60px;
+		height: 40px;
+		border-radius: 10px;
+		border: 1px solid #908F60;
+		background: #908F60;
+		color: white;
+	}
+	

@@ -56,7 +56,37 @@ public class MypageController {
 		return mav;
 	}
 	
+	// 기부내역 페이징 처리
+	@GetMapping("/mypage/mydonation")
+	public String mydonation(
+	        @RequestParam(value = "page", defaultValue = "1") int page,  // 페이지 번호 받기, 기본 1
+	        HttpSession session, Model model) {
+
+	    String donor_id = (String) session.getAttribute("user_id");
+	    List<DonationHistoryDTO> fullList = mydonationDAO.list(donor_id);
+
+	    int pageSize = 3;  // 한 페이지에 보여줄 카드 개수
+	    int totalCount = fullList.size();
+	    int totalPage = (int) Math.ceil((double) totalCount / pageSize);
+
+	    // 페이지 번호 범위 체크
+	    if(page < 1) page = 1;
+	    if(page > totalPage) page = totalPage;
+
+	    int startIndex = (page - 1) * pageSize;
+	    int endIndex = Math.min(startIndex + pageSize, totalCount);
+
+	    List<DonationHistoryDTO> pageList = fullList.subList(startIndex, endIndex);
+
+	    model.addAttribute("dlist", pageList);
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPage", totalPage);
+
+	    return "member/mypage/mydonation_history";
+	}
+	
 	//기부내역
+	/*
 	@GetMapping("/mypage/mydonation")
 	public String mydonation(HttpSession session, Model model) {
 		String donor_id = (String) session.getAttribute("user_id");
@@ -64,6 +94,7 @@ public class MypageController {
 		model.addAttribute("dlist", dlist);
 		return "member/mypage/mydonation_history";
 	}
+	*/
 	
 	@GetMapping("/mypage/mydonation/{content_id}")
 	public String donationDetail(
