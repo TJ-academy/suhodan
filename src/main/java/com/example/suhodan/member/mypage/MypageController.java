@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.suhodan.donation.DonationDetailDAO;
@@ -64,13 +65,33 @@ public class MypageController {
 		return "member/mypage/mydonation_history";
 	}
 	
-	//기부내역 상세
-    @GetMapping("/mypage/mydonation/{content_id}")
-    public String donationDetail(@PathVariable("content_id") int contentId,
-            HttpSession session, Model model) {
-		String donorId = (String) session.getAttribute("user_id");
-		List<DonationDetailDTO> detailList = donationDetailDAO.getDetail(contentId, donorId);
-		model.addAttribute("detailList", detailList);
-		return "member/mypage/mydonation_detail";
+	@GetMapping("/mypage/mydonation/{content_id}")
+	public String donationDetail(
+	        @PathVariable("content_id") int contentId,
+	        @RequestParam(value = "page", defaultValue = "1") int page,  // 페이지 번호 받기, 기본 1
+	        HttpSession session, Model model) {
+
+	    String donorId = (String) session.getAttribute("user_id");
+	    List<DonationDetailDTO> fullList = donationDetailDAO.getDetail(contentId, donorId);
+
+	    int pageSize = 1;  // 한 페이지에 보여줄 카드 개수
+	    int totalCount = fullList.size();
+	    int totalPage = (int) Math.ceil((double) totalCount / pageSize);
+
+	    // 페이지 번호 범위 체크
+	    if(page < 1) page = 1;
+	    if(page > totalPage) page = totalPage;
+
+	    int startIndex = (page - 1) * pageSize;
+	    int endIndex = Math.min(startIndex + pageSize, totalCount);
+
+	    List<DonationDetailDTO> pageList = fullList.subList(startIndex, endIndex);
+
+	    model.addAttribute("detailList", pageList);
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPage", totalPage);
+
+	    return "member/mypage/mydonation_detail";
 	}
+	
 }
