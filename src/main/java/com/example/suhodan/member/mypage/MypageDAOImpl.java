@@ -25,4 +25,18 @@ public class MypageDAOImpl implements MypageDAO {
 		map.put("badge_id", badge_id);
 		return sqlSession.selectOne("mypage.badgeDetail", map);
 	}
+	
+	@Override
+	public List<MypageDTO> getUserBadgesPaged(String user_id, int startRow, int endRow) {
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("user_id", user_id);
+	    map.put("startRow", startRow);
+	    map.put("endRow", endRow);
+	    return sqlSession.selectList("mypage.getUserBadgesPaged", map);
+	}
+
+	@Override
+	public int getUserBadgeCount(String user_id) {
+	    return sqlSession.selectOne("mypage.getUserBadgeCount", user_id);
+	}
 }
