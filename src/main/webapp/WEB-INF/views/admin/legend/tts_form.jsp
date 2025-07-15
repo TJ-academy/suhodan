@@ -1,11 +1,16 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>TTS 생성</title>
+<meta charset="UTF-8">
+<title>TTS 생성</title>
+<link rel="stylesheet" href="/css/admin.css">
 </head>
 
-
 <body>
+<%@ include file="../../include/admin_menu.jsp"%>
     <h2>음성 생성기</h2>
     <form action="/admin/legend/generate_speech.do" method="post">
         <label for="text">텍스트 입력:</label><br>

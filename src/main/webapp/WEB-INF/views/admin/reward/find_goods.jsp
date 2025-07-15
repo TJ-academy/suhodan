@@ -56,19 +56,27 @@
             </tr>
         </c:if>
     </table>
+    <%@ include file="../../include/admin_paging.jsp"%>
     
     <button id="selectButton">선택</button>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
+            // Controller에서 전달받은 targetInputId 값을 JavaScript 변수로 가져오기
+            var targetInputId = '${targetInputId}'; // JSP EL을 사용하여 값 가져오기
+
             // 선택된 상품의 goods_id를 원래 input 영역에 전달
             $('#selectButton').on('click', function() {
                 var selectedGoodsId = $('input[name="goods_select"]:checked').val();
-                
+                var selectedGoodsName = $('input[name="goods_select"]:checked').closest('tr').find('td').eq(3).text(); // 3번째 td (이름) 가져오기
                 if (selectedGoodsId) {
-                    // 부모 창의 input 필드에 값을 전달
-                    opener.$('#reg_popup_goods_1').val(selectedGoodsId); // 여기서 #reg_popup_goods_1은 원래의 input 필드입니다.
+                    if (targetInputId) { // targetInputId가 존재하는지 확인
+                        opener.$('#' + targetInputId).val(selectedGoodsName); // 동적으로 ID 사용!
+                    } else {
+                        // 기본값 또는 에러 처리 (만약 targetInputId가 없는 경우)
+                        opener.$('#reg_popup_goods_1_name').val(selectedGoodsName); // 기본값으로 goods_1에 넣기
+                    }
                     window.close(); // 팝업 닫기
                 } else {
                     alert('상품을 선택하세요.');

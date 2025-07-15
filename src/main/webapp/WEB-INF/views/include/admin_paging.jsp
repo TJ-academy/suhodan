@@ -38,6 +38,7 @@
 				<c:param name="searchKeyword" value="${searchKeyword}" />
 				<c:param name="sortBy" value="${sortBy}" />
 				<c:param name="sortOrder" value="${sortOrder}" />
+				<c:param name="targetInputId" value="${targetInputId}" />
 			</c:url>
 			<a href="${prevPageLink}" id="prev-page">&lt; 이전</a>
 		</c:when>
@@ -80,6 +81,7 @@
 			<c:param name="searchKeyword" value="${searchKeyword}" />
 			<c:param name="sortBy" value="${sortBy}" />
 			<c:param name="sortOrder" value="${sortOrder}" />
+			<c:param name="targetInputId" value="${targetInputId}" />
 		</c:url>
 		<c:choose>
 			<c:when test="${i == currentPage}">
@@ -126,6 +128,7 @@
 				<c:param name="searchKeyword" value="${searchKeyword}" />
 				<c:param name="sortBy" value="${sortBy}" />
 				<c:param name="sortOrder" value="${sortOrder}" />
+				<c:param name="targetInputId" value="${targetInputId}" />
 			</c:url>
 			<a href="${nextPageLink}" id="next-page">다음 &gt;</a>
 		</c:when>

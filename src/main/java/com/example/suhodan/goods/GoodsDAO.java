@@ -15,4 +15,5 @@ public interface GoodsDAO {
 	int getTotalCountSearch(Map<String, Object> param);
 	List<GoodsDTO> listPagingSearch(Map<String, Object> param);
 	String getGoodsName(int goods_id);
+	Integer getGoodsId(String name);
 }

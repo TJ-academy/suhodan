@@ -47,6 +47,7 @@
 			<td>구성상품 2</td>
 			<td>구성상품 3</td>
 			<td>구성상품 4</td>
+			<td>등록일</td>
 			<td>상태 관리</td>
 		</tr>
 		<c:if test="${not empty list}">
@@ -64,17 +65,26 @@
 					<td>${empty row.goods_2_name ? '' : row.goods_2_name}</td>
 					<td>${empty row.goods_3_name ? '' : row.goods_3_name}</td>
 					<td>${empty row.goods_4_name ? '' : row.goods_4_name}</td>
+					<td><fmt:formatDate value="${row.reg_date}"
+							pattern="yyyy-MM-dd" /></td>
 					<td>
 						<button class="edit-button" data-reward-id="${row.reward_id}"
 							data-name="${row.name}" data-description="${row.description}"
 							data-price-type="${row.price_type}" data-img="${row.img}"
 							data-goods-1="${row.goods_1}" data-goods-2="${row.goods_2}"
-							data-goods-3="${row.goods_3}" data-goods-4="${row.goods_4}">수정</button>
+							data-goods-3="${row.goods_3}" data-goods-4="${row.goods_4}"
+							data-goods-1-name="${row.goods_1_name}" data-goods-2-name="${row.goods_2_name}"
+							data-goods-3-name="${row.goods_3_name}" data-goods-4-name="${row.goods_4_name}">수정</button>
 						<button class="delete-button" data-reward-id="${row.reward_id}">삭제</button>
 					</td>
 				</tr>
 			</c:forEach>
 		</c:if>
+		 <c:if test="${empty list}">
+            <tr>
+                <td colspan="6" align="center">검색 결과가 없습니다.</td>
+            </tr>
+        </c:if>
 	</table>
 	<%@ include file="../../include/admin_paging.jsp"%>
 
@@ -92,10 +102,10 @@
                 $('#reg_popup_name').val('');
                 $('#reg_popup_description').val('');
                 $('#reg_popup_price_type').val('');
-                $('#reg_popup_goods_1').val('');
-                $('#reg_popup_goods_2').val('');
-                $('#reg_popup_goods_3').val('');
-                $('#reg_popup_goods_4').val('');
+                $('#reg_popup_goods_1_name').val('');
+                $('#reg_popup_goods_2_name').val('');
+                $('#reg_popup_goods_3_name').val('');
+                $('#reg_popup_goods_4_name').val('');
                 $('#reg_popup_img').val('');
             }
 
@@ -104,17 +114,17 @@
                 $('#overlay').hide();
             }
 
-            function openEditPopup(rewardId, name, description, priceType, goods1, goods2, goods3, goods4, img) {
+            function openEditPopup(rewardId, name, description, priceType, goods1Name, goods2Name, goods3Name, goods4Name, img) {
                 $('#edit_popup').show();
                 $('#overlay').show();
                 $('#edit_popup_reward_id').val(rewardId);
                 $('#edit_popup_name').val(name);
                 $('#edit_popup_description').val(description);
                 $('#edit_popup_price_type').val(priceType);
-                $('#edit_popup_goods_1').val(goods1);
-                $('#edit_popup_goods_2').val(goods2);
-                $('#edit_popup_goods_3').val(goods3);
-                $('#edit_popup_goods_4').val(goods4);
+                $('#edit_popup_goods_1_name').val(goods1Name);
+                $('#edit_popup_goods_2_name').val(goods2Name);
+                $('#edit_popup_goods_3_name').val(goods3Name);
+                $('#edit_popup_goods_4_name').val(goods4Name);
                 $('#edit_popup_img').val('');
 
                 if (img) {
@@ -153,8 +163,12 @@
                 const goods2 = $(this).data('goods-2');
                 const goods3 = $(this).data('goods-3');
                 const goods4 = $(this).data('goods-4');
+                const goods1Name = $(this).data('goods-1-name');
+                const goods2Name = $(this).data('goods-2-name');
+                const goods3Name = $(this).data('goods-3-name');
+                const goods4Name = $(this).data('goods-4-name');
                 const img = $(this).data('img');
-                openEditPopup(rewardId, name, description, priceType, goods1, goods2, goods3, goods4, img);
+                openEditPopup(rewardId, name, description, priceType, goods1Name, goods2Name, goods3Name, goods4Name, img);
             });
 
             $('table').on('click', '.delete-button', function() {

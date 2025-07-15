@@ -26,31 +26,37 @@
 		</div>
 
 		<div class="form-item">
-			<label for="reg_popup_goods_1">구성상품 1</label>
+			<label for="reg_popup_goods_1_name">구성상품 1</label>
 		</div>
 		<div class="input-container">
-			<input type="text" id="reg_popup_goods_1" name="goods_1" required />
-			<img src="/resources/images/search-icon.png" id="find_goods_button"
+			<input type="text" id="reg_popup_goods_1_name" name="goods_1_name" required />
+			<img src="/resources/images/search-icon.png" id="reg_find_goods_button_1"
 				class="search-icon" alt="Search" />
 		</div>
 
 		<div class="form-item">
-			<label for="reg_popup_goods_2">구성상품 2</label> <input type="text"
-				id="reg_popup_goods_2" name="goods_2"
-				value="${empty rewardDTO.goods_2 ? '' : rewardDTO.goods_2}" />
-		</div>
+            <label for="reg_popup_goods_2_name">구성상품 2</label>
+        </div>
+        <div class="input-container">
+            <input type="text" id="reg_popup_goods_2_name" name="goods_2_name" />
+            <img src="/resources/images/search-icon.png" id="reg_find_goods_button_2" class="search-icon" alt="Search" />
+        </div>
 
-		<div class="form-item">
-			<label for="reg_popup_goods_3">구성상품 3</label> <input type="text"
-				id="reg_popup_goods_3" name="goods_3"
-				value="${empty rewardDTO.goods_3 ? '' : rewardDTO.goods_3}" />
-		</div>
+        <div class="form-item">
+            <label for="reg_popup_goods_3_name">구성상품 3</label>
+        </div>
+        <div class="input-container">
+            <input type="text" id="reg_popup_goods_3_name" name="goods_3_name" />
+            <img src="/resources/images/search-icon.png" id="reg_find_goods_button_3" class="search-icon" alt="Search" />
+        </div>
 
-		<div class="form-item">
-			<label for="reg_popup_goods_4">구성상품 4</label> <input type="text"
-				id="reg_popup_goods_4" name="goods_4"
-				value="${empty rewardDTO.goods_4 ? '' : rewardDTO.goods_4}" />
-		</div>
+        <div class="form-item">
+            <label for="reg_popup_goods_4_name">구성상품 4</label>
+        </div>
+        <div class="input-container">
+            <input type="text" id="reg_popup_goods_4_name" name="goods_4_name" />
+            <img src="/resources/images/search-icon.png" id="reg_find_goods_button_4" class="search-icon" alt="Search" />
+        </div>
 
 		<div class="form-item">
 			<label for="reg_popup_img">이미지</label> <input type="file"
@@ -63,7 +69,21 @@
 </div>
 
 <script>
-document.getElementById('find_goods_button').addEventListener('click', function() {
-    window.open('reward_find_goods.do', 'findGoodsPopup', 'width=600,height=800');
-});
+    // 팝업을 여는 공통 함수
+    function openFindGoodsPopup(targetInputId, popupName) {
+        window.open('reward_find_goods.do?targetInputId=' + targetInputId, popupName, 'width=600,height=800');
+    }
+
+    document.getElementById('reg_find_goods_button_1').addEventListener('click', function() {
+        openFindGoodsPopup('reg_popup_goods_1_name', 'findGoodsPopup1');
+    });
+    document.getElementById('reg_find_goods_button_2').addEventListener('click', function() {
+        openFindGoodsPopup('reg_popup_goods_2_name', 'findGoodsPopup2');
+    });
+    document.getElementById('reg_find_goods_button_3').addEventListener('click', function() {
+        openFindGoodsPopup('reg_popup_goods_3_name', 'findGoodsPopup3');
+    });
+    document.getElementById('reg_find_goods_button_4').addEventListener('click', function() {
+        openFindGoodsPopup('reg_popup_goods_4_name', 'findGoodsPopup4');
+    });
 </script>
