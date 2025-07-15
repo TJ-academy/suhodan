@@ -139,7 +139,7 @@ audio {
     <div class="image-container">
         <img src="/resources/legend_img/${dto.img}" alt="설화 이미지" onerror="this.onerror=null; this.src='/resources/images/설화수 로고.png';">
         <!-- MP3 아이콘 -->
-        <audio controls>
+        <audio controls autoplay>
             <source src="/resources/legend_tts/${dto.tts_audio}" type="audio/mp3">
             
         </audio>

@@ -6,7 +6,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 <head>
 <!-- Link to the external CSS file -->
-<link rel="stylesheet" type="text/css" href="../css/menu.css">
+<head>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/menu.css'/>">
 </head>
 
 <!-- Navigation Bar -->
