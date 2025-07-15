@@ -102,4 +102,8 @@
 	<select id="getGoodsName" resultType="String">
 	    SELECT name FROM suho_goods WHERE goods_id = #{goods_id}
 	</select>
+	
+	<select id="getGoodsId" resultType="java.lang.Integer">
+	    SELECT goods_id FROM suho_goods WHERE name = #{name}
+	</select>
 </mapper>

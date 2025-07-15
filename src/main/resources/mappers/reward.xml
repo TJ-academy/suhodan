@@ -26,18 +26,38 @@
 	</select>
 
 	<insert id="insert">
-		insert into suho_reward (reward_id, name,
-		description, price_type, img, goods_1, goods_2, goods_3, goods_4)
-		values (suho_reward_seq.nextval, #{name}, #{description},
-		#{price_type}, #{img}, #{goods_1}, #{goods_2}, #{goods_3}, #{goods_4})
+		insert into suho_reward (
+		reward_id, name,
+		description, price_type, img,
+		goods_1, goods_2, goods_3, goods_4
+		)
+		values (
+		suho_reward_seq.nextval,
+		#{name},
+		#{description},
+		#{price_type},
+		#{img},
+		(select goods_id from suho_goods where name = #{goods_1_name}
+		and ROWNUM &lt;= 1),
+		(select goods_id from suho_goods where name =
+		#{goods_2_name} and ROWNUM &lt;= 1),
+		(select goods_id from suho_goods
+		where name = #{goods_3_name} and ROWNUM &lt;= 1),
+		(select goods_id from
+		suho_goods where name = #{goods_4_name} and ROWNUM &lt;= 1)
+		)
+
 	</insert>
 
 	<update id="update">
 		update suho_reward
 		set name = #{name}, description =
-		#{description}, price_type = #{price_type}, img = #{img}, goods_1 =
-		#{goods_1}, goods_2 = #{goods_2}, goods_3 = #{goods_3}, goods_4 =
-		#{goods_4}
+		#{description}, price_type = #{price_type}, img = #{img,
+		jdbcType=VARCHAR}, goods_1 =
+		#{goods_1, jdbcType=INTEGER}, goods_2 =
+		#{goods_2, jdbcType=INTEGER}, goods_3 = #{goods_3, jdbcType=INTEGER},
+		goods_4 =
+		#{goods_4, jdbcType=INTEGER}
 		where reward_id = #{reward_id}
 	</update>
 
@@ -47,20 +67,67 @@
 	</delete>
 
 	<select id="img_file_info" resultType="String">
-		select img from
+		select NVL(img, '-') from
 		suho_reward where reward_id = #{reward_id}
 	</select>
 
 	<select id="listPagingSearch"
 		resultType="com.example.suhodan.reward.RewardDTO">
 		SELECT * FROM (
-		SELECT r.*,
-		g1.name AS goods_1_name,
+		SELECT rnum,
+		inner_query.reward_id,
+		inner_query.name,
+		inner_query.description,
+		inner_query.price_type,
+		inner_query.img,
+		inner_query.goods_1,
+		inner_query.goods_2,
+		inner_query.goods_3,
+		inner_query.goods_4,
+		inner_query.goods_1_name,
+		inner_query.goods_2_name,
+		inner_query.goods_3_name,
+		inner_query.goods_4_name,
+		inner_query.reg_date FROM (
+		SELECT
+		r.reward_id,
+		r.name,
+		r.description,
+		r.price_type,
+		r.img,
+		r.goods_1,
+		r.goods_2,
+		r.goods_3,
+		r.goods_4,
+		r.reg_date, g1.name AS goods_1_name,
 		g2.name AS goods_2_name,
 		g3.name AS goods_3_name,
 		g4.name AS goods_4_name,
-		ROW_NUMBER() OVER (ORDER BY r.price_type DESC) AS row_num
-		FROM suho_reward r
+		ROW_NUMBER() OVER (
+		ORDER BY
+		<choose>
+			<when test="sortBy == 'price_type'">
+				r.price_type
+			</when>
+			<when test="sortBy == 'reg_date'">
+				r.reg_date
+			</when>
+			<otherwise>
+				r.reward_id
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="sortOrder == 'desc'">
+				DESC
+			</when>
+			<otherwise>
+				ASC
+			</otherwise>
+		</choose>
+		,
+		r.reward_id DESC ) AS rnum
+		FROM
+		suho_reward r
 		LEFT JOIN suho_goods g1 ON r.goods_1 = g1.goods_id
 		LEFT JOIN suho_goods g2 ON r.goods_2 = g2.goods_id
 		LEFT JOIN suho_goods g3 ON r.goods_3 = g3.goods_id
@@ -79,8 +146,10 @@
 				</when>
 			</choose>
 		</where>
+		) inner_query
 		)
-		WHERE row_num BETWEEN #{start} AND #{end}
+		WHERE rnum BETWEEN #{start} AND #{end}
+		ORDER BY rnum ASC
 	</select>
 
 	<select id="getTotalCountSearch" resultType="int">

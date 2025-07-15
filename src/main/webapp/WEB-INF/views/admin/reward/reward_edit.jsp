@@ -16,52 +16,85 @@
 		</div>
 
 		<div class="form-item">
-			<label for="reg_popup_price_type">가격 구간</label> <select
-				id="reg_popup_price_type" name="price_type" required>
-				<option value="a" ${reg_popup_price_type == 'a' ? 'selected' : ''}>15,000원
+			<label for="edit_popup_price_type">가격 구간</label> <select
+				id="edit_popup_price_type" name="price_type" required>
+				<option value="a" ${edit_popup_price_type == 'a' ? 'selected' : ''}>15,000원
 					이상 30,000원 미만</option>
-				<option value="b" ${reg_popup_price_type == 'b' ? 'selected' : ''}>30,000원
+				<option value="b" ${edit_popup_price_type == 'b' ? 'selected' : ''}>30,000원
 					이상 50,000원 미만</option>
-				<option value="c" ${reg_popup_price_type == 'c' ? 'selected' : ''}>50,000원
+				<option value="c" ${edit_popup_price_type == 'c' ? 'selected' : ''}>50,000원
 					이상 100,000원 미만</option>
-				<option value="d" ${reg_popup_price_type == 'd' ? 'selected' : ''}>100,000원
+				<option value="d" ${edit_popup_price_type == 'd' ? 'selected' : ''}>100,000원
 					이상</option>
 			</select>
 		</div>
 
 		<div class="form-item">
-			<label for="edit_popup_goods_1">상품 구성1</label> <input type="text"
-				id="edit_popup_goods_1" name="goods_1" required />
+			<label for="edit_popup_goods_1_name">구성상품 1</label>
+		</div>
+		<div class="input-container">
+			<input type="text" id="edit_popup_goods_1_name" name="goods_1_name" required />
+			<img src="/resources/images/search-icon.png" id="edit_find_goods_button_1"
+				class="search-icon" alt="Search" />
 		</div>
 
 		<div class="form-item">
-			<label for="edit_popup_goods_2">상품 구성2</label> <input type="text"
-				id="edit_popup_goods_2" name="goods_2" required />
-		</div>
+            <label for="edit_popup_goods_2_name">구성상품 2</label>
+        </div>
+        <div class="input-container">
+            <input type="text" id="edit_popup_goods_2_name" name="goods_2_name" />
+            <img src="/resources/images/search-icon.png" id="edit_find_goods_button_2" class="search-icon" alt="Search" />
+        </div>
+
+        <div class="form-item">
+            <label for="edit_popup_goods_3_name">구성상품 3</label>
+        </div>
+        <div class="input-container">
+            <input type="text" id="edit_popup_goods_3_name" name="goods_3_name" />
+            <img src="/resources/images/search-icon.png" id="edit_find_goods_button_3" class="search-icon" alt="Search" />
+        </div>
+
+        <div class="form-item">
+            <label for="edit_popup_goods_4_name">구성상품 4</label>
+        </div>
+        <div class="input-container">
+            <input type="text" id="edit_popup_goods_4_name" name="goods_4_name" />
+            <img src="/resources/images/search-icon.png" id="edit_find_goods_button_4" class="search-icon" alt="Search" />
+        </div>
 
 		<div class="form-item">
-			<label for="edit_popup_goods_3">상품 구성3</label> <input type="text"
-				id="edit_popup_goods_3" name="goods_3" required />
-		</div>
-
-		<div class="form-item">
-			<label for="edit_popup_goods_4">상품 구성4</label> <input type="text"
-				id="edit_popup_goods_4" name="goods_4" required />
-		</div>
-
-		<div class="form-item">
-			<label for="edit_popup_img">대표 이미지</label> <input type="file"
-				id="edit_popup_img" name="imgFile" accept="image/*" />
+			<label for="edit_popup_img">이미지</label>
+			<input type="file" id="edit_popup_img" name="imgFile" accept="image/*" />
 			<!-- 현재 이미지 출력 -->
-			<div id="current_image_container" style="display: none;">
-				<label>현재 대표 이미지: <span id="current_image_name"></span></label> <img
-					id="current_image" src="" alt="상품 대표 이미지" width="100" />
+			<div id="current_image_container" style="display:none;">
+				<label>현재 이미지: <span id="current_image_name"></span></label>
+				<img id="current_image" src="" alt="리워드 이미지" width="100" />
 			</div>
 		</div>
 
-		<input type="hidden" id="edit_popup_goods_id" name="goods_id" />
+		<input type="hidden" id="edit_popup_reward_id" name="reward_id" />
 
 		<button type="submit" class="button">수정</button>
 		<button type="button" class="button close-edit-popup">닫기</button>
 	</form>
 </div>
+
+<script>
+    // 팝업을 여는 공통 함수
+    function openFindGoodsPopup(targetInputId, popupName) {
+        window.open('reward_find_goods.do?targetInputId=' + targetInputId, popupName, 'width=600,height=800');
+    }
+
+    document.getElementById('edit_find_goods_button_1').addEventListener('click', function() {
+        openFindGoodsPopup('edit_popup_goods_1_name', 'findGoodsPopup1');
+    });
+    document.getElementById('edit_find_goods_button_2').addEventListener('click', function() {
+        openFindGoodsPopup('edit_popup_goods_2_name', 'findGoodsPopup2');
+    });
+    document.getElementById('edit_find_goods_button_3').addEventListener('click', function() {
+        openFindGoodsPopup('edit_popup_goods_3_name', 'findGoodsPopup3');
+    });
+    document.getElementById('edit_find_goods_button_4').addEventListener('click', function() {
+        openFindGoodsPopup('edit_popup_goods_4_name', 'findGoodsPopup4');
+    });
+</script>

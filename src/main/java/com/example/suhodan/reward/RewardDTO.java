@@ -1,5 +1,7 @@
 package com.example.suhodan.reward;
 
+import java.util.Date;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
@@ -11,10 +13,11 @@ public class RewardDTO {
 	private String description;
 	private String price_type;
 	private String img;
-	private int goods_1;
-	private int goods_2;
-	private int goods_3;
-	private int goods_4;
+	private Integer goods_1;
+	private Integer goods_2;
+	private Integer goods_3;
+	private Integer goods_4;
+	private Date reg_date;
 	
 	private String goods_1_name;
 	private String goods_2_name;

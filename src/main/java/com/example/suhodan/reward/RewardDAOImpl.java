@@ -45,7 +45,8 @@ public class RewardDAOImpl implements RewardDAO {
 
 	@Override
 	public String img_file_info(int reward_id) {
-		return sqlSession.selectOne("reward.img_file_info", reward_id);
+		String img = sqlSession.selectOne("reward.img_file_info", reward_id);
+	    return (img != null) ? img : "-"; // null 대신 기본값 "-" 반환
 	}
 	
 	@Override
