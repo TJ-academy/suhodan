@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>명패함</title>
 </head>
 <body>
 <%@ include file="../../include/menu.jsp" %>
@@ -79,11 +79,6 @@
       transform: translateX(-50%);
    }
    
-   /* .badgepagedetail-left {
-      text-align: center;
-      width: 150px;
-   } */
-   
    .badgepagedetail-left img {
       width: 152px;
       height: 196px;
@@ -128,27 +123,6 @@
       color: #504848;
       margin-top: 6px;
    }
-   
-/*    .back-button {
-      position: absolute;
-      width: 146.78px; height: 57.46px;
-      background-color: #D8C2A6;
-      border: 1px solid #9C6B4F;
-      border-radius: 16.65px;
-      cursor: pointer;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: 50px;
-      color: #744225;
-      font-size: 20px;
-      z-index: 10;
-   }
-   
-   .back-button:hover {
-      background-color: #9C6B4F;
-      border: 1px solid #9C6B4F;
-      color: #FFFFFF;
-   } */
 </style>
 
 <div class="container">
@@ -178,9 +152,6 @@
                </div>
             </div>
          </div>
-         
-         
-         <!-- <button class="back-button" onclick="location.href='/mypage/mybadges'">뒤로 가기</button> -->
       </div>
    </div>
 </div>
