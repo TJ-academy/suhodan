@@ -25,4 +25,7 @@ public class MemberDTO {
    
     private String address1;
     private String address2;
+    
+    private String current_passwd;
+    private String new_passwd;
 }

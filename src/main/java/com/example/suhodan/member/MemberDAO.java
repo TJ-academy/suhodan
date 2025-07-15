@@ -22,7 +22,7 @@ public interface MemberDAO {
 	
 	String login(MemberDTO dto);
 
-	void updatePassword(MemberDTO dto);
+	void updatePassword(String user_id, String new_passwd);
 	
 	int getTotalCount(Map<String, Object> param);
 	

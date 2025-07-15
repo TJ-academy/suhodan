@@ -98,63 +98,56 @@ public class MemberController {
 
 	// 회원정보 수정페이지로 이동 전 비번 확인 페이지
 	@GetMapping("/mypage/pwdcheck")
-	public String pwdcheck() {
-		/*HttpSession session, Model model
-		 * String userid = (String) session.getAttribute("user_id");
-		 * 
-		 * MemberDTO dto = memberDao.detail(userid); model.addAttribute("dto", dto);
-		 * 
-		 * System.out.println("\n\n" + model + "\n\n"); return
-		 * "/member/mypage/mypage_update";
-		 */
+	public String pwdcheck(HttpSession session, Model model) {
+		String userid = (String) session.getAttribute("user_id");
 		return "member/mypage/mypage_pwdcheck";
 	}
 	
-	// 회원정보 수정페이지로 이동 전 비번 확인
+	// 회원정보 수정페이지로 이동 전 비번 확인 후 수정페이지로 이동
 	@PostMapping("/mypage/pwdcheck.do")
 	public String pwdchecking(HttpSession session, 
 			MemberDTO dto, Model model) {
 		String user_id = (String) session.getAttribute("user_id");
-		ModelAndView mav = new ModelAndView();
 		
-		boolean result = memberDao.check_passwd(dto.getUser_id(), dto.getPasswd());
+		boolean result = memberDao.check_passwd(user_id, dto.getPasswd());
 		
 		if (result) { // 비밀번호가 맞으면 true(1), 틀리면 false(0)
 			model.addAttribute("dto", memberDao.detail(user_id));
 			return "member/mypage/mypage_update";
 		} else { // 비밀번호가 틀릴경우
-			return "member/mypage";
+			model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
+			return "member/mypage/mypage_pwdcheck";
 		}
 	}
-
-	// 회원정보 수정페이지로 이동
-	@GetMapping("/mypage/edit")
-	public String detail(HttpSession session, Model model) {
-		String userid = (String) session.getAttribute("user_id");
-
-		MemberDTO dto = memberDao.detail(userid);
-		model.addAttribute("dto", dto);
-
-		System.out.println("\n\n" + model + "\n\n");
-		return "/member/mypage/mypage_update";
+	
+	// 비밀번호 재설정
+	@PostMapping("/mypage/pwdedit")
+	public String pwdedit(HttpSession session, 
+			MemberDTO dto, Model model) {
+		String user_id = (String) session.getAttribute("user_id");
+		
+		System.out.println("현재 비번: " + dto.getCurrent_passwd());
+		System.out.println("바꿀 비번: " + dto.getNew_passwd());
+		
+		boolean result = memberDao.check_passwd(user_id, dto.getCurrent_passwd());
+		
+		if (result) { // 비밀번호가 맞으면 true(1), 틀리면 false(0)
+			memberDao.updatePassword(user_id, dto.getNew_passwd());
+			model.addAttribute("message", "비밀번호가<br>변경되었습니다.");
+			model.addAttribute("dto", memberDao.detail(user_id));
+			return "member/mypage/mypage_update";
+		} else { // 비밀번호가 틀릴경우
+			model.addAttribute("message", "현재 비밀번호가<br>일치하지 않습니다.");
+			model.addAttribute("dto", memberDao.detail(user_id));
+			return "member/mypage/mypage_update";
+		}
 	}
 
 	// 회원정보 수정사항 저장하기
 	@PostMapping("/mypage/update.do")
 	public String update(@ModelAttribute MemberDTO dto, Model model) {
-		boolean result = memberDao.check_passwd(dto.getUser_id(), dto.getPasswd());
-		if (result) { // 비밀번호가 맞으면 true(1), 틀리면 false(0)
-			memberDao.update(dto);
-			return "member/mypage/mypage";
-		} else { // 비밀번호가 틀릴경우
-			/*
-			 * MemberDTO dto2 = memberDao.detail(dto.getUser_id());
-			 * dto.setJoin_date(dto2.getJoin_date());
-			 */
-			model.addAttribute("dto", dto);
-			model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
-			return "member/mypage/mypage_update";
-		}
+		memberDao.update(dto);
+		return "member/mypage/mypage";
 	}
 
 	@PostMapping("/mypage/delete.do")

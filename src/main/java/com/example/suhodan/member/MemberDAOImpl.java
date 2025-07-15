@@ -63,8 +63,12 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 	
 	@Override
-	public void updatePassword(MemberDTO dto) {
-		sqlSession.update("member.updatePassword", dto);
+	public void updatePassword(String user_id, String new_passwd) {
+		Map<String, String> map = new HashMap<>();
+		map.put("user_id", user_id);
+		map.put("new_passwd", new_passwd);
+		
+		sqlSession.update("member.updatePassword", map);
 	}
 
 	@Override

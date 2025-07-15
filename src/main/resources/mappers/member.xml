@@ -117,8 +117,7 @@
 
 	<update id="update">
 		update suho_user
-		set passwd =
-		MYPACK.ENCRYPT(#{passwd}), name=#{name}, address1=#{address1},
+		set name=#{name}, address1=#{address1},
 		address2=#{address2}, gender=#{gender}, birth=#{birth}
 		where
 		user_id=#{user_id}
@@ -126,8 +125,7 @@
 
 	<update id="updatePassword">
 		UPDATE suho_user
-		SET passwd =
-		MYPACK.ENCRYPT(#{passwd})
+		SET passwd =MYPACK.ENCRYPT(#{new_passwd})
 		WHERE user_id = #{user_id}
 	</update>
 

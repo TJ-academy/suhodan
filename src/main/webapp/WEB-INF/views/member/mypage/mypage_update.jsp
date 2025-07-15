@@ -172,6 +172,11 @@
 		    margin-right: 10px;
 		}
 		
+		.modal-content input:focus {
+			border: 1px solid #9C6B4F;
+			outline: none;
+		}
+		
 		.pswd-input input {
 			width: 420px; height: 46px;
 			margin-left: 20px;
@@ -239,9 +244,19 @@
 		    background-color: #636363;
 		}
 		
-		/* .modal-content .modal_address2 {
-			width: 460px;
-		} */
+		.message {
+			color: #E64B4E;
+			margin-top: -5px;
+			margin-bottom: -5px;
+			text-align: center;
+		}
+		
+		.result-message {
+			color: #E64B4E;
+			font-size: 15px;
+			margin-top: -5px;
+			margin-bottom: -10px;
+		}
 	</style>
 </head>
 
@@ -271,6 +286,14 @@
         </div>
         <div class="form-row">
             <label>비밀번호 재설정</label>
+            <p class="result-message">
+		    	<c:if test="${not empty message}">
+					<c:out value="${message}" escapeXml="false"/>
+				</c:if>
+				<c:if test="${empty message}">
+					&nbsp;
+				</c:if>
+		    </p>
             <a href="javascript:void(0);" onclick="openResetPasswordModal()">
                 <img src="/resources/suhodan_images/icon/arrow_right.png" alt="화살표" />
             </a>
@@ -297,10 +320,10 @@
 
         <input type="hidden" name="address1" id="address1" value="${dto.address1}" />
         <input type="hidden" name="address2" id="address2" value="${dto.address2}" />
-        <input type="hidden" name="passwd" id="form_passwd" />
+        <%-- <input type="hidden" name="passwd" value="${dto.passwd}" /> --%>
 
         <div class="buttons">
-            <button type="button" class="save-btn" onclick="openCheckPasswordModal()">저장하기</button>
+            <button type="submit" class="save-btn">저장하기</button>
             <br />
             <button type="button" class="withdraw-btn" onclick="btnDelete()">회원 탈퇴</button>
         </div>
@@ -336,38 +359,22 @@
     <div class="modal-content">
         <div class="modal-header">
         	<button class="back-icon" onclick="closeResetPasswordModal()"></button>
-            <!-- <span class="back-icon" onclick="closeResetPasswordModal()">
-                <img class="back-icon" src="/resources/suhodan_images/icon/arrow_right.png" alt="뒤로가기" />
-            </span> -->
             <h4>비밀번호 재설정</h4>
         </div>
-        <div class="pswd-input">
-	        <input type="password" id="current_passwd" placeholder="현재 비밀번호" />
-	        <input type="password" id="new_passwd" placeholder="새 비밀번호" />
-	        <input type="password" id="confirm_passwd" placeholder="비밀번호 확인" />
-	    </div>
+        <form name="pwdform" method="post" action="/mypage/pwdedit">
+	        <div class="pswd-input">
+		        <input type="password" id="current_passwd" name="current_passwd" placeholder="현재 비밀번호" />
+		        <input type="password" id="new_passwd" name="new_passwd" placeholder="새 비밀번호" />
+		        <input type="password" id="confirm_passwd" name="confirm_passwd" placeholder="비밀번호 확인" />
+		    </div>
+	    </form>
+	    
+	    <p id="message" class="message">&nbsp;</p>
         <p id="passwd_error" class="error-message" style="display:none;">비밀번호가 일치하지 않습니다</p>
         <p id="same_password_error" class="error-message" style="display:none;">이전 비밀번호와 동일한 비밀번호입니다</p>
         <p id="new_passwd_error" class="error-message" style="display:none;">새 비밀번호를 입력하세요</p>
         <div class="modal-buttons">
             <button onclick="submitPasswordChange()">확인</button>
-        </div>
-    </div>
-</div>
-
-<!-- 비밀번호 확인 모달 -->
-<div id="checkPasswordModal" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <button class="back-icon" onclick="closeCheckPasswordModal()"></button>
-            <!-- <span class="back-icon" onclick="closeCheckPasswordModal()">
-                <img src="/resources/suhodan_images/icon/arrow_right.png" class="flip-icon" alt="뒤로가기" />
-            </span> -->
-            <h4>비밀번호 확인</h4>
-        </div>
-        <input type="password" id="modal_passwd" placeholder="비밀번호 입력" />
-        <div class="modal-buttons">
-            <button onclick="submitWithPassword()">확인</button>
         </div>
     </div>
 </div>
@@ -410,28 +417,6 @@ function btnDelete() {
 }
 
 
-//비밀번호 확인 관련 함수
-function openCheckPasswordModal() {
-    document.getElementById("modal_passwd").value = "";
-    document.getElementById("checkPasswordModal").style.display = "block";
-}
-
-function closeCheckPasswordModal() {
-    document.getElementById("checkPasswordModal").style.display = "none";
-}
-
-function submitWithPassword() {
-    var pw = document.getElementById("modal_passwd").value.trim();
-    if (!pw) {
-        alert("비밀번호를 입력해주세요.");
-        return;
-    }
-    document.getElementById("form_passwd").value = pw;
-    closeCheckPasswordModal();
-    document.form1.submit();
-}
-
-
 //비밀번호 재설정 관련 함수
 function openResetPasswordModal() {
     document.getElementById("resetPasswordModal").style.display = "block";
@@ -445,44 +430,24 @@ function submitPasswordChange() {
     const current = document.getElementById("current_passwd").value.trim();
     const newPass = document.getElementById("new_passwd").value.trim();
     const confirm = document.getElementById("confirm_passwd").value.trim();
+    const msg = document.getElementById("message");
     
-    const validCurrentPassword = "${dto.passwd}"; // 실제 서버에서 확인하는 로직이 필요
-
-    // 현재 비밀번호와 일치하지 않으면
-    if (current !== validCurrentPassword) {
-        document.getElementById("passwd_error").style.display = "block";
-        document.getElementById("same_password_error").style.display = "none";
-        document.getElementById("new_passwd_error").style.display = "none";
-        return;
-    }
-
-    // 새 비밀번호를 입력하지 않았을 경우
-    if (newPass === "") {
-        document.getElementById("new_passwd_error").style.display = "block";
-        return;
-    }
-
-    // 새 비밀번호와 확인 비밀번호가 일치하지 않으면
-    if (newPass !== confirm) {
-        document.getElementById("passwd_error").style.display = "block";
-        document.getElementById("same_password_error").style.display = "none";
-        document.getElementById("new_passwd_error").style.display = "none";
-        return;
-    }
-
-    // 새 비밀번호와 현재 비밀번호가 동일하면
-    if (current === newPass) {
-        document.getElementById("same_password_error").style.display = "block";
-        document.getElementById("passwd_error").style.display = "none";
-        document.getElementById("new_passwd_error").style.display = "none";
-        return;
-    }
-
-    // 비밀번호 변경 후 form_passwd에 새로운 비밀번호를 저장
-    document.getElementById("form_passwd").value = newPass;
-
-    // 비밀번호 변경을 서버로 전송하는 로직 추가
-    alert("비밀번호가 변경되었습니다.");
+	// 현재 비밀번호를 입력하지 않았을 경우
+	if (current === "") {
+		return msg.textContent = "현재 비밀번호를 입력해주세요.";
+	}
+ 
+	// 새 비밀번호를 입력하지 않았을 경우
+	if (newPass === "") {
+	     return msg.textContent = "새 비밀번호를 입력해주세요.";
+	}
+    
+	// 새 비밀번호와 확인 비밀번호가 일치하지 않으면
+	if (newPass !== confirm) {
+		return msg.textContent = "새 비밀번호가 일치하지 않습니다.";
+	}
+	
+	document.pwdform.submit();
     closeResetPasswordModal();
 }
 </script>
