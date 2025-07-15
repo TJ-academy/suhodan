@@ -12,24 +12,22 @@
 </head>
 <body>
 	<%@ include file="../../include/admin_menu.jsp"%>
-	<div class="header-container">
-		<h2>기부 내역 조회</h2>
+	<h2>기부내역 확인</h2>
+    <button class="add-btn" id="addButton">추가하기</button>
+    <br>
 
-		<!-- 검색 기능 -->
-		<form action="donation_list.do" method="get">
-			<select name="searchType">
-				<option value="donor_id"
-					${searchType == 'donor_id' ? 'selected' : ''}>기부자</option>
-				<option value="content_title"
-					${searchType == 'content_title' ? 'selected' : ''}>기부
-					프로젝트</option>
-				<option value="">전체</option>
-			</select> <input type="text" name="searchKeyword" value="${searchKeyword}"
-				placeholder="검색어를 입력하세요" />
-			<button type="submit">검색</button>
-		</form>
-	</div>
+    <div class="search-box">
+        <form method="get" action="donation_list.do">
+            <select name="searchType">
+                <option value="donor_id" ${searchType == 'donor_id' ? 'selected' : ''}>기부자</option>
+				<option value="content_title" ${searchType == 'content_title' ? 'selected' : ''}>기부 프로젝트</option>
+            </select>
+            <input type="text" name="searchKeyword" value="${searchKeyword}" />
+            <button type="submit">검색</button>
+        </form>
+    </div>
 	<br>
+
 	<table border="1" width="100%">
 		<tr>
 			<td>No.</td>

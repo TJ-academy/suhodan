@@ -90,7 +90,14 @@
 			<fmt:formatNumber value="${dto.target_amount}" />&nbsp;원
 		</span>
 	</div>
-	<button class="donation_btn" onclick="location.href='/donation/info/${dto.content_id}'">후원하기</button>
+	<c:choose>
+	    <c:when test="${empty sessionScope.user_id}">
+	        <button class="donation_btn" onclick="alert('로그인이 필요합니다.'); location.href='/login.do?message=nologin'">후원하기</button>
+	    </c:when>
+	    <c:otherwise>
+	        <button class="donation_btn" onclick="location.href='/donation/info/${dto.content_id}'">후원하기</button>
+	    </c:otherwise>
+	</c:choose>
 	
 </div>
 </body>

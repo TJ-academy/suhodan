@@ -12,30 +12,28 @@
 </head>
 <body>
 	<%@ include file="../../include/admin_menu.jsp"%>
-	<div class="header-container">
-		<h2>리워드 관리</h2>
-		<button id="addButton">추가하기</button>
-	</div>
-	<br>
+	<h2>리워드 관리</h2>
+    <button class="add-btn" id="addButton">추가하기</button>
+    <br>
 
-	<form method="get" action="reward_list.do">
-		<label for="searchType">검색 기준</label> <select name="searchType">
-			<option value="name" ${searchType == 'name' ? 'selected' : ''}>리워드
-				이름</option>
-			<option value="description"
-				${searchType == 'description' ? 'selected' : ''}>내용</option>
-		</select> <label for="searchKeyword">검색어</label> <input type="text"
-			name="searchKeyword" value="${searchKeyword}" /> <label for="sortBy">정렬
-			기준</label> <select name="sortBy">
-			<option value="price_type"
-				${sortBy == 'price_type' ? 'selected' : ''}>금액</option>
-			<option value="reg_date" ${sortBy == 'reg_date' ? 'selected' : ''}>작성일자</option>
-		</select> <label for="sortOrder">정렬 순서</label> <select name="sortOrder">
-			<option value="asc" ${sortOrder == 'asc' ? 'selected' : ''}>오름차순</option>
-			<option value="desc" ${sortOrder == 'desc' ? 'selected' : ''}>내림차순</option>
-		</select>
-		<button type="submit">검색</button>
-	</form>
+    <div class="search-box">
+        <form method="get" action="member_list.do">
+            <select name="searchType">
+                <option value="name" ${searchType == 'name' ? 'selected' : ''}>리워드	이름</option>
+				<option value="description"	${searchType == 'description' ? 'selected' : ''}>내용</option>
+            </select>
+            <input type="text" name="searchKeyword" value="${searchKeyword}" />
+            <select name="sortBy">
+                <option value="price_type" ${sortBy == 'price_type' ? 'selected' : ''}>금액</option>
+				<option value="reg_date" ${sortBy == 'reg_date' ? 'selected' : ''}>작성일자</option>
+            </select>
+            <select name="sortOrder">
+                <option value="asc" ${sortOrder == 'asc' ? 'selected' : ''}>오름차순</option>
+                <option value="desc" ${sortOrder == 'desc' ? 'selected' : ''}>내림차순</option>
+            </select>
+            <button type="submit">검색</button>
+        </form>
+    </div>
 	<br>
 
 	<table border="1" width="700px">

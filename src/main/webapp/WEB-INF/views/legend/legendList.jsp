@@ -11,186 +11,7 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
 	rel="stylesheet">
-<style>
-body {
-	background-color: #F7EAD9;
-	font-family: 'Noto Sans KR', sans-serif;
-	margin: 0;
-	padding: 0;
-}
-
-.outer-box {
-	max-width: 1000px;
-	margin: 50px auto;
-	background-color: #F5F1EB;
-	border: 1px solid #D8C2A6;
-	border-radius: 20px;
-	padding: 50px;
-	position: relative;
-}
-
-.back-button {
-	position: absolute;
-top: 50px; left: 50px;
-	display: flex;
-	align-items: center;
-	background-color: transparent;
-	border: none;
-	color: #3e2d17;
-	font-size: 16px;
-	cursor: pointer;
-}
-
-.back-button img {
-	width: 15px;
-	height: 25px;
-	margin-top: 40px;
-}
-
-.list {
-	text-align: center;
-	margin-bottom: 40px;
-}
-
-.list img {
-	width: 130px;
-	margin-bottom: 10px;
-}
-
-.list h2 {
-	font-size: 24px;
-	font-weight: bold;
-	color: #3e2d17;
-}
-
-.card-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(395px, 1fr));
-	gap: 24px;
-	justify-content: center;
-}
-
-.legend-card {
-	width: 100%;
-	max-width: 395px;
-	height: 348px;
-	position: relative;
-	background-color: #F5F1EB;
-	border: 1px solid #D8C2A6;
-	border-radius: 12px;
-	overflow: hidden;
-	margin: 0 auto;
-}
-
-.legend-data {
-	position: absolute;
-	top: 10px;
-	right: 12px;
-	font-size: 13px;
-	color: #5c5241;
-	z-index: 2;
-}
-
-.image-container {
-	position: relative;
-	width: 100%;
-	height: 150px;
-	overflow: hidden;
-	margin-top: 30px;
-}
-
-.image-container img {
-	width: 354px;
-	height: 150px;
-	object-fit: cover;
-	display: block;
-	margin: 0 auto;
-	border-radius: 10px;
-}
-
-.image-container:hover img {
-	opacity: 0.4;
-}
-
-.hover-button {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	background-color: #9C6B4F;
-	color: white;
-	padding: 6px 16px;
-	border: none;
-	border-radius: 6px;
-	font-size: 14px;
-	cursor: pointer;
-	z-index: 3;
-	opacity: 0;
-	pointer-events: none;
-	transition: opacity 0.3s ease;
-}
-
-.image-container:hover .hover-button {
-	opacity: 1;
-	pointer-events: auto;
-}
-
-.legend-content {
-	padding: 18px;
-	margin-top: 10px;
-	text-align: center;
-}
-
-.legend-title {
-	font-size: 19px;
-	font-weight: bold;
-	color: #2E2E2E;
-	margin-bottom: 6px;
-}
-
-.legend-location {
-	font-size: 17px;
-	color: #2E2E2E;
-	font-weight: bold;
-}
-
-.legend-desc {
-	font-size: 13px;
-	color: #2E2E2E;
-	margin-top: 15px;
-}
-
-
-.search-bar {
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	margin-bottom: 30px;
-	gap: 10px;
-}
-
-.search-bar input[type="text"] {
-	padding: 6px 12px;
-	border: 1px solid #ccc;
-	border-radius: 20px;
-	font-size: 14px;
-	width: 250px;
-	background-color: #fff;
-}
-
-.search-bar button {
-	background-color: transparent;
-	border: none;
-	cursor: pointer;
-	padding: 0;
-}
-
-.search-bar button img {
-	width: 18px;
-	height: 18px;
-}
-
-</style>
+<link rel="stylesheet" href="/css/legendList.css">
 </head>
 <body>
 	<%@ include file="../include/menu.jsp"%>
@@ -199,53 +20,67 @@ top: 50px; left: 50px;
 	<button class="back-button" onclick="history.back();">
 		<img src="/resources/images/back.png" alt="뒤로가기 아이콘">
 	</button>
-		<!-- 상단 로고 및 제목 -->
-		<div class="list">
-			<img src="/resources/images/logo_no_text.png" alt="로고">
-			<h2>전체 설화 보기</h2>
-		</div>
+	<!-- 상단 로고 및 제목 -->
+	<div class="list">
+		<img src="/resources/images/logo_no_text.png" alt="로고">
+		<h2>전체 설화 보기</h2>
+	</div>
 		
-		<form method="get" action="/legend/legend.do" class="search-bar">
-	<input type="text" name="keyword" placeholder="지역 또는 프로젝트 이름으로 검색">
-	<button type="submit">
-		<img src="/resources/images/search-icon.png" alt="검색">
-	</button>
-</form>
+	<form method="get" action="/legend/legend.do" class="search-bar">
+		<select name="search_option" class="search_style">
+			<option value="all" ${search_option == 'all' ? 'selected' : ''}>전체</option>
+			<option value="loca" ${search_option == 'loca' ? 'selected' : ''}>지역</option>
+			<option value="con" ${search_option == 'con' ? 'selected' : ''}>내용</option>
+		</select>
+		<input type="text" name="search_keyword" placeholder="검색어를 입력해주세요." value="${search_keyword}">
+		<button type="submit">
+			<img src="/resources/images/search-icon.png" alt="검색">
+		</button>
+	</form>
 
-		<!-- 카드 리스트 -->
-		<div class="card-grid">
-			<c:forEach var="row" items="${list}">
-				<div class="legend-card">
-					<!-- 날짜 -->
-					<div class="legend-data">
-						<fmt:formatDate value="${row.reg_date}" pattern="yyyy.MM.dd" />
+	<!-- 카드 리스트 -->
+	<div class="card-grid">
+		<c:forEach var="row" items="${list}">
+			<div class="legend-card">
+				<!-- 날짜 -->
+				<div class="legend-data">
+					<fmt:formatDate value="${row.reg_date}" pattern="yyyy.MM.dd" />
+				</div>
+	
+				<!-- 이미지: DB에서 가져온 이미지 경로 -->
+				<div class="image-container">
+					<img src="../../resources/legend_img/${row.img}" alt="설화 이미지"> <a
+						href="/legend/detail/${row.legend_id}">
+						<button class="hover-button">자세히 보기</button>
+					</a>
+				</div>
+	
+				<!-- 텍스트 콘텐츠 -->
+				<div class="legend-content">
+					<c:set var="mainArea" value="${fn:split(row.location, ' ')[0]}" />
+					<c:set var="subArea" value="${fn:split(row.location, ' ')[1]}" />
+					<div class="legend-location">
+						<span style="font-weight: normal;">${mainArea}</span> <span
+							style="font-weight: bold;"> ${subArea}</span>
 					</div>
-
-					<!-- 이미지: DB에서 가져온 이미지 경로 -->
-					<div class="image-container">
-						<img src="../../resources/legend_img/${row.img}" alt="설화 이미지"> <a
-							href="/legend/detail/${row.legend_id}">
-							<button class="hover-button">자세히 보기</button>
-						</a>
-					</div>
-
-					<!-- 텍스트 콘텐츠 -->
-					<div class="legend-content">
-						<c:set var="mainArea" value="${fn:split(row.location, ' ')[0]}" />
-						<c:set var="subArea" value="${fn:split(row.location, ' ')[1]}" />
-						<div class="legend-location">
-							<span style="font-weight: normal;">${mainArea}</span> <span
-								style="font-weight: bold;"> ${subArea}</span>
-						</div>
-						<div class="legend-title">${row.title}</div>
-						<div class="legend-desc">
-							<c:out value="${row.story}" />
-						</div>
+					<div class="legend-title">${row.title}</div>
+					<div class="legend-desc">
+						<c:out value="${row.story}" />
 					</div>
 				</div>
-			</c:forEach>
-		</div> 
-
+			</div>
+		</c:forEach>
+	</div> 
+	<!-- 페이지네이션 부분 -->
+	 <div style="text-align: center; margin-top: 20px;">
+	   <c:if test="${currentPage > 1}">
+	     <button onclick="location.href='?page=${currentPage - 1}&search_option=${search_option}&search_keyword=${search_keyword}'" class="page_btn">이전</button>
+	   </c:if>	
+	   <c:if test="${currentPage < totalPage}">
+	     <button onclick="location.href='?page=${currentPage + 1}&search_option=${search_option}&search_keyword=${search_keyword}'" class="page_btn">다음</button>
+	   </c:if>
+	 </div>
 </div>
+
 </body>
 </html>

@@ -42,62 +42,66 @@
 		cursor: pointer;
 	}
 	
-	.badge1, .badge2, .badge3, .badge4, .badge5, .badge6, .badge7 {
+	.badge1, .badge2, .badge3, .badge4, .badge5, .badge6, .badge7, .badge8, .badge9 {
 		position: absolute;
 	}
+	.badge1 { top: 120px; right: 400px; }
+	.badge2 { top: 170px; left: 340px; }
+	.badge3 { top: 170px; right: 290px; }
+	.badge4 { top: 230px; left: 240px; }
+	.badge5 { top: 240px; right: 220px; }
 	
-	.badge1 { top: 169px; left: 297px; }
-	.badge2 { top: 249px; left: 219px; }
-	.badge3 { top: 282px; left: 317px; }
-	.badge4 { top: 367px; left: 199px; }
-	.badge5 { top: 402px; left: 300px; }
-	.badge6 { top: 210px; left: 120px; }
-	.badge7 { top: 200px; left: 20px; }
+	.badge6 { top: 280px; left: 317px; }
+	.badge7 { top: 330px; left: 199px; }
+	.badge8 { top: 320px; right: 170px; }
+	.badge9 { top: 390px; left: 300px; }
+	/* .badge10 { top: 402px; right: 300px; } */
 	
 	/* 모달 스타일 */
 	.modal {
+		background-color: rgba(0, 0, 0, 0.4); /* 반투명 배경 */
 		display: none; 
-		position: absolute; 
+		position: fixed;
+		top: 0; left: 0;
 		z-index: 999;
-		top: 50%; left: 50%;
-		transform: translate(-50%, -50%);
-		margin: auto;
-		width: 488px; height: 395px;
-		background-color: #F5F1EB;
-		border: 1.67px solid #D8C2A6;
-		border-radius: 16.65px;
+		
 	}
 	
 	.modal-content {
-		background-color: transparent;
-		border: 0;
-	    padding: 20px;
-	    width: 100%; height: 100%;
+		top: 50%; left: 50%;
+		transform: translate(-50%, -50%);
+		margin: auto;
+		width: 488px; height: auto;
+		background-color: #F5F1EB;
+		border: 1.67px solid #D8C2A6;
+		border-radius: 16.65px;
+		
+	    padding: 20px 40px;
 	    
 	    position: relative;
 	    text-align: center;
+	    align-items:center;
+	    display: flex;
+		flex-direction: column;
 	}
 	
 	.modal-title {
 		color: #9C6B4F;
+		margin-top: 30px;
 		margin-bottom: 20px;
 		font-size: 32px;
 		font-weight: bold;
-		margin-top: 40px;
 	}
 	
 	.modal-desc {
 	  font-size: 19px;
+	  margin-bottom: 30px;
 	}
 	
 	.modal-checkbtn {
-	    position: absolute;
 	    width: 146.78px; height: 57.46px;
-	    bottom: 50px;
-	    left: auto;
 	    text-align: center;
-	    left: 50%;
-	    transform: translateX(-50%);
+	    margin-bottom: 30px;
 	    background-color: #9C6B4F;
 		border: 1px solid #9C6B4F;
 		border-radius: 16.65px;
@@ -111,7 +115,7 @@
 	<div class="rectangle"></div>
 	<img class="treeimage" src="../../resources/images/설화수 수호수.png" alt="설화수 수호수">
  	<c:forEach var="row" items="${blist}" varStatus="status">
-		<c:if test="${status.index < 10}">
+		<c:if test="${status.index < 9}">
 			<div class="badge${status.index + 1}" onclick="openModal('${row.badge_name}', '${row.badge_desc}')">
 				<img class="bimg" src="../../resources/badge_img/${row.badge_img}" alt="${row.badge_name}" />
 			</div>

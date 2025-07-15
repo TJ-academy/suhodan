@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,23 +13,21 @@
 </head>
 <body>
 	<%@ include file="../../include/admin_menu.jsp"%>
-	<div class="header-container">
-		<h2>명패 관리</h2>
-		<button id="addButton">추가하기</button>
-	</div>
+	<h2>명패 관리</h2>
+    <button class="add-btn">추가하기</button>
 	<br>
 	
-	<form method="get" action="badge_list.do">
-		<label for="searchType">검색 기준</label> <select name="searchType">
-			<option value="name" ${searchType == 'name' ? 'selected' : ''}>명패 이름</option>
-			<option value="description"
-				${searchType == 'description' ? 'selected' : ''}>설명</option>
-		</select> <label for="searchKeyword">검색어</label> <input type="text"
-			name="searchKeyword" value="${searchKeyword}" />
-
-		<button type="submit">검색</button>
-	</form>
-	<br>
+	<div class="search-box">
+        <form method="get" action=badge_list.do">
+            <select name="searchType">
+                <option value="name" ${searchType == 'name' ? 'selected' : ''}>명패 이름</option>
+                <option value="description"	${searchType == 'description' ? 'selected' : ''}>설명</option>
+            </select>
+            <input type="text" name="searchKeyword" value="${searchKeyword}" />
+            <button type="submit">검색</button>
+        </form>
+    </div>
+    <br>
 	
 	<table border="1" width="700px">
 		<tr>
@@ -44,7 +43,7 @@
 				<tr>
 					<td>${row.badge_id}</td>
 					<td>${row.name}</td>
-					<td>${row.description}</td>
+					<td>${fn:substring(row.description, 0, 30)}<c:if test="${fn:length(row.description) > 30}">...</c:if></td>
 					<td><fmt:formatDate value="${row.reg_date}"
 							pattern="yyyy-MM-dd" /></td>
 					<td align="center"><img src="/resources/badge_img/${row.img}"

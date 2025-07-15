@@ -87,11 +87,12 @@ body {
 	position: absolute; /* 부모 메뉴 아래에 서브 메뉴를 위치시킵니다 */
 	left: 0;
 	top: 100%; /* 부모 메뉴 항목 바로 아래에 위치 */
-	background-color: #f5e9d9;
+	background-color: #ffffff; /* 배경을 흰색으로 설정 */
 	list-style: none;
 	padding: 0;
 	margin: 0;
 	width: 200px;
+	z-index: 1000; /* 서브 메뉴가 다른 요소 위로 오도록 z-index 추가 */
 }
 
 .nav ul li:hover .submenu {

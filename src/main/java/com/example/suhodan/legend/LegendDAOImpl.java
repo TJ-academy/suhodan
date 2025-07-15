@@ -1,5 +1,6 @@
 package com.example.suhodan.legend;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -73,5 +74,13 @@ public class LegendDAOImpl implements LegendDAO {
 	@Override
 	public List<LegendDTO> listPagingSearch(Map<String, Object> param) {
 	    return sqlSession.selectList("legend.listPagingSearch", param);
+	}
+	
+	@Override
+	public List<LegendDTO> searchLegend(String option, String keyword) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("option", option);
+		param.put("keyword", "%" + keyword + "%"); //like 검색용
+		return sqlSession.selectList("legend.searchLegend", param);
 	}
 }
