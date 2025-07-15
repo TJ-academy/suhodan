@@ -7,22 +7,32 @@
 <title>로그인</title>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
+function logincheck() {
+	const userid=$("#userid").val();
+	const passwd=$("#passwd").val();
+	if(userid=="") {
+		alert("아이디를 입력하세요.");
+		$("#userid").focus();
+		return;
+	}
+	if(passwd=="") {
+		alert("비밀번호를 입력하세요.");
+		$("#passwd").focus();
+		return;
+	}
+	document.form1.action="/login_check.do";
+	document.form1.submit();
+}
 $(function() {
+	$("#userid").focus();
+	
 	$("#btnLogin").click(function() {
-		const userid=$("#userid").val();
-		const passwd=$("#passwd").val();
-		if(userid=="") {
-			alert("아이디를 입력하세요.");
-			$("#userid").focus();
-			return;
-		}
-		if(passwd=="") {
-			alert("비밀번호를 입력하세요.");
-			$("#passwd").focus();
-			return;
-		}
-		document.form1.action="/login_check.do";
-		document.form1.submit();
+		logincheck();
+	});
+	
+	$("form[name='form1']").on("keypress", function(e) {
+		if(e.which === 13)
+			logincheck();
 	});
 });
 </script>
