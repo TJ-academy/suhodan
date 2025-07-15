@@ -95,5 +95,22 @@
 			</choose>
 		</where>
 	</select>
-	
+	<select id="searchFromLocation" parameterType="string" resultType="com.example.suhodan.legend.SearchDonationDTO">
+	    SELECT *
+	    FROM (
+	        SELECT 
+	            l.legend_id,
+	            l.title,
+	            l.location AS legendLocation,
+	            d.content_id AS contentId,
+	            d.title AS donationTitle,
+	            d.location AS donationLocation,
+	            ROW_NUMBER() OVER (PARTITION BY d.title ORDER BY d.content_id) AS rn
+	        FROM suho_legend l
+	        JOIN suho_donation_content d
+	          ON d.location = SUBSTR(l.location, INSTR(l.location, ' ') + 1)
+	        WHERE l.location = #{location, jdbcType=VARCHAR}
+	    )
+	    WHERE rn = 1
+	</select>
 </mapper>

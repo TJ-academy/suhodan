@@ -52,6 +52,16 @@
 		</div>
 	</div>
 	</c:forEach>
+	  <!-- 페이징 버튼 -->
+	  <div style="text-align: center; margin-top: 20px;">
+	    <c:if test="${currentPage > 1}">
+	      <button onclick="location.href='?page=${currentPage - 1}'" class="page_btn">이전</button>
+	    </c:if>	
+	    <c:if test="${currentPage < totalPage}">
+	      <button onclick="location.href='?page=${currentPage + 1}'" class="page_btn">다음</button>
+	    </c:if>
+	  </div>
+	
 </div>
 </body>
 </html>
