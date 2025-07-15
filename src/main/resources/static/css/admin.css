@@ -36,7 +36,7 @@ tr:hover {
 }
 
 button {
-	background-color: #c98f6f;
+	background-color: #D8C2A6;
 	border: none;
 	color: white;
 	padding: 10px 20px;
@@ -49,7 +49,7 @@ button {
 }
 
 button:hover {
-	background-color: #9e704f; /* 버튼 호버 시 색상 변경 */
+	background-color: #9C6B4F; /* 버튼 호버 시 색상 변경 */
 }
 
 /* 페이징 컨테이너 중앙 정렬 */
@@ -64,7 +64,7 @@ button:hover {
 /* 페이징 항목 스타일 */
 .pagination a, .pagination strong {
 	font-size: 14px;
-	color: #7d7d7d;
+	color: #9C6B4F;
 	text-decoration: none;
 	padding: 5px 10px;
 	margin: 0 5px;
@@ -74,12 +74,12 @@ button:hover {
 
 /* 마우스 오버 시 링크 스타일 */
 .pagination a:hover {
-	background-color: #f1f1f1;
+	background-color: #D8C2A6;
 }
 
 /* 현재 페이지 번호 강조 */
 .pagination #current-page {
-	background-color: #c98f6f;
+	background-color: #9C6B4F;
 	color: white;
 }
 
@@ -96,7 +96,7 @@ button:hover {
 }
 
 #prev-page-disabled, #next-page-disabled {
-	color: #ddd; /* 비활성화된 버튼의 색상 */
+	color: #D8C2A6; /* 비활성화된 버튼의 색상 */
 	cursor: not-allowed; /* 마우스 커서 변경 */
 }
 
@@ -119,7 +119,7 @@ h2 {
 
 /* 추가하기 버튼 스타일 */
 #addButton {
-	background-color: #c98f6f;
+	background-color: #D8C2A6;
 	border: none;
 	color: white;
 	padding: 10px 20px;
@@ -133,7 +133,7 @@ h2 {
 }
 
 #addButton:hover {
-	background-color: #9e704f; /* 버튼 호버 시 색상 변경 */
+	background-color: #9C6B4F; /* 버튼 호버 시 색상 변경 */
 }
 
 .action-btn {
@@ -148,21 +148,23 @@ h2 {
 }
 
 .edit-button {
-	background-color: #4CAF50; /* 수정 버튼은 초록색 */
+	background-color: #9BBD77; /* 수정 버튼은 초록색 */
 	color: white;
+	border-radius: 5px;
 }
 
 .edit-button:hover {
-	background-color: #45a049; /* 수정 버튼 호버 시 색상 */
+	background-color: #4C6B3C; /* 수정 버튼 호버 시 색상 */
 }
 
 .delete-button {
-	background-color: #f44336; /* 삭제 버튼은 빨간색 */
+	background-color: #EA9798; /* 삭제 버튼은 빨간색 */
 	color: white;
+	border-radius: 5px;
 }
 
 .delete-button:hover {
-	background-color: #e53935; /* 삭제 버튼 호버 시 색상 */
+	background-color: #A60003; /* 삭제 버튼 호버 시 색상 */
 }
 
 
