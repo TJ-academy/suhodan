@@ -113,4 +113,20 @@
 	    )
 	    WHERE rn = 1
 	</select>
+	<select id="searchLegend" parameterType="map" resultType="com.example.suhodan.legend.LegendDTO">
+		select * from suho_legend
+		<where>
+			<choose>
+				<when test="option == 'loca'">
+					location LIKE #{keyword}
+				</when>
+				<when test="option == 'con'">
+					story like #{keyword}
+				</when>
+				<otherwise>
+					title like #{keyword} or story like #{keyword} or location like #{keyword}
+				</otherwise>
+			</choose>
+		</where>
+	</select>
 </mapper>

@@ -16,4 +16,5 @@ public interface LegendDAO {
 	String tts_file_info(int legend_id);
 	int getTotalCountSearch(Map<String, Object> param);
 	List<LegendDTO> listPagingSearch(Map<String, Object> param);
+	List<LegendDTO> searchLegend(String option, String keyword);
 }
