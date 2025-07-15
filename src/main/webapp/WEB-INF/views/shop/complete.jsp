@@ -187,7 +187,7 @@ background-color: #D8C2A6;
 	<div class="section">
 		<div class="section-title">결제 정보</div>
 		<div class="info-text">
-			결제 수단 <span class="value">무통장입금 · 기업은행</span>
+			결제 수단 <span class="value">무통장입금 </span>
 		</div>
 		<div class="info-text total" style="border-bottom: none;">
 	<strong>총 결제 금액</strong> <span class="value total"><fmt:formatNumber value="${total}" pattern="#,###" />원</span>
