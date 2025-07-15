@@ -13,11 +13,15 @@
 		width: 893px;
 		height: auto;
 		margin: 47px auto 47px auto;
+		text-align: center;
+		align-items: center;
 	}
 	
 	.rectangle {
 		width: 893px;
 		height: 553px; max-height: 1209px;
+		left: 50%;
+		transform: translateX(-50%);
 		background-color: #F5F1EB;
 		border: 1.67px solid #D8C2A6;
 		border-radius: 16.65px;
