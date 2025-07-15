@@ -10,24 +10,22 @@
     <link rel="stylesheet" href="/css/popup.css">
 </head>
 <body>
-    <div class="header-container">
-        <h2>상품 검색</h2>
-        <button id="closeButton">닫기</button>
+    <h2>상품 검색</h2>
+    <button class="cls-btn" id="closeButton">닫기</button>
+    <br>
+
+    <div class="search-box">
+        <form method="get" action="reward_find_goods.do">
+            <select name="searchType">
+                <option value="name" ${searchType == 'name' ? 'selected' : ''}>상품명</option>
+				<option value="description"	${searchType == 'description' ? 'selected' : ''}>설명</option>
+				<option value="location" ${searchType == 'location' ? 'selected' : ''}>지역</option>
+            </select>
+            <input type="text" name="searchKeyword" value="${searchKeyword}" />
+            <button type="submit">검색</button>
+        </form>
     </div>
-    <br>
-    
-    <form method="get" action="reward_find_goods.do">
-        <label for="searchType">검색 기준</label>
-        <select name="searchType">
-            <option value="name" ${searchType == 'name' ? 'selected' : ''}>상품명</option>
-            <option value="description" ${searchType == 'description' ? 'selected' : ''}>설명</option>
-            <option value="location" ${searchType == 'location' ? 'selected' : ''}>지역</option>
-        </select>
-        <label for="searchKeyword">검색어</label>
-        <input type="text" name="searchKeyword" value="${searchKeyword}" />
-        <button type="submit">검색</button>
-    </form>
-    <br>
+	<br>
     
     <table border="1" width="700px">
         <tr>

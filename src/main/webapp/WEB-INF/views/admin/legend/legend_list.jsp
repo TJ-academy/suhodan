@@ -12,22 +12,21 @@
 </head>
 <body>
 	<%@ include file="../../include/admin_menu.jsp"%>
-	<div class="header-container">
-		<h2>설화 관리</h2>
-		<button id="addButton">추가하기</button>
-		<a href="legend/tts_form.do">TTS 생성</a>
-	</div>
-	<br>
-	
-	<form method="get" action="legend_list.do">
-		<label for="searchType">검색 기준</label> <select name="searchType">
-			<option value="title" ${searchType == 'title' ? 'selected' : ''}>제목</option>
-			<option value="location" ${searchType == 'location' ? 'selected' : ''}>지역</option>
-			<option value="story" ${searchType == 'story' ? 'selected' : ''}>내용</option>
-		</select> <label for="searchKeyword">검색어</label> <input type="text"
-			name="searchKeyword" value="${searchKeyword}" />
-		<button type="submit">검색</button>
-	</form>
+	<h2>설화 관리</h2>
+    <button class="add-btn" id="addButton">추가하기</button>
+    <br>
+
+    <div class="search-box">
+        <form method="get" action="legend_list.do">
+            <select name="searchType">
+                <option value="title" ${searchType == 'title' ? 'selected' : ''}>제목</option>
+				<option value="location" ${searchType == 'location' ? 'selected' : ''}>지역</option>
+				<option value="story" ${searchType == 'story' ? 'selected' : ''}>내용</option>
+            </select>
+            <input type="text" name="searchKeyword" value="${searchKeyword}" />
+            <button type="submit">검색</button>
+        </form>
+    </div>
 	<br>
 	
 	<table border="1" width="700px">

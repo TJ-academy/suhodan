@@ -19,6 +19,7 @@ table {
 
 table tr:first-child {
 	border-bottom: 2px solid black; /* 첫 번째 tr에 실선 추가 */
+	font-weight: bold;
 }
 
 th, td {
@@ -100,21 +101,20 @@ button:hover {
 	cursor: not-allowed; /* 마우스 커서 변경 */
 }
 
-/* 헤더 컨테이너 스타일 */
+/* 헤더 컨테이너 스타일
 .header-container {
-	display: flex; /* Flexbox로 레이아웃을 수평으로 설정 */
-	justify-content: space-between; /* 버튼을 우측 끝으로 배치 */
-	align-items: center; /* 수직으로 중앙 정렬 */
-	width: 100%; /* 전체 너비 */
-	margin-bottom: 20px; /* 제목과 버튼 사이에 여백 추가 */
-}
+	display: flex; Flexbox로 레이아웃을 수평으로 설정
+	justify-content: space-between; 버튼을 우측 끝으로 배치
+	align-items: center; 수직으로 중앙 정렬
+	width: 100%; 전체 너비
+	margin-bottom: 20px; 제목과 버튼 사이에 여백 추가
+} */
 
-/* 기부 관리 제목 가운데 정렬 */
 h2 {
-	margin: 0;
-	flex: 1; /* 제목 영역을 차지하도록 함 */
-	text-align: center; /* 제목을 가운데 정렬 */
-	color: #3c2c1e;
+    text-align: center;
+    font-size: 36px;
+    color: #3b2a1b;
+    margin-top: 30px;
 }
 
 /* 추가하기 버튼 스타일 */
@@ -147,24 +147,39 @@ h2 {
 	transition: background-color 0.3s ease;
 }
 
+/* 수정 버튼 스타일 */
 .edit-button {
-	background-color: #4CAF50; /* 수정 버튼은 초록색 */
-	color: white;
+    background-color: #7bd56c; /* 연한 초록색 */
+    color: white;
+    border: 2px solid #6e9e47;
+    border-radius: 15px;
+    padding: 8px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .edit-button:hover {
-	background-color: #45a049; /* 수정 버튼 호버 시 색상 */
+    background-color: #6e9e47; /* 어두운 초록색 */
+    border-color: #5b843a;
 }
 
+/* 삭제 버튼 스타일 */
 .delete-button {
-	background-color: #f44336; /* 삭제 버튼은 빨간색 */
-	color: white;
+    background-color: #ff7b7b; /* 연한 빨간색 */
+    color: white;
+    border: 2px solid #d06c6c;
+    border-radius: 15px;
+    padding: 8px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .delete-button:hover {
-	background-color: #e53935; /* 삭제 버튼 호버 시 색상 */
+    background-color: #d06c6c; /* 어두운 빨간색 */
+    border-color: #b25959;
 }
-
 
 /*input + 원 한 줄로 CSS */
 .price-container {
@@ -200,4 +215,68 @@ h2 {
     height: 20px; /* 아이콘 크기 */
     cursor: pointer;
     margin-left: 10px; /* input과 아이콘 사이에 여백 추가 */
+}
+
+/* 추가하기 버튼 스타일 */
+.add-btn {
+    float: right;
+    background-color: #d6a77a;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: -50px;
+}
+
+.add-btn:hover {
+    background-color: #b87d53;
+}
+
+.cls-btn {
+    float: right;
+    background-color: #d6a77a;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: -50px;
+}
+
+.cls-btn:hover {
+    background-color: #b87d53;
+}
+
+/* 검색 옵션 스타일 */
+.search-box {
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f9f4ef;
+    border: 1px solid #d1c6b9;
+    border-radius: 10px;
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    align-items: center;
+}
+
+.search-box select, .search-box input, .search-box button {
+    font-size: 16px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.search-box button {
+    background-color: #d6a77a;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.search-box button:hover {
+    background-color: #b87d53;
 }
