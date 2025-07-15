@@ -12,24 +12,21 @@
 </head>
 <body>
 	<%@ include file="../../include/admin_menu.jsp"%>
-	<div class="header-container">
-		<h2>상품 관리</h2>
-		<button id="addButton">추가하기</button>
-	</div>
-	<br>
-	
-	<form method="get" action="goods_list.do">
-		<label for="searchType">검색 기준</label> <select name="searchType">
-			<option value="name" ${searchType == 'name' ? 'selected' : ''}>상품명</option>
-			<option value="description"
-				${searchType == 'description' ? 'selected' : ''}>설명</option>
-			<option value="location"
-				${searchType == 'location' ? 'selected' : ''}>지역</option>
-		</select> <label for="searchKeyword">검색어</label> <input type="text"
-			name="searchKeyword" value="${searchKeyword}" />
+	<h2>상품 관리</h2>
+    <button class="add-btn" id="addButton">추가하기</button>
+    <br>
 
-		<button type="submit">검색</button>
-	</form>
+    <div class="search-box">
+        <form method="get" action="goods_list.do">
+            <select name="searchType">
+                <option value="name" ${searchType == 'name' ? 'selected' : ''}>상품명</option>
+				<option value="description"	${searchType == 'description' ? 'selected' : ''}>설명</option>
+				<option value="location" ${searchType == 'location' ? 'selected' : ''}>지역</option>
+            </select>
+            <input type="text" name="searchKeyword" value="${searchKeyword}" />
+            <button type="submit">검색</button>
+        </form>
+    </div>
 	<br>
 	
 	<table border="1" width="700px">
