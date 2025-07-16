@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <footer>
 	<nav>
-		<a href="/legend/source.do" target="_blank">[ 설화출처 ]</a>
+		<a href="/legend/source.do" target="_blank" class="a1">[ 설화출처 ]</a>
 	</nav>
 	<p>
 		<span>개발</span><br>
@@ -19,14 +19,14 @@
 		background: #9C6B4F;
 		color: white;
 	}
-	a {
+	.a1 {
 		text-decoration: none;
 		color: white;
 	}
-	a:hover {
+	.a1:hover {
 		font-size: 17px;
 	}
-	a:visited {
+	.a1:visited {
 		color: white;
 	}
 </style>
