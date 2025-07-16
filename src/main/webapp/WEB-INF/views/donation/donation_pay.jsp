@@ -268,7 +268,6 @@
       let check2 = document.getElementById("check2");
       // HTML에서 id="email_receipt_checkbox"로 변경했으므로 여기에 반영
       let emailCheckbox = document.getElementById("email_receipt_checkbox");
-      let buyerEmail = document.getElementById("buyer_email").value; // 이메일 입력 필드
 
       if (isNaN(money) || money <= 0) { // 숫자가 아니거나 0 이하일 경우
           alert("유효한 금액을 선택하거나 입력해주세요.");
@@ -278,7 +277,7 @@
           return;
       }
       
-		// 이메일 수신 체크박스가 선택되었을 때만 이메일 확인
+   // 이메일 수신 체크박스가 선택되었을 때만 이메일 확인
       if (emailCheckbox.checked && !buyerEmail) {
           alert("이메일 주소를 입력해주세요.");
           return;

@@ -21,6 +21,10 @@
                 <c:when test="${sessionScope.user_id == null}">
                     <a href="/login.do">로그인</a>
                 </c:when>
+                <c:when test="${sessionScope.user_id == 'admin'}">
+                    <a href="/admin/">관리자 기능</a>
+                    <a href="/logout.do">로그아웃</a>
+                </c:when>
                 <c:otherwise>
                     <c:if test="${fn:contains(pageContext.request.requestURI, '/shop')}">
                         <a href="/shop/cart/list.do">장바구니</a>
