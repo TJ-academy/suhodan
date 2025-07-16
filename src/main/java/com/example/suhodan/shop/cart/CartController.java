@@ -95,7 +95,9 @@ public class CartController {
     }
 
     @PostMapping("buy.do")
-    public ModelAndView buy(@RequestParam(name = "cart_id") int[] cartIds, HttpSession session) {
+    public ModelAndView buy(@RequestParam(name = "cart_id") int[] cartIds,
+    		@RequestParam(name = "fee") int fee,
+    		HttpSession session) {
         String user_id = (String) session.getAttribute("user_id");
         if (user_id == null) {
             return new ModelAndView("redirect:/login.do");
@@ -108,6 +110,7 @@ public class CartController {
         mav.setViewName("shop/buy");
         mav.addObject("cartList", cartList);
         mav.addObject("total", total);
+        mav.addObject("fee", fee);
         mav.addObject("dto", memberDao.detail(user_id));
         return mav;
     }

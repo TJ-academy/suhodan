@@ -244,11 +244,14 @@ body {
 					<div><fmt:formatNumber value="${item.goods_price * item.amount}" pattern="#,###" />원</div>
 				</div>
 			</c:forEach>
+			<span style="text-align:right; display: block; color: #696969; ">
+				배송비 : ${fee}원
+			</span>
 			<div class="total-price">
-				총 주문 금액: <fmt:formatNumber value="${total}" pattern="#,###" />원
+				총 주문 금액: <fmt:formatNumber value="${total + fee}" pattern="#,###" />원
 			</div>
 		</div>
-		<input type="hidden" name="order_amount" value="${total}">
+		<input type="hidden" name="order_amount" value="${total + fee}">
 		
 		<div class="payment-method">
 			<h3>결제 수단</h3>
