@@ -20,17 +20,52 @@
 	
 	.rectangle {
 		width: 893px;
-		height: 644px;
+		height: 720px;
 		background-color: #F5F1EB;
 		border: 1.67px solid #D8C2A6;
 		border-radius: 16.65px;
 		position: relative;
+		text-align: center;
+		align-items: center;
+	}
+	
+	.back-button {
+		position: absolute;
+		width: 14px; height: 28px;
+		border: none;
+		cursor: pointer;
+		top: 40px; left: 40px;
+		margin-top: 1px;
+		background: url('/resources/suhodan_images/icon/arrow_right.png') no-repeat center;
+		background-size: contain;
+		z-index: 10;
+		transform: rotate(180deg);
+	}
+	
+	.treepage-title {
+		position: absolute;
+		top:40px; left: 40px;
+		display: flex;
+		align-items: center;
+	}
+	
+	.treepage-title-img {
+		margin-left: 30px;
+		width: 25px; height: 25px;
+	}
+	
+	.treepage-title-text {
+		margin-left: 10px;
+		font-size: 21px;
+		font-weight: bold;
+		color: #504848;
 	}
 	
 	.treeimage {
 		position: absolute;
 		top: 20px; /* 이미지가 사각형 위에서 20px 내려온 위치 */
-		left: 46px; /* 이미지가 사각형 왼쪽에서 46px 떨어진 위치 */
+		left: 50%;
+		transform: translateX(-50%);
 		width: 801px;
 		height: 604px;
 	}
@@ -40,6 +75,25 @@
 		width: 59px;
 		height: 88px;
 		cursor: pointer;
+	}
+	
+	.pagination {
+		position: absolute;
+		text-align: center;
+		margin-top: 30px;
+		bottom: 15px;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		display: flex;
+	}
+	.pagination a {
+		justify-content: center;
+		margin: 0 5px;
+		padding: 6px 12px;
+		background-color: 'transparent';
+		text-decoration: none;
+		text-underline-offset: 4px;
+		text-underline-color: #2E2E2E;
 	}
 	
 	.badge1, .badge2, .badge3, .badge4, .badge5, .badge6, .badge7, .badge8, .badge9 {
@@ -78,7 +132,7 @@
 		
 	    padding: 20px 40px;
 	    
-	    position: relative;
+	    position: fixed;
 	    text-align: center;
 	    align-items:center;
 	    display: flex;
@@ -112,32 +166,51 @@
 </style>
 
 <div class="container">
-	<div class="rectangle"></div>
-	<img class="treeimage" src="../../resources/images/설화수 수호수.png" alt="설화수 수호수">
- 	<c:forEach var="row" items="${blist}" varStatus="status">
-		<c:if test="${status.index < 9}">
-			<div class="badge${status.index + 1}" onclick="openModal('${row.badge_name}', '${row.badge_desc}')">
-				<img class="bimg" src="../../resources/badge_img/${row.badge_img}" alt="${row.badge_name}" />
-			</div>
-		</c:if>
-	</c:forEach>
+	<div class="rectangle">
+		<!-- 뒤로가기 버튼 -->
+		<button class="back-button" onclick="location.href='/mypage'"></button>
+		
+		<div class="treepage-title">
+			<img class="treepage-title-img" src="/resources/suhodan_images/icon/tree.png">
+			<span class="treepage-title-text">나의 수호수</span>
+		</div>
 	
-	<!-- 모달 팝업 -->
-	<div id="badgeModal" class="modal">
-	    <div class="modal-content">
-	        <p id="modalTitle" class="modal-title">명패 보기</p>
-	        <p id="modalDesc" class="modal-desc">
-	        	<strong id="badgeName"></strong>의 설화를 보고 기부했던 인증패예요!<br>
-	        	수호자님의 후원으로<br>
-	        	<strong id="badgeDesc"></strong>가<br>
-	        	성공적으로 완수될 수 있었어요!
-	        </p>
-	        <button type="button" class="modal-checkbtn" onclick="closeModal()">확인</button>
-	    </div>
+	
+		<img class="treeimage" src="../../resources/images/설화수 수호수.png" alt="설화수 수호수">
+	 	<c:forEach var="row" items="${blist}" varStatus="status">
+			<c:if test="${status.index < 9}">
+				<div class="badge${status.index + 1}" onclick="openModal('${row.badge_name}', '${row.badge_desc}')">
+					<img class="bimg" src="../../resources/badge_img/${row.badge_img}" alt="${row.badge_name}" />
+				</div>
+			</c:if>
+		</c:forEach>
+		
+		<!-- 페이지네이션 -->
+		<div class="pagination" id="pagination">
+			<c:forEach begin="1" end="${totalPage}" var="i">
+				<a href="/mypage/mytree?page=${i}" 
+		       style="color: ${i == currentPage ? '#2E2E2E' : '#939393'};
+		       text-decoration: ${i == currentPage ? 'underline' : 'none'}">
+					${i}
+				</a>
+			</c:forEach>
+		</div>
 	</div>
 </div>
 
-
+<!-- 모달 팝업 -->
+<div id="badgeModal" class="modal">
+    <div class="modal-content">
+        <p id="modalTitle" class="modal-title">명패 보기</p>
+        <p id="modalDesc" class="modal-desc">
+        	<strong id="badgeName"></strong>의 설화를 보고 기부했던 인증패예요!<br>
+        	수호자님의 후원으로<br>
+        	<strong id="badgeDesc"></strong>가<br>
+        	성공적으로 완수될 수 있었어요!
+        </p>
+        <button type="button" class="modal-checkbtn" onclick="closeModal()">확인</button>
+    </div>
+</div>
 
 <script>
     function openModal(badge_name, badge_desc) {
