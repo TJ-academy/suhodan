@@ -39,4 +39,6 @@ public class MypageDAOImpl implements MypageDAO {
 	public int getUserBadgeCount(String user_id) {
 	    return sqlSession.selectOne("mypage.getUserBadgeCount", user_id);
 	}
+	
+	
 }

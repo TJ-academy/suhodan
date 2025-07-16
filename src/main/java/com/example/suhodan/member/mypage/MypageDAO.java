@@ -10,4 +10,6 @@ public interface MypageDAO {
 
 	// 총 배지 수
 	int getUserBadgeCount(String user_id);
+	
+	
 }
