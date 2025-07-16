@@ -191,7 +191,6 @@ body {
 	<!-- 상세 이미지 -->
 	<div class="detail-images">
 		<img src="/resources/goods_detail_img/${dto.detail_img}" alt="디테일1">
-		<img src="/resources/goods_detail_img/${dto.detail_img}" alt="디테일2">
 	</div>
 
 	<!-- 장바구니 버튼 -->

@@ -65,6 +65,9 @@ body {
 	flex-direction: column;
 	gap: 6px;
 	margin-top: -20px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .product-name {
