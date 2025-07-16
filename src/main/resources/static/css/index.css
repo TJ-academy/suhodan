@@ -19,12 +19,12 @@
 		background: #F2D4B4;
 		margin: 40px 0;
 		padding: 10px;
-		position: absolute;
+		position: relative;
 	}
 	
 	.done_btn {
-		position: relative;
-		bottom: 110px;
+		position: absolute;
+		bottom: 40px;
 		left: 1150px;
 		background: #9C6B4F;
 		color: white;

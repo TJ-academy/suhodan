@@ -8,18 +8,9 @@
     <title>설화출처</title>
 </head>
 <body>
-    <table border="1" width="700px">
-        <tr>
-            <td>제목</td>
-            <td>출처</td>
-        </tr>
-        <c:forEach var="row" items="${list}">
-            <tr>
-                <td>${row.title}</td>
-                <td>${row.source}</td>
-            </tr>
-        </c:forEach>
-    </table>
+<c:forEach var="row" items="${list}">
+${row.title} : ${row.source} <br>
+</c:forEach>
 
 </body>
 </html>
