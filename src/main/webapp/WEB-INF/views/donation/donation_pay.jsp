@@ -143,7 +143,7 @@
       <td data-amount="30000">30,000원</td>
       <td data-amount="50000">50,000원</td>
       <td data-amount="100000">100,000원</td>
-      <td><input type="number" id="direct_amount_input" placeholder="직접 입력"></td>
+      <td id="direct_input_cell"><input type="number" id="direct_amount_input" placeholder="직접 입력"></td>
     </tr>
   </table>
   <p style="text-align: right; margin-top: 20px; font-size: 20px;">
@@ -158,7 +158,7 @@
   <div style="text-align:center; margin-top: 30px; font-size: 17px;">
     <input type="checkbox" id="check1"> <strong> (필수) 이 플랫폼은 해커톤 교육 프로젝트이며 실제 후원/기부 단체가 아님을 확인했습니다.</strong><br>
     <input type="checkbox" id="check2"> <strong> (필수) 기부금은 환불되지 않으며, 현금영수증/세금공제는 발급되지 않음을 이해합니다.</strong><br>
-    <input type="checkbox"> (선택) 이메일로 기부내역을 받겠습니다.
+    <input type="checkbox" id="email_receipt_checkbox"> (선택) 이메일로 기부내역을 받겠습니다.
   </div>
   <button class="next_btn" onclick="requestPay()">결제하기</button>
 </div>
@@ -193,26 +193,31 @@
   $('.amount-table td').on('click', function() {
     // 모든 td에서 selected-amount 클래스 제거
     $('.amount-table td').removeClass('selected-amount');
-    // 클릭된 td에 selected-amount 클래스 추가
-    $(this).addClass('selected-amount');
 
     // 직접 입력 input 초기화 및 비활성화
     $('#direct_amount_input').val('').prop('readonly', true);
+
+    // 클릭된 td에 selected-amount 클래스 추가
+    $(this).addClass('selected-amount');
 
     // 클릭된 td의 data-amount 값을 amount_for_payment input에 설정
     const selectedAmount = $(this).data('amount');
     if (selectedAmount) { // data-amount가 있는 경우 (고정 금액 버튼)
       $('#amount_for_payment').val(selectedAmount);
-    } else { // 직접 입력 칸을 클릭한 경우 (data-amount가 없는 경우)
-      $('#direct_amount_input').prop('readonly', false).focus(); // 직접 입력 활성화 및 포커스
-      $('#amount_for_payment').val(0); // 직접 입력이 선택되면 일단 0으로 설정
+    } else { // 직접 입력 칸이 있는 td를 클릭한 경우
+        // 직접 입력 input을 활성화하고 포커스
+        $('#direct_amount_input').prop('readonly', false).focus();
+        // 직접 입력이 선택되면, 실제 결제 금액은 비워둠 (사용자 입력 대기)
+        $('#amount_for_payment').val('');
     }
   });
 
   // 직접 입력 input 값 변경 이벤트 핸들러
   $('#direct_amount_input').on('input', function() {
-    // 직접 입력 시 모든 td에서 selected-amount 클래스 제거
+    // 직접 입력 시, 고정 금액 선택 해제 (CSS 클래스 제거)
     $('.amount-table td').removeClass('selected-amount');
+    // 직접 입력 input이 속한 td에 selected-amount 클래스 추가 (선택 상태 유지)
+    $(this).closest('td').addClass('selected-amount');
 
     const directValue = $(this).val();
     if (directValue === "") {
@@ -258,15 +263,24 @@
   }
 
   function requestPay() {
-      let money = document.getElementById("amount_for_payment").value;
+      let money = parseInt(document.getElementById("amount_for_payment").value); // money를 숫자로 파싱
       let check1 = document.getElementById("check1");
       let check2 = document.getElementById("check2");
+      // HTML에서 id="email_receipt_checkbox"로 변경했으므로 여기에 반영
+      let emailCheckbox = document.getElementById("email_receipt_checkbox");
+      let buyerEmail = document.getElementById("buyer_email").value; // 이메일 입력 필드
 
-      if (money == 0 || money == null || money === "") {
-          alert("금액을 선택하거나 입력해주세요.");
+      if (isNaN(money) || money <= 0) { // 숫자가 아니거나 0 이하일 경우
+          alert("유효한 금액을 선택하거나 입력해주세요.");
           return;
       } else if (!check1.checked || !check2.checked) {
           alert("필수사항에 동의해주세요.");
+          return;
+      }
+      
+		// 이메일 수신 체크박스가 선택되었을 때만 이메일 확인
+      if (emailCheckbox.checked && !buyerEmail) {
+          alert("이메일 주소를 입력해주세요.");
           return;
       }
 
@@ -276,7 +290,7 @@
           pay_method: "card",
           merchant_uid: "donation_" + new Date().getTime(),
           name: "${dto.title}",
-          amount: parseInt(money), // amount_for_payment의 값을 숫자로 파싱
+          amount: money, // 이미 숫자로 파싱됨
           buyer_email: document.getElementById("buyer_email").value,
           buyer_name: document.getElementById("buyer_name").value,
       }, function(rsp) {
@@ -288,13 +302,14 @@
                   credentials: "include",
                   body: JSON.stringify({
                       content_id: ${dto.content_id},
-                      amount: parseInt(document.getElementById("amount_for_payment").value),
+                      amount: money, // 이미 숫자로 파싱됨
                       buyer_name: document.getElementById("buyer_name").value,
                       buyer_email: document.getElementById("buyer_email").value,
                       imp_uid: rsp.imp_uid,
                       merchant_uid: rsp.merchant_uid,
                       payment_method: rsp.pay_method,
-                      status: "완료"
+                      status: "완료",
+                   	  send_email: emailCheckbox.checked // 이메일 보내기 여부
                   })
               }).then(res => res.json())
                 .then(data => {
