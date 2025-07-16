@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.suhodan.member.MemberDAO;
+
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -23,6 +25,9 @@ public class CartController {
 
     @Autowired
     CartDAO cartDao;
+    
+    @Autowired
+    MemberDAO memberDao;
 
     @GetMapping("list.do")
     public ModelAndView list(HttpSession session, ModelAndView mav) {
@@ -95,7 +100,7 @@ public class CartController {
         if (user_id == null) {
             return new ModelAndView("redirect:/login.do");
         }
-
+        
         List<CartDTO> cartList = cartDao.list(user_id);
         int total = cartDao.sum_money(user_id);
 
@@ -103,6 +108,7 @@ public class CartController {
         mav.setViewName("shop/buy");
         mav.addObject("cartList", cartList);
         mav.addObject("total", total);
+        mav.addObject("dto", memberDao.detail(user_id));
         return mav;
     }
 

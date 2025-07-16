@@ -28,6 +28,21 @@ body {
 	color: #5e3c19;
 	margin-bottom: 20px;
 }
+.section-header {
+	display: flex;
+	align-items: center;
+}
+.load-info-btn {
+	padding: 5px 13px;
+	font-size: 13px;
+	color: #FFFFFF;
+	background-color: #9C6B4F;
+	border: 1px solid #9C6B4F;
+	cursor: pointer;
+	border-radius: 16.65px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
 .input-row {
 	display: flex;
 	align-items: center;
@@ -60,7 +75,7 @@ body {
 	background-color: #fff;
 	border: 1px solid #aaa;
 	cursor: pointer;
-	border-radius: 10px;
+	border-radius: 16.65px;
 }
 .input-row.full-inline {
 	align-items: flex-start;
@@ -158,7 +173,13 @@ body {
 
 <div class="outer-box">
 	<form action="/shop/cart/complete.do" method="post">
-		<div class="section-title">배송지</div>
+		<div class="section-header">
+			<div class="section-title">배송지</div>
+			<button type="button" class="load-info-btn" onclick="loadMyInfo()">내 정보 불러오기</button>
+			<input type="hidden" id="dtoName" value="${dto.name}" />
+			<input type="hidden" id="dtoAddress1" value="${dto.address1}" />
+			<input type="hidden" id="dtoAddress2" value="${dto.address2}" />
+		</div>
 
 		<div class="input-row">
 			<label for="receiver">수령인</label>
@@ -259,6 +280,16 @@ body {
 <!-- 주소 검색 API -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+function loadMyInfo() {
+	const name = document.getElementById("dtoName").value;
+	const address1 = document.getElementById("dtoAddress1").value;
+	const address2 = document.getElementById("dtoAddress2").value;
+	
+	document.getElementById("receiver").value = name;
+	document.getElementById("address1").value = address1;
+	document.getElementById("address2").value = address2;
+}
+
 function execDaumPostcode() {
 	new daum.Postcode({
 		oncomplete: function(data) {
