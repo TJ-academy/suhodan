@@ -2,7 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="shop">
 	<select id="list" resultType="com.example.suhodan.shop.ShopDTO">
-		select * from suho_goods order by goods_id
+		SELECT * FROM (
+	        SELECT inner_table.*, ROWNUM rn FROM (
+	            SELECT * FROM suho_goods
+	            <where>
+					<if test="category != null and keyword != null and keyword != ''">
+						${category} LIKE '%' || #{keyword} || '%'
+					</if>
+				</where>
+				<choose>
+					<when test="sort == 'low'">
+						ORDER BY price ASC
+					</when>
+					<when test="sort == 'high'">
+						ORDER BY price DESC
+					</when>
+					<when test="sort == 'name'">
+						ORDER BY name ASC
+					</when>
+					<otherwise>
+						ORDER BY goods_id DESC <!-- 기본: 신상품순 -->
+					</otherwise>
+				</choose>
+	        ) inner_table
+	        WHERE ROWNUM &lt;= #{end}
+	    )
+	    WHERE rn &gt;= #{start}
+	</select>
+	
+	<select id="getShopCount" resultType="int">
+	    SELECT COUNT(*) FROM suho_goods
+	    <where>
+	        <if test="category != null and keyword != null and keyword != ''">
+	            ${category} LIKE '%' || #{keyword} || '%'
+	        </if>
+	    </where>
 	</select>
 
 	<select id="detail" parameterType="int" resultType="com.example.suhodan.shop.ShopDTO">

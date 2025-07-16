@@ -14,9 +14,17 @@ body {
 	padding: 0;
 }
 
+.shop-list {
+	margin: 20px;
+	justify-content: center;
+	align-items: center;
+	width: 1130px; height: 100%;
+	left: 50%; transform: translateX(-50%);
+	position: relative;
+}
+
 .shop-header {
 	text-align: center;
-	margin-top: 20px;
 	color: #A49D9D;
 }
 
@@ -30,15 +38,40 @@ body {
 	color: #A49D9D;
 }
 
-.shop-grid {
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	gap: 36px;
-	padding: 50px 0;
+.shop-filter {
 	justify-content: center;
-	margin: 0 auto;
-	max-width: 1200px;
-	margin-top: -30px;
+	text-align: right;
+	margin-bottom: -20px;
+	margin-top: 20px;
+}
+
+.shop-filter select, .shop-filter input, .shop-filter button {
+	padding: 5px 12px;
+	background-color: #FFFFFF;
+	border: 1.67px solid #D8C2A6;
+	border-radius: 17px;
+	color: #504848;
+}
+
+.shop-filter select:focus,
+.shop-filter input:focus,
+.shop-filter button:focus {
+	border-color: #9C6B4F;
+	outline: none;
+}
+
+.shop-filter button {
+	padding: 6px 15px;
+}
+
+.shop-grid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 30px;
+	padding: 30px 0;
+	justify-content: flex-start;
+	align-items: center;
+	left: 50%;
 }
 
 .shop-card {
@@ -77,7 +110,6 @@ body {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	
 }
 
 .product-price {
@@ -100,7 +132,6 @@ body {
 	align-items: center;
 	padding-top: 5px;
 }
-
 
 .buy-icon-btn {
 	background: none;
@@ -172,44 +203,112 @@ body {
 	opacity: 1;
 	pointer-events: auto;
 }
+
+.shop-empty {
+	text-align: center;
+	color: #504848;
+	font-size: 18px;
+	margin: 50px 0;
+}
+
+.pagination {
+	position: relative;
+	text-align: center;
+	justify-content: center;
+	margin: 20px auto;
+	bottom: 0px;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+}
+.pagination a {
+	justify-content: center;
+	margin: 0 5px;
+	padding: 6px 12px;
+	background-color: 'transparent';
+	text-decoration: none;
+	text-underline-offset: 4px;
+	text-underline-color: #2E2E2E;
+}
 </style>
 </head>
 <body>
 <%@ include file="../include/menu.jsp" %>
 
-<div class="shop-header">
-	<img src="/resources/images/logo_no_text.png" alt="로고" />
-	<p>당신의 따뜻한 마음이 작은 마을의 내일을 지켜줍니다.</p>
-</div>
+<div class="shop-list">
+	<div class="shop-header">
+		<img src="/resources/images/logo_no_text.png" alt="로고" />
+		<p>당신의 따뜻한 마음이 작은 마을의 내일을 지켜줍니다.</p>
+	</div>
+	
+	<div class="shop-filter">
+		<form action="/shop/list.do" method="get">
+			<select name="category">
+				<option value="name" ${category == 'name' ? 'selected' : ''}>상품명</option>
+				<option value="location" ${category == 'location' ? 'selected' : ''}>지역명</option>
+			</select>
+	
+			<input type="text" name="keyword" value="${keyword}" placeholder="검색어 입력" />
+	
+			<select name="sort">
+				<option value="new" ${sort == 'new' ? 'selected' : ''}>신상품순</option>
+				<option value="low" ${sort == 'low' ? 'selected' : ''}>낮은 가격순</option>
+				<option value="high" ${sort == 'high' ? 'selected' : ''}>높은 가격순</option>
+				<option value="name" ${sort == 'name' ? 'selected' : ''}>이름순</option>
+			</select>
+	
+			<button type="submit">검색</button>
+		</form>
+	</div>
 
-<div class="shop-grid">
-	<c:forEach var="row" items="${list}">
-		<div class="shop-card">
-			<div class="image-container">
-				<img class="product-img" src="../../resources/goods_img/${row.img}" alt="${row.name}"
-					onerror="this.onerror=null; this.src='../../resources/images/설화수 로고.png';" />
-				<a href="/shop/detail/${row.goods_id}" class="hover-button">자세히 보기</a>
-			</div>
-			<div class="card-text">
-				<div class="card-top">
-    <div class="product-name">${row.name}</div>
-    <form action="/shop/cart/insert.do" method="post">
-        <input type="hidden" name="goods_id" value="${row.goods_id}">
-        <input type="hidden" name="amount" value="1">
-        <button type="submit" class="buy-icon-btn">
-            <img src="../../resources/shop_img/cart_plus.png" class="cart-icon" />
-        </button>
-    </form>
-</div>
-
-				<div class="product-price">
-					<fmt:formatNumber value="${row.price}" pattern="#,###" />원
+	<div class="shop-grid">
+		<c:forEach var="row" items="${list}">
+			<div class="shop-card">
+				<div class="image-container">
+					<img class="product-img" src="../../resources/goods_img/${row.img}" alt="${row.name}"
+						onerror="this.onerror=null; this.src='../../resources/images/설화수 로고.png';" />
+					<a href="/shop/detail/${row.goods_id}" class="hover-button">자세히 보기</a>
 				</div>
-				<div class="product-desc">${row.description}</div>
+				<div class="card-text">
+					<div class="card-top">
+					    <div class="product-name">${row.name}</div>
+					    <form action="/shop/cart/insert.do" method="post">
+					        <input type="hidden" name="goods_id" value="${row.goods_id}">
+					        <input type="hidden" name="amount" value="1">
+					        <button type="submit" class="buy-icon-btn">
+					            <img src="../../resources/shop_img/cart_plus.png" class="cart-icon" />
+					        </button>
+					    </form>
+					</div>
+	
+					<div class="product-price">
+						<fmt:formatNumber value="${row.price}" pattern="#,###" />원
+					</div>
+					<div class="product-desc">${row.description}</div>
+				</div>
 			</div>
-		</div>
-	</c:forEach>
+		</c:forEach>
+	</div>
+	
+	
+	<c:if test="${totalCount == 0}">
+	    <div class="shop-empty">
+	        검색 결과가 없습니다.
+	    </div>
+	</c:if>
+	
+	<!-- 페이지네이션 -->
+	<div class="pagination">
+	    <c:forEach begin="1" end="${totalPage}" var="i">
+	        <a href="/shop/list.do?page=${i}&category=${category}&keyword=${keyword}&sort=${sort}"
+	           style="color: ${i == currentPage ? '#2E2E2E' : '#939393'};
+				       text-decoration: ${i == currentPage ? 'underline' : 'none'}">
+	            ${i}
+	        </a>
+	    </c:forEach>
+	</div>
 </div>
+
 <c:if test="${param.message == 'success'}">
 	<script>alert("장바구니에 추가되었습니다.");</script>
 </c:if>

@@ -157,7 +157,7 @@ body {
 <div class="outer-box">
 
 	<!-- 뒤로가기 버튼 -->
-	<button class="back-button" onclick="location.href='/shop/list.do'">
+	<button class="back-button" onclick="history.back()">
 		<img src="/resources/images/back.png" alt="뒤로가기 아이콘">
 	</button>
 
