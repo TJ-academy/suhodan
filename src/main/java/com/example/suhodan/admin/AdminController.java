@@ -786,7 +786,7 @@ public class AdminController {
 				f.delete();
 		}
 		donationConDao.delete(content_id);
-		return "redirect:/admin/donation_contetns_list.do";
+		return "redirect:/admin/donation_contents_list.do";
 	}
 
 	@GetMapping("donation_list.do")

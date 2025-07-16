@@ -146,7 +146,7 @@
 							</p>
 							<p>
 								<a
-									href="donation_list.do?search_option=donor_id&keyword=${row.user_id}"><button
+									href="donation_list.do?searchType=donor_id&searchKeyword=${row.user_id}"><button
 										type="button">기부 내역 보기</button></a>
 							</p>
 							<p>보유 배지 : 보유 배지</p>
