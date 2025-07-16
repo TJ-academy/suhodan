@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.suhodan.mail.HtmlEmailService;
 import com.example.suhodan.userbadge.UserBadgeDAO;
 import com.example.suhodan.util.PageInfo;
 
@@ -33,6 +34,8 @@ public class DonationConController {
 	DonationConDAO donationConDao;
 	@Autowired
 	UserBadgeDAO userBadgeDao;
+	@Autowired
+	HtmlEmailService htmlEmailService;
 	
 	@GetMapping("write.do")
 	public String write() {
@@ -187,6 +190,28 @@ public class DonationConController {
 	            userBadgeDao.insertBadgeForQualifiedUsers();
 	            location = userBadgeDao.getBadgeLocationForUser(userId);  // 지역 이름 가져오기
 	            badgeMessage = location + " 뱃지가 발급되었습니다."; // 지역 뱃지 발급 메시지
+	        }
+	        
+	     // 이메일 전송 (선택한 경우)
+	        boolean sendEmail = (boolean) payload.get("send_email");
+	        if (sendEmail) {
+	            String buyerEmail = (String) payload.get("buyer_email");
+	            String subject = "기부 내역";
+	            
+	         // 기부금액 포맷 (3자리마다 컴마 추가)
+	            String formattedAmount = String.format("%,d", tx.getAmount());
+	            
+	            String htmlBody = "<h2>기부 내역</h2>"
+	                    + "<p>안녕하세요, " + userId + " 님!</p>"
+	                    + "<p>기부금액 : " + formattedAmount + "원</p>"
+	                    + "<p>당신의 따뜻한 마음에 진심으로 감사드립니다.</p>"
+	                    + "<p>당신의 후원은 작은 마을의 내일을 지키는 큰 힘이 될 것입니다.</p>"
+	                    + "<p>기부금은 해당 지역사회 발전에 소중히 사용될 예정입니다.</p>"
+	                    + "<p>당신의 따뜻한 손길이 이곳에서 많은 사람들에게 희망을 전달할 것입니다.</p>"
+	                    + "<p>후원해 주셔서 감사합니다. 함께 나누는 세상이 더 아름답습니다!</p>"
+	                    + "<p>감사합니다.</p>"
+	                    + "<p><strong>우리의 작은 변화가 큰 세상을 만듭니다.</strong></p>";
+	            htmlEmailService.sendHtmlMessage(buyerEmail, subject, htmlBody); // HTML 이메일 전송
 	        }
 
 	        result.put("result", "success");
