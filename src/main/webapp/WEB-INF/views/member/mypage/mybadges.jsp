@@ -206,7 +206,7 @@
 			 		<div class="badgepage-card">
 				 		<img src="../../resources/badge_img/${row.badge_img}" alt="${row.badge_name}" />
 				 		<p>${row.badge_name}</p>
-				 		<button onclick="location.href='/mypage/mybadges/${row.badge_id}'">자세히 보기</button>
+				 		<button onclick="location.href='/mypage/mybadges/${row.userbadge_id}'">자세히 보기</button>
 				 	</div>
 				</c:forEach>
 			</div>
@@ -225,7 +225,7 @@
 			 		<div class="badgepage-card">
 				 		<img src="../../resources/badge_img/${ex.badge_img}" alt="${ex.badge_name}" />
 				 		<p>${ex.badge_name}</p>
-				 		<button onclick="location.href='/mypage/mybadges/${ex.badge_id}'">자세히 보기</button>
+				 		<button onclick="location.href='/mypage/mybadges/${ex.userbadge_id}'">자세히 보기</button>
 				 	</div>
 				</c:forEach>
 			</div>

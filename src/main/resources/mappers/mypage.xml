@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mypage">
 	<select id="getUserBadge" resultType="com.example.suhodan.member.mypage.MypageDTO">
-        SELECT user_id, b.badge_id badge_id, name badge_name, description badge_desc, img badge_img, get_date
+        SELECT id userbadge_id, user_id, b.badge_id badge_id, name badge_name, description badge_desc, img badge_img, get_date
         FROM suho_userbadge ub, suho_badge b
         WHERE ub.user_id = #{user_id} and ub.badge_id = b.badge_id
         ORDER BY ub.get_date
@@ -12,7 +12,7 @@
         select * from (
         	select inner_query.*, rownum as rn
         	from (
-        		SELECT user_id, b.badge_id badge_id, name badge_name, description badge_desc, img badge_img, get_date
+        		SELECT id userbadge_id, user_id, b.badge_id badge_id, name badge_name, description badge_desc, img badge_img, get_date
 		        FROM suho_userbadge ub, suho_badge b
 		        WHERE ub.user_id = #{user_id} and 
 		        	ub.badge_id = b.badge_id
@@ -30,9 +30,9 @@
 	</select>
     
     <select id="badgeDetail" resultType="com.example.suhodan.member.mypage.MypageDTO">
-    	SELECT user_id, b.badge_id badge_id, name badge_name, description badge_desc, img badge_img, get_date
+    	SELECT id userbadge_id, user_id, b.badge_id badge_id, name badge_name, description badge_desc, img badge_img, get_date
         FROM suho_userbadge ub, suho_badge b
-        WHERE ub.user_id = #{user_id} and ub.badge_id = b.badge_id and b.badge_id = #{badge_id}
+        WHERE ub.id = #{userbadge_id} and ub.badge_id = b.badge_id
     </select>
     
     <select id="myDonationHistory" parameterType="string" resultType="com.example.suhodan.donation.DonationHistoryDTO">
