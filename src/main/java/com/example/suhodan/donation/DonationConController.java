@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.suhodan.mail.HtmlEmailService;
+import com.example.suhodan.reward.RewardDTO;
 import com.example.suhodan.userbadge.UserBadgeDAO;
 import com.example.suhodan.util.PageInfo;
 
@@ -230,6 +231,42 @@ public class DonationConController {
 		mav.addObject("content_id", content_id);
 		return mav;
 	}
+	
+	@GetMapping("/reward/select.do") 
+	public ModelAndView selectRewardPage(@RequestParam("amount") int amount, ModelAndView mav) {
+	    System.out.println("✅ reward_select 컨트롤러 진입: " + amount);
+	    mav.setViewName("donation/reward_select"); 
+	    mav.addObject("amount", amount);
+	    return mav;
+	}
+	
+	@GetMapping("buy.do")
+	public ModelAndView buyRewardPage(
+	    @RequestParam("amount") int amount,
+	    @RequestParam("tier") String tier,
+	    ModelAndView mav
+	) {
+	    // RewardDTO는 tier에 따라 하드코딩된 값 세팅 가능
+	    RewardDTO reward = new RewardDTO();
+	    reward.setPrice_type("0원"); // 항상 0원
+
+	    if ("15-30".equals(tier)) {
+	        reward.setName("15,000원 이상 리워드");
+	        reward.setGoods_1_name("설화 스티커 5종");
+	        reward.setGoods_2_name("엽서 세트");
+	    } else if ("30-50".equals(tier)) {
+	        reward.setName("30,000원 이상 리워드");
+	        reward.setGoods_1_name("엽서 세트");
+	        reward.setGoods_2_name("안동 사과 2kg + 사과주스");
+	    }
+	    // 나머지 구간도 조건문으로 분기
+
+	    mav.setViewName("donation/buy"); // buy.jsp
+	    mav.addObject("reward", reward);
+	    return mav;
+	}
+
+
 
 	
 }

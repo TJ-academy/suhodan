@@ -30,11 +30,12 @@
       /* top, left, transform은 modal-overlay의 flexbox로 대체됨 */
       width: 360px;
       padding: 40px 30px;
-      background: #f9f4ef;
+      background: #F5F1EB;
+      border: 1px solid #D8C2A6;
       border-radius: 20px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.15);
       font-family: '맑은 고딕', sans-serif;
-      color: #7a5a44;
+      color: #9C6B4F;
       text-align: center;
       white-space: normal;
       word-break: keep-all;
@@ -180,6 +181,15 @@
   </div>
 </div>
 
+<div id="rewardContainer" class="modal-overlay">
+  <div id="rewardModal" style="background-color: #F5F1EB; padding: 40px 80px; border-radius: 15px; border: 1px solid #D8C2A6; text-align: center; max-width: 400px;">
+    <p style="font-size: 22px; font-weight: bold; color: #9C6B4F;"> 리워드 조건이 충족되었습니다</p>
+    <p style="margin-top: 10px; font-size: 16px; color: #2E2E2E;">15,000원 이상 기부로 리워드 수령 조건이 충족되었습니다.<br>지금 리워드를 선택하고 마을의 특산품을 받아 보세요!</p>
+    <button onclick="goToReward()" style="margin-top: 20px; background-color: #9c6b4f; color: #fff; border: none; padding: 10px 30px; border-radius: 10px; font-size: 16px;">확인</button>
+  </div>
+</div>
+
+
 <script>
   // 페이지 로드 시, 기본 금액 선택 표시 (10000원)
   $(document).ready(function() {
@@ -233,34 +243,45 @@
   });
 
   // 뱃지 모달을 보여주는 함수
-  function showBadgeModal(message) {
-    const modalContainer = document.getElementById('modalContainer');
-    const badgeModal = document.getElementById('badgeModal');
-    const body = document.body;
+function showBadgeModal(message, callback) {
+  const modalContainer = document.getElementById('modalContainer');
+  const badgeModal = document.getElementById('badgeModal');
+  const body = document.body;
 
-    if (modalContainer && badgeModal && body) {
-      // 뱃지 메시지 설정 (data.badge가 있으면 해당 값을 사용하고, 없으면 기본 메시지 사용)
-      $('#badgeMessage').text(message || "뱃지가 발급되었습니다.");
+  if (modalContainer && badgeModal && body) {
+    // 메시지 적용
+    $('#badgeMessage').text(message || "뱃지가 발급되었습니다.");
 
-      modalContainer.style.display = 'flex'; // 오버레이 표시 (flex로 중앙 정렬)
-      badgeModal.style.display = 'block';    // 모달 표시
-      body.classList.add('modal-open');      // body 스크롤 막기
-    }
+    modalContainer.style.display = 'flex';
+    badgeModal.style.display = 'block';
+    body.classList.add('modal-open');
+
+    // 버튼 클릭 시 모달 닫고 콜백 실행
+    const confirmBtn = badgeModal.querySelector('button');
+    confirmBtn.onclick = function () {
+      modalContainer.style.display = 'none';
+      badgeModal.style.display = 'none';
+      body.classList.remove('modal-open');
+      if (callback) callback(); // ✅ 콜백이 있으면 실행
+      else location.href = "/donation/list.do";
+    };
+  }
+}
+
+//리워드 모달 열기
+  function showRewardModal() {
+    document.getElementById("rewardContainer").style.display = "flex";
+    document.body.classList.add("modal-open");
   }
 
-  // 뱃지 모달을 닫는 함수 (확인 버튼 누르면 페이지 이동)
-  function closeBadgeModal() {
-    const modalContainer = document.getElementById('modalContainer');
-    const badgeModal = document.getElementById('badgeModal');
-    const body = document.body;
+  // 리워드 페이지로 이동
+function goToReward() {
+  const amount = document.getElementById("amount_for_payment").value;
+  location.href = "/donation/reward/select.do?amount=" + amount;
+}
 
-    if (modalContainer && badgeModal && body) {
-      modalContainer.style.display = 'none'; // 오버레이 숨김
-      badgeModal.style.display = 'none';    // 모달 숨김
-      body.classList.remove('modal-open');   // body 스크롤 허용
-    }
-    location.href = "/donation/list.do"; // 모달 닫고 페이지 이동
-  }
+
+
 
   function requestPay() {
       let money = parseInt(document.getElementById("amount_for_payment").value); // money를 숫자로 파싱
@@ -268,6 +289,10 @@
       let check2 = document.getElementById("check2");
       // HTML에서 id="email_receipt_checkbox"로 변경했으므로 여기에 반영
       let emailCheckbox = document.getElementById("email_receipt_checkbox");
+      
+      
+      let buyerEmail = document.getElementById("buyer_email").value.trim(); 
+      let buyerName = document.getElementById("buyer_name").value;
 
       if (isNaN(money) || money <= 0) { // 숫자가 아니거나 0 이하일 경우
           alert("유효한 금액을 선택하거나 입력해주세요.");
@@ -311,18 +336,32 @@
                    	  send_email: emailCheckbox.checked // 이메일 보내기 여부
                   })
               }).then(res => res.json())
-                .then(data => {
-                    if (data.result === "success") {
-                        if (data.badge) {
-                            showBadgeModal(data.badge); // 뱃지 메시지가 있을 때 (5만원 이상)
-                        } else {
-                        	showBadgeModal("후원해 주셔서 감사합니다.");
-                        }
-                    } else {
-                        // 서버에서 result: "success"가 아닌 다른 응답을 보냈을 때
-                        showBadgeModal(data.message || "후원 처리 중 오류가 발생했습니다. 다시 시도해주세요.");
-                    }
-                })
+               .then(data => {
+  if (data.result === "success") {
+
+    if (money >= 50000 && data.badge) {
+      // 5만원 이상이면 뱃지 → 리워드 순으로
+      showBadgeModal(data.badge, () => {
+        showRewardModal();
+      });
+
+    } else if (money >= 15000) {
+      // 1만 5천원 이상이면 일반 메시지 → 리워드
+      showBadgeModal("후원해 주셔서 감사합니다.", () => {
+        showRewardModal();
+      });
+
+    } else {
+      // 그 외 금액은 기본 처리
+      showBadgeModal("후원해 주셔서 감사합니다.");
+    }
+
+  } else {
+    showBadgeModal(data.message || "후원 처리 중 오류가 발생했습니다. 다시 시도해주세요.");
+  }
+})
+
+
                 .catch(error => {
                     console.error('Fetch error:', error);
                     showBadgeModal("결제 후 정보 저장 중 네트워크 오류가 발생했습니다. 관리자에게 문의해주세요.");

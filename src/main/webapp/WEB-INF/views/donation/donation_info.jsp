@@ -12,7 +12,7 @@
 		background: #F5F1EB;
 		margin: 0 auto;
 		border-radius: 20px;
-		border-color: #D8C2A6;
+		border: 1px solid #D8C2A6;
 		margin-top: 50px;
 		padding: 40px;
 	}
@@ -32,19 +32,21 @@
 		width: 474px;
 		height: 68px;
 		border-radius: 20px;
-		background: #9C6B4F;
+		background: #D8C2A6;
 		color: white;
-		font-size: 24px;
+		font-size: 21px;
 		text-align: center;
 		font-weight: 700;
 		line-height: 60px;
 		display: block;
 		margin: 0 auto;
 		margin-top: 30px;
-		border-color: #9C6B4F;
+		border: none;
+box-shadow: none;
+		
 	}
 	.next_btn:hover {
-		background: #5E2200;
+		background: #9C6B4F;
 	}
 </style>
 </head>
