@@ -16,6 +16,7 @@
 
     <div class="search-box">
         <form method="get" action="reward_find_goods.do">
+        	<input type="hidden" name="targetInputId" value="${targetInputId}" />
             <select name="searchType">
                 <option value="name" ${searchType == 'name' ? 'selected' : ''}>상품명</option>
 				<option value="description"	${searchType == 'description' ? 'selected' : ''}>설명</option>
