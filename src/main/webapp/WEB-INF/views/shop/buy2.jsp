@@ -172,8 +172,7 @@ body {
 <%@ include file="../include/menu.jsp" %>
 
 <div class="outer-box">
-	<!-- /shop/cart/complete.do -->
-	<form action="/orders/order.do" method="post">
+	<form action="/shop/cart/complete.do" method="post">
 		<div class="section-header">
 			<div class="section-title">배송지</div>
 			<button type="button" class="load-info-btn" onclick="loadMyInfo()">내 정보 불러오기</button>
@@ -184,13 +183,13 @@ body {
 
 		<div class="input-row">
 			<label for="receiver">수령인</label>
-			<input type="text" id="receiver" required>
+			<input type="text" id="receiver" name="receiver" required>
 		</div>
 
 		<div class="input-row">
 			<label for="address1">배송지</label>
 			<div class="input-inline">
-				<input type="text" name="order_address1" id="address1" readonly required>
+				<input type="text" id="address1" name="address1" readonly required>
 				<button type="button" onclick="execDaumPostcode()">우편번호 검색</button>
 			</div>
 		</div>
@@ -198,40 +197,18 @@ body {
 		<div class="input-row full-inline no-label">
 			<label></label>
 			<div class="input-inline">
-				<input type="text" id="address2" name="order_address2" placeholder="상세 주소를 입력해 주세요" required>
+				<input type="text" id="address2" name="address2" placeholder="상세 주소를 입력해 주세요" required>
 			</div>
 		</div>
 
 		<div class="input-row">
 			<label for="phone1">연락처</label>
 			<div class="input-inline phone-group">
-				<input type="tel" id="phone1" maxlength="3" required>
-				<input type="tel" id="phone2" maxlength="4" required>
-				<input type="tel" id="phone3" maxlength="4" required>
-				<input type="hidden" name="phone" id="phone">
+				<input type="tel" id="phone1" name="phone1" maxlength="3" required>
+				<input type="tel" id="phone2" name="phone2" maxlength="4" required>
+				<input type="tel" id="phone3" name="phone3" maxlength="4" required>
 			</div>
 		</div>
-		<script>
-			//전화번호 저장 코드
-			function updatePhoneValue() {
-				const p1 = document.getElementById("phone1").value.trim();
-				const p2 = document.getElementById("phone2").value.trim();
-				const p3 = document.getElementById("phone3").value.trim();
-				
-				if(p1 && p2 && p3) {
-					document.getElementById("phone").value = p1+"-"+p2+"-"+p3;
-				} else {
-					document.getElementById("phone").value = "";
-				}
-			}
-			
-			// 이벤트 등록
-			  document.addEventListener("DOMContentLoaded", function () {
-			    document.getElementById("phone1").addEventListener("input", updatePhoneValue);
-			    document.getElementById("phone2").addEventListener("input", updatePhoneValue);
-			    document.getElementById("phone3").addEventListener("input", updatePhoneValue);
-			  });
-		</script>
 
 		<div class="section-title">주문상품</div>
 		<div class="order-summary">
@@ -248,17 +225,16 @@ body {
 				총 주문 금액: <fmt:formatNumber value="${total}" pattern="#,###" />원
 			</div>
 		</div>
-		<input type="hidden" name="order_amount" value="${total}">
-		
+
 		<div class="payment-method">
 			<h3>결제 수단</h3>
 			<div class="radio-group">
 				<label>
-					<input type="radio" name="pay_method" id="payMethod1" value="카드" checked>
+					<input type="radio" name="payMethod" value="card" checked>
 					<span>신용/체크 카드</span>
 				</label>
 				<label>
-					<input type="radio" name="pay_method" id="payMethod2" value="무통장입금">
+					<input type="radio" name="payMethod" value="bank">
 					<div>
 						<span>무통장 입금</span>
 						<small>※ 수령인의 이름과 입출금 계좌의 명의가 동일해야 합니다.</small>
@@ -271,7 +247,7 @@ body {
 		<div id="bankForm" style="display:none; margin-top: 20px;">
 			<div class="input-row">
 				<label>환불 계좌</label>
-				<select id="bankName" name="refund_bank">
+				<select id="bankName">
 					<option value="기업은행">기업은행</option>
 					<option value="국민은행">국민은행</option>
 					<option value="신한은행">신한은행</option>
@@ -280,7 +256,7 @@ body {
 			</div>
 			<div class="input-row">
 				<label>계좌번호</label>
-				<input type="text" name="refund_account" id="accountNumber" placeholder="숫자만 입력" />
+				<input type="text" id="accountNumber" placeholder="숫자만 입력" />
 			</div>
 			<div class="input-row no-label">
 				<button type="button" class="submit-btn" style="max-width:180px;" onclick="saveBankInfo()">인증 및 저장하기</button>
@@ -325,20 +301,17 @@ function execDaumPostcode() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-	const radios = [
-		  document.getElementById('payMethod1'),
-		  document.getElementById('payMethod2')
-		];
-		radios.forEach(r => {
-		  r.addEventListener('change', function () {
-		    if (this.value === "무통장입금") {
-		      document.getElementById("bankForm").style.display = "block";
-		    } else {
-		      document.getElementById("bankForm").style.display = "none";
-		      document.getElementById("bankSummary").style.display = "none";
-		    }
-		  });
+	const radios = document.querySelectorAll('input[name="payMethod"]');
+	radios.forEach(r => {
+		r.addEventListener('change', function () {
+			if (this.value === "bank") {
+				document.getElementById("bankForm").style.display = "block";
+			} else {
+				document.getElementById("bankForm").style.display = "none";
+				document.getElementById("bankSummary").style.display = "none";
+			}
 		});
+	});
 });
 
 function saveBankInfo() {
