@@ -45,6 +45,8 @@ dependencies {
 	implementation 'com.fasterxml.jackson.core:jackson-databind'
 	
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation 'com.twilio.sdk:twilio:8.23.0'
+	implementation 'com.googlecode.libphonenumber:libphonenumber:8.12.30'
 }
 
 tasks.named('test') {

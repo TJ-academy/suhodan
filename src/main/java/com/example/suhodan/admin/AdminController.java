@@ -80,6 +80,7 @@ public class AdminController {
 		List<MemberDTO> list = memberDao.listPaging(param);
 
 		mav.setViewName("/admin/member/member_list");
+		mav.addObject("totalCount", totalCount);
 		mav.addObject("list", list);
 		mav.addObject("currentPage", pu.getCurrentPage());
 		mav.addObject("totalPage", pu.getTotalPage());
@@ -110,6 +111,7 @@ public class AdminController {
 		List<LegendDTO> list = legendDao.listPagingSearch(param);
 
 		mav.setViewName("/admin/legend/legend_list");
+		mav.addObject("totalCount", totalCount);
 		mav.addObject("list", list);
 		mav.addObject("currentPage", pu.getCurrentPage());
 		mav.addObject("totalPage", pu.getTotalPage());
@@ -289,6 +291,7 @@ public class AdminController {
 		}
 
 		mav.setViewName("/admin/reward/reward_list");
+		mav.addObject("totalCount", totalCount);
 		mav.addObject("list", list);
 		mav.addObject("currentPage", pu.getCurrentPage());
 		mav.addObject("totalPage", pu.getTotalPage());
@@ -436,6 +439,7 @@ public class AdminController {
 		List<GoodsDTO> list = goodsDao.listPagingSearch(param);
 
 		mav.setViewName("/admin/goods/goods_list");
+		mav.addObject("totalCount", totalCount);
 		mav.addObject("list", list);
 		mav.addObject("currentPage", pu.getCurrentPage());
 		mav.addObject("totalPage", pu.getTotalPage());
@@ -593,6 +597,7 @@ public class AdminController {
 		List<BadgeDTO> list = badgeDao.listPagingSearch(param);
 
 		mav.setViewName("/admin/badge/badge_list");
+		mav.addObject("totalCount", totalCount);
 		mav.addObject("list", list);
 		mav.addObject("currentPage", pu.getCurrentPage());
 		mav.addObject("totalPage", pu.getTotalPage());
@@ -701,6 +706,7 @@ public class AdminController {
 		List<DonationConDTO> list = donationConDao.listPagingSearch(param);
 
 		mav.setViewName("/admin/donation/donation_contents_list");
+		mav.addObject("totalCount", totalCount);
 		mav.addObject("list", list);
 		mav.addObject("currentPage", pu.getCurrentPage());
 		mav.addObject("totalPage", pu.getTotalPage());
@@ -809,6 +815,7 @@ public class AdminController {
 		List<DonationListDTO> list = donationTADao.listPagingSearch(param);
 
 		mav.setViewName("/admin/donation/donation_list");
+		mav.addObject("totalCount", totalCount);
 		mav.addObject("list", list);
 		mav.addObject("currentPage", pu.getCurrentPage());
 		mav.addObject("totalPage", pu.getTotalPage());

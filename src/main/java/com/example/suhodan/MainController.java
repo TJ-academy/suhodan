@@ -10,4 +10,9 @@ public class MainController {
 	public String home() {
 		return "index";
 	}
+	
+    @GetMapping("/mypage/phone/")
+    public String phone() {
+        return "test1234";
+    }
 }

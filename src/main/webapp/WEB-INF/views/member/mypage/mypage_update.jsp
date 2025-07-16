@@ -317,9 +317,18 @@
                 <img src="/resources/suhodan_images/icon/arrow_right.png" alt="화살표" />
             </a>
         </div>
+        <div class="form-row">
+            <label>휴대폰 번호</label>
+            <a href="javascript:void(0);" onclick="openPhoneModal()">
+                <img src="/resources/suhodan_images/icon/arrow_right.png" alt="화살표" />
+            </a>
+        </div>
 
         <input type="hidden" name="address1" id="address1" value="${dto.address1}" />
         <input type="hidden" name="address2" id="address2" value="${dto.address2}" />
+        <input type="hidden" name="phone1" id="phone1" value="${dto.phone1}" />
+        <input type="hidden" name="phone2" id="phone2" value="${dto.phone2}" />
+        <input type="hidden" name="phone3" id="phone3" value="${dto.phone3}" />
         <%-- <input type="hidden" name="passwd" value="${dto.passwd}" /> --%>
 
         <div class="buttons">
@@ -379,6 +388,33 @@
     </div>
 </div>
 
+<!-- 휴대폰 번호 모달 -->
+<div id="phoneModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+        	<button class="back-icon" onclick="closePhoneModal()"></button>
+            <!-- <span class="back-icon" onclick="closeAddressModal()">
+                <img src="/resources/suhodan_images/icon/arrow_right.png" class="flip-icon" alt="뒤로가기" />
+            </span> -->
+            <h4>휴대폰 번호 수정</h4>
+        </div>
+        
+        <div class="phone-wrapper">
+            <input type="text" id="modal_phone1" placeholder="휴대폰 번호 첫번째 자리" readonly />
+            <input type="text" id="modal_phone2" placeholder="휴대폰 번호 두번째 자리" readonly />
+            <input type="text" id="modal_phone3" placeholder="휴대폰 번호 세번째 자리" readonly />
+            <button type="button" class="phone-btn" onclick="verifyPhone()">인증</button>
+        </div>
+        
+        <input class="modal_phone_code" type="text" id="modal_phone_code" placeholder="인증번호" />
+        <button type="button">인증 완료</button>
+        
+        <div class="modal-buttons">
+            <button onclick="applyPhone()">확인</button>
+        </div>
+    </div>
+</div>
+
 <script>
 //주소 수정 관련 함수
 function openAddressModal() {
@@ -407,6 +443,32 @@ function findPostcode() {
     }).open();
 }
 
+//휴대폰 번호 수정 관련 함수
+function openPhoneModal() {
+	// 모달의 입력 값에 전화번호 입력 필드의 값을 설정
+    document.getElementById("modal_phone1").value = document.getElementById("phone1").value;
+    document.getElementById("modal_phone2").value = document.getElementById("phone2").value;
+    document.getElementById("modal_phone3").value = document.getElementById("phone3").value;
+    document.getElementById("phoneModal").style.display = "block";
+}
+
+function closePhoneModal() {
+	// 모달 숨기기
+    document.getElementById("phoneModal").style.display = "none";
+}
+
+function applyPhone() {
+	// 전화번호 값을 입력 필드에 다시 설정
+    document.getElementById("phone1").value = document.getElementById("phone1").value;
+    document.getElementById("phoen2").value = document.getElementById("phone2").value;
+    document.getElementById("phone3").value = document.getElementById("phone3").value;
+ 	// 모달 닫기
+    closePhoneModal();
+}
+
+function verifyPhone() {
+   
+}
 
 //회원 탈퇴
 function btnDelete() {

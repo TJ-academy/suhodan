@@ -16,6 +16,7 @@
     <button class="add-btn" id="addButton">추가하기</button>
     <br>
 
+	<div align="right">총 ${totalCount}개의 내역이 조회되었습니다.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
     <div class="search-box">
         <form method="get" action="donation_contents_list.do">
             <select name="searchType">

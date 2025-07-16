@@ -74,6 +74,7 @@
 	<h2>회원 관리</h2>
 	<br>
 
+	<div align="right">총 ${totalCount}개의 내역이 조회되었습니다.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
     <div class="search-box">
         <form method="get" action="member_list.do">
             <select name="searchType">
