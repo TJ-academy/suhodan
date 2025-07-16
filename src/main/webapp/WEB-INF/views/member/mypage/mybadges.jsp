@@ -174,6 +174,8 @@
 		padding: 6px 12px;
 		background-color: 'transparent';
 		text-decoration: none;
+		text-underline-offset: 4px;
+		text-underline-color: #2E2E2E;
 	}
 	
 	.expand {
@@ -232,7 +234,8 @@
 			<div class="pagination" id="pagination">
 				<c:forEach begin="1" end="${totalPage}" var="i">
 					<a href="/mypage/mybadges?page=${i}&view=expand" 
-			       style="color: ${i == currentPage ? '#2E2E2E' : '#939393'};">
+			       style="color: ${i == currentPage ? '#2E2E2E' : '#939393'};
+			       text-decoration: ${i == currentPage ? 'underline' : 'none'}">
 						${i}
 					</a>
 				</c:forEach>

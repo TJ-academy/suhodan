@@ -28,11 +28,24 @@ public class MypageController {
 	
 	//나의 수호수
 	@GetMapping("/mypage/mytree")
-	public String mytree(HttpSession session, Model model) {
+	public String mytree(HttpSession session, Model model, 
+			@RequestParam(name="page", defaultValue = "1") int page) {
 		String user_id = (String) session.getAttribute("user_id");
 		
-		List<MypageDTO> blist = mypageDAO.getUserBadge(user_id);
-		model.addAttribute("blist", blist);
+		// 페이징 설정
+	    int maxbadge = 9;   //한 페이지에 보여지는 최대 개수
+	    int startRow = (page - 1) * maxbadge + 1;
+	    int endRow = page * maxbadge;
+	    
+		List<MypageDTO> paged = mypageDAO.getUserBadgesPaged(user_id, startRow, endRow);
+		/* List<MypageDTO> blist = mypageDAO.getUserBadge(user_id); */
+		int totalBadges = mypageDAO.getUserBadgeCount(user_id);
+		int totalPage = (int) Math.ceil((double) totalBadges / maxbadge);
+		
+		/* model.addAttribute("blist", blist); */
+		model.addAttribute("blist", paged);
+		model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPage", totalPage);
 		return "member/mypage/mytree";
 	}
 	
