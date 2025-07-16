@@ -150,5 +150,9 @@ public class MypageController {
 
 	    return "member/mypage/mydonation_detail";
 	}
-	
+
+
+
+
+
 }
