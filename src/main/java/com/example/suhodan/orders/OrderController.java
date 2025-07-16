@@ -2,6 +2,8 @@ package com.example.suhodan.orders;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.suhodan.goods.GoodsDAO;
+import com.example.suhodan.shop.cart.CartDAO;
+import com.example.suhodan.shop.cart.CartDTO;
+
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -17,6 +23,12 @@ import jakarta.servlet.http.HttpSession;
 public class OrderController {
 	@Autowired
 	OrderDAO orderDao;
+	@Autowired
+	OrderItemDAO orderItemDao;
+	@Autowired
+	CartDAO cartDao;
+	@Autowired
+	GoodsDAO goodsDao;
 	
 	@GetMapping("list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
@@ -31,17 +43,32 @@ public class OrderController {
 	    }
 	    dto.setUser_id(user_id);
 	    
-	    // Set order status
 	    if ("무통장입금".equals(dto.getPay_method())) {
 	        dto.setOrder_status("결제진행중");
 	    } else {
 	        dto.setOrder_status("결제완료");
 	    }
-	    
-	    // Perform order insertion
-	    orderDao.order(dto);
 
-	    // Handle empty/null values for URL encoding
+	    //주문 테이블에 저장
+	    orderDao.order(dto); //order_id 생성
+	    //장바구니 상품 불러오기
+	    List<CartDTO> cartItems = cartDao.list(user_id);
+	    //장바구니 상품을 주문 상세로 변환
+	    List<OrderItemDTO> orderItems = new ArrayList<>();
+	    System.out.println("생성된 order_id: " + dto.getOrder_id());
+	    for(CartDTO cart : cartItems) {
+	    	OrderItemDTO item = new OrderItemDTO();
+	    	item.setOrderId(dto.getOrder_id());
+	    	item.setProductId(cart.getGoods_id());
+	    	item.setProductName(cart.getGoods_name());
+	    	item.setQuantity(cart.getAmount());
+	    	item.setUnitPrice(goodsDao.getPrice(cart.getGoods_id()));
+	    	orderItems.add(item);
+	    }
+	    
+	    //주문 상세 테이블에 insert
+	    orderItemDao.insertItems(orderItems);
+
 	    String encodedAddress1 = (dto.getOrder_address1() != null) ? URLEncoder.encode(dto.getOrder_address1(), "UTF-8") : "";
 	    String encodedAddress2 = (dto.getOrder_address2() != null) ? URLEncoder.encode(dto.getOrder_address2(), "UTF-8") : "";
 	    String encodedPhone = (dto.getPhone() != null) ? URLEncoder.encode(dto.getPhone(), "UTF-8") : "";

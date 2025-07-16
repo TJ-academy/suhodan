@@ -4,29 +4,27 @@
 	<select id="list" resultType="com.example.suhodan.orders.OrderDTO">
 		select * from suho_orders;
 	</select>
-	<insert id="order">
-		insert into suho_orders 
-		(
-			user_id, 
-			order_date, 
-			order_amount, 
-			pay_method, 
-			refund_bank, 
-			refund_account, 
-			order_address1, 
-			order_address2, 
-			phone
-		)
-		values (
-			#{user_id},
-			sysdate,
-			#{order_amount},
-			#{pay_method},
-			#{refund_bank},
-			#{refund_account},
-			#{order_address1},
-			#{order_address2},
-			#{phone}
-		)
+	<insert id="order" parameterType="com.example.suhodan.orders.OrderDTO" useGeneratedKeys="true" keyProperty="order_id" keyColumn="order_id">
+	    insert into suho_orders (
+	        user_id, 
+	        order_date, 
+	        order_amount, 
+	        pay_method, 
+	        refund_bank, 
+	        refund_account, 
+	        order_address1, 
+	        order_address2, 
+	        phone
+	    ) values (
+	        #{user_id},
+	        sysdate,
+	        #{order_amount},
+	        #{pay_method},
+	        #{refund_bank},
+	        #{refund_account},
+	        #{order_address1},
+	        #{order_address2},
+	        #{phone}
+	    )
 	</insert>
 </mapper>

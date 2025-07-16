@@ -106,4 +106,8 @@
 	<select id="getGoodsId" resultType="java.lang.Integer">
 	    SELECT goods_id FROM suho_goods WHERE name = #{name}
 	</select>
+	
+	<select id="getPrice" resultType="int">
+		select price from suho_goods where goods_id = #{goods_id}
+	</select>
 </mapper>

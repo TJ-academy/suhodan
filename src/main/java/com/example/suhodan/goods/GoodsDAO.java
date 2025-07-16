@@ -16,4 +16,5 @@ public interface GoodsDAO {
 	List<GoodsDTO> listPagingSearch(Map<String, Object> param);
 	String getGoodsName(int goods_id);
 	Integer getGoodsId(String name);
+	Integer getPrice(int goods_id);
 }

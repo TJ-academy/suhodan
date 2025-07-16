@@ -72,4 +72,9 @@ public class GoodsDAOImpl implements GoodsDAO {
 	public Integer getGoodsId(String name) {
 		return sqlSession.selectOne("goods.getGoodsId", name);
 	}
+	
+	@Override
+	public Integer getPrice(int goods_id) {
+		return sqlSession.selectOne("goods.getPrice", goods_id);
+	}
 }
