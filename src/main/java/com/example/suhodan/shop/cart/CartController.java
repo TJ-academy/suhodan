@@ -95,7 +95,9 @@ public class CartController {
     }
 
     @PostMapping("buy.do")
-    public ModelAndView buy(@RequestParam(name = "cart_id") int[] cartIds, HttpSession session) {
+    public ModelAndView buy(@RequestParam(name = "cart_id") int[] cartIds,
+    		@RequestParam(name = "fee") int fee,
+    		HttpSession session) {
         String user_id = (String) session.getAttribute("user_id");
         if (user_id == null) {
             return new ModelAndView("redirect:/login.do");
@@ -108,10 +110,54 @@ public class CartController {
         mav.setViewName("shop/buy");
         mav.addObject("cartList", cartList);
         mav.addObject("total", total);
+        mav.addObject("fee", fee);
         mav.addObject("dto", memberDao.detail(user_id));
         return mav;
     }
+    
+    @GetMapping("complete.do")
+    public String completeOrder(
+            @RequestParam("order_address1") String address1,
+            @RequestParam("order_address2") String address2,
+            @RequestParam("phone") String phone,
+            @RequestParam("pay_method") String payMethod,
+            @RequestParam(value = "refund_bank", required = false) String bankName,
+            @RequestParam(value = "refund_account", required = false) String accountNumber,
+            HttpSession session,
+            Model model) {
+    	String receiver = (String) session.getAttribute("name");
+        String user_id = (String) session.getAttribute("user_id");
+        int total = cartDao.sum_money(user_id);
+        
+        // 장바구니 비우기
+        cartDao.delete_all(user_id);
 
+        // 결제 마감일 계산
+        LocalDateTime deadline = LocalDateTime.now().plusDays(7);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M월 d일 H시 m분");
+
+        // 기본 정보 모델에 추가
+        model.addAttribute("receiver", receiver);
+        model.addAttribute("address1", address1);
+        model.addAttribute("address2", address2);
+        model.addAttribute("phone", phone);
+        model.addAttribute("total", total);
+        model.addAttribute("deadline", deadline.format(formatter));
+
+        // 결제 수단 처리
+        if ("무통장입금".equals(payMethod)) {
+            model.addAttribute("payMethod", "무통장입금");
+            model.addAttribute("bankName", bankName);
+            model.addAttribute("accountNumber", accountNumber);
+        } else {
+            model.addAttribute("payMethod", "카드 결제");
+        }
+
+        return "shop/complete";
+    }
+
+    
+    /*
     @PostMapping("complete.do")
     public String completeOrder(
             @RequestParam("receiver") String receiver,
@@ -156,6 +202,7 @@ public class CartController {
 
         return "shop/complete";
     }
+    */
     
     
     

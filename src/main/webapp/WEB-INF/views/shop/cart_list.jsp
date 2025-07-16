@@ -146,6 +146,8 @@ $(function() {
 		$(".summary-sum").text(sum.toLocaleString() + "원");
 		$(".summary-fee").text(fee.toLocaleString() + "원");
 		$(".summary-total").text(total.toLocaleString() + "원");
+		
+		$("input[name='fee']").val(fee);
 	}
 
 	$("input[name='amount']").on("change", function() {
@@ -225,6 +227,7 @@ $(function() {
 				<div class="summary">
 					장바구니 금액 합계: <span class="summary-sum"><fmt:formatNumber value="${map.sumMoney}" pattern="#,###" /></span><br>
 					배송료: <span class="summary-fee"><fmt:formatNumber value="${map.fee}" pattern="#,###" /></span><br>
+					<input type="hidden" name="fee" value="${map.fee}">
 					<div class="total">총합계: <span class="summary-total"><fmt:formatNumber value="${map.sum}" pattern="#,###" /></span></div>
 				</div>
 

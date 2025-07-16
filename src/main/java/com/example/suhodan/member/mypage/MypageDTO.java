@@ -10,6 +10,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class MypageDTO {
+	private int userbadge_id;
 	private String user_id;
 	
 	private int badge_id;

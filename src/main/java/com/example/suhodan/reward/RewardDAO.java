@@ -13,5 +13,6 @@ public interface RewardDAO {
 	void delete(int reward_id);
 	int getTotalCountSearch(Map<String, Object> param);
 	List<RewardDTO> listPagingSearch(Map<String, Object> param);
+	
 }
 

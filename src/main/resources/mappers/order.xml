@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="orders">
+	<select id="list" resultType="com.example.suhodan.orders.OrderDTO">
+		select * from suho_orders;
+	</select>
+	<insert id="order">
+		insert into suho_orders 
+		(
+			user_id, 
+			order_date, 
+			order_amount, 
+			pay_method, 
+			refund_bank, 
+			refund_account, 
+			order_address1, 
+			order_address2, 
+			phone
+		)
+		values (
+			#{user_id},
+			sysdate,
+			#{order_amount},
+			#{pay_method},
+			#{refund_bank},
+			#{refund_account},
+			#{order_address1},
+			#{order_address2},
+			#{phone}
+		)
+	</insert>
+</mapper>

@@ -19,11 +19,8 @@ public class MypageDAOImpl implements MypageDAO {
 	}
 	
 	@Override
-	public MypageDTO badgeDetail(String user_id, int badge_id) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("user_id", user_id);
-		map.put("badge_id", badge_id);
-		return sqlSession.selectOne("mypage.badgeDetail", map);
+	public MypageDTO badgeDetail(int userbadge_id) {
+		return sqlSession.selectOne("mypage.badgeDetail", userbadge_id);
 	}
 	
 	@Override
@@ -39,4 +36,6 @@ public class MypageDAOImpl implements MypageDAO {
 	public int getUserBadgeCount(String user_id) {
 	    return sqlSession.selectOne("mypage.getUserBadgeCount", user_id);
 	}
+	
+	
 }

@@ -72,13 +72,13 @@ public class MypageController {
 		return "member/mypage/mybadges";
 	}
 	
-	@GetMapping("/mypage/mybadges/{badge_id}")
-	public ModelAndView mbdetail(@PathVariable(name = "badge_id") int badge_id, 
+	@GetMapping("/mypage/mybadges/{userbadge_id}")
+	public ModelAndView mbdetail(@PathVariable(name = "userbadge_id") int userbadge_id, 
 			ModelAndView mav,
 			HttpSession session) {
 		String user_id = (String) session.getAttribute("user_id");
 		mav.setViewName("/member/mypage/mybadges_detail");
-		mav.addObject("dto", mypageDAO.badgeDetail(user_id, badge_id));
+		mav.addObject("dto", mypageDAO.badgeDetail(userbadge_id));
 		return mav;
 	}
 	
@@ -150,5 +150,9 @@ public class MypageController {
 
 	    return "member/mypage/mydonation_detail";
 	}
-	
+
+
+
+
+
 }

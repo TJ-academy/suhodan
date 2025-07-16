@@ -74,6 +74,10 @@ body {
 	font-size: 17px;
 	color: #504848;
 	margin-top: 10px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	
 }
 
 .product-price {
