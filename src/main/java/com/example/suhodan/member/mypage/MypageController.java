@@ -111,17 +111,6 @@ public class MypageController {
 	    return "member/mypage/mydonation_history";
 	}
 	
-	//기부내역
-	/*
-	@GetMapping("/mypage/mydonation")
-	public String mydonation(HttpSession session, Model model) {
-		String donor_id = (String) session.getAttribute("user_id");
-		List<DonationHistoryDTO> dlist = mydonationDAO.list(donor_id);
-		model.addAttribute("dlist", dlist);
-		return "member/mypage/mydonation_history";
-	}
-	*/
-	
 	@GetMapping("/mypage/mydonation/{content_id}")
 	public String donationDetail(
 	        @PathVariable("content_id") int contentId,
@@ -150,9 +139,37 @@ public class MypageController {
 
 	    return "member/mypage/mydonation_detail";
 	}
-
-
-
-
-
+	
+	@GetMapping("/mypage/myreward")
+	public String myreward(HttpSession session, Model model, 
+			@RequestParam(name="page", defaultValue = "1") int page) {
+		String user_id = (String) session.getAttribute("user_id");
+		
+		// 페이징 설정
+	    int maxreward = 5;   //한 페이지에 보여지는 최대 개수
+	    int startRow = (page - 1) * maxreward + 1;
+	    int endRow = page * maxreward;
+	    
+		List<MypageDTO> list = mypageDAO.rewardList(user_id, startRow, endRow);
+		int reward_count = 0;
+		if(!list.isEmpty())
+			reward_count = list.get(0).getReward_count();
+		
+		int totalPage = (int) Math.ceil((double) reward_count / maxreward);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPage", totalPage);
+		return "member/mypage/myreward";
+	}
+	
+	@GetMapping("/mypage/myreward/{transaction_id}")
+	public ModelAndView mrdetail(@PathVariable(name = "transaction_id") int transaction_id, 
+			ModelAndView mav,
+			HttpSession session) {
+		String user_id = (String) session.getAttribute("user_id");
+		mav.setViewName("/member/mypage/myreward_detail");
+		mav.addObject("dto", mypageDAO.rewardDetail(transaction_id));
+		return mav;
+	}
 }

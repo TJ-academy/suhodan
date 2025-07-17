@@ -122,7 +122,7 @@
             </li>
             <li>
 	            <img src="/resources/suhodan_images/icon/reward.png">
-	            <a href="#">리워드함</a>
+	            <a href="/mypage/myreward">리워드함</a>
             </li>
             <li>
 	            <img src="/resources/suhodan_images/icon/clipboard.png">
@@ -148,3 +148,4 @@
     </div>
 </div>
 </body>
+</html>
