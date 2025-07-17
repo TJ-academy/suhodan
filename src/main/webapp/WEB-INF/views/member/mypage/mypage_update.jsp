@@ -257,6 +257,30 @@
 			margin-top: -5px;
 			margin-bottom: -10px;
 		}
+		
+		#phoneModal .phone-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1px;
+	margin-bottom: 16px;
+}
+
+#phoneModal .phone-wrapper input[type="text"] {
+	width: 80px;
+	height: 40px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 12px;
+	text-align: center;
+	background-color: #fff;
+	padding: 4px 6px;
+}
+#phoneModal .modal-content {
+	width: 380px !important;  /* 전화번호 모달만 줄임 */
+}
+
+		
 	</style>
 </head>
 
@@ -400,14 +424,12 @@
         </div>
         
         <div class="phone-wrapper">
-            <input type="text" id="modal_phone1" placeholder="휴대폰 번호 첫번째 자리" readonly />
-            <input type="text" id="modal_phone2" placeholder="휴대폰 번호 두번째 자리" readonly />
-            <input type="text" id="modal_phone3" placeholder="휴대폰 번호 세번째 자리" readonly />
-            <button type="button" class="phone-btn" onclick="verifyPhone()">인증</button>
+    <input type="text" id="modal_phone1" placeholder="010" maxlength="3" />
+<input type="text" id="modal_phone2" placeholder="1234" maxlength="4" />
+<input type="text" id="modal_phone3" placeholder="5678" maxlength="4" />
+
         </div>
         
-        <input class="modal_phone_code" type="text" id="modal_phone_code" placeholder="인증번호" />
-        <button type="button">인증 완료</button>
         
         <div class="modal-buttons">
             <button onclick="applyPhone()">확인</button>
@@ -459,9 +481,9 @@ function closePhoneModal() {
 
 function applyPhone() {
 	// 전화번호 값을 입력 필드에 다시 설정
-    document.getElementById("phone1").value = document.getElementById("phone1").value;
-    document.getElementById("phoen2").value = document.getElementById("phone2").value;
-    document.getElementById("phone3").value = document.getElementById("phone3").value;
+    document.getElementById("phone1").value = document.getElementById("modal_phone1").value;
+    document.getElementById("phone2").value = document.getElementById("modal_phone2").value;
+    document.getElementById("phone3").value = document.getElementById("modal_phone3").value;
  	// 모달 닫기
     closePhoneModal();
 }
