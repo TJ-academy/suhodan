@@ -37,5 +37,17 @@ public class MypageDAOImpl implements MypageDAO {
 	    return sqlSession.selectOne("mypage.getUserBadgeCount", user_id);
 	}
 	
+	@Override
+	public List<MypageDTO> rewardList(String user_id, int startRow, int endRow) {
+		Map<String, Object> map = new HashMap<>();
+	    map.put("user_id", user_id);
+	    map.put("startRow", startRow);
+	    map.put("endRow", endRow);
+	    return sqlSession.selectList("mypage.rewardList", map);
+	}
 	
+	@Override
+	public MypageDTO rewardDetail(int transaction_id) {
+		return sqlSession.selectOne("mypage.rewardDetail", transaction_id);
+	}
 }

@@ -1,9 +1,14 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<!DOCTYPE html>
 <html>
 <head>
     <title>리워드 상세</title>
 </head>
+
 <body>
+<%@ include file="../../include/menu.jsp" %>
 
 <div class="reward-detail">
     <img src="${reward.thumbnail}" alt="썸네일">
