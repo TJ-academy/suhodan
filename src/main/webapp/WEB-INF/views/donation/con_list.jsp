@@ -64,6 +64,26 @@
       display: block;
       margin-bottom: 5px;
     }
+    
+    .pagination {
+	position: relative;
+	text-align: center;
+	justify-content: center;
+	margin: 20px auto;
+	bottom: 0px;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+}
+.pagination a {
+	justify-content: center;
+	margin: 0 5px;
+	padding: 6px 12px;
+	background-color: 'transparent';
+	text-decoration: none;
+	text-underline-offset: 4px;
+	text-underline-color: #2E2E2E;
+}
   </style>
 
   <script>
@@ -120,55 +140,20 @@
 </c:forEach>
 
 
-    <!-- 페이지네이션 부분 -->
-    <div class="container">
-      <div class="d-flex justify-content-center my-4">
-        <ul class="pagination"
-          style="list-style:none; padding:0; display:flex; gap:6px; justify-content:center; margin:20px 0;">
-          <!-- 처음 버튼 -->
-          <c:if test="${map.page_info.curPage > 1}">
-            <li style="margin:0;">
-              <a href="javascript:list('1')"
-                style="color: white; background-color: #763815; border: 1px solid #ccc; padding: 6px 12px; border-radius: 4px; text-decoration: none; display: inline-block; cursor: pointer; transition: background-color 0.3s ease;">
-                처음
-              </a>
-            </li>
-          </c:if>
+   <div class="container">
+<!-- 페이지네이션 -->
+<div class="pagination">
+  <c:forEach begin="1" end="${map.page_info.totPage}" var="i">
+    <a href="/donation/list.do?curPage=${i}&category=${category}&keyword=${keyword}&sort=${sort}"
+       style="color: ${i == map.page_info.curPage ? '#2E2E2E' : '#939393'};
+              text-decoration: ${i == map.page_info.curPage ? 'underline' : 'none'};
+              text-underline-offset: 4px;
+              margin: 0 6px;">
+      ${i}
+    </a>
+  </c:forEach>
+</div>
 
-          <!-- 페이지 번호 반복 -->
-          <c:forEach var="num" begin="${map.page_info.blockBegin}" end="${map.page_info.blockEnd}">
-            <c:choose>
-              <c:when test="${num == map.page_info.curPage}">
-                <li style="margin:0;">
-                  <span
-                    style="color: white; background-color: #006400; font-weight: bold; border: 1px solid #004d00; padding: 6px 12px; border-radius: 4px; display: inline-block; cursor: default;">
-                    ${num}
-                  </span>
-                </li>
-              </c:when>
-              <c:otherwise>
-                <li style="margin:0;">
-                  <a href="javascript:list('${num}')"
-                    style="color: white; background-color: #9C6B4F; border: 1px solid #ccc; padding: 6px 12px; border-radius: 4px; text-decoration: none; display: inline-block; cursor: pointer; transition: background-color 0.3s ease;">
-                    ${num}
-                  </a>
-                </li>
-              </c:otherwise>
-            </c:choose>
-          </c:forEach>
-
-          <!-- 끝 버튼 -->
-          <c:if test="${map.page_info.curPage < map.page_info.totPage}">
-            <li style="margin:0;">
-              <a href="javascript:list('${map.page_info.nextPage}')"
-                style="color: white; background-color: #763815; border: 1px solid #ccc; padding: 6px 12px; border-radius: 4px; text-decoration: none; display: inline-block; cursor: pointer; transition: background-color 0.3s ease;">
-                끝
-              </a>
-            </li>
-          </c:if>
-        </ul>
-      </div>
-    </div>
 
   </div>
 </body>

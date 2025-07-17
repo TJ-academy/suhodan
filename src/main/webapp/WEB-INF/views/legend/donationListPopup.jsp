@@ -24,11 +24,11 @@
 .donation-list {
     max-height: 300px;
     overflow-y: auto;
-    border: 1px solid #eee;
     padding: 10px;
     margin-top: 15px;
-    background-color: #fafafa;
     border-radius: 8px;
+    background-color: #f8eee4;
+	border: 1px solid #d7c4b0;
 }
 
 .donation-ul {
@@ -39,7 +39,7 @@
 
 .donation-ul li {
     padding: 10px 0;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #D8C2A6;
     font-size: 16px;
 }
 
@@ -49,17 +49,17 @@
 
 .donation-ul a {
     text-decoration: none;
-    color: #2c3e50;
+    color: #848282;
     font-weight: bold;
     transition: color 0.2s;
 }
 
 .donation-ul a:hover {
-    color: #3498db;
+    color: #2e2e2e;
 }
 
 .donation-location {
-    color: #999;
+    color: #B7C9AE;
     margin-left: 5px;
     font-size: 14px;
 }
