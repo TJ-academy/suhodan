@@ -121,6 +121,68 @@ audio {
 .btn-donate:hover {
 	background-color: #9C6B4F;
 }
+
+/* 모달 전체 박스 */
+
+.modal-dialog {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* 화면 전체 높이 기준 수직 정렬 */
+}
+
+.modal-content {
+    background-color: #F5F1EB !important;
+    border-radius: 15px !important;
+    border: 1px solid #D8C2A6 !important;
+    padding: 20px !important;
+}
+
+
+/* 모달 헤더 */
+.modal-header {
+    background-color: transparent;
+    border-bottom: 1px solid #D8C2A6;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    justify-content: center;
+}
+
+/* 타이틀 텍스트 */
+.modal-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #9C6B4F;
+    width: 100%; 
+    text-align: center; 
+    white-space: nowrap; 
+}
+
+
+
+/* 모달 하단 버튼 */
+.modal-footer {
+    border-top: none;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.modal-footer .btn-secondary {
+    background-color: #D9C2AD;
+    border: none;
+    color: white;
+    font-size: 16px;
+    padding: 10px 30px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    margin: 0 auto;
+}
+
+.modal-footer .btn-secondary:hover {
+    background-color: #9C6B4F;
+}
+
+
 </style>
 </head>
 <body>
@@ -169,7 +231,7 @@ audio {
         	<!-- 모달 제목도 동적으로 변경될 수 있도록 수정 -->
         	로딩 중..
         </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        
       </div>
       <div class="modal-body" id="modalDonationListContent">
         <!-- 여기에 기부 리스트 내용이 Ajax로 로드될 예정입니다. -->

@@ -144,6 +144,15 @@ top: 50px; left: 50px;
 	font-size: 13px;
 	color: #2E2E2E;
 	margin-top: 15px;
+	
+	display: -webkit-box;              /* 줄 수 제한을 위한 필수 설정 */
+	-webkit-line-clamp: 2;             /* 최대 2줄만 보이게 */
+	-webkit-box-orient: vertical;      /* 수직 방향 설정 */
+	overflow: hidden;                  /* 넘치는 내용 숨기기 */
+	text-overflow: ellipsis;           /* ... 처리 */
+	line-height: 1.6em;                /* 줄 간격 (기본 글꼴 기준) */
+	height: 3.2em;                     /* 1.6em * 2줄 = 3.2em */
+	word-break: break-word;            /* 단어 중간 줄바꿈 허용 */
 }
 
 
