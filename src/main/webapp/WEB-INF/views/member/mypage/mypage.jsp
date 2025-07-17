@@ -126,7 +126,7 @@
             </li>
             <li>
 	            <img src="/resources/suhodan_images/icon/clipboard.png">
-	            <a href="#">구매 내역</a>
+	            <a href="/orders/list.do">구매 내역</a>
             </li>
             <li>
 	            <img src="/resources/suhodan_images/icon/delivery.png">

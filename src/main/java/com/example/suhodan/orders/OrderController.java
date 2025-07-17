@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,7 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/orders/*")
-public class OrderController {
+public class OrderController { 
 	@Autowired
 	OrderDAO orderDao;
 	@Autowired
@@ -30,12 +31,7 @@ public class OrderController {
 	CartDAO cartDao;
 	@Autowired
 	GoodsDAO goodsDao;
-	
-	@GetMapping("list.do")
-	public ModelAndView list(HttpSession session, ModelAndView mav) {
-		return null;
-	}
-	
+		
 	@Transactional
 	@PostMapping("order.do")
 	public String order(OrderDTO dto, HttpSession session) throws UnsupportedEncodingException {
@@ -44,12 +40,12 @@ public class OrderController {
 	        return "redirect:/login.do?message=nologin";
 	    }
 	    dto.setUser_id(user_id);
-	    
 	    if ("무통장입금".equals(dto.getPay_method())) {
 	        dto.setOrder_status("결제진행중");
 	    } else {
 	        dto.setOrder_status("결제완료");
 	    }
+	    System.out.println("주문 상태: " + dto.getOrder_status());  // 상태 로그 찍기
 
 	    //주문 테이블에 저장
 	    orderDao.order(dto); //order_id 생성
@@ -83,4 +79,21 @@ public class OrderController {
 	           + "&pay_method=" + encodedPayMethod;
 	}
 	
+	@GetMapping("list.do")
+	public ModelAndView list(HttpSession session, ModelAndView mav) {
+		String user_id = (String) session.getAttribute("user_id");
+		
+	    if (user_id == null) {
+	        // 로그인 안된 경우 로그인 페이지로 리다이렉트
+	        return new ModelAndView("redirect:/login.do?message=nologin");
+	    }
+		
+		//사용자 주문목록 불러오기
+		List<Map<String, Object>> orders = orderDao.getUserOrders(user_id);
+		System.out.println("orders: " + orders);
+		mav.addObject("orders", orders);
+		mav.setViewName("/member/mypage/myorders");
+		
+		return mav;
+	}
 }
