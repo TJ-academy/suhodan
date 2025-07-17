@@ -1,6 +1,7 @@
 package com.example.suhodan.orders;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +13,13 @@ public class OrderDAOImpl implements OrderDAO {
 	SqlSession sqlSession;
 	
 	@Override
-	public List<OrderDTO> user_orders(String user_id) {
-		return sqlSession.selectList("orders.list",user_id);
-	}
-
-	@Override
 	public void order(OrderDTO dto) {
 		sqlSession.insert("orders.order", dto);
+	}
+	
+	@Override
+	public List<Map<String, Object>> getUserOrders(String user_id) {
+		return sqlSession.selectList("orders.getUserOrders", user_id);
 	}
 
 }
