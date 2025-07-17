@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>내 주문 목록</title>
     <style>
         body {
@@ -29,10 +29,13 @@
             align-items: center;
             margin-bottom: 15px;
         }
-        .header-bar img {
+        .header-bar a img {
             display: block;
             margin-right: 15px;
             cursor: pointer;
+        }
+        .header-bar img.icon {
+            margin-right: 10px;
         }
         .header-bar span {
             font-size: 22px;
@@ -85,19 +88,20 @@
             margin-right: 10px;
         }
         .order-items {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
+            display: flex;       /* 가로 나란히 */
+            flex-wrap: wrap;     /* 줄 바꿈 가능 */
+            gap: 20px;           /* 상품들 사이 간격 */
         }
         .order-item {
+            flex: 0 0 48%;       /* 한 줄에 2개씩 */
             display: flex;
-            width: 48%;
             background: #fff;
             border-radius: 15px;
             box-shadow: 1px 1px 6px rgba(0,0,0,0.05);
             padding: 15px;
             align-items: center;
             gap: 15px;
+            box-sizing: border-box;
         }
         .order-item img {
             width: 112px;
@@ -127,6 +131,22 @@
             font-weight: 400;
             color: #666;
         }
+        .btn_wrap {
+        	display: flex;
+        	justify-content: center;
+        	margin-top: 10px;
+        }
+        .cancle_btn {
+        	background: #E6AA3A;
+        	color: white;
+        	width: 50%;
+        	height: 50px;
+        	border-radius: 20px;
+        	border-style: none;
+        }
+        .cancle_btn:hover {
+        	background: #AB501F;
+        }
     </style>
 </head>
 <body>
@@ -134,10 +154,10 @@
 
 <div class="order_con">
     <div class="header-bar">
-    	<a href="/mypage">
-    		<img src="/resources/images/back.png" width="15" alt="뒤로가기" />
-    	</a>
-        <img src="/resources/suhodan_images/icon/clipboard.png" width="30" alt="주문내역 아이콘" />
+        <a href="/mypage">
+            <img src="/resources/images/back.png" width="15" alt="뒤로가기" />
+        </a>
+        <img src="/resources/suhodan_images/icon/clipboard.png" width="30" alt="주문내역 아이콘" class="icon" />
         <span>주문내역</span>
     </div>
     <hr class="divider" />
@@ -149,7 +169,11 @@
             <c:forEach var="orderItem" items="${orders}" varStatus="status">
                 <c:if test="${orderItem.ORDER_ID != prevOrderId}">
                     <c:if test="${prevOrderId != -1}">
-                        </div>
+                        </div> <!-- order-items 닫기 -->   
+                        <div class="btn_wrap">
+	                        <button class="cancle_btn">주문취소</button>
+                        </div>  
+                        </div> <!-- order-group 닫기 -->
                         <hr class="divider" />
                     </c:if>
                     <div class="order-group">
@@ -181,8 +205,11 @@
                 <c:set var="prevOrderId" value="${orderItem.ORDER_ID}" />
 
                 <c:if test="${status.last}">
-                        </div> <%-- order-items 닫기 --%>
-                    </div> <%-- order-group 닫기 --%>
+                        </div> <!-- order-items 닫기 -->
+                        <div class="btn_wrap">
+	                        <button class="cancle_btn">주문취소</button>
+                        </div> 
+                    </div> <!-- order-group 닫기 -->
                 </c:if>
             </c:forEach>
         </c:when>
