@@ -4,6 +4,7 @@ import java.util.List;
 
 public interface MypageDAO {
 	List<MypageDTO> getUserBadge(String user_id);
+	
 	MypageDTO badgeDetail(int userbadge_id);
 	
 	// 배지 목록 페이징용
@@ -11,6 +12,10 @@ public interface MypageDAO {
 
 	// 총 배지 수
 	int getUserBadgeCount(String user_id);
+	
+	List<MypageDTO> donationList(String donor_id, int startRow, int endRow);
+	
+	MypageDTO donationDetail(int transaction_id);
 	
 	// 리워드함 리스트
 	List<MypageDTO> rewardList(String user_id, int startRow, int endRow);

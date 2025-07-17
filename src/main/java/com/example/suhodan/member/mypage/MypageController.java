@@ -10,21 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.suhodan.donation.DonationDetailDAO;
-import com.example.suhodan.donation.DonationDetailDTO;
-import com.example.suhodan.donation.DonationHistoryDAO;
-import com.example.suhodan.donation.DonationHistoryDTO;
-
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class MypageController {
 	@Autowired 
 	MypageDAO mypageDAO;
-	@Autowired
-	DonationHistoryDAO mydonationDAO;
-	@Autowired
-	DonationDetailDAO donationDetailDAO;
 	
 	//나의 수호수
 	@GetMapping("/mypage/mytree")
@@ -89,53 +80,35 @@ public class MypageController {
 	        HttpSession session, Model model) {
 
 	    String donor_id = (String) session.getAttribute("user_id");
-	    List<DonationHistoryDTO> fullList = mydonationDAO.list(donor_id);
-
-	    int pageSize = 3;  // 한 페이지에 보여줄 카드 개수
-	    int totalCount = fullList.size();
+	    
+	    int pageSize = 5;  // 한 페이지에 보여줄 카드 개수
+	    int startIndex = (page - 1) * pageSize + 1;
+	    int endIndex = page * pageSize;
+	    
+	    List<MypageDTO> list = mypageDAO.donationList(donor_id, startIndex, endIndex);
+	    
+	    int totalCount = 0;
+	    
+	    if(!list.isEmpty())
+	    	totalCount = list.get(0).getDonation_count();
+	    
 	    int totalPage = (int) Math.ceil((double) totalCount / pageSize);
 
-	    // 페이지 번호 범위 체크
-	    if(page < 1) page = 1;
-	    if(page > totalPage) page = totalPage;
-
-	    int startIndex = (page - 1) * pageSize;
-	    int endIndex = Math.min(startIndex + pageSize, totalCount);
-
-	    List<DonationHistoryDTO> pageList = fullList.subList(startIndex, endIndex);
-
-	    model.addAttribute("dlist", pageList);
+	    model.addAttribute("dlist", list);
 	    model.addAttribute("currentPage", page);
 	    model.addAttribute("totalPage", totalPage);
 
-	    return "member/mypage/mydonation_history";
+	    return "member/mypage/mydonation";
 	}
 	
-	@GetMapping("/mypage/mydonation/{content_id}")
+	@GetMapping("/mypage/mydonation/{transaction_id}")
 	public String donationDetail(
-	        @PathVariable("content_id") int contentId,
-	        @RequestParam(value = "page", defaultValue = "1") int page,  // 페이지 번호 받기, 기본 1
+	        @PathVariable("transaction_id") int transaction_id,
 	        HttpSession session, Model model) {
 
-	    String donorId = (String) session.getAttribute("user_id");
-	    List<DonationDetailDTO> fullList = donationDetailDAO.getDetail(contentId, donorId);
-
-	    int pageSize = 1;  // 한 페이지에 보여줄 카드 개수
-	    int totalCount = fullList.size();
-	    int totalPage = (int) Math.ceil((double) totalCount / pageSize);
-
-	    // 페이지 번호 범위 체크
-	    if(page < 1) page = 1;
-	    if(page > totalPage) page = totalPage;
-
-	    int startIndex = (page - 1) * pageSize;
-	    int endIndex = Math.min(startIndex + pageSize, totalCount);
-
-	    List<DonationDetailDTO> pageList = fullList.subList(startIndex, endIndex);
-
-	    model.addAttribute("detailList", pageList);
-	    model.addAttribute("currentPage", page);
-	    model.addAttribute("totalPage", totalPage);
+	    String donor_id = (String) session.getAttribute("user_id");
+	    
+	    model.addAttribute("dto", mypageDAO.donationDetail(transaction_id));
 
 	    return "member/mypage/mydonation_detail";
 	}
@@ -152,14 +125,22 @@ public class MypageController {
 	    
 		List<MypageDTO> list = mypageDAO.rewardList(user_id, startRow, endRow);
 		int reward_count = 0;
-		if(!list.isEmpty())
+		int totalAmount = 0;
+		
+		if(!list.isEmpty()) {
 			reward_count = list.get(0).getReward_count();
+			
+			for (MypageDTO row : list) {
+		    	totalAmount += row.getAmount();
+		    }
+		}
 		
 		int totalPage = (int) Math.ceil((double) reward_count / maxreward);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("currentPage", page);
 	    model.addAttribute("totalPage", totalPage);
+	    model.addAttribute("totalAmount", totalAmount);
 		return "member/mypage/myreward";
 	}
 	

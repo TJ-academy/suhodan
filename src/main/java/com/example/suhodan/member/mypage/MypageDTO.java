@@ -20,15 +20,18 @@ public class MypageDTO {
 	private String badge_img;
 	
 	private int transaction_id;
+	private int donation_count;
 	private int amount;
 	private Date donation_date;
 	
 	private int project_id;
 	private String project_title;
+	private String project_desc;
 	private String project_img;
 	private Date start_date;
 	private Date end_date;
 	private String location;
+	private String payment_method;
 	
 	private int reward_id;
 	private int reward_count;

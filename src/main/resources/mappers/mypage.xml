@@ -35,37 +35,47 @@
         WHERE ub.id = #{userbadge_id} and ub.badge_id = b.badge_id
     </select>
     
-    <select id="myDonationHistory" parameterType="string" resultType="com.example.suhodan.donation.DonationHistoryDTO">
-	     SELECT
-	     	c.content_id	   AS content_id,
-	     	c.location		   AS location,
-	        c.title            AS title,
-	        c.content          AS content,
-	        c.filename		   AS filename,
-	        t.amount           AS amount,
-	        t.donation_date    AS donationDate
-	    FROM donation_transaction       t
-	         JOIN suho_donation_content c
-	           ON c.content_id = t.content_id
-	    WHERE t.donor_id = #{donorId}
-	    ORDER BY t.donation_date DESC
+    <select id="donationList" resultType="com.example.suhodan.member.mypage.MypageDTO">
+		select * from (
+			select inner_query.*, rownum as rn
+			from (
+				 SELECT
+				 	c.content_id	   AS project_id,
+				 	c.location		   AS location,
+				    c.title            AS project_title,
+				    c.content          AS project_desc,
+				    c.filename		   AS project_img,
+				    t.amount           AS amount,
+				    t.donation_date    AS donation_date,
+				    t.transaction_id transaction_id,
+				    start_date, end_date, count(*) over() donation_count
+				FROM donation_transaction       t
+				     JOIN suho_donation_content c
+				       ON c.content_id = t.content_id
+				WHERE t.donor_id = #{donor_id}
+				ORDER BY t.donation_date DESC
+			) inner_query
+			where rownum &lt;= #{endRow}
+		)
+		where rn &gt;= #{startRow}
     </select>
     
-    <select id="selectDonationDetail" resultType="com.example.suhodan.donation.DonationDetailDTO">
+    <select id="donationDetail" resultType="com.example.suhodan.member.mypage.MypageDTO">
 	     SELECT 
-		    c.title               AS title,
-   	     	c.filename		   	  AS filename,
-		    c.start_date          AS startDate,
-		    c.end_date            AS endDate,
+		    c.content_id	   AS project_id,
+		    c.title               AS project_title,
+   	     	c.filename		   	  AS project_img,
+		    c.start_date          AS start_date,
+		    c.end_date            AS end_date,
 		    c.location            AS location,
-		    t.payment_method      AS paymentMethod,
+		    t.payment_method      AS payment_method,
 		    t.amount              AS amount,
-		    t.donation_date       AS donationDate
+		    t.donation_date       AS donation_date,
+		    t.transaction_id transaction_id
 	    FROM donation_transaction t
 	    JOIN suho_donation_content c
 	      ON t.content_id = c.content_id
-	    WHERE t.content_id = #{contentId}
-	      AND t.donor_id = #{donorId}
+	    WHERE t.transaction_id = #{transaction_id}
     </select>
     
     <select id="rewardList" resultType="com.example.suhodan.member.mypage.MypageDTO">
@@ -87,6 +97,6 @@
     <select id="rewardDetail" resultType="com.example.suhodan.member.mypage.MypageDTO">
     	select DONOR_ID user_id, TRANSACTION_ID, dt.CONTENT_ID project_id, sdc.title project_title, sdc.FILENAME project_img, start_date, end_date, location, AMOUNT, DONATION_DATE, dt.REWARD_ID reward_id, sr.name reward_name, description reward_desc, img reward_img, goods_1, goods_2, goods_3, goods_4
     	from donation_transaction dt, suho_reward sr, suho_donation_content sdc
-    	where dt.REWARD_ID = sr.reward_id and sdc.content_id = dt.CONTENT_ID and transaction_id = #{transaction_id};
+    	where dt.REWARD_ID = sr.reward_id and sdc.content_id = dt.CONTENT_ID and transaction_id = #{transaction_id}
     </select>
 </mapper>

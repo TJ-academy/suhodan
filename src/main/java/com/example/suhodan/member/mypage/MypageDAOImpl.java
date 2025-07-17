@@ -38,6 +38,20 @@ public class MypageDAOImpl implements MypageDAO {
 	}
 	
 	@Override
+	public List<MypageDTO> donationList(String donor_id, int startRow, int endRow) {
+		Map<String, Object> map = new HashMap<>();
+	    map.put("donor_id", donor_id);
+	    map.put("startRow", startRow);
+	    map.put("endRow", endRow);
+	    return sqlSession.selectList("mypage.donationList", map);
+	}
+	
+	@Override
+	public MypageDTO donationDetail(int transaction_id) {
+		return sqlSession.selectOne("mypage.donationDetail", transaction_id);
+	}
+	
+	@Override
 	public List<MypageDTO> rewardList(String user_id, int startRow, int endRow) {
 		Map<String, Object> map = new HashMap<>();
 	    map.put("user_id", user_id);
