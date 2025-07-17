@@ -1,147 +1,220 @@
-	body {
-		background-color: #F5F1EB; /* 이미지의 연한 배경색 */
-		font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', Dotum, sans-serif; /* 한국어 친화적인 폰트 */
-	}
-
-	.dona_con {
+	.container {
+		position: relative;
 		width: 893px;
-		margin: 30px auto; /* 가운데 정렬 및 상단 여백 */
-		background: #F8F5F0; /* 이미지 메인 컨테이너 배경색 */
-		border-radius: 20px;
-		/* 부트스트랩 클래스와 충돌을 피하기 위해 border-color, border-style은 사용하지 않거나 직접 정의 */
-		/* border: 5px solid #D8C2A6; /* 커스텀 테두리 */
-		padding: 40px 60px; /* 내부 패딩 조정 */
-		box-sizing: border-box;
-	}
-	
-	.title {
-		display: flex; /* 부트스트랩 d-flex와 유사하지만 커스텀 유지 */
-		align-items: center; /* 부트스트랩 align-items-center와 유사 */
-		justify-content: space-between; /* 부트스트랩 justify-content-between과 유사 */
-		margin-bottom: 20px;
-	}
-	
-	.con1 img {
-		cursor: pointer;
-	}
-	
-	.con2 {
-		flex-grow: 1; /* 로고가 남은 공간을 차지하도록 하여 중앙으로 이동 */
-		text-align: center; /* 로고 이미지 중앙 정렬 */
-	}
-	
-	.con2 img {
-		display: inline-block; /* text-align: center가 작동하도록 */
-		width: 120px; /* 로고 크기 조정 */
 		height: auto;
+		margin: 47px auto 47px auto;
+		text-align: center;
+		align-items: center;
 	}
-
-	/* '기부 내역' 타이틀 섹션 */
-	.donation-title-section {
+	
+	.rectangle {
+		width: 893px;
+		height: auto;
+		left: 50%;
+		transform: translateX(-50%);
+		background-color: #F5F1EB;
+		border: 1.67px solid #D8C2A6;
+		border-radius: 16.65px;
+		position: relative;
+		text-align: center;
+		align-items: center;
+	}
+	
+	.back-button {
+		position: absolute;
+		width: 14px; height: 28px;
+		border: none;
+		cursor: pointer;
+		top: 40px; left: 40px;
+		margin-top: 1px;
+		background: url('/resources/suhodan_images/icon/arrow_right.png') no-repeat center;
+		background-size: contain;
+		z-index: 10;
+		transform: rotate(180deg);
+	}
+	
+	.donationpage-title {
+		position: absolute;
+		top:40px; left: 40px;
 		display: flex;
 		align-items: center;
-		margin-top: 10px;
-		margin-bottom: 25px; /* 타이틀과 첫 카드 사이 간격 */
-	}
-	.donation-title-section img {
-		width: 24px; /* 아이콘 크기 */
-		height: 24px;
-		vertical-align: middle;
-		margin-right: 8px;
-	}
-	.donation-title-section span {
-		font-size: 20px;
-		font-weight: bold;
-		color: #504848;
-		vertical-align: middle;
 	}
 	
-	/* 각 기부 카드 스타일 */
-	.card-custom { /* 충돌 방지를 위해 card 대신 card-custom 사용 */
-		border-radius: 30px;
-		border: 3px solid #9C6B4F; /* 커스텀 테두리 */
-		padding: 20px 30px; /* 카드 내부 패딩 */
-		min-height: 180px; /* 최소 높이 설정 */
-		box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.08); /* 은은한 그림자 */
-		margin-bottom: 20px; /* 카드들 사이의 간격 */
-		position: relative; /* 중요! 자식 요소의 absolute 위치 기준이 됨 */
-		overflow: hidden; /* 이미지를 감싸는 부분에서 버튼이 삐져나가지 않도록 */
-	}
-
-	.card-image-wrapper { /* 이미지와 자세히 보기 버튼을 감싸는 래퍼 */
-		position: relative; /* 버튼의 절대 위치 기준 */
-		width: 140px; /* 이미지 크기 */
-		height: 140px; /* 이미지 크기 */
-		flex-shrink: 0; /* 공간이 부족해도 이미지 크기 유지 */
-	}
-
-	.card-image-wrapper img {
-		width: 100%;
-		height: 100%;
-		border-radius: 20px;
-		object-fit: cover;
-	}
-
-	.view-details-btn { /* '자세히 보기' 버튼 */
-		background-color: #9C6B4F;
-		color: #fff;
-		border: none;
-		border-radius: 15px;
-		padding: 8px 15px;
-		font-size: 14px;
-		cursor: pointer;
-		white-space: nowrap; /* 줄바꿈 방지 */
-		position: absolute; /* 이미지 기준으로 절대 위치 */
-		bottom: 45px; /* 이미지 하단에서부터의 거리 */
-		left: 50%; /* 가운데 정렬을 위해 */
-		transform: translateX(-50%); /* 정확한 가운데 정렬 */
-		z-index: 10; /* 이미지 위에 오도록 */
-		opacity: 0; /* ✨ 평소에는 안 보이게 숨김 */
-		transition: opacity 0.3s ease-in-out; /* ✨ 부드럽게 나타나고 사라지게 애니메이션 효과 추가 */
-	}
-	.view-details-btn:hover {
-		background-color: #682600;
-	}
-
-	/* ✨ 카드에 마우스를 올렸을 때 버튼이 나타나게 함 */
-	.card-custom:hover .view-details-btn {
-		opacity: 1;
-	}
-
-	.card-header-meta { /* 날짜 */
-		font-size: 17px;
-		color: #6C6C6C;
+	.donationpage-title-img {
+		margin-left: 50px;
+		width: 25px; height: 25px;
 	}
 	
-	.location {
-		font-size: 16px;
-		color: #555;
-	}
-
-	.project-title {
-		font-size: 19px;
-		font-weight: bold;
-		color: #333;
-		line-height: 1.3;
-	}
-
-	.total-amount {
+	.donationpage-title-text {
+		margin-left: 10px;
 		font-size: 21px;
 		font-weight: bold;
-		color: #9C6B4F; /* 이미지와 유사한 빨간색 계열 */
-	}
-
-	/* 기존 기부 내역 테이블 스타일 (이미지에는 보이지 않으므로 숨김) */
-	table {
-		display: none;
+		color: #504848;
 	}
 	
-	.page_btn {
-		width: 60px;
-		height: 40px;
-		border-radius: 10px;
-		border: 1px solid #908F60;
-		background: #908F60;
-		color: white;
+	/* .donationpage-logo {
+		flex-grow: 1; 로고가 남은 공간을 차지하도록 하여 중앙으로 이동
+		text-align: center; 로고 이미지 중앙 정렬
+	}
+	
+	.donationpage-logo img {
+		display: inline-block; text-align: center가 작동하도록
+		width: 120px; 로고 크기 조정
+		height: auto;
+	} */
+	
+	.nodonation {
+	    align-items: center;
+	    margin-top: 150px;
+	    margin-bottom: 100px;
+	}
+	
+	.nodonation p {
+		font-size: 19px;
+		color: #504848;
+	}
+	
+	.donationlist {
+	    display: flex;
+	    flex-direction: column;
+	    gap: 40px;
+	    align-items: center;
+	    margin-top: 130px;
+	    margin-bottom: 100px;
+	}
+	
+	/* 기부 날짜 */
+	.donation-date {
+	    align-self: center;
+	    margin-left: 10px;
+	    font-size: 17px;
+	    color: #6C6C6C;
+	    text-align: left;
+	}
+	
+	/* 외곽 박스 */
+	.donation-box {
+	    width: 802px;
+	    height: 191px;
+	    border: 1.67px solid #CECECE;
+	    border-radius: 16.65px;
+	    display: flex;
+	    position: relative;
+	    transition: border-color 0.3s;
+	}
+	
+	/* 프로젝트 이미지 */
+	.donation-project-image {
+	    position: relative;
+	    width: 143px;
+	    height: 143px;
+	    top: 50%;
+	    left: 24px;
+	    transform: translateY(-50%);
+	    border-radius: 15px;
+	    overflow: hidden;
+	    flex-shrink: 0;
+	}
+	
+	.donation-project-image img {
+	    width: 100%;
+	    height: 100%;
+	    object-fit: cover;
+	    transition: filter 0.3s;
+	}
+	
+	.donation-box:hover {
+	    border-color: #9C6B4F;
+	}
+	
+	.donation-box:hover .reward-project-image img {
+	    filter: brightness(60%);
+	}
+	
+	/* 자세히 보기 버튼 */
+	.donation-project-image button {
+	    position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%, -50%);
+	    background-color: #9C6B4F;
+	    border: 1px solid #9C6B4F;
+	    padding: 5px;
+	    font-size: 17px;
+	    width: 116px;
+	    color: #FFFFFF;
+	    border-radius: 16.65px;
+	    transition: opacity 0.3s;
+	    display: none;
+	}
+	
+	.donation-box:hover .donation-project-image button {
+	    display: block;
+	}
+	
+	/* 중앙 정보 */
+	.donation-project-info {
+	    display: flex;
+	    flex-direction: column;
+	    justify-content: center;
+	    text-align: left;
+	    margin-left: 45px;
+	    flex-grow: 1;
+	    /* gap: 4px; */
+	}
+	
+	.donation-project-info .location {
+		font-weight: bold;
+	    color: #2E2E2E;
+	    font-size: 19px;
+	}
+	
+	.donation-project-info .project-title {
+	    font-weight: bold;
+	    color: #2E2E2E;
+	    font-size: 21px;
+	}
+	
+	/* 오른쪽 상단 날짜 */
+	.donation-project-dates {
+	    position: absolute;
+	    top: 12px;
+	    right: 20px;
+	    font-size: 17px;
+	    color: #6C6C6C;
+	}
+	
+	/* 오른쪽 하단 금액 */
+	.donation-project-amount {
+	    position: absolute;
+	    bottom: 12px;
+	    right: 20px;
+	    font-size: 21px;
+	    font-weight: bold;
+	    color: #2E2E2E;
+	}
+	
+	.donation-project-amount span {
+	    color: #9C6B4F;
+	    font-weight: bold;
+	}
+
+	.pagination {
+		position: absolute;
+		text-align: center;
+		margin-top: 30px;
+		bottom: 15px;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		display: flex;
+	}
+	.pagination a {
+		justify-content: center;
+		margin: 0 5px;
+		padding: 6px 12px;
+		background-color: 'transparent';
+		text-decoration: none;
+		text-underline-offset: 4px;
+		text-underline-color: #2E2E2E;
 	}
 	

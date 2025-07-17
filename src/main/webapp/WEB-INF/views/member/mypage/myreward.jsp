@@ -63,6 +63,15 @@
 		color: #504848;
 	}
 	
+	.total-donation {
+		margin-top: 40px;
+		margin-right: 50px;
+		color: #2E2E2E;
+		font-weight: bold;
+		font-size: 21px;
+		text-align: right;
+	}
+	
 	.noreward {
 	    align-items: center;
 	    margin-top: 150px;
@@ -79,7 +88,7 @@
 	    flex-direction: column;
 	    gap: 40px;
 	    align-items: center;
-	    margin-top: 110px;
+	    margin-top: 50px;
 	    margin-bottom: 100px;
 	}
 	
@@ -238,6 +247,13 @@
 			<span class="rewardpage-title-text">리워드함</span>
 		</div>
 		
+		<div class="total-donation">
+			총 기부 금액: 
+		    <span>
+		        <fmt:formatNumber value="${totalAmount}" type="number" groupingUsed="true" /> 원
+		    </span>
+		</div>
+		
 	 	<c:choose>
 			<c:when test="${empty list}">
 				<div class="noreward">
@@ -256,7 +272,7 @@
 				            <div class="reward-box">
 				                <div class="reward-project-image">
 				                    <img src="../../resources/donation_img/${row.project_img}" alt="프로젝트 이미지" />
-				                    <button class="view-button" onclick="location.href='/mypage/myreward/{transaction_id}'">자세히 보기</button>
+				                    <button class="view-button" onclick="location.href='/mypage/myreward/${row.transaction_id}'">자세히 보기</button>
 				                </div>
 				
 				                <div class="reward-project-info">
