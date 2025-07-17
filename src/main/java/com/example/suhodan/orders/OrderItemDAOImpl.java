@@ -18,7 +18,10 @@ public class OrderItemDAOImpl implements OrderItemDAO {
 
 	@Override
 	public void insertItems(List<OrderItemDTO> items) {
-		sqlSession.insert("orderitem.insertItems", items);
+		//System.out.println("items:"+items);
+		for(OrderItemDTO dto : items) {
+		sqlSession.insert("orderitem.insertItems", dto);
+		}
 	}
 
 }

@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,7 @@ public class OrderController {
 		return null;
 	}
 	
+	@Transactional
 	@PostMapping("order.do")
 	public String order(OrderDTO dto, HttpSession session) throws UnsupportedEncodingException {
 	    String user_id = (String) session.getAttribute("user_id");
@@ -66,7 +68,7 @@ public class OrderController {
 	    	orderItems.add(item);
 	    }
 	    
-	    //주문 상세 테이블에 insert
+	    System.out.println(orderItems);
 	    orderItemDao.insertItems(orderItems);
 
 	    String encodedAddress1 = (dto.getOrder_address1() != null) ? URLEncoder.encode(dto.getOrder_address1(), "UTF-8") : "";

@@ -1,5 +1,6 @@
 package com.example.suhodan.orders;
 
+import java.beans.Transient;
 import java.util.Date;
 
 import lombok.Getter;
