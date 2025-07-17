@@ -24,15 +24,6 @@
 	        #{phone}
 	    )
 	</insert>
-	<!--  
-	<select id="getUserOrders" resultType="map">
-	    SELECT o.order_id, o.order_status, o.pay_method, 
-	           oi.item_id, oi.product_name, oi.quantity, oi.unit_price
-	    FROM suho_orders o
-	    INNER JOIN suho_order_items oi ON o.order_id = oi.order_id
-	    WHERE o.user_id = #{userId}
-	</select>
-	-->
 	<select id="getUserOrders" resultType="map">
 	    SELECT o.order_id, o.order_status, o.pay_method, o.order_date,
 	           oi.item_id, oi.product_name, oi.quantity, oi.unit_price,
@@ -43,4 +34,7 @@
 	    WHERE o.user_id = #{userId}
 	    ORDER BY o.order_id, oi.item_id
 	</select>
+	<delete id="orderCancel">
+		delete from suho_orders where order_id = #{order_id}
+	</delete>
 </mapper>

@@ -148,10 +148,21 @@
         	background: #AB501F;
         }
     </style>
+    <script>
+    	function orderCancel(order_id) {
+    		if(confirm("주문을 취소하시겠습니까?")) {
+    			location.href='/orders/cancel.do?order_id='+order_id;
+    		}
+    	}
+    </script>
 </head>
 <body>
+<c:if test="${param.message == 'success_cancel'}">
+	<script>
+		alert("주문이 정상적으로 취소되었습니다.");
+	</script>
+</c:if>
 <%@ include file="../../include/menu.jsp" %>
-
 <div class="order_con">
     <div class="header-bar">
         <a href="/mypage">
@@ -171,7 +182,7 @@
                     <c:if test="${prevOrderId != -1}">
                         </div> <!-- order-items 닫기 -->   
                         <div class="btn_wrap">
-	                        <button class="cancle_btn">주문취소</button>
+	                        <button class="cancle_btn" onclick="orderCancel(${orderItem.ORDER_ID})">주문취소</button>
                         </div>  
                         </div> <!-- order-group 닫기 -->
                         <hr class="divider" />
@@ -207,17 +218,17 @@
                 <c:if test="${status.last}">
                         </div> <!-- order-items 닫기 -->
                         <div class="btn_wrap">
-	                        <button class="cancle_btn">주문취소</button>
+	                        <button class="cancle_btn"
+	                        onclick="orderCancel(${orderItem.ORDER_ID})">주문취소</button>
                         </div> 
                     </div> <!-- order-group 닫기 -->
                 </c:if>
             </c:forEach>
         </c:when>
         <c:otherwise>
-            <p>아직 주문 내역이 없어요! 😢 다시 주문해주떼염!</p>
+            <p>주문 내역이 없습니다.</p>
         </c:otherwise>
     </c:choose>
 </div>
-
 </body>
 </html>

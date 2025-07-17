@@ -21,5 +21,10 @@ public class OrderDAOImpl implements OrderDAO {
 	public List<Map<String, Object>> getUserOrders(String user_id) {
 		return sqlSession.selectList("orders.getUserOrders", user_id);
 	}
+	
+	@Override
+	public void delete(int order_id) {
+		sqlSession.delete("orders.orderCancel", order_id);
+	}
 
 }

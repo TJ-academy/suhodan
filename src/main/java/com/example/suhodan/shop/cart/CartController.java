@@ -121,6 +121,7 @@ public class CartController {
             @RequestParam("order_address2") String address2,
             @RequestParam("phone") String phone,
             @RequestParam("pay_method") String payMethod,
+            @RequestParam("order_id") int order_id,
             @RequestParam(value = "refund_bank", required = false) String bankName,
             @RequestParam(value = "refund_account", required = false) String accountNumber,
             HttpSession session,
@@ -142,6 +143,7 @@ public class CartController {
         model.addAttribute("address2", address2);
         model.addAttribute("phone", phone);
         model.addAttribute("total", total);
+        model.addAttribute("order_id", order_id);
         model.addAttribute("deadline", deadline.format(formatter));
 
         // 결제 수단 처리
@@ -155,57 +157,6 @@ public class CartController {
 
         return "shop/complete";
     }
-
-    
-    /*
-    @PostMapping("complete.do")
-    public String completeOrder(
-            @RequestParam("receiver") String receiver,
-            @RequestParam("address1") String address1,
-            @RequestParam("address2") String address2,
-            @RequestParam("phone1") String phone1,
-            @RequestParam("phone2") String phone2,
-            @RequestParam("phone3") String phone3,
-            @RequestParam("payMethod") String payMethod,
-            @RequestParam(value = "bankName", required = false) String bankName,
-            @RequestParam(value = "accountNumber", required = false) String accountNumber,
-            HttpSession session,
-            Model model) {
-
-        String phone = phone1 + "-" + phone2 + "-" + phone3;
-        String user_id = (String) session.getAttribute("user_id");
-        int total = cartDao.sum_money(user_id);
-
-        // 장바구니 비우기
-        cartDao.delete_all(user_id);
-
-        // 결제 마감일 계산
-        LocalDateTime deadline = LocalDateTime.now().plusDays(7);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M월 d일 H시 m분");
-
-        // 기본 정보
-        model.addAttribute("receiver", receiver);
-        model.addAttribute("address1", address1);
-        model.addAttribute("address2", address2);
-        model.addAttribute("phone", phone);
-        model.addAttribute("total", total);
-        model.addAttribute("deadline", deadline.format(formatter));
-
-        // 결제 수단 분기
-        if ("bank".equals(payMethod)) {
-            model.addAttribute("payMethod", "무통장 입금");
-            model.addAttribute("bankName", bankName);
-            model.addAttribute("accountNumber", accountNumber);
-        } else {
-            model.addAttribute("payMethod", "카드 결제");
-        }
-
-        return "shop/complete";
-    }
-    */
-    
-    
-    
     
     
 }

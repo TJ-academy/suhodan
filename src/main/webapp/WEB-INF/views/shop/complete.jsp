@@ -208,7 +208,7 @@ background-color: #D8C2A6;
 		<p>‘확인’을 누르시면 주문이 취소됩니다.</p>
 		<div class="popup-buttons">
 			<button class="btn-back" onclick="closePopup()">뒤로 가기</button>
-			<button class="btn-confirm" onclick="cancelOrder()">확인</button>
+			<button class="btn-confirm" onclick="cancelOrder(${order_id})">확인</button>
 		</div>
 	</div>
 </div>
@@ -220,8 +220,8 @@ background-color: #D8C2A6;
 	function closePopup() {
 		document.getElementById('cancelPopup').style.display = 'none';
 	}
-	function cancelOrder() {
-		location.href = '/shop/cancelComplete.jsp'; // 취소 완료 페이지 연결
+	function cancelOrder(order_id) {
+		location.href = '/orders/cancel.do?order_id='+order_id; // 취소 완료 페이지 연결
 	}
 	
 </script>
