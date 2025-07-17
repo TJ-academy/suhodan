@@ -3,12 +3,20 @@
 <mapper namespace="donationCon">
 
 	<insert id="insert">
-		insert into suho_donation_content (content_id, title,
+		insert into suho_donation_content
+		(content_id, title,
 		content, target_amount, start_date, end_date, location, created_at,
-		filename)
+		filename, reward_a, reward_b, reward_c, reward_d)
 		values (donation_content_seq.nextval, #{title}, #{content},
 		#{target_amount}, #{start_date}, #{end_date}, #{location}, sysdate,
-		#{filename})
+		#{filename},(select reward_id from suho_reward where name = #{reward_a_name}
+		and ROWNUM &lt;= 1),
+		(select reward_id from suho_reward where name =
+		#{reward_b_name} and ROWNUM &lt;= 1),
+		(select reward_id from suho_goods
+		where name = #{reward_c_name} and ROWNUM &lt;= 1),
+		(select reward_id from
+		suho_reward where name = #{reward_d_name} and ROWNUM &lt;= 1))
 	</insert>
 
 	<update id="update">
@@ -17,7 +25,7 @@
 		content=#{content}, target_amount=#{target_amount},
 		start_date=#{start_date},
 		end_date=#{end_date}, location=#{location},
-		filename=#{filename}
+		filename=#{filename}, reward_a=#{reward_a}, reward_b=#{reward_b}, reward_c=#{reward_c}, reward_d=#{reward_d}
 		where content_id=#{content_id}
 	</update>
 
@@ -168,6 +176,27 @@
 		</where>
 	</select>
 
-
-
+	<select id="selectRewardAByContentId" resultType="int">
+        SELECT reward_a 
+        FROM suho_donation_content
+        WHERE content_id = #{content_id}
+    </select>
+    
+    <select id="selectRewardBByContentId" resultType="int">
+        SELECT reward_b 
+        FROM suho_donation_content
+        WHERE content_id = #{content_id}
+    </select>
+    
+    <select id="selectRewardCByContentId" resultType="int">
+        SELECT reward_c 
+        FROM suho_donation_content
+        WHERE content_id = #{content_id}
+    </select>
+    
+    <select id="selectRewardDByContentId" resultType="java.lang.Integer">
+        SELECT reward_d 
+        FROM suho_donation_content
+        WHERE content_id = #{content_id}
+    </select>
 </mapper>

@@ -3,6 +3,8 @@ package com.example.suhodan.donation;
 import java.util.List;
 import java.util.Map;
 
+import com.example.suhodan.reward.RewardDTO;
+
 public interface DonationConDAO {
 	List<DonationConDTO> list();
 	
@@ -25,5 +27,10 @@ public interface DonationConDAO {
 	int getTotalCountSearch(Map<String, Object> param);
 	
 	List<DonationConDTO> listPagingSearch(Map<String, Object> param);
+	
+	int getRewardAByContentId(int content_id);
+	int getRewardBByContentId(int content_id);
+	int getRewardCByContentId(int content_id);
+	int getRewardDByContentId(int content_id);
 
 }

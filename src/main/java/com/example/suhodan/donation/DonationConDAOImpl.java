@@ -7,6 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.example.suhodan.reward.RewardDTO;
+
 @Repository
 public class DonationConDAOImpl implements DonationConDAO {
 
@@ -70,5 +72,25 @@ public class DonationConDAOImpl implements DonationConDAO {
 	public int getTotalCountSearch(Map<String, Object> param) {
 	    return sqlSession.selectOne("donationCon.getTotalCountSearch", param);
 	}
+	
+	@Override
+	public int getRewardAByContentId(int content_id) {
+        return sqlSession.selectOne("donationCon.selectRewardAByContentId", content_id);
+    }
+	
+	@Override
+	public int getRewardBByContentId(int content_id) {
+        return sqlSession.selectOne("donationCon.selectRewardBByContentId", content_id);
+    }
+	
+	@Override
+	public int getRewardCByContentId(int content_id) {
+        return sqlSession.selectOne("donationCon.selectRewardCByContentId", content_id);
+    }
+	
+	@Override
+	public int getRewardDByContentId(int content_id) {
+        return sqlSession.selectOne("donationCon.selectRewardDByContentId", content_id);
+    }
 
 }

@@ -277,7 +277,12 @@ function showBadgeModal(message, callback) {
   // 리워드 페이지로 이동
 function goToReward() {
   const amount = document.getElementById("amount_for_payment").value;
-  location.href = "/donation/reward/select.do?amount=" + amount;
+  
+//현재 URL에서 content_id를 추출
+  const urlParams = new URLSearchParams(window.location.search);
+  const contentId = urlParams.get('content_id');
+
+  location.href = "/donation/reward/select.do?amount=" + amount + "&content_id=" + contentId;
 }
 
 

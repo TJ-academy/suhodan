@@ -100,29 +100,33 @@ body {
     <!-- 리워드 구간 1 -->
     <div class="reward-box <%= (amount < 15000 || amount >= 30000) ? "disabled" : "" %>">
       <div class="reward-title">15,000원 이상 30,000원 미만 리워드</div>
-      <div class="reward-description">설화 스티커 5종 + 엽서 세트</div>
+      <div class="reward-description">${reward_a_name}</div>
+      <div class="reward-description">${reward_a_description}</div>
       <button class="reward-select-button" onclick="submitReward('15-30')">선택</button>
     </div>
-
+	
     <!-- 리워드 구간 2 -->
     <div class="reward-box <%= (amount < 30000 || amount >= 50000) ? "disabled" : "" %>">
       <div class="reward-title">30,000원 이상 50,000원 미만 리워드</div>
-      <div class="reward-description">설화 엽서 세트 + 안동사과 2kg + 사과주스 500ml</div>
+      <div class="reward-description">${reward_b_name}</div>
+      <div class="reward-description">${reward_b_description}</div>
       <button class="reward-select-button" onclick="submitReward('30-50')">선택</button>
     </div>
 
     <!-- 리워드 구간 3 -->
     <div class="reward-box <%= (amount < 50000 || amount >= 100000) ? "disabled" : "" %>">
       <div class="reward-title">50,000원 이상 100,000원 미만 리워드</div>
-      <div class="reward-description">설화 포스터 + 전통 보자기 + 과일 세트</div>
+      <div class="reward-description">${reward_c_name}</div>
+      <div class="reward-description">${reward_c_description}</div>
       <button class="reward-select-button" onclick="submitReward('50-100')">선택</button>
     </div>
 
     <!-- 리워드 구간 4 -->
-    <div class="reward-box <%= (amount < 100000 || amount >= 200000) ? "disabled" : "" %>">
-      <div class="reward-title">100,000원 이상 200,000원 미만 리워드</div>
-      <div class="reward-description">설화 수호자 박스 (굿즈 풀세트 + 프리미엄 과일)</div>
-      <button class="reward-select-button" onclick="submitReward('100-200')">선택</button>
+    <div class="reward-box <%= (amount < 100000) ? "disabled" : "" %>">
+      <div class="reward-title">100,000원 이상 리워드</div>
+      <div class="reward-description">${reward_d_name}</div>
+      <div class="reward-description">${reward_d_description}</div>
+      <button class="reward-select-button" onclick="submitReward('100-')">선택</button>
     </div>
 
     <div style="text-align: center; margin-top: 30px;">
@@ -134,9 +138,31 @@ body {
  <script>
   let selectedRewardTier = null;
 
+  let selectedRewardName = '';
+  let selectedRewardDescription = '';
+  let selectedRewardId = ''; 
+  
   function submitReward(tier) {
     selectedRewardTier = tier;
     alert('리워드가 선택되었습니다! 아래 [다음으로] 버튼을 눌러 결제 페이지로 이동해주세요.');
+    
+    if (tier === '15-30') {
+    	selectedRewardId = "${reward_a_id}"; 
+        selectedRewardName = "${reward_a_name}"; // Corrected line
+        selectedRewardDescription = "${reward_a_description}"; // Corrected line
+    } else if (tier === '30-50') {
+    	selectedRewardId = "${reward_b_id}";
+        selectedRewardName = "${reward_b_name}"; // Corrected line
+        selectedRewardDescription = "${reward_b_description}"; // Corrected line
+    } else if (tier === '50-100') {
+    	selectedRewardId = "${reward_c_id}";
+        selectedRewardName = "${reward_c_name}"; // Corrected line
+        selectedRewardDescription = "${reward_c_description}"; // Corrected line
+    } else if (tier === '100-') { // Corrected this to '100-' based on your button's onclick
+    	selectedRewardId = "${reward_d_id}";
+        selectedRewardName = "${reward_d_name}"; // Corrected line
+        selectedRewardDescription = "${reward_d_description}"; // Corrected line
+    }
   }
 
   function goToBuyPage() {
@@ -146,8 +172,16 @@ body {
       return;
     }
 
-    // 선택한 리워드와 금액을 쿼리 파라미터로 넘겨줌
-    const url = `/donation/buy.do?amount=${amount}&tier=${selectedRewardTier}`;
+ // URLSearchParams 객체를 사용하여 파라미터 생성
+    const params = new URLSearchParams();
+    params.append('amount', amount);
+    params.append('tier', selectedRewardTier);
+    params.append('rewardId', selectedRewardId); // 자동으로 인코딩됩니다.
+    params.append('rewardName', selectedRewardName); // 자동으로 인코딩됩니다.
+    params.append('rewardDescription', selectedRewardDescription); // 자동으로 인코딩됩니다.
+
+    // 최종 URL 생성
+    const url = `/donation/buy.do?` + params.toString();
     window.location.href = url;
   }
 </script>

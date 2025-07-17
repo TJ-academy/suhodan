@@ -74,6 +74,8 @@
 							data-start-date="<fmt:formatDate value="${row.start_date}" pattern="yyyy-MM-dd" />"
 							data-end-date="<fmt:formatDate value="${row.end_date}" pattern="yyyy-MM-dd" />"
 							data-created-at="${row.created_at}"
+							data-reward-a-name="${row.reward_a_name}" data-reward-b-name="${row.reward_b_name}"
+							data-reward-c-name="${row.reward_c_name}" data-reward-d-name="${row.reward_d_name}"
 							data-location="${row.location}" data-filename="${row.filename}">수정</button>
 						<button class="delete-button" data-content-id="${row.content_id}">삭제</button>
 					</td>
@@ -102,6 +104,12 @@
 						$('#reg_popup_end_date').val('');
 						$('#reg_popup_created_at').val('');
 						$('#reg_popup_location').val('');
+						
+						$('#reg_popup_reward_a_name').val('');
+						$('#reg_popup_reward_b_name').val('');
+						$('#reg_popup_reward_c_name').val('');
+						$('#reg_popup_reward_d_name').val('');
+						
 						$('#reg_popup_filename').val('');
 					}
 
@@ -110,7 +118,7 @@
 						$('#overlay').hide();
 					}
 
-					function openEditPopup(contentId, title, content, targetAmount, startDate, endDate, createdAt, location, filename) {
+					function openEditPopup(contentId, title, content, targetAmount, startDate, endDate, createdAt, location, filename, rewardAName, rewardBName, rewardCName, rewardDName) {
 						$('#edit_popup').show();
 						$('#overlay').show();
 						$('#edit_popup_content_id').val(contentId);
@@ -121,6 +129,12 @@
 						$('#edit_popup_end_date').val(endDate);
 						$('#edit_popup_created_at').val(createdAt);
 						$('#edit_popup_location').val(location);
+						
+						$('#edit_popup_reward_a_name').val(rewardAName);
+						$('#edit_popup_reward_b_name').val(rewardBName);
+						$('#edit_popup_reward_c_name').val(rewardCName);
+						$('#edit_popup_reward_d_name').val(rewardDName);
+						
 						$('#edit_popup_filename').val('');
 						
 						if (filename) {
@@ -160,8 +174,12 @@
 						const endDate = $(this).data('end-date');
 						const createdAt = $(this).data('created-at');
 						const location = $(this).data('location');
+						const rewardAName = $(this).data('reward-a-name');
+						const rewardBName = $(this).data('reward-b-name');
+						const rewardCName = $(this).data('reward-c-name');
+						const rewardDName = $(this).data('reward-d-name');
 						const filename = $(this).data('filename');
-						openEditPopup(contentId, title, content, targetAmount, startDate, endDate, createdAt, location, filename);
+						openEditPopup(contentId, title, content, targetAmount, startDate, endDate, createdAt, location, filename, rewardAName, rewardBName, rewardCName, rewardDName);
 					});
 
 					$('table').on('click', '.delete-button', function() {

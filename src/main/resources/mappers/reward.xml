@@ -178,5 +178,18 @@
 		</where>
 	</select>
 	
+	<select id="selectRewardDetailsById" resultType="com.example.suhodan.reward.RewardDTO">
+        SELECT name, description 
+        FROM suho_reward
+        WHERE reward_id = #{reward_id}
+    </select>
+    
+    <select id="getRewardName" resultType="String">
+	    SELECT name FROM suho_reward WHERE reward_id = #{reward_id}
+	</select>
+	
+	<select id="getRewardId" resultType="int">
+	    SELECT reward_id FROM suho_reward WHERE name = #{name}
+	</select>
 	
 </mapper>
