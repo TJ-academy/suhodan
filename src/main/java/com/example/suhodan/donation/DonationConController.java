@@ -163,7 +163,6 @@ public class DonationConController {
 	}
 	
 	// 결제처리
-	// DonationConController.java
 	@PostMapping("payment/verify.do")
 	@ResponseBody
 	public Map<String, Object> verifyPayment(@RequestBody Map<String, Object> payload, HttpSession session) {

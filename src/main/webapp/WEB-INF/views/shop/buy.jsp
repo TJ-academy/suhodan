@@ -257,7 +257,7 @@ body {
 			<h3>결제 수단</h3>
 			<div class="radio-group">
 				<label>
-					<input type="radio" name="pay_method" id="payMethod1" value="카드" checked>
+					<input type="radio" name="pay_method" id="payMethod1" value="카드">
 					<span>신용/체크 카드</span>
 				</label>
 				<label>
