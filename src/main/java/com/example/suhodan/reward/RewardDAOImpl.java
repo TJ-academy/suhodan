@@ -59,4 +59,18 @@ public class RewardDAOImpl implements RewardDAO {
 	    return sqlSession.selectList("reward.listPagingSearch", param);
 	}
 	
+	@Override
+	public RewardDTO getRewardDetailsById(int reward_id) {
+        return sqlSession.selectOne("reward.selectRewardDetailsById", reward_id);
+    }
+	
+	@Override
+	public String getRewardName(int reward_id) {
+	    return sqlSession.selectOne("reward.getRewardName", reward_id);
+	}
+
+	@Override
+	public int getRewardId(String name) {
+		return sqlSession.selectOne("reward.getRewardId", name);
+	}
 }

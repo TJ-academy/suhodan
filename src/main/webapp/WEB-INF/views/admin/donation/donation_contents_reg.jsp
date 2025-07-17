@@ -34,6 +34,39 @@
 			<label for="reg_popup_location">지역</label> <input type="text"
 				id="reg_popup_location" name="location" required />
 		</div>
+		
+		<div class="form-item">
+			<label for="reg_popup_reward_a_name">만오천냥 리워드</label>
+		</div>
+		<div class="input-container">
+			<input type="text" id="reg_popup_reward_a_name" name="reward_a_name" required />
+			<img src="/resources/images/search-icon.png" id="reg_find_reward_button_1"
+				class="search-icon" alt="Search" />
+		</div>
+
+		<div class="form-item">
+            <label for="reg_popup_reward_b_name">삼만냥 리워드</label>
+        </div>
+        <div class="input-container">
+            <input type="text" id="reg_popup_reward_b_name" name="reward_b_name" />
+            <img src="/resources/images/search-icon.png" id="reg_find_reward_button_2" class="search-icon" alt="Search" />
+        </div>
+
+        <div class="form-item">
+            <label for="reg_popup_reward_c_name">오만냥 리워드</label>
+        </div>
+        <div class="input-container">
+            <input type="text" id="reg_popup_reward_c_name" name="reward_c_name" />
+            <img src="/resources/images/search-icon.png" id="reg_find_reward_button_3" class="search-icon" alt="Search" />
+        </div>
+
+        <div class="form-item">
+            <label for="reg_popup_reward_d_name">십만냥 리워드</label>
+        </div>
+        <div class="input-container">
+            <input type="text" id="reg_popup_reward_d_name" name="reward_d_name" />
+            <img src="/resources/images/search-icon.png" id="reg_find_reward_button_4" class="search-icon" alt="Search" />
+        </div>
 
 		<div class="form-item">
 			<label for="reg_popup_filename">이미지</label> <input type="file"
@@ -44,3 +77,24 @@
 		<button type="button" class="button close-reg-popup">닫기</button>
 	</form>
 </div>
+
+
+<script>
+    // 팝업을 여는 공통 함수
+    function openFindRewardPopup(targetInputId, popupName) {
+        window.open('donation_content_find_reward.do?targetInputId=' + targetInputId, popupName, 'width=600,height=800');
+    }
+
+    document.getElementById('reg_find_reward_button_1').addEventListener('click', function() {
+        openFindRewardPopup('reg_popup_reward_a_name', 'findRewardPopup1');
+    });
+    document.getElementById('reg_find_reward_button_2').addEventListener('click', function() {
+        openFindRewardPopup('reg_popup_reward_b_name', 'findRewardPopup2');
+    });
+    document.getElementById('reg_find_reward_button_3').addEventListener('click', function() {
+        openFindRewardPopup('reg_popup_reward_c_name', 'findRewardPopup3');
+    });
+    document.getElementById('reg_find_reward_button_4').addEventListener('click', function() {
+        openFindRewardPopup('reg_popup_reward_d_name', 'findRewardPopup4');
+    });
+</script>

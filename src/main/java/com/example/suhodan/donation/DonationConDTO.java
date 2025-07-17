@@ -28,4 +28,14 @@ public class DonationConDTO {
 	private int donated_amount; //누적 후원금액
 	//private long dDay; //D-DAY
 	private long dday;
+	
+	private int reward_a;
+	private int reward_b;
+	private int reward_c;
+	private int reward_d;
+	private String reward_a_name;
+	private String reward_b_name;
+	private String reward_c_name;
+	private String reward_d_name;
+	
 }

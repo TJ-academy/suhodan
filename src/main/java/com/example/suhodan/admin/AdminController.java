@@ -704,6 +704,13 @@ public class AdminController {
 		param.put("end", pu.getEnd());
 
 		List<DonationConDTO> list = donationConDao.listPagingSearch(param);
+		
+		for (DonationConDTO donationCon : list) {
+			donationCon.setReward_a_name(rewardDao.getRewardName(donationCon.getReward_a()));
+			donationCon.setReward_b_name(rewardDao.getRewardName(donationCon.getReward_b()));
+			donationCon.setReward_c_name(rewardDao.getRewardName(donationCon.getReward_c()));
+			donationCon.setReward_d_name(rewardDao.getRewardName(donationCon.getReward_d()));
+		}
 
 		mav.setViewName("/admin/donation/donation_contents_list");
 		mav.addObject("totalCount", totalCount);
@@ -720,6 +727,13 @@ public class AdminController {
 	@PostMapping("donation_contents_insert.do")
 	public String donation_contents_insert(DonationConDTO dto, HttpServletRequest request) {
 		String filename = "-";
+		
+		dto.setReward_a(rewardDao.getRewardId(dto.getReward_a_name()));
+		dto.setReward_b(rewardDao.getRewardId(dto.getReward_b_name()));
+		dto.setReward_c(rewardDao.getRewardId(dto.getReward_c_name()));
+		dto.setReward_d(rewardDao.getRewardId(dto.getReward_d_name()));
+		
+		System.out.println(dto);
 		try {
 			if (!dto.getFile1().isEmpty()) {
 				String originalImgName = dto.getFile1().getOriginalFilename();
@@ -743,6 +757,12 @@ public class AdminController {
 	@PostMapping("donation_contents_update.do")
 	public String donation_contents_update(DonationConDTO dto, HttpServletRequest request) {
 		String filename = "-";
+		
+		dto.setReward_a(rewardDao.getRewardId(dto.getReward_a_name()));
+		dto.setReward_b(rewardDao.getRewardId(dto.getReward_b_name()));
+		dto.setReward_c(rewardDao.getRewardId(dto.getReward_c_name()));
+		dto.setReward_d(rewardDao.getRewardId(dto.getReward_d_name()));
+		
 		try {
 			// 기존 이미지 파일명을 받는다.
 			String currentImg = donationConDao.file_info(dto.getContent_id());
@@ -793,6 +813,36 @@ public class AdminController {
 		}
 		donationConDao.delete(content_id);
 		return "redirect:/admin/donation_contents_list.do";
+	}
+	
+	@GetMapping("donation_content_find_reward.do")
+	public ModelAndView donation_content_find_reward(@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "searchType", defaultValue = "") String searchType,
+			@RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyword,
+			@RequestParam(value = "targetInputId", defaultValue = "") String targetInputId,ModelAndView mav) {
+
+		// 검색 조건을 param에 담기
+		Map<String, Object> param = new HashMap<>();
+		param.put("searchType", searchType);
+		param.put("searchKeyword", searchKeyword);
+
+		// 총 레코드 수 가져오기
+		int totalCount = rewardDao.getTotalCountSearch(param);
+		PageUtil pu = new PageUtil(page, totalCount);
+
+		param.put("start", pu.getStart());
+		param.put("end", pu.getEnd());
+
+		List<RewardDTO> list = rewardDao.listPagingSearch(param);
+
+		mav.setViewName("/admin/donation/find_reward");
+		mav.addObject("list", list);
+		mav.addObject("currentPage", pu.getCurrentPage());
+		mav.addObject("totalPage", pu.getTotalPage());
+		mav.addObject("searchType", searchType);
+		mav.addObject("searchKeyword", searchKeyword);
+		mav.addObject("targetInputId", targetInputId);
+		return mav;
 	}
 
 	@GetMapping("donation_list.do")
