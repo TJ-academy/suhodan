@@ -129,10 +129,6 @@
 	            <a href="/orders/list.do">주문 내역</a>
             </li>
             <li>
-	            <img src="/resources/suhodan_images/icon/delivery.png">
-	            <a href="#">배송 조회</a>
-            </li>
-            <li>
 	            <img src="/resources/suhodan_images/icon/badge.png">
 	            <a href="/mypage/mybadges">명패함</a>
             </li>
