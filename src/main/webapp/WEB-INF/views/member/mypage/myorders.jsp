@@ -268,7 +268,7 @@
                         	</c:when>
                         	<c:when test="${prevOrderStatus eq '환불요청'}">
                         		<p class="refund_text">환불 요청 중인 주문 건입니다.</p>
-                        	</c:when>                        	
+                        	</c:when>           
                         	<c:otherwise>
                         		<div class="btn_wrap">
                         			<button class="refund_btn" onclick="refundRequest(${prevOrderId})">

@@ -36,4 +36,20 @@ public class OrderDAOImpl implements OrderDAO {
 	public OrderDTO refund_detail(int order_id) {
 		return sqlSession.selectOne("orders.requestRefundDetail", order_id);
 	}
+	
+	//관리자 기능
+	@Override
+	public List<OrderDTO> order_all() {
+		return sqlSession.selectList("orders.order_all");
+	}
+	
+	@Override
+	public OrderDTO order_detail(int order_id) {
+		return sqlSession.selectOne("orders.order_detail", order_id);
+	}
+	
+	@Override
+	public void updateStatus(Map<String, Object> paramMap) {
+		sqlSession.update("orders.updateStatus", paramMap);
+	}
 }

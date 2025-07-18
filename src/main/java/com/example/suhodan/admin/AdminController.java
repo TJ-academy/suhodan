@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -28,6 +29,8 @@ import com.example.suhodan.legend.LegendDAO;
 import com.example.suhodan.legend.LegendDTO;
 import com.example.suhodan.member.MemberDAO;
 import com.example.suhodan.member.MemberDTO;
+import com.example.suhodan.orders.OrderDAO;
+import com.example.suhodan.orders.OrderDTO;
 import com.example.suhodan.reward.RewardDAO;
 import com.example.suhodan.reward.RewardDTO;
 import com.example.suhodan.util.PageUtil;
@@ -52,6 +55,8 @@ public class AdminController {
 	DonationConDAO donationConDao;
 	@Autowired
 	DonationTransactionDAO donationTADao;
+	@Autowired
+	OrderDAO orderDao;
 
 	@GetMapping("/")
 	public String home() {
@@ -886,8 +891,21 @@ public class AdminController {
 	
 	@GetMapping("order_list.do")
 	public ModelAndView order_list(ModelAndView mav) {
+		List<OrderDTO> list = orderDao.order_all();
+		mav.addObject("list", list);
 		mav.setViewName("/admin/goods/order_list");
 		return mav;
+	}
+	
+	@PostMapping("update_status.do")
+	public String update_status(@RequestParam("order_status") String order_status,
+			@RequestParam("order_id") int order_id) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("order_id", order_id);
+		paramMap.put("order_status", order_status);
+		
+		orderDao.updateStatus(paramMap);
+		return "redirect:/admin/order_list.do";
 	}
 	
 	@GetMapping("user_badge_list.do")
