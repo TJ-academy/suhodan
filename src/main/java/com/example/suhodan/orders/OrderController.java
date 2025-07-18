@@ -121,13 +121,36 @@ public class OrderController {
 		return mav;
 	}
 	
-	/*
-	@GetMapping("refund.do")
-	public String requestRefund(@RequestParam(name = "order_id") int order_id) {
-		orderDao.request_refund(order_id); //환불요청상태
-		String message = "success_refundRequest";
+	//배송디테일 페이지
+	@GetMapping("delivery_detail.do")
+	public ModelAndView deldetail(int order_id, ModelAndView mav) {
+		//배송디테일
+		List<Map<String, Object>> deldetails = orderDao.detailDelivery(order_id);
+		mav.addObject("deldetails", deldetails);
+		mav.setViewName("/member/mypage/deldetail");
 		
-		return "redirect:/orders/list.do?message=" + message;
+		return mav;
+	}
+	
+	//배송조회 페이지(폐기? 필요없어짐. 해당 xml, dao, daoimpl도 삭제할것)
+	/*
+	@GetMapping("delivery_list.do")
+	public ModelAndView delist(HttpSession session, ModelAndView mav) {
+		String user_id = (String) session.getAttribute("user_id");
+		
+	    if (user_id == null) {
+	        // 로그인 안된 경우 로그인 페이지로 리다이렉트
+	        return new ModelAndView("redirect:/login.do?message=nologin");
+	    }
+		
+		//사용자 배송현황 목록 불러오기
+		List<Map<String, Object>> dels = orderDao.selectDeliveryStatus(user_id);
+		mav.addObject("delis", dels);
+		mav.setViewName("/member/mypage/mydelis");
+		
+		return mav;
 	}
 	*/
+
+	
 }
