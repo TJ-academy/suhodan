@@ -9,14 +9,14 @@
 		filename, rewarda, rewardb, rewardc, rewardd)
 		values (donation_content_seq.nextval, #{title}, #{content},
 		#{target_amount}, #{start_date}, #{end_date}, #{location}, sysdate,
-		#{filename},(select reward_id from suho_reward where name = #{rewarda_name}
+		#{filename},(select reward_id from suho_reward where name = #{rewardaname}
 		and ROWNUM &lt;= 1),
 		(select reward_id from suho_reward where name =
-		#{rewardb_name} and ROWNUM &lt;= 1),
+		#{rewardbname} and ROWNUM &lt;= 1),
 		(select reward_id from suho_goods
-		where name = #{rewardc_name} and ROWNUM &lt;= 1),
+		where name = #{rewardcname} and ROWNUM &lt;= 1),
 		(select reward_id from
-		suho_reward where name = #{rewardd_name} and ROWNUM &lt;= 1))
+		suho_reward where name = #{rewarddname} and ROWNUM &lt;= 1))
 	</insert>
 
 	<update id="update">

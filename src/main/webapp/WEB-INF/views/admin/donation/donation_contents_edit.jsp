@@ -39,35 +39,35 @@
 		</div>
 		
 		<div class="form-item">
-			<label for="edit_popup_rewarda_name">만오천냥 리워드</label>
+			<label for="edit_popup_rewardaname">만오천냥 리워드</label>
 		</div>
 		<div class="input-container">
-			<input type="text" id="edit_popup_rewarda_name" name="rewarda_name" required />
+			<input type="text" id="edit_popup_rewardaname" name="rewardaname" required />
 			<img src="/resources/images/search-icon.png" id="edit_find_reward_button_1"
 				class="search-icon" alt="Search" />
 		</div>
 
 		<div class="form-item">
-            <label for="edit_popup_rewardb_name">삼만냥 리워드</label>
+            <label for="edit_popup_rewardbname">삼만냥 리워드</label>
         </div>
         <div class="input-container">
-            <input type="text" id="edit_popup_rewardb_name" name="rewardb_name" />
+            <input type="text" id="edit_popup_rewardbname" name="rewardbname" />
             <img src="/resources/images/search-icon.png" id="edit_find_reward_button_2" class="search-icon" alt="Search" />
         </div>
 
         <div class="form-item">
-            <label for="edit_popup_rewardc_name">오만냥 리워드</label>
+            <label for="edit_popup_rewardcname">오만냥 리워드</label>
         </div>
         <div class="input-container">
-            <input type="text" id="edit_popup_rewardc_name" name="rewardc_name" />
+            <input type="text" id="edit_popup_rewardcname" name="rewardcname" />
             <img src="/resources/images/search-icon.png" id="edit_find_reward_button_3" class="search-icon" alt="Search" />
         </div>
 
         <div class="form-item">
-            <label for="edit_popup_rewardd_name">십만냥 리워드</label>
+            <label for="edit_popup_rewarddname">십만냥 리워드</label>
         </div>
         <div class="input-container">
-            <input type="text" id="edit_popup_rewardd_name" name="rewardd_name" />
+            <input type="text" id="edit_popup_rewarddname" name="rewarddname" />
             <img src="/resources/images/search-icon.png" id="edit_find_reward_button_4" class="search-icon" alt="Search" />
         </div>
         
@@ -96,15 +96,15 @@
     }
 
     document.getElementById('edit_find_reward_button_1').addEventListener('click', function() {
-        openFindRewardPopup('edit_popup_rewarda_name', 'findRewardPopup1');
+        openFindRewardPopup('edit_popup_rewardaname', 'findRewardPopup1');
     });
     document.getElementById('edit_find_reward_button_2').addEventListener('click', function() {
-        openFindRewardPopup('edit_popup_rewardb_name', 'findRewardPopup2');
+        openFindRewardPopup('edit_popup_rewardbname', 'findRewardPopup2');
     });
     document.getElementById('edit_find_reward_button_3').addEventListener('click', function() {
-        openFindRewardPopup('edit_popup_rewardc_name', 'findRewardPopup3');
+        openFindRewardPopup('edit_popup_rewardcname', 'findRewardPopup3');
     });
     document.getElementById('edit_find_reward_button_4').addEventListener('click', function() {
-        openFindRewardPopup('edit_popup_rewardd_name', 'findRewardPopup4');
+        openFindRewardPopup('edit_popup_rewarddname', 'findRewardPopup4');
     });
 </script>

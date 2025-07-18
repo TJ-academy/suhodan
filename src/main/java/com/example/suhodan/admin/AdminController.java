@@ -708,10 +708,10 @@ public class AdminController {
 		List<DonationConDTO> list = donationConDao.listPagingSearch(param);
 		
 		for (DonationConDTO donationCon : list) {
-			donationCon.setRewarda_name(rewardDao.getRewardName(donationCon.getRewarda()));
-			donationCon.setRewardb_name(rewardDao.getRewardName(donationCon.getRewardb()));
-			donationCon.setRewardc_name(rewardDao.getRewardName(donationCon.getRewardc()));
-			donationCon.setRewardd_name(rewardDao.getRewardName(donationCon.getRewardd()));
+			donationCon.setRewardaname(rewardDao.getRewardName(donationCon.getRewarda()));
+			donationCon.setRewardbname(rewardDao.getRewardName(donationCon.getRewardb()));
+			donationCon.setRewardcname(rewardDao.getRewardName(donationCon.getRewardc()));
+			donationCon.setRewarddname(rewardDao.getRewardName(donationCon.getRewardd()));
 		}
 
 		mav.setViewName("/admin/donation/donation_contents_list");
@@ -734,10 +734,10 @@ public class AdminController {
 		
 		String filename = "-";
 		
-		dto.setRewarda(rewardDao.getRewardId(dto.getRewarda_name()));
-		dto.setRewardb(rewardDao.getRewardId(dto.getRewardb_name()));
-		dto.setRewardc(rewardDao.getRewardId(dto.getRewardc_name()));
-		dto.setRewardd(rewardDao.getRewardId(dto.getRewardd_name()));
+		dto.setRewarda(rewardDao.getRewardId(dto.getRewardaname()));
+		dto.setRewardb(rewardDao.getRewardId(dto.getRewardbname()));
+		dto.setRewardc(rewardDao.getRewardId(dto.getRewardcname()));
+		dto.setRewardd(rewardDao.getRewardId(dto.getRewarddname()));
 		
 		System.out.println(dto);
 		try {

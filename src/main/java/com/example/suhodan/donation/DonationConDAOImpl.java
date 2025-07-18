@@ -7,8 +7,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.example.suhodan.reward.RewardDTO;
-
 @Repository
 public class DonationConDAOImpl implements DonationConDAO {
 

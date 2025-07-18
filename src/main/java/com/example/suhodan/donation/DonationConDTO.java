@@ -33,8 +33,8 @@ public class DonationConDTO {
 	private int rewardb;
 	private int rewardc;
 	private int rewardd;
-	private String rewarda_name;
-	private String rewardb_name;
-	private String rewardc_name;
-	private String rewardd_name;
+	private String rewardaname;
+	private String rewardbname;
+	private String rewardcname;
+	private String rewarddname;
 }
