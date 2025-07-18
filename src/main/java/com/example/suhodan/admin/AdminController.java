@@ -883,4 +883,16 @@ public class AdminController {
 
 		return mav;
 	}
+	
+	@GetMapping("order_list.do")
+	public ModelAndView order_list(ModelAndView mav) {
+		mav.setViewName("/admin/goods/order_list");
+		return mav;
+	}
+	
+	@GetMapping("user_badge_list.do")
+	public ModelAndView user_badge_list(ModelAndView mav) {
+		mav.setViewName("/admin/badge/user_badge_list");
+		return mav;
+	}
 }
