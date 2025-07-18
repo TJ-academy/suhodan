@@ -282,7 +282,10 @@
                         <div class="order-info">
                             <div class="date">${item.ORDER_DATE}</div>
                             <div class="desc">${item.PRODUCT_NAME} | ${item.QUANTITY}개</div>
-                            <div class="quantity-price">${item.UNIT_PRICE}원</div>
+                            <div class="quantity-price">
+	                            <fmt:formatNumber value="${item.UNIT_PRICE}" />원
+                            </div>
+                            
                         </div>
                     </div>
                 </c:forEach>
