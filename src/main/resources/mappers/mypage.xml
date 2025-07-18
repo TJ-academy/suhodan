@@ -95,8 +95,8 @@
     </select>
     
     <select id="rewardDetail" resultType="com.example.suhodan.member.mypage.MypageDTO">
-    	select DONOR_ID user_id, TRANSACTION_ID, dt.CONTENT_ID project_id, sdc.title project_title, sdc.FILENAME project_img, start_date, end_date, location, AMOUNT, DONATION_DATE, dt.REWARD_ID reward_id, sr.name reward_name, description reward_desc, img reward_img, goods_1, goods_2, goods_3, goods_4
-    	from donation_transaction dt, suho_reward sr, suho_donation_content sdc
-    	where dt.REWARD_ID = sr.reward_id and sdc.content_id = dt.CONTENT_ID and transaction_id = #{transaction_id}
+    	select DONOR_ID user_id, dt.TRANSACTION_ID transaction_id, dt.CONTENT_ID project_id, sdc.title project_title, sdc.FILENAME project_img, start_date, end_date, location, AMOUNT, DONATION_DATE, dt.REWARD_ID reward_id, sr.name reward_name, description reward_desc, img reward_img, goods_1, goods_2, goods_3, goods_4, sub.id userbadge_id
+    	from donation_transaction dt, suho_reward sr, suho_donation_content sdc, suho_userbadge sub
+    	where dt.REWARD_ID = sr.reward_id and sdc.content_id = dt.CONTENT_ID and dt.transaction_id = #{transaction_id} and dt.transaction_id = sub.transaction_id
     </select>
 </mapper>
