@@ -106,7 +106,7 @@ body {
 
 /* 설명 영역 */
 .product-description {
-	font-size: 22px;
+	font-size: 19px;
 	line-height: 1.7;
 	color: #333;
 	margin-bottom: 40px;
