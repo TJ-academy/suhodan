@@ -3,18 +3,18 @@
 <mapper namespace="userbadge">
     <insert id="insertBadgeForQualifiedUsers">
         INSERT INTO suho_userbadge (user_id, badge_id, transaction_id)
-        SELECT dt.donor_id, b.badge_id, transaction_id
+        SELECT dt.donor_id, b.badge_id, #{transaction_id}
         FROM donation_transaction dt
         JOIN suho_donation_content dc ON dt.content_id = dc.content_id
         JOIN suho_badge b 
           ON REGEXP_SUBSTR(dc.location, '^[^군시]+') = REGEXP_SUBSTR(b.name, '^[^ ]+')
-        GROUP BY dt.donor_id, b.badge_id, transaction_id
-        HAVING SUM(dt.amount) >= 50000
-           AND NOT EXISTS (
-               SELECT 1 FROM suho_userbadge ub
-               WHERE ub.user_id = dt.donor_id
-                 AND ub.badge_id = b.badge_id
-           )
+        WHERE NOT EXISTS (
+        SELECT 1 FROM suho_userbadge ub
+        WHERE ub.user_id = dt.donor_id
+          AND ub.badge_id = b.badge_id
+    )
+    GROUP BY dt.donor_id, b.badge_id
+    HAVING SUM(dt.amount) >= 50000
     </insert>
 	<select id="checkBadgeGranted" parameterType="String" resultType="String">
 	    SELECT b.name

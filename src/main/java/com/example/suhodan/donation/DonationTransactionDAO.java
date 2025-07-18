@@ -9,4 +9,5 @@ public interface DonationTransactionDAO {
 	List<DonationTransactionDTO> listPaging(Map<String, Integer> param);
 	List<DonationListDTO> listPagingSearch(Map<String, Object> param);
 	int getTotalCount(String searchType, String searchKeyword);
+	int getTransactionId(String imp_uid);
 }

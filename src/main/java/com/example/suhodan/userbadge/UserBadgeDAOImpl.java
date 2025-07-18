@@ -13,8 +13,8 @@ public class UserBadgeDAOImpl implements UserBadgeDAO {
     private SqlSession sqlSession;
 
     @Override
-    public int insertBadgeForQualifiedUsers() {
-        return sqlSession.insert(NAMESPACE + "insertBadgeForQualifiedUsers");
+    public int insertBadgeForQualifiedUsers(int transaction_id) {
+        return sqlSession.insert(NAMESPACE + "insertBadgeForQualifiedUsers", transaction_id);
     }
     
     @Override

@@ -4,13 +4,13 @@ import java.io.File;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.suhodan.mail.HtmlEmailService;
+import com.example.suhodan.member.MemberDAO;
+import com.example.suhodan.orders.OrderDAO;
+import com.example.suhodan.orders.OrderDTO;
 import com.example.suhodan.reward.RewardDAO;
 import com.example.suhodan.reward.RewardDTO;
 import com.example.suhodan.userbadge.UserBadgeDAO;
@@ -39,6 +42,12 @@ public class DonationConController {
 	UserBadgeDAO userBadgeDao;
 	@Autowired
 	RewardDAO rewardDao;
+	@Autowired
+    MemberDAO memberDao;
+	@Autowired
+    OrderDAO orderDao;
+	@Autowired
+    DonationTransactionDAO dtDao;
 	@Autowired
 	HtmlEmailService htmlEmailService;
 	
@@ -186,12 +195,14 @@ public class DonationConController {
 	        tx.setImp_uid((String) payload.get("imp_uid"));
 
 	        donationConDao.insertTransaction(tx); // DAO 메서드 호출
-
+	        
+	        result.put("imp_uid", tx.getImp_uid());
+	        int ti = dtDao.getTransactionId(tx.getImp_uid());
 	        // 뱃지 발급 (5만원 이상 결제 시)
 	        String badgeMessage = null;
 	        String location = null;
 	        if (tx.getAmount() >= 50000) {
-	            userBadgeDao.insertBadgeForQualifiedUsers();
+	            userBadgeDao.insertBadgeForQualifiedUsers(ti);
 	            location = userBadgeDao.getBadgeLocationForUser(userId);  // 지역 이름 가져오기
 	            badgeMessage = location + " 뱃지가 발급되었습니다."; // 지역 뱃지 발급 메시지
 	        }
@@ -236,7 +247,10 @@ public class DonationConController {
 	}
 	
 	@GetMapping("/reward/select.do") 
-	public ModelAndView selectRewardPage(@RequestParam("amount") int amount, @RequestParam("content_id") int content_id, ModelAndView mav) {
+	public ModelAndView selectRewardPage(@RequestParam("amount") int amount, 
+			@RequestParam("content_id") int content_id, 
+			@RequestParam("imp_uid") String imp_uid,
+			ModelAndView mav) {
 		
 		int rewardaid = donationConDao.getRewardAByContentId(content_id);
 		int rewardbid = donationConDao.getRewardBByContentId(content_id);
@@ -267,37 +281,81 @@ public class DonationConController {
 	    mav.addObject("rewardbdescription", rewardbdescription);
 	    mav.addObject("rewardcdescription", rewardcdescription);
 	    mav.addObject("rewardddescription", rewardddescription);
+	    mav.addObject("imp_uid", imp_uid);
 	    
 	    return mav;
 	}
 	
 	@GetMapping("buy.do")
-	public ModelAndView buyRewardPage(
+	public ModelAndView buyRewardPage(HttpSession session,
 	    @RequestParam("amount") int amount,
 	    @RequestParam("tier") String tier,
+	    @RequestParam("imp_uid") String imp_uid,
 	    ModelAndView mav
 	) {
-	    // RewardDTO는 tier에 따라 하드코딩된 값 세팅 가능
+		String user_id = (String) session.getAttribute("user_id");
+		// RewardDTO는 tier에 따라 하드코딩된 값 세팅 가능
 	    RewardDTO reward = new RewardDTO();
 	    reward.setPrice_type("0원"); // 항상 0원
 
 	    if ("15-30".equals(tier)) {
 	        reward.setName("15,000원 이상 리워드");
-	        reward.setGoods_1_name("설화 스티커 5종");
-	        reward.setGoods_2_name("엽서 세트");
+	        reward.setGoods_1_name("정선 곤드레 나물 300g(건조)");
+	        reward.setGoods_2_name("횡성한우 1++ 등심 500g");
+	        reward.setReward_id(49);
 	    } else if ("30-50".equals(tier)) {
 	        reward.setName("30,000원 이상 리워드");
-	        reward.setGoods_1_name("엽서 세트");
-	        reward.setGoods_2_name("안동 사과 2kg + 사과주스");
+	        reward.setGoods_1_name("청도 곶감 300g");
+	        reward.setGoods_2_name("청도 사과즙 1L");
+	        reward.setGoods_3_name("청도 반시 1kg");
+	        reward.setReward_id(47);
+	    } else if ("50-100".equals(tier)) {
+	    	reward.setName("50,000원 이상 리워드");
+	        reward.setGoods_1_name("정선 더덕 500g");
+	        reward.setGoods_2_name("정선 황기 백숙용 200g");
+	        reward.setGoods_3_name("정선 곤드레 나물 300g(건조)");
+	        reward.setReward_id(48);
+	    }else if ("100-".equals(tier)) {
+	    	reward.setName("100,000원 이상 리워드");
+	        reward.setGoods_1_name("영월 토마토 2박스");
+	        reward.setGoods_2_name("향이 진한 남해 마늘 300g");
+	        reward.setGoods_3_name("포천 막걸리 600ml");
+	        reward.setGoods_4_name("충주 복숭아 6구");
+	        reward.setReward_id(50);
 	    }
 	    // 나머지 구간도 조건문으로 분기
-
+	    mav.addObject("dto", memberDao.detail(user_id));
 	    mav.setViewName("donation/buy"); // buy.jsp
 	    mav.addObject("reward", reward);
 	    return mav;
 	}
-
-
-
 	
+	@PostMapping("complete.do")
+    public String completeOrder(
+            @RequestParam("order_address1") String address1,
+            @RequestParam("order_address2") String address2,
+            @RequestParam("phone") String phone,
+            @RequestParam("imp_uid") String imp_uid,
+            @RequestParam("reward_id") int reward_id,
+            HttpSession session,
+            Model model) {
+    	String receiver = (String) session.getAttribute("name");
+        String user_id = (String) session.getAttribute("user_id");
+        
+        rewardDao.updateUserReward(reward_id, imp_uid);
+        
+        OrderDTO ot = new OrderDTO();
+        ot.setUser_id(user_id);
+        ot.setOrder_amount(0);
+        ot.setPay_method("카드");
+        ot.setRefund_bank("무료");
+        ot.setRefund_account("무료");
+        ot.setOrder_address1(address1);
+        ot.setOrder_address2(address2);
+        ot.setPhone(phone);
+
+        orderDao.order(ot);
+
+        return "member/mypage/myreward";
+    }
 }
