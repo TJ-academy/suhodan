@@ -29,13 +29,12 @@ public class DonationConDTO {
 	//private long dDay; //D-DAY
 	private long dday;
 	
-	private int reward_a;
-	private int reward_b;
-	private int reward_c;
-	private int reward_d;
-	private String reward_a_name;
-	private String reward_b_name;
-	private String reward_c_name;
-	private String reward_d_name;
-	
+	private int rewarda;
+	private int rewardb;
+	private int rewardc;
+	private int rewardd;
+	private String rewarda_name;
+	private String rewardb_name;
+	private String rewardc_name;
+	private String rewardd_name;
 }

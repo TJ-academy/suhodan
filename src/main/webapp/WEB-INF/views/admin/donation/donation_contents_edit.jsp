@@ -3,7 +3,8 @@
 <div id="edit_popup" class="popup">
 	<h3>기부 프로젝트 수정</h3>
 	<form action="donation_contents_update.do" method="post"
-		enctype="multipart/form-data">
+		enctype="multipart/form-data"> 
+<!-- <form action="donation_contents_update.do" method="post"> -->		
 		<div class="form-item">
 			<label for="edit_popup_title">제목</label> <input type="text"
 				id="edit_popup_title" name="title" required />
@@ -71,8 +72,9 @@
         </div>
         
 		<div class="form-item">
-			<label for="edit_popup_filename">이미지</label> <input type="file"
-				id="edit_popup_filename" name="File1" accept="image/*" />
+			<label for="edit_popup_filename">이미지</label> 
+			<input type="file"
+				id="edit_popup_filename" name="file1" accept="image/*" />
 			<!-- 현재 이미지 출력 -->
 			<div id="current_image_container" style="display: none;">
 				<label>현재 이미지: <span id="current_image_name"></span></label> <img

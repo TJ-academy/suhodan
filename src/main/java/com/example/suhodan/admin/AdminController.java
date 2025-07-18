@@ -9,9 +9,11 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.suhodan.badge.BadgeDAO;
@@ -706,10 +708,10 @@ public class AdminController {
 		List<DonationConDTO> list = donationConDao.listPagingSearch(param);
 		
 		for (DonationConDTO donationCon : list) {
-			donationCon.setReward_a_name(rewardDao.getRewardName(donationCon.getReward_a()));
-			donationCon.setReward_b_name(rewardDao.getRewardName(donationCon.getReward_b()));
-			donationCon.setReward_c_name(rewardDao.getRewardName(donationCon.getReward_c()));
-			donationCon.setReward_d_name(rewardDao.getRewardName(donationCon.getReward_d()));
+			donationCon.setRewarda_name(rewardDao.getRewardName(donationCon.getRewarda()));
+			donationCon.setRewardb_name(rewardDao.getRewardName(donationCon.getRewardb()));
+			donationCon.setRewardc_name(rewardDao.getRewardName(donationCon.getRewardc()));
+			donationCon.setRewardd_name(rewardDao.getRewardName(donationCon.getRewardd()));
 		}
 
 		mav.setViewName("/admin/donation/donation_contents_list");
@@ -726,12 +728,16 @@ public class AdminController {
 
 	@PostMapping("donation_contents_insert.do")
 	public String donation_contents_insert(DonationConDTO dto, HttpServletRequest request) {
+		
+		
+		System.out.println("dto:"+dto);
+		
 		String filename = "-";
 		
-		dto.setReward_a(rewardDao.getRewardId(dto.getReward_a_name()));
-		dto.setReward_b(rewardDao.getRewardId(dto.getReward_b_name()));
-		dto.setReward_c(rewardDao.getRewardId(dto.getReward_c_name()));
-		dto.setReward_d(rewardDao.getRewardId(dto.getReward_d_name()));
+		dto.setRewarda(rewardDao.getRewardId(dto.getRewarda_name()));
+		dto.setRewardb(rewardDao.getRewardId(dto.getRewardb_name()));
+		dto.setRewardc(rewardDao.getRewardId(dto.getRewardc_name()));
+		dto.setRewardd(rewardDao.getRewardId(dto.getRewardd_name()));
 		
 		System.out.println(dto);
 		try {
@@ -755,19 +761,22 @@ public class AdminController {
 	}
 
 	@PostMapping("donation_contents_update.do")
-	public String donation_contents_update(DonationConDTO dto, HttpServletRequest request) {
+	public String donation_contents_update(@ModelAttribute DonationConDTO dto, MultipartFile file1, HttpServletRequest request) {
+		
+		System.out.println("dto:"+dto);
+		
 		String filename = "-";
 		
-		dto.setReward_a(rewardDao.getRewardId(dto.getReward_a_name()));
-		dto.setReward_b(rewardDao.getRewardId(dto.getReward_b_name()));
-		dto.setReward_c(rewardDao.getRewardId(dto.getReward_c_name()));
-		dto.setReward_d(rewardDao.getRewardId(dto.getReward_d_name()));
+		dto.setRewarda(rewardDao.getRewardId(dto.getRewarda_name()));
+		dto.setRewardb(rewardDao.getRewardId(dto.getRewardb_name()));
+		dto.setRewardc(rewardDao.getRewardId(dto.getRewardc_name()));
+		dto.setRewardd(rewardDao.getRewardId(dto.getRewardd_name()));
 		
 		try {
 			// 기존 이미지 파일명을 받는다.
 			String currentImg = donationConDao.file_info(dto.getContent_id());
 
-			if (!dto.getFile1().isEmpty()) {
+			if (!file1.isEmpty()) {
 				if (currentImg != null && !currentImg.equals("-")) {
 					// 기존 이미지 삭제
 					ServletContext application = request.getSession().getServletContext();
@@ -779,20 +788,20 @@ public class AdminController {
 				}
 
 				// 새 이미지가 업로드되면 기존 파일명을 덮어씌운다.
-				String originalImgName = dto.getFile1().getOriginalFilename();
+				String originalImgName =file1.getOriginalFilename();
 				String imgUUID = UUID.randomUUID().toString(); // UUID 생성
 				String fileExtension = originalImgName.substring(originalImgName.lastIndexOf("."));
 				filename = imgUUID + fileExtension; // UUID를 붙인 파일명
 
 				ServletContext application = request.getSession().getServletContext();
 				String path = application.getRealPath("/resources/donation_img/");
-				dto.getFile1().transferTo(new File(path + filename));
+				file1.transferTo(new File(path + filename));
 			} else {
 				// 새 이미지가 없으면 기존 이미지를 유지한다.
 				filename = currentImg;
 			}
 			dto.setFilename(filename);
-			donationConDao.update(dto);
+			//donationConDao.update(dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error"; // 예외 처리

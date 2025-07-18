@@ -97,18 +97,17 @@
 						$('#reg_popup').show();
 						$('#overlay').show();
 						
-						$('#reg_popup_title').val('');
-						$('#reg_popup_content').val('');
-						$('#reg_popup_target_amount').val('');
-						$('#reg_popup_start_date').val('');
-						$('#reg_popup_end_date').val('');
-						$('#reg_popup_created_at').val('');
-						$('#reg_popup_location').val('');
+						$('#reg_popup_title').val('테스트 프로젝트 제목');
+						$('#reg_popup_content').val('테스트 내용');
+						$('#reg_popup_target_amount').val('1300000');
+						$('#reg_popup_start_date').val('2025-07-17');
+						$('#reg_popup_end_date').val('2025-08-17');
+						$('#reg_popup_location').val('테스트');
 						
-						$('#reg_popup_reward_a_name').val('');
-						$('#reg_popup_reward_b_name').val('');
-						$('#reg_popup_reward_c_name').val('');
-						$('#reg_popup_reward_d_name').val('');
+						$('#reg_popup_reward_a_name').val('정선 산들 약초 (오만냥 리워드)');
+						$('#reg_popup_reward_b_name').val('정선 산들 약초 (오만냥 리워드)');
+						$('#reg_popup_reward_c_name').val('정선 산들 약초 (오만냥 리워드)');
+						$('#reg_popup_reward_d_name').val('정선 산들 약초 (오만냥 리워드)');
 						
 						$('#reg_popup_filename').val('');
 					}
