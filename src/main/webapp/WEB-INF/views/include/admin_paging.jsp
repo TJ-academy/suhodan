@@ -10,6 +10,9 @@
 					<c:when test="${currentCategory == 'admin_goods'}">
 						<c:set var="baseUrl" value="goods_list.do" />
 					</c:when>
+					<c:when test="${currentCategory == 'admin_order'}">
+						<c:set var="baseUrl" value="order_list.do" />
+					</c:when>
 					<c:when test="${currentCategory == 'admin_member'}">
 						<c:set var="baseUrl" value="member_list.do" />
 					</c:when>
@@ -21,6 +24,9 @@
 					</c:when>
 					<c:when test="${currentCategory == 'admin_badge'}">
 						<c:set var="baseUrl" value="badge_list.do" />
+					</c:when>
+					<c:when test="${currentCategory == 'admin_user_badge'}">
+						<c:set var="baseUrl" value="user_badge_list.do" />
 					</c:when>
 					<c:when test="${currentCategory == 'admin_reward'}">
 						<c:set var="baseUrl" value="reward_list.do" />
@@ -53,6 +59,9 @@
 				<c:when test="${currentCategory == 'admin_goods'}">
 					<c:set var="baseUrl" value="goods_list.do" />
 				</c:when>
+				<c:when test="${currentCategory == 'admin_order'}">
+					<c:set var="baseUrl" value="order_list.do" />
+				</c:when>
 				<c:when test="${currentCategory == 'admin_member'}">
 					<c:set var="baseUrl" value="member_list.do" />
 				</c:when>
@@ -64,6 +73,9 @@
 				</c:when>
 				<c:when test="${currentCategory == 'admin_badge'}">
 					<c:set var="baseUrl" value="badge_list.do" />
+				</c:when>
+				<c:when test="${currentCategory == 'admin_user_badge'}">
+					<c:set var="baseUrl" value="user_badge_list.do" />
 				</c:when>
 				<c:when test="${currentCategory == 'admin_reward'}">
 					<c:set var="baseUrl" value="reward_list.do" />
@@ -100,6 +112,9 @@
 					<c:when test="${currentCategory == 'admin_goods'}">
 						<c:set var="baseUrl" value="goods_list.do" />
 					</c:when>
+					<c:when test="${currentCategory == 'admin_order'}">
+						<c:set var="baseUrl" value="order_list.do" />
+					</c:when>
 					<c:when test="${currentCategory == 'admin_member'}">
 						<c:set var="baseUrl" value="member_list.do" />
 					</c:when>
@@ -111,6 +126,9 @@
 					</c:when>
 					<c:when test="${currentCategory == 'admin_badge'}">
 						<c:set var="baseUrl" value="badge_list.do" />
+					</c:when>
+					<c:when test="${currentCategory == 'admin_user_badge'}">
+						<c:set var="baseUrl" value="user_badge_list.do" />
 					</c:when>
 					<c:when test="${currentCategory == 'admin_reward'}">
 						<c:set var="baseUrl" value="reward_list.do" />

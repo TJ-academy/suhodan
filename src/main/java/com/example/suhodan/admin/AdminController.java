@@ -890,10 +890,36 @@ public class AdminController {
 	}
 	
 	@GetMapping("order_list.do")
-	public ModelAndView order_list(ModelAndView mav) {
-		List<OrderDTO> list = orderDao.order_all();
-		mav.addObject("list", list);
+	public ModelAndView order_list(@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "searchType", defaultValue = "") String searchType,
+			@RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyword,
+			@RequestParam(value = "sortBy", defaultValue = "join_date") String sortBy,
+			@RequestParam(value = "sortOrder", defaultValue = "desc") String sortOrder, ModelAndView mav) {
+		// 검색과 정렬 조건을 param에 담기
+		Map<String, Object> param = new HashMap<>();
+		param.put("searchType", searchType);
+		param.put("searchKeyword", searchKeyword);
+		param.put("sortBy", sortBy);
+		param.put("sortOrder", sortOrder);
+
+		// 총 레코드 수 가져오기
+		int totalCount = orderDao.getTotalCountSearch(param);
+		PageUtil pu = new PageUtil(page, totalCount);
+
+		param.put("start", pu.getStart());
+		param.put("end", pu.getEnd());
+
+		List<OrderDTO> list = orderDao.listPagingSearch(param);
+
 		mav.setViewName("/admin/goods/order_list");
+		mav.addObject("totalCount", totalCount);
+		mav.addObject("list", list);
+		mav.addObject("currentPage", pu.getCurrentPage());
+		mav.addObject("totalPage", pu.getTotalPage());
+		mav.addObject("searchType", searchType);
+		mav.addObject("searchKeyword", searchKeyword);
+		mav.addObject("sortBy", sortBy);
+		mav.addObject("sortOrder", sortOrder);
 		return mav;
 	}
 	

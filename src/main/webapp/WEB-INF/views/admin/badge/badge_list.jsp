@@ -14,7 +14,7 @@
 <body>
 	<%@ include file="../../include/admin_menu.jsp"%>
 	<h2>명패 관리</h2>
-    <button class="add-btn">추가하기</button>
+    <button class="add-btn" id="addButton">추가하기</button>
 	<br>
 	
 	<div class="search-box">
