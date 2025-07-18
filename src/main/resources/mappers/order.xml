@@ -37,4 +37,10 @@
 	<delete id="orderCancel">
 		delete from suho_orders where order_id = #{order_id}
 	</delete>
+	<update id="requestRefund">
+		update suho_orders set order_status = '환불요청' where order_id= #{order_id}
+	</update>
+	<select id="requestRefundDetail" resultType="com.example.suhodan.orders.OrderDTO">
+		select order_id, order_amount, refund_bank, refund_account from suho_orders where order_id = #{order_id}
+	</select>
 </mapper>
