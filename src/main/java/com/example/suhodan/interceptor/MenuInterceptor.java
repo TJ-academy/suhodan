@@ -24,8 +24,12 @@ public class MenuInterceptor implements HandlerInterceptor {
             currentCategory = "admin_reward_find_goods";
         } else if (currentUrl.contains("/admin/goods_list.do")) {
             currentCategory = "admin_goods";
+        } else if (currentUrl.contains("/admin/order_list.do")) {
+            currentCategory = "admin_order";
         } else if (currentUrl.contains("/admin/badge_list.do")) {
             currentCategory = "admin_badge";
+        } else if (currentUrl.contains("/admin/user_badge_list.do")) {
+            currentCategory = "admin_user_badge";
         } else if (currentUrl.contains("/admin/donation_contents_list.do")) {
             currentCategory = "admin_donation_contents";
         } else if (currentUrl.contains("/admin/donation_list.do")) {

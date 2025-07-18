@@ -152,7 +152,7 @@
 							</p>
 							<p>보유 배지 : 보유 배지</p>
 							<p>주소 : ${row.address1} ${row.address2}</p>
-							<p>핸드폰 번호 : ${row.phone1} - ${row.phone2} - ${row.phone3}</p>
+							<p>휴대폰 번호 : ${row.phone1} - ${row.phone2} - ${row.phone3}</p>
 							<div class="detail-buttons">
 								<button class="close-details">확인</button>
 							</div>

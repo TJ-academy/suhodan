@@ -17,6 +17,9 @@
 		<result property="birth" column="birth" />
 		<result property="address1" column="address1" />
 		<result property="address2" column="address2" />
+		<result property="phone1" column="phone1" />
+		<result property="phone2" column="phone2" />
+		<result property="phone3" column="phone3" />
 
 		<result property="total_donation" column="total_donation" />
 		<result property="badge_count" column="badge_count" />
@@ -51,6 +54,9 @@
 		u.birth,
 		u.address1,
 		u.address2,
+		u.phone1,
+		u.phone2,
+		u.phone3,
 		COALESCE(ub.badge_count, 0) AS badge_count,
 		COALESCE(dt.total_donation, 0) AS total_donation
 		FROM suho_user u
@@ -118,7 +124,8 @@
 	<update id="update">
 		update suho_user
 		set name=#{name}, address1=#{address1},
-		address2=#{address2}, gender=#{gender}, birth=#{birth}
+		address2=#{address2}, gender=#{gender}, birth=#{birth},
+		phone1=#{phone1}, phone2=#{phone2}, phone3=#{phone3}
 		where
 		user_id=#{user_id}
 	</update>

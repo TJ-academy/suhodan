@@ -35,14 +35,18 @@
 				<li><a href="/admin/reward_list.do">리워드 관리</a></li>
 			</ul></li>
 		<li class="menu-item"><a href="/admin/goods_list.do"
-			class="${currentCategory != null && currentCategory.equals('admin_goods') ? 'active' : ''}">상품</a>
+			class="${currentCategory != null && currentCategory.equals('admin_goods') ? 'active' : ''}
+			${currentCategory != null && currentCategory.equals('admin_order') ? 'active' : ''}">상품</a>
 			<ul class="submenu">
 				<li><a href="/admin/goods_list.do">상품 관리</a></li>
+				<li><a href="/admin/order_list.do">주문내역 관리</a></li>
 			</ul></li>
 		<li class="menu-item"><a href="/admin/badge_list.do"
-			class="${currentCategory != null && currentCategory.equals('admin_badge') ? 'active' : ''}">명패</a>
+			class="${currentCategory != null && currentCategory.equals('admin_badge') ? 'active' : ''}
+			${currentCategory != null && currentCategory.equals('admin_user_badge') ? 'active' : ''}">명패</a>
 			<ul class="submenu">
 				<li><a href="/admin/badge_list.do">명패 관리</a></li>
+				<li><a href="/admin/user_badge_list.do">명패 획득 관리</a></li>
 			</ul></li>
 		<li class="menu-item"><a href="/admin/donation_contents_list.do"
 			class="${currentCategory != null && currentCategory.equals('admin_donation') ? 'active' : ''}
