@@ -9,9 +9,9 @@
   // danger_class에 따른 색상 반환 함수
   function getColorByDangerClass(dangerClass) {
     switch(dangerClass) {
-      case "소멸고위험 지역": return "#00C4FF";
-      case "소멸위험진입 단계": return "#AEE0EF"; 
-      default: return "#EFEFEC";
+      case "소멸고위험 지역": return "#FF4500"; // Or #DC143C (Crimson), #B22222 (FireBrick)
+      case "소멸위험진입 단계": return "#FF9999"; // Or #FA8072 (Salmon), #F08080 (LightCoral)
+      default: return "#EFEFEC"; // 기존과 동일
     }
   }
 
