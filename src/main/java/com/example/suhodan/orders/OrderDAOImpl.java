@@ -7,6 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.example.suhodan.donation.DonationConDTO;
+
 @Repository
 public class OrderDAOImpl implements OrderDAO {
 	@Autowired
@@ -51,5 +53,15 @@ public class OrderDAOImpl implements OrderDAO {
 	@Override
 	public void updateStatus(Map<String, Object> paramMap) {
 		sqlSession.update("orders.updateStatus", paramMap);
+	}
+	
+	@Override
+	public List<OrderDTO> listPagingSearch(Map<String, Object> param) {
+	    return sqlSession.selectList("orders.listPagingSearch", param);
+	}
+
+	@Override
+	public int getTotalCountSearch(Map<String, Object> param) {
+	    return sqlSession.selectOne("orders.getTotalCountSearch", param);
 	}
 }

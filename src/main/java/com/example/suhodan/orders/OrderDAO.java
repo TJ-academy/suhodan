@@ -13,4 +13,6 @@ public interface OrderDAO {
 	List<OrderDTO> order_all ();
 	OrderDTO order_detail(int order_id);
 	void updateStatus(Map<String, Object> paramMap); 
+	int getTotalCountSearch(Map<String, Object> param);
+	List<OrderDTO> listPagingSearch(Map<String, Object> param);
 }

@@ -54,4 +54,57 @@
 		update suho_orders set order_status = #{order_status} 
 		where order_id = #{order_id}
 	</update>	
+	
+	<select id="getTotalCountSearch" resultType="int">
+		SELECT COUNT(*)
+		FROM suho_orders
+		<where>
+			<choose>
+				<when test="searchType == 'user_id' and searchKeyword != ''">
+					user_id LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test="searchType == 'order_id' and searchKeyword != ''">
+					order_id LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test="searchType == 'phone' and searchKeyword != ''">
+					(phone1 || phone2 || phone3) LIKE '%' || #{searchKeyword} || '%'
+				</when>
+			</choose>
+		</where>
+	</select>
+
+	<select id="listPagingSearch" resultType="com.example.suhodan.orders.OrderDTO">
+		SELECT *
+		FROM (
+		SELECT ROWNUM AS rnum, inner_query.*
+		FROM (
+		SELECT *
+		FROM suho_orders
+		<where>
+			<choose>
+				<when test="searchType == 'user_id' and searchKeyword != ''">
+					user_id LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test="searchType == 'order_id' and searchKeyword != ''">
+					order_id LIKE '%' || #{searchKeyword} || '%'
+				</when>
+				<when test="searchType == 'phone' and searchKeyword != ''">
+					(phone1 || phone2 || phone3) LIKE '%' || #{searchKeyword} || '%'
+				</when>
+			</choose>
+		</where>
+		<choose>
+			<when test="sortBy == 'order_date'">
+				ORDER BY order_date ${sortOrder}
+			</when>
+			<when test="sortBy == 'order_amount'">
+				ORDER BY order_amount ${sortOrder}
+			</when>
+			<otherwise>
+				ORDER BY order_date DESC </otherwise>
+		</choose>
+		) inner_query
+		)
+		WHERE rnum BETWEEN #{start} AND #{end}
+	</select>
 </mapper>
