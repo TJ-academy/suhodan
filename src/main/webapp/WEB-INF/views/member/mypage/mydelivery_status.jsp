@@ -202,13 +202,13 @@
 
         <!-- 활성화된 라인 -->
         <c:choose>
-            <c:when test="${deldetails[0].ORDER_STATUS == '배송 준비'}">
+            <c:when test="${deldetails[0].ORDER_STATUS == '배송준비중'}">
                 <div class="progress-line active" style="width:33%;"></div>
             </c:when>
-            <c:when test="${deldetails[0].ORDER_STATUS == '배송 중'}">
+            <c:when test="${deldetails[0].ORDER_STATUS == '배송중'}">
                 <div class="progress-line active" style="width:66%;"></div>
             </c:when>
-            <c:when test="${deldetails[0].ORDER_STATUS == '배송 완료'}">
+            <c:when test="${deldetails[0].ORDER_STATUS == '배송완료'}">
                 <div class="progress-line active" style="width:100%;"></div>
             </c:when>
             <c:otherwise>
