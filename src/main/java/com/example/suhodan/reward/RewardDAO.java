@@ -15,7 +15,7 @@ public interface RewardDAO {
 	List<RewardDTO> listPagingSearch(Map<String, Object> param);
 	RewardDTO getRewardDetailsById(int reward_id);
 	
-	String getRewardName(int reward_id);
+	String getRewardName(Integer reward_id);
 	int getRewardId(String name);
 }
 

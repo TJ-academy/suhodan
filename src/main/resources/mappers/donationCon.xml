@@ -6,17 +6,17 @@
 		insert into suho_donation_content
 		(content_id, title,
 		content, target_amount, start_date, end_date, location, created_at,
-		filename, reward_a, reward_b, reward_c, reward_d)
+		filename, rewarda, rewardb, rewardc, rewardd)
 		values (donation_content_seq.nextval, #{title}, #{content},
 		#{target_amount}, #{start_date}, #{end_date}, #{location}, sysdate,
-		#{filename},(select reward_id from suho_reward where name = #{reward_a_name}
+		#{filename},(select reward_id from suho_reward where name = #{rewarda_name}
 		and ROWNUM &lt;= 1),
 		(select reward_id from suho_reward where name =
-		#{reward_b_name} and ROWNUM &lt;= 1),
+		#{rewardb_name} and ROWNUM &lt;= 1),
 		(select reward_id from suho_goods
-		where name = #{reward_c_name} and ROWNUM &lt;= 1),
+		where name = #{rewardc_name} and ROWNUM &lt;= 1),
 		(select reward_id from
-		suho_reward where name = #{reward_d_name} and ROWNUM &lt;= 1))
+		suho_reward where name = #{rewardd_name} and ROWNUM &lt;= 1))
 	</insert>
 
 	<update id="update">
@@ -25,7 +25,7 @@
 		content=#{content}, target_amount=#{target_amount},
 		start_date=#{start_date},
 		end_date=#{end_date}, location=#{location},
-		filename=#{filename}, reward_a=#{reward_a}, reward_b=#{reward_b}, reward_c=#{reward_c}, reward_d=#{reward_d}
+		filename=#{filename}, rewarda=#{rewarda}, rewardb=#{rewardb}, rewardc=#{rewardc}, rewardd=#{rewardd}
 		where content_id=#{content_id}
 	</update>
 
@@ -176,26 +176,26 @@
 		</where>
 	</select>
 
-	<select id="selectRewardAByContentId" resultType="int">
-        SELECT reward_a 
+	<select id="selectRewardAByContentId" resultType="java.lang.Integer">
+        SELECT rewarda 
         FROM suho_donation_content
         WHERE content_id = #{content_id}
     </select>
     
-    <select id="selectRewardBByContentId" resultType="int">
-        SELECT reward_b 
+    <select id="selectRewardBByContentId" resultType="java.lang.Integer">
+        SELECT rewardb 
         FROM suho_donation_content
         WHERE content_id = #{content_id}
     </select>
     
-    <select id="selectRewardCByContentId" resultType="int">
-        SELECT reward_c 
+    <select id="selectRewardCByContentId" resultType="java.lang.Integer">
+        SELECT rewardc 
         FROM suho_donation_content
         WHERE content_id = #{content_id}
     </select>
     
     <select id="selectRewardDByContentId" resultType="java.lang.Integer">
-        SELECT reward_d 
+        SELECT rewardd 
         FROM suho_donation_content
         WHERE content_id = #{content_id}
     </select>

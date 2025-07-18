@@ -65,7 +65,7 @@ public class RewardDAOImpl implements RewardDAO {
     }
 	
 	@Override
-	public String getRewardName(int reward_id) {
+	public String getRewardName(Integer reward_id) {
 	    return sqlSession.selectOne("reward.getRewardName", reward_id);
 	}
 
