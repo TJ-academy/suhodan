@@ -147,21 +147,23 @@
         .cancle_btn:hover {
         	background: #AB501F;
         }
-        .refund_btn {
-        	background: #EA9798;
-        	color: #A60003;
+        .action_btn {
+        	background: #FFFFFF;
+        	color: black;
         	width: 50%;
         	height: 50px;
         	border-radius: 20px;
-        	border-style: none;
+        	border: 1px solid #BABABA;
         }
-        .refund_btn:hover {
-        	background: #CD282A;
-        	color: white;
+        .action_btn:hover {
+        	border: 3px solid black;
         }
-        .refund_text {
+        .action_text {
         	text-align: center;
-        	color: red;
+        	background: #FFF1DB;
+        	padding: 10px;
+        	color: black;
+        	font-weight: bold;
         	margin-top: 10px;
         }
         
@@ -188,6 +190,11 @@
     		if(confirm("환불 신청을 하시겠습니까?")) {
     			location.href='/orders/refund.do?order_id='+order_id;
     		}
+    	}
+    	
+    	function selectDel(order_id) {
+    		order_id = order_id - 1;
+    		location.href = '/orders/delivery_detail.do?order_id='+order_id;
     	}
     </script>
 </head>
@@ -222,16 +229,27 @@
                         <c:choose>
                         	<c:when test="${prevOrderStatus eq '결제진행중'}">
                         		<div class="btn_wrap">
-                        			<button class="cancle_btn"
+                        			<button class="action_btn"
                         			onclick="orderCancel(${prevOrderId})">주문취소</button>
                         		</div>
                         	</c:when>
+                        	<c:when test="${prevOrderStatus eq '배송준비중' or prevOrderStatus eq '배송중'}">
+	                        	<div class="btn_wrap">
+	                        		<button class="action_btn" onclick="selectDel(${orderItem.ORDER_ID})">배송조회</button>
+	                        	</div>
+                        	</c:when>
+                        	<c:when test="${prevOrderStatus eq '환불완료'}">
+                        		<p class="action_text">환불이 완료되었습니다.</p>
+                        	</c:when>
+                        	<c:when test="${prevOrderStatus eq '배송완료'}">
+                        		<p class="action_text">배송이 완료되었습니다.</p>
+                        	</c:when>
                         	<c:when test="${prevOrderStatus eq '환불요청'}">
-                        		<p class="refund_text">환불 요청 중인 주문 건입니다.</p>
+                        		<p class="action_text">환불 요청 중인 주문 건입니다.</p>
                         	</c:when>
                         	<c:otherwise>
                         		<div class="btn_wrap">
-                        			<button class="refund_btn" onclick="refundRequest(${prevOrderId})">
+                        			<button class="action_btn" onclick="refundRequest(${prevOrderId})">
                         				환불요청
                         			</button>
                         		</div>
@@ -274,16 +292,27 @@
                         <c:choose>
                         	<c:when test="${prevOrderStatus eq '결제진행중'}">
                         		<div class="btn_wrap">
-                        			<button class="cancle_btn"
+                        			<button class="action_btn"
                         			onclick="orderCancel(${prevOrderId})">주문취소</button>
                         		</div>
                         	</c:when>
+                        	<c:when test="${prevOrderStatus eq '배송준비중' or prevOrderStatus eq '배송중'}">
+                        		<div class="btn_wrap">
+	                        		<button class="action_btn" onclick="selectDel(${orderItem.ORDER_ID})">배송조회</button>
+                        		</div>
+                        	</c:when>
+                        	<c:when test="${prevOrderStatus eq '환불완료'}">
+                        		<p class="action_text">환불이 완료되었습니다.</p>
+                        	</c:when>
+                        	<c:when test="${prevOrderStatus eq '배송완료'}">
+                        		<p class="action_text">배송이 완료되었습니다.</p>
+                        	</c:when>
                         	<c:when test="${prevOrderStatus eq '환불요청'}">
-                        		<p class="refund_text">환불 요청 중인 주문 건입니다.</p>
-                        	</c:when>           
+                        		<p class="action_text">환불 요청 중인 주문 건입니다.</p>
+                        	</c:when>
                         	<c:otherwise>
                         		<div class="btn_wrap">
-                        			<button class="refund_btn" onclick="refundRequest(${prevOrderId})">
+                        			<button class="action_btn" onclick="refundRequest(${prevOrderId})">
                         				환불요청
                         			</button>
                         		</div>

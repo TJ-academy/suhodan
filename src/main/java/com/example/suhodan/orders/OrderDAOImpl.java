@@ -55,11 +55,6 @@ public class OrderDAOImpl implements OrderDAO {
 	
 	//배송조회
 	@Override
-	public List<Map<String, Object>> selectDeliveryStatus(String user_id) {
-		return sqlSession.selectList("orders.selectDeliveryStatus", user_id);
-	}
-	
-	@Override
 	public List<Map<String, Object>> detailDelivery(int order_id) {
 		return sqlSession.selectList("orders.detailDelivery", order_id);
 	}

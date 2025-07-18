@@ -14,6 +14,5 @@ public interface OrderDAO {
 	OrderDTO order_detail(int order_id);
 	void updateStatus(Map<String, Object> paramMap); 
 	//배송조회
-	List<Map<String, Object>> selectDeliveryStatus(String user_id);
 	List<Map<String, Object>> detailDelivery(int order_id);
 }
