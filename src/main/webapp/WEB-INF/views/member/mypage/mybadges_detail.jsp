@@ -128,7 +128,7 @@
 <div class="container">
    <div class="rectangle">
       <!-- 뒤로가기 버튼 -->
-      <button class="back-button" onclick="location.href='/mypage/mybadges'"></button>
+      <button class="back-button" onclick="history.back()"></button>
       
       <div class="badgepage-title">
          <img class="badgepage-title-img" src="/resources/suhodan_images/icon/badge.png">

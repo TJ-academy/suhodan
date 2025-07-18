@@ -94,13 +94,30 @@
 	
 	/* 외곽 박스 */
 	.reward-box {
-	    width: 802px;
-	    height: 191px;
+	    width: 802px; /* height: 578px; */
+	    height: 348px;
 	    border: 1.67px solid #CECECE;
 	    border-radius: 16.65px;
-	    display: flex;
+	    /* display: flex; */
 	    position: relative;
 	    transition: border-color 0.3s;
+	}
+	
+	.noreward {
+	    align-items: center;
+	    margin-top: 164.5px;
+	    /* margin-bottom: 100px; */
+	}
+	
+	.noreward p {
+		font-size: 19px;
+		color: #504848;
+	}
+	
+	.reward-main {
+		width: 802px;
+	    height: 191px;
+	    display: flex;
 	}
 	
 	/* 프로젝트 이미지 */
@@ -120,36 +137,6 @@
 	    width: 100%;
 	    height: 100%;
 	    object-fit: cover;
-	    transition: filter 0.3s;
-	}
-	
-	.reward-box:hover {
-	    border-color: #9C6B4F;
-	}
-	
-	.reward-box:hover .reward-project-image img {
-	    filter: brightness(60%);
-	}
-	
-	/* 자세히 보기 버튼 */
-	.reward-project-image button {
-	    position: absolute;
-	    top: 50%;
-	    left: 50%;
-	    transform: translate(-50%, -50%);
-	    background-color: #9C6B4F;
-	    border: 1px solid #9C6B4F;
-	    padding: 5px;
-	    font-size: 17px;
-	    width: 116px;
-	    color: #FFFFFF;
-	    border-radius: 16.65px;
-	    transition: opacity 0.3s;
-	    display: none;
-	}
-	
-	.reward-box:hover .reward-project-image button {
-	    display: block;
 	}
 	
 	/* 중앙 정보 */
@@ -192,7 +179,8 @@
 	/* 오른쪽 하단 금액 */
 	.reward-project-amount {
 	    position: absolute;
-	    bottom: 12px;
+	    top: 158px;
+	    /* bottom: 12px; */
 	    right: 20px;
 	    font-size: 21px;
 	    font-weight: bold;
@@ -202,6 +190,37 @@
 	.reward-project-amount span {
 	    color: #9C6B4F;
 	    font-weight: bold;
+	}
+	
+	.reward-detail {
+		position: absolute;
+		top: 191px;
+		width: 802px; height: auto;
+	    /* height: 387px; */
+	    display: flex;
+	    text-align: center;
+	    justify-content: center;
+	}
+	.reward-project-buttons {
+		display: flex;
+		bottom: 0px;
+		gap: 30px;
+		margin-top: 50px;
+	}
+	
+	.reward-project-buttons button {
+		background-color: #D8C2A6;
+		border: 1px solid #9C6B4F;
+		border-radius: 16.65px;
+		color: #744225;
+		font-size: 20px;
+		font-weight:normal;
+		width: 146px; height: 57px;
+	}
+	
+	.reward-project-buttons button:hover {
+		background-color: #9C6B4F;
+		color: #FFFFFF;
 	}
 	
 	.pagination {
@@ -239,38 +258,53 @@
 		</div>
 		
 	 	<div class="rewardlist">
-				<div class="rewardcard">
-					<div class="reward-date">
-						<fmt:formatDate value="${dto.donation_date}" pattern="yyyy.MM.dd" />
-					</div>
-		
-		            <div class="reward-box">
-		                <div class="reward-project-image">
-		                    <img src="../../resources/donation_img/${dto.project_img}" alt="프로젝트 이미지" />
-		                </div>
-		
-		                <div class="reward-project-info">
-		                    <div class="location">${dto.location}</div>
-		                    <div class="project-title">${dto.project_title}</div>
-		                    <div class="reward-name">${dto.reward_name}</div>
-		                </div>
-		
-		                <div class="reward-project-dates">
-		                	<fmt:formatDate value="${dto.start_date}" pattern="yyyy.MM.dd" /> ~
-										<fmt:formatDate value="${dto.end_date}" pattern="yyyy.MM.dd" />
-		                </div>
-		                <div class="reward-project-amount">
-		                    총 <span>
-		                    	<fmt:formatNumber value="${row.amount}" type="number" groupingUsed="true" />
-		                     원</span>
+			<div class="rewardcard">
+				<div class="reward-date">
+					<fmt:formatDate value="${dto.donation_date}" pattern="yyyy.MM.dd" />
+				</div>
+	
+	            <div class="reward-box">
+	            	<c:if test="${empty dto}">
+						<div class="noreward">
+					    	<p>잘못된 리워드 내역입니다.</p>
+					    </div>
+					</c:if>
+					
+					<c:if test="${not empty dto}">
+		            	<div class="reward-main">
+			                <div class="reward-project-image">
+			                    <img src="../../resources/donation_img/${dto.project_img}" alt="프로젝트 이미지" />
+			                </div>
+			
+			                <div class="reward-project-info">
+			                    <div class="location">${dto.location}</div>
+			                    <div class="project-title">${dto.project_title}</div>
+			                    <div class="reward-name">${dto.reward_name}</div>
+			                </div>
+			
+			                <div class="reward-project-dates">
+			                	<fmt:formatDate value="${dto.start_date}" pattern="yyyy.MM.dd" /> ~
+											<fmt:formatDate value="${dto.end_date}" pattern="yyyy.MM.dd" />
+			                </div>
+			                <div class="reward-project-amount">
+			                    총 <span>
+			                    	<fmt:formatNumber value="${dto.amount}" type="number" groupingUsed="true" />
+			                     원</span>
+			                </div>
 		                </div>
 		                
-		                <div class="reward-project-buttons">
-		                	<button class="badge" onclick="location.href='/mypage/mybadges'"></button>
-		                	<button class="delivery"></button>
-		                </div>
-		            </div>
+		                <div class="reward-detail">
+			            	<%-- <div class="reward-imgs">
+			            		<img src="../../resources/goods_img/${dto.project_img}" alt="프로젝트 이미지" />
+			            	</div> --%>
+			            	<div class="reward-project-buttons">
+			                	<button class="badge" onclick="location.href='/mypage/mybadges/${dto.userbadge_id}'">명패 보기</button>
+			                	<button class="delivery">배송 조회</button>
+			                </div>
+			            </div>
+			           </c:if>
 				</div>
+			</div>
 		</div>
 		
 		<!-- 페이지네이션 -->

@@ -20,6 +20,20 @@
 		border: 1px solid #D8C2A6;
 		
 	}
+	
+	.back-button {
+		position: absolute;
+		width: 14px; height: 28px;
+		border: none;
+		cursor: pointer;
+		/* top: 40px; left: 40px; */
+		margin-top: 1px;
+		background: url('/resources/suhodan_images/icon/arrow_right.png') no-repeat center;
+		background-size: contain;
+		z-index: 10;
+		transform: rotate(180deg);
+	}
+	
 	.title_style {
 		color: #2E2E2E;
 		font-size: 20px;
@@ -64,6 +78,10 @@
 <body>
 <%@include file="../include/menu.jsp" %>
 <div class="detail_container">
+	
+	<!-- 뒤로가기 버튼 -->
+	<button class="back-button" onclick="history.back()"></button>
+	
 	<p class="title_style">${dto.title}</p>
 	<p class="hiredate_style">
 	    <span>
