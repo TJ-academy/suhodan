@@ -238,35 +238,35 @@ public class DonationConController {
 	@GetMapping("/reward/select.do") 
 	public ModelAndView selectRewardPage(@RequestParam("amount") int amount, @RequestParam("content_id") int content_id, ModelAndView mav) {
 		
-		int rewarda_id = donationConDao.getRewardAByContentId(content_id);
-		int rewardb_id = donationConDao.getRewardBByContentId(content_id);
-		int rewardc_id = donationConDao.getRewardCByContentId(content_id);
-		int rewardd_id = donationConDao.getRewardDByContentId(content_id);
+		int rewardaid = donationConDao.getRewardAByContentId(content_id);
+		int rewardbid = donationConDao.getRewardBByContentId(content_id);
+		int rewardcid = donationConDao.getRewardCByContentId(content_id);
+		int rewarddid = donationConDao.getRewardDByContentId(content_id);
 		
-	    String rewarda_name = rewardDao.getRewardDetailsById(rewarda_id).getName();
-	    String rewarda_description = rewardDao.getRewardDetailsById(rewarda_id).getDescription();
-	    String rewardb_name = rewardDao.getRewardDetailsById(rewardb_id).getName();
-	    String rewardb_description = rewardDao.getRewardDetailsById(rewardb_id).getDescription();
-	    String rewardc_name = rewardDao.getRewardDetailsById(rewardc_id).getName();
-	    String rewardc_description = rewardDao.getRewardDetailsById(rewardc_id).getDescription();
-	    String rewardd_name = rewardDao.getRewardDetailsById(rewardd_id).getName();
-	    String rewardd_description = rewardDao.getRewardDetailsById(rewardd_id).getDescription();
+	    String rewardaname = rewardDao.getRewardDetailsById(rewardaid).getName();
+	    String rewardadescription = rewardDao.getRewardDetailsById(rewardaid).getDescription();
+	    String rewardbname = rewardDao.getRewardDetailsById(rewardbid).getName();
+	    String rewardbdescription = rewardDao.getRewardDetailsById(rewardbid).getDescription();
+	    String rewardcname = rewardDao.getRewardDetailsById(rewardcid).getName();
+	    String rewardcdescription = rewardDao.getRewardDetailsById(rewardcid).getDescription();
+	    String rewarddname = rewardDao.getRewardDetailsById(rewarddid).getName();
+	    String rewardddescription = rewardDao.getRewardDetailsById(rewarddid).getDescription();
 	    
 	    mav.setViewName("donation/reward_select"); 
 	    mav.addObject("amount", amount);
 	    
-	    mav.addObject("rewarda_id", rewarda_id);
-	    mav.addObject("rewardb_id", rewardb_id);
-	    mav.addObject("rewardc_id", rewardc_id);
-	    mav.addObject("rewardd_id", rewardd_id);
-	    mav.addObject("rewarda_name", rewarda_name);
-	    mav.addObject("rewardb_name", rewardb_name);
-	    mav.addObject("rewardc_name", rewardc_name);
-	    mav.addObject("rewardd_name", rewardd_name);
-	    mav.addObject("rewarda_description", rewarda_description);
-	    mav.addObject("rewardb_description", rewardb_description);
-	    mav.addObject("rewardc_description", rewardc_description);
-	    mav.addObject("rewardd_description", rewardd_description);
+	    mav.addObject("rewardaid", rewardaid);
+	    mav.addObject("rewardbid", rewardbid);
+	    mav.addObject("rewardcid", rewardcid);
+	    mav.addObject("rewarddid", rewarddid);
+	    mav.addObject("rewardaname", rewardaname);
+	    mav.addObject("rewardbname", rewardbname);
+	    mav.addObject("rewardcname", rewardcname);
+	    mav.addObject("rewardd_name", rewarddname);
+	    mav.addObject("rewardadescription", rewardadescription);
+	    mav.addObject("rewardbdescription", rewardbdescription);
+	    mav.addObject("rewardcdescription", rewardcdescription);
+	    mav.addObject("rewardddescription", rewardddescription);
 	    
 	    return mav;
 	}

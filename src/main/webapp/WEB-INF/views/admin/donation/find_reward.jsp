@@ -78,7 +78,7 @@
                     if (targetInputId) { 
                         opener.$('#' + targetInputId).val(selectedRewardName); // 동적으로 ID 사용!
                     } else {
-                        opener.$('#reg_popup_rewarda_name').val(selectedRewardName); // 기본값으로 goods_1에 넣기
+                        opener.$('#reg_popup_rewardaname').val(selectedRewardName); // 기본값으로 goods_1에 넣기
                     }
                     window.close(); // 팝업 닫기
                 } else {

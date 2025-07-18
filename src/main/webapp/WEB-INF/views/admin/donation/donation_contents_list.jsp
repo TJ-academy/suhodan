@@ -74,8 +74,8 @@
 							data-start-date="<fmt:formatDate value="${row.start_date}" pattern="yyyy-MM-dd" />"
 							data-end-date="<fmt:formatDate value="${row.end_date}" pattern="yyyy-MM-dd" />"
 							data-created-at="${row.created_at}"
-							data-rewarda-name="${row.rewarda_name}" data-rewardb-name="${row.rewardb_name}"
-							data-rewardc-name="${row.rewardc_name}" data-rewardd-name="${row.rewardd_name}"
+							data-rewardaname="${row.rewardaname}" data-rewardbname="${row.rewardbname}"
+							data-rewardcname="${row.rewardcname}" data-rewarddname="${row.rewarddname}"
 							data-location="${row.location}" data-filename="${row.filename}">수정</button>
 						<button class="delete-button" data-content-id="${row.content_id}">삭제</button>
 					</td>
@@ -104,10 +104,10 @@
 						$('#reg_popup_end_date').val('2025-08-17');
 						$('#reg_popup_location').val('테스트');
 						
-						$('#reg_popup_rewarda_name').val('정선 산들 약초 (오만냥 리워드)');
-						$('#reg_popup_rewardb_name').val('정선 산들 약초 (오만냥 리워드)');
-						$('#reg_popup_rewardc_name').val('정선 산들 약초 (오만냥 리워드)');
-						$('#reg_popup_rewardd_name').val('정선 산들 약초 (오만냥 리워드)');
+						$('#reg_popup_rewardaname').val('정선 산들 약초 (오만냥 리워드)');
+						$('#reg_popup_rewardbname').val('정선 산들 약초 (오만냥 리워드)');
+						$('#reg_popup_rewardcname').val('정선 산들 약초 (오만냥 리워드)');
+						$('#reg_popup_rewarddname').val('정선 산들 약초 (오만냥 리워드)');
 						
 						$('#reg_popup_filename').val('');
 					}
@@ -129,10 +129,10 @@
 						$('#edit_popup_created_at').val(createdAt);
 						$('#edit_popup_location').val(location);
 						
-						$('#edit_popup_rewarda_name').val(rewardAName);
-						$('#edit_popup_rewardb_name').val(rewardBName);
-						$('#edit_popup_rewardc_name').val(rewardCName);
-						$('#edit_popup_rewardd_name').val(rewardDName);
+						$('#edit_popup_rewardaname').val(rewardAName);
+						$('#edit_popup_rewardbname').val(rewardBName);
+						$('#edit_popup_rewardcname').val(rewardCName);
+						$('#edit_popup_rewarddname').val(rewardDName);
 						
 						$('#edit_popup_filename').val('');
 						
@@ -173,10 +173,10 @@
 						const endDate = $(this).data('end-date');
 						const createdAt = $(this).data('created-at');
 						const location = $(this).data('location');
-						const rewardAName = $(this).data('rewarda-name');
-						const rewardBName = $(this).data('rewardb-name');
-						const rewardCName = $(this).data('rewardc-name');
-						const rewardDName = $(this).data('rewardd-name');
+						const rewardAName = $(this).data('rewardaname');
+						const rewardBName = $(this).data('rewardbname');
+						const rewardCName = $(this).data('rewardcname');
+						const rewardDName = $(this).data('rewarddname');
 						const filename = $(this).data('filename');
 						openEditPopup(contentId, title, content, targetAmount, startDate, endDate, createdAt, location, filename, rewardAName, rewardBName, rewardCName, rewardDName);
 					});

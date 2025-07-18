@@ -3,8 +3,6 @@ package com.example.suhodan.donation;
 import java.util.List;
 import java.util.Map;
 
-import com.example.suhodan.reward.RewardDTO;
-
 public interface DonationConDAO {
 	List<DonationConDTO> list();
 	
