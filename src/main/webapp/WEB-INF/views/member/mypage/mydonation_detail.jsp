@@ -61,120 +61,117 @@
 		color: #504848;
 	}
 	
-	.donationpagedetail-card {
-	    display: flex;
-	    flex-direction: column;
-	    gap: 40px;
-	    align-items: center;
-	    margin-top: 130px;
-	    margin-bottom: 100px;
-	    margin-left: 45.5px;
-	    /* left: 100%;
-		transform: translateX(-50%); */
-	    width: 802px;
-	    height: 455px;
-	    border: 1.67px solid #9C6B4F;
-	    border-radius: 16.65px;
-	}
-	
-	/* 외곽 박스 */
-	.content-main {
-	    display: flex;
-	    position: relative;
-	    /* gap: 15px; */
-	}
-	
-	/* 프로젝트 이미지 */
-	.donation-project-image {
-	    position: relative;
-	    width: 143px;
-	    height: 143px;
-	    top: 50%;
-	    left: 24px;
-	    transform: translateY(-50%);
-	    border-radius: 15px;
-	    overflow: hidden;
-	    flex-shrink: 0;
-	}
-	
-	.donation-project-image img {
-	    width: 100%;
-	    height: 100%;
-	    object-fit: cover;
-	    transition: filter 0.3s;
-	}
-	
-	/* 중앙 정보 */
-	.donation-project-info {
-	    display: flex;
-	    flex-direction: column;
-	    justify-content: center;
-	    text-align: left;
-	    margin-left: 45px;
-	    flex-grow: 1;
-	    /* gap: 4px; */
-	}
-	
-	.donation-project-info .location {
-		font-weight: bold;
-	    color: #2E2E2E;
-	    font-size: 19px;
-	}
-	
-	.donation-project-info .project-title {
-	    font-weight: bold;
-	    color: #2E2E2E;
-	    font-size: 21px;
-	}
-	
-	/* 오른쪽 상단 날짜 */
-	.donation-project-dates {
-	    position: absolute;
-	    top: 12px;
-	    right: 20px;
-	    font-size: 17px;
-	    color: #6C6C6C;
-	}
-	
-	/* 오른쪽 하단 금액 */
-	.donation-project-amount {
-	    position: absolute;
-	    bottom: 12px;
-	    right: 20px;
-	    font-size: 21px;
-	    font-weight: bold;
-	    color: #2E2E2E;
-	}
-	
-	.donation-project-amount span {
-	    color: #9C6B4F;
-	    font-weight: bold;
-	}
+.donationpagedetail-card {
+  width: 90%;
+  max-width: 900px;
+  margin: 120px auto 100px;
+  padding: 30px 40px;
+  border: 1.67px solid #9C6B4F;
+  border-radius: 16.65px;
+  background-color: #F5F1EB;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  font-family: 'Noto Sans KR', sans-serif;
+}
 
-    .content-payment {
-      font-size: 14px;
-      color: #444;
-      margin-top: 10px;
-      line-height: 1.6;
-    }
+.content-main {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
 
-    .project-btn {
-      width: 146px;
-      height: 57px;
-      margin-top: 20px !important;
-      margin: 0 auto;
-      background-color: #9C6B4F;
-      color: white;
-      padding: 8px 18px;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 19px;
-    }
+.donation-project-image img {
+  width: 130px;
+  height: 130px;
+  border-radius: 12px;
+  object-fit: cover;
+}
 
-    .project-btn:hover {
-      background-color: #a25c3d;
-    }
+.donation-project-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+.donation-project-info .location {
+  font-size: 19px;
+  font-weight: bold;
+  color: #2E2E2E;
+  margin-bottom: 4px;
+   text-align: left;
+}
+
+.donation-project-info .project-title {
+  font-size: 19px;
+  font-weight: bold;
+  color: #2E2E2E;
+   text-align: left;
+}
+
+.donation-project-dates {
+  font-size: 14px;
+  color: #6C6C6C;
+  text-align: right;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.donation-project-amount {
+  font-size: 19px;
+  font-weight: bold;
+  color: #2E2E2E;
+  text-align: right;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.donation-project-amount span {
+  color: #9C6B4F;
+}
+
+.content-payment {
+  font-size: 15px;
+  color: #444;
+  line-height: 1.7;
+  padding: 0 5px;
+  
+   
+}
+
+.content-payment div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  
+}
+
+.content-payment .bold {
+  font-weight: bold;
+  color: #2E2E2E;
+}
+
+.project-btn {
+  margin: 20px auto 0;
+  padding: 12px 30px;
+  background-color: #D8C2A6;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.project-btn:hover {
+  background-color: #9C6B4F;
+}
+
 </style>
 </head>
 <body>
@@ -223,7 +220,7 @@
 						<fmt:formatDate value="${dto.donation_date}" pattern="yyyy.MM.dd"/>
 					</span>
 				</div>
-				<div style="font-size: 15px; font-weight: bold;">
+				<div style="font-size: 17px; font-weight: bold;">
 					<span>총 결제 금액</span>
 					<span style="float:right; margin-right: 20px;">
 						<fmt:formatNumber value="${dto.amount}" type="currency"/>
