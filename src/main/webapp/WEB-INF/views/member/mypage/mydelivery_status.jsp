@@ -87,16 +87,15 @@
     margin: 30px auto 0 auto;
     padding: 12px 0;
     background-color: #D8C2A6;
-    color: #504848;
+    color: #FFFFFF;
     border: none;
     border-radius: 15px;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 3px 6px rgba(216, 194, 166, 0.6);
     transition: background-color 0.3s ease;
 }
 .btn-back:hover {
-    background-color: #BFA66A;
+    background-color: #9C6B4F;
     color: white;
 }
 
@@ -186,7 +185,6 @@
 <%@ include file="../../include/menu.jsp" %>
 <div class="del_con">
     <div>
-        <img src="/resources/images/back.png" width="15" style="margin-bottom: 10px;" onclick="history.back()">
         <span style="font-size: 25px; color: #4C6B3C; font-weight: bold; margin-left: 20px;">
             <fmt:formatDate value="${todayDate}" pattern="M/d" /> (<%= todayWeek %>)
         </span>
@@ -202,13 +200,13 @@
 
         <!-- 활성화된 라인 -->
         <c:choose>
-            <c:when test="${deldetails[0].ORDER_STATUS == '배송 준비'}">
+            <c:when test="${deldetails[0].ORDER_STATUS == '배송준비중'}">
                 <div class="progress-line active" style="width:33%;"></div>
             </c:when>
-            <c:when test="${deldetails[0].ORDER_STATUS == '배송 중'}">
+            <c:when test="${deldetails[0].ORDER_STATUS == '배송중'}">
                 <div class="progress-line active" style="width:66%;"></div>
             </c:when>
-            <c:when test="${deldetails[0].ORDER_STATUS == '배송 완료'}">
+            <c:when test="${deldetails[0].ORDER_STATUS == '배송완료'}">
                 <div class="progress-line active" style="width:100%;"></div>
             </c:when>
             <c:otherwise>
