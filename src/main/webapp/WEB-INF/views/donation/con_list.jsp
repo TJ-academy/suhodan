@@ -39,11 +39,10 @@
     .card {
       flex: 1 0 calc(25% - 20px);
       box-sizing: border-box;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      overflow: hidden;
+  border: 1px solid #D8C2A6 !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
       cursor: pointer;
-      transition: box-shadow 0.3s;
     }
 
     .card:hover {
@@ -54,6 +53,7 @@
       width: 100%;
       height: 180px;
       object-fit: cover;
+      
     }
 
     .card-body {

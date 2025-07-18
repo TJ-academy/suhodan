@@ -77,11 +77,14 @@ body {
     .reward-select-button {
       margin-top: 10px;
       padding: 10px 30px;
-      background-color: #9c6b4f;
+      background-color: #D8C2A6;
       color: white;
       border: none;
       border-radius: 8px;
       cursor: pointer;
+    }
+    .reward-select-button:hover {
+    background-color: #9c6b4f;
     }
   </style>
 </head>

@@ -100,7 +100,6 @@
 
 .donation-project-info .location {
   font-size: 19px;
-  font-weight: bold;
   color: #2E2E2E;
   margin-bottom: 4px;
    text-align: left;

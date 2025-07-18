@@ -53,14 +53,17 @@
     #badgeModal p:nth-child(2) { /* "뱃지가 발급되었습니다." 또는 동적 메시지 */
         font-size: 16px;
         margin-bottom: 8px;
+         color: #2E2E2E;
+        
     }
     #badgeModal p:nth-child(3) { /* "당신은 분명 이 설화의 수호자입니다!" */
         font-size: 16px;
         margin-bottom: 24px;
+        color: #787878;
     }
     #badgeModal p:nth-child(4) { /* "*뱃지는 [나의 수호수]에서 확인할 수 있습니다." */
-        font-size: 14px;
-        color: #a89a8f;
+        font-size: 13px;
+        color: #2E2E2E;
         margin-bottom: 32px;
     }
 
@@ -78,6 +81,64 @@
     #badgeModal button:hover {
       background-color: #7a5238; /* onmouseover/onmouseout 대신 hover 사용 */
     }
+    
+    
+    
+    .reward-modal {
+  background-color: #F5F1EB;
+  padding: 40px 80px;
+  border-radius: 15px;
+  border: 1px solid #D8C2A6;
+  text-align: center;  !important;
+  max-width: 400px;
+  justify-content: center; /* 수직 정렬 */
+  align-items: center;  
+}
+
+.reward-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #9C6B4F;
+   white-space: nowrap;
+     align-items: center;      /* ✅ p 태그 수직 가운데 */
+  justify-content: center;  /* ✅ p 태그 수평 가운데 */
+  text-align: center; 
+  margin: 0 auto;
+}
+
+.reward-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;      /* ✅ p 태그 수직 가운데 */
+  justify-content: center;  /* ✅ p 태그 수평 가운데 */
+  text-align: center;       /* ✅ 내부 텍스트 중앙 정렬 */
+  font-size: 16px;
+  color: #2E2E2E;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+.reward-text p {
+  font-size: 16px;
+  color: #2E2E2E;
+  margin: 6px 0;
+   white-space: nowrap;
+}
+
+
+.reward-confirm-btn {
+  margin-top: 20px;
+  background-color: #9C6B4F;
+  color: #fff;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.reward-confirm-btn:hover {
+  background-color: #7b5038;
+}
 
     /* 모달이 활성화되었을 때 body 스크롤 막기 */
     body.modal-open {
@@ -182,10 +243,13 @@
 </div>
 
 <div id="rewardContainer" class="modal-overlay">
-  <div id="rewardModal" style="background-color: #F5F1EB; padding: 40px 80px; border-radius: 15px; border: 1px solid #D8C2A6; text-align: center; max-width: 400px;">
-    <p style="font-size: 22px; font-weight: bold; color: #9C6B4F;"> 리워드 조건이 충족되었습니다</p>
-    <p style="margin-top: 10px; font-size: 16px; color: #2E2E2E;">15,000원 이상 기부로 리워드 수령 조건이 충족되었습니다.<br>지금 리워드를 선택하고 마을의 특산품을 받아 보세요!</p>
-    <button onclick="goToReward()" style="margin-top: 20px; background-color: #9c6b4f; color: #fff; border: none; padding: 10px 30px; border-radius: 10px; font-size: 16px;">확인</button>
+  <div id="rewardModal" class="reward-modal">
+    <p class="reward-title">리워드 조건이 충족되었습니다.</p>
+    <div class="reward-text">
+     <p> 15,000원 이상 기부로 리워드 수령 조건이 충족되었습니다. </p>
+      <p>지금 리워드를 선택하고 마을의 특산품을 받아 보세요! </p>
+      </div>
+    <button onclick="goToReward()" class="reward-confirm-btn">확인</button>
   </div>
 </div>
 
