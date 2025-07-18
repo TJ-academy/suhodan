@@ -109,4 +109,25 @@ public class OrderController {
 		return "redirect:/orders/list.do?message=" + message;
 	}
 	
+	//환불요청
+	@GetMapping("refund.do")
+	public ModelAndView requestRefund(@RequestParam(name = "order_id") int order_id,
+			ModelAndView mav) {
+		orderDao.request_refund(order_id);
+		String message = "success_refundRequest";
+		mav.addObject("message", message);
+		mav.addObject("dto", orderDao.refund_detail(order_id));
+		mav.setViewName("/shop/cancel_complete");
+		return mav;
+	}
+	
+	/*
+	@GetMapping("refund.do")
+	public String requestRefund(@RequestParam(name = "order_id") int order_id) {
+		orderDao.request_refund(order_id); //환불요청상태
+		String message = "success_refundRequest";
+		
+		return "redirect:/orders/list.do?message=" + message;
+	}
+	*/
 }

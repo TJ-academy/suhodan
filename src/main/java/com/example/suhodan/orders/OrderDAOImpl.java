@@ -26,5 +26,14 @@ public class OrderDAOImpl implements OrderDAO {
 	public void delete(int order_id) {
 		sqlSession.delete("orders.orderCancel", order_id);
 	}
-
+	
+	@Override
+	public void request_refund(int order_id) {
+		sqlSession.update("orders.requestRefund", order_id);
+	}
+	
+	@Override
+	public OrderDTO refund_detail(int order_id) {
+		return sqlSession.selectOne("orders.requestRefundDetail", order_id);
+	}
 }
