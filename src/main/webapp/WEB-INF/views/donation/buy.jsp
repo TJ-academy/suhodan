@@ -202,6 +202,22 @@ body {
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+function loadMyInfo() {
+	const name = document.getElementById("dtoName").value;
+	const address1 = document.getElementById("dtoAddress1").value;
+	const address2 = document.getElementById("dtoAddress2").value;
+	const phone1 = document.getElementById("dtoPhone1").value;
+	const phone2 = document.getElementById("dtoPhone2").value;
+	const phone3 = document.getElementById("dtoPhone3").value;
+	
+	document.getElementById("receiver").value = name;
+	document.getElementById("address1").value = address1;
+	document.getElementById("address2").value = address2;
+	document.getElementById("phone1").value = phone1;
+	document.getElementById("phone2").value = phone2;
+	document.getElementById("phone3").value = phone3;
+}
+
 function execDaumPostcode() {
 	new daum.Postcode({
 		oncomplete: function(data) {

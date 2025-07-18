@@ -164,6 +164,18 @@
         	color: red;
         	margin-top: 10px;
         }
+        
+	.noorder {
+		text-align: center;
+	    align-items: center;
+	    margin-top: 110px;
+	    margin-bottom: 100px;
+	}
+	
+	.noorder p {
+		font-size: 19px;
+		color: #504848;
+	}
     </style>
     <script>
     	function orderCancel(order_id) {
@@ -282,7 +294,9 @@
             </c:forEach>
         </c:when>
         <c:otherwise>
-            <p>주문 내역이 없습니다.</p>
+            <div class="noorder">
+				<p>주문 내역이 없습니다.</p>
+			</div>
         </c:otherwise>
     </c:choose>
 </div>
