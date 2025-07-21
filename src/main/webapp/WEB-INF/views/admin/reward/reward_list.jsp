@@ -9,6 +9,36 @@
 <title>리워드 관리</title>
 <link rel="stylesheet" href="/css/admin.css">
 <link rel="stylesheet" href="/css/popup.css">
+<style>
+.container {
+  max-width: 1200px;
+  padding: 0 40px;
+  box-sizing: border-box;
+   position: relative;
+  left: -450px; /* ← 이걸로 옆으로 이동 */
+}
+
+/* 테이블 스타일 개선 */
+.container table {
+  width: 100%;
+  table-layout: fixed;
+  word-break: break-word;
+  border-collapse: collapse;
+}
+
+.container th, .container td {
+  word-wrap: break-word;
+  white-space: normal;
+  padding: 10px;
+  text-align: center;
+}
+.container td button {
+  margin: 5px;
+  display: inline-block;
+}
+
+</style>
+
 </head>
 <body>
 	<%@ include file="../../include/admin_menu.jsp"%>
@@ -36,8 +66,8 @@
         </form>
     </div>
 	<br>
-
-	<table border="1" width="700px">
+<div class="container">
+	<table border="1" >
 		<tr>
 			<td>No.</td>
 			<td>이름</td>
@@ -85,6 +115,7 @@
             </tr>
         </c:if>
 	</table>
+	</div> 
 	<%@ include file="../../include/admin_paging.jsp"%>
 
 	<div id="overlay" class="overlay"></div>

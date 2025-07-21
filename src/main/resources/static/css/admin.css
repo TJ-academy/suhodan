@@ -23,6 +23,7 @@ table {
     margin-bottom: 20px; /* Add margin below the table */
     overflow-x: auto; /* Enable horizontal scrolling for tables on small screens */
     display: block; /* Make table a block element to allow overflow-x */
+    margin-left:500px;
 }
 
 table tr:first-child {

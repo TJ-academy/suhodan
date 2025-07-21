@@ -10,6 +10,13 @@
 <link rel="stylesheet" href="/css/admin.css">
 <link rel="stylesheet" href="/css/popup.css">
 <style>
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  box-sizing: border-box;
+  transform: translateX(-200px); /* ✅ 살짝 왼쪽으로 */
+}
 .toggle-details {
 	background-color: #d6a77a;
 	color: white;
@@ -100,7 +107,7 @@
 		</form>
 	</div>
 	<br>
-
+<div class="container">
 	<table border="1" width="700px">
 		<tr>
 			<th>주문번호</th>
@@ -175,7 +182,7 @@
 			</tr>
 		</c:if>
 	</table>
-
+</div>
 	<%@ include file="../../include/admin_paging.jsp"%>
 </body>
 </html>

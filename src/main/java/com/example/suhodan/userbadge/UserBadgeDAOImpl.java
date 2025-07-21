@@ -31,4 +31,8 @@ public class UserBadgeDAOImpl implements UserBadgeDAO {
         return sqlSession.selectOne(NAMESPACE + "getBadgeLocationForUser", user_id);
     }
 
+    @Override
+    public String getBadgeLocation(int transaction_id) {
+    	return sqlSession.selectOne("userbadge.getBadgeLocation", transaction_id);
+    }
 }
