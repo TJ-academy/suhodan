@@ -11,9 +11,8 @@
 <body>
 	<%@ include file="../../include/admin_menu.jsp"%>
 	<h2>배지획득 기록 페이지</h2>
-    <button class="add-btn" id="addButton">추가하기</button>
 	<br>
 	
-준비중입니다...
+	<p align="center">준비중입니다...</p>
 </body>
 </html>
