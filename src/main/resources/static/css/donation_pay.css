@@ -70,41 +70,50 @@ body {
 /* 금액 테이블 스타일 */
 .amount-table {
     width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    border-collapse: separate;
     border-collapse: collapse;
-    margin-top: 20px;
-    display: grid; /* Flexbox 대신 Grid 사용 (더 유연한 그리드 레이아웃) */
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* 반응형 그리드 */
-    gap: 10px; /* 셀 간의 간격 */
+    border-spacing: 15px;
+    table-layout: fixed;
 }
 
 .amount-table td {
-    padding: 15px;
-    border: 1px solid #D8C2A6;
+    width: 25%;
+     height: 70px;
     text-align: center;
-    background: white;
-    /* width: 151px; /* 고정 너비 대신 그리드가 조절하도록 */
-    height: 61px;
-    font-size: 18px;
+    padding: 16px 0;
+    background-color: #fff;
+    border: 2px solid #d8c2a6;
+    font-size: 16px;
+    font-weight: bold;
+    color: #5e3c19;
     cursor: pointer;
-    transition: background-color 0.3s;
-    display: flex; /* 내부 텍스트 수직 중앙 정렬을 위해 flex 사용 */
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px; /* 셀에 둥근 모서리 추가 */
+    box-sizing: border-box;
+     padding: 0;
 }
+
+.amount-table td input {
+    width: 80%;
+    padding: 8px;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #aaa;
+}
+
 
 .amount-table td:hover {
     background-color: #E8E2D9;
 }
 
-.amount-table input[type="number"] {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 16px;
-    box-sizing: border-box;
+.amount-table td input[type="number"] {
+  width: 90%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  text-align: center;
+  box-sizing: border-box;
 }
 
 .selected-amount {
