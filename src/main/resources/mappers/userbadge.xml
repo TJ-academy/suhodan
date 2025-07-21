@@ -3,6 +3,13 @@
 <mapper namespace="userbadge">
     <insert id="insertBadgeForQualifiedUsers">
         INSERT INTO suho_userbadge (user_id, badge_id, transaction_id)
+        SELECT dt.donor_id, dc.badge_id, transaction_id
+        FROM donation_transaction dt, suho_donation_content dc
+        WHERE dt.transaction_id = #{transaction_id}
+        	and dt.content_id = dc.content_id
+    </insert>
+    <insert id="insertBadgeForQualifiedUsers1">
+        INSERT INTO suho_userbadge (user_id, badge_id, transaction_id)
         SELECT dt.donor_id, b.badge_id, #{transaction_id}
         FROM donation_transaction dt
         JOIN suho_donation_content dc ON dt.content_id = dc.content_id
