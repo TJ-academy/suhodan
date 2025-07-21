@@ -85,6 +85,39 @@ public class OrderController {
 	}
 	
 	@GetMapping("list.do")
+	public ModelAndView list(
+	    HttpSession session,
+	    @RequestParam(value="page", defaultValue="1") int page,
+	    ModelAndView mav) {
+
+	    String user_id = (String) session.getAttribute("user_id");
+	    if (user_id == null) {
+	        return new ModelAndView("redirect:/login.do?message=nologin");
+	    }
+
+	    int pageSize = 5; // 한 페이지당 항목 수
+	    int offset = (page - 1) * pageSize;  // 0부터 시작하는 인덱스
+	    int limit = pageSize;
+
+	    List<Map<String, Object>> orders = orderDao.getUserOrdersPaged(user_id, offset, limit);
+	    int totalOrders = orderDao.countUserOrders(user_id);
+	    int totalPages = (int) Math.ceil((double) totalOrders / pageSize);
+
+	    if (page < 1) page = 1;
+	    if (page > totalPages) page = totalPages;
+
+	    mav.addObject("orders", orders);
+	    mav.addObject("currentPage", page);
+	    mav.addObject("totalPages", totalPages);
+	    mav.addObject("baseUrl", "/orders/list.do");
+	    mav.setViewName("/member/mypage/myorders");
+
+	    return mav;
+	}
+
+	
+	/*
+	@GetMapping("list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav) {
 		String user_id = (String) session.getAttribute("user_id");
 		
@@ -101,7 +134,7 @@ public class OrderController {
 		
 		return mav;
 	}
-	
+	*/
 	@GetMapping("cancel.do")
 	public String cancel(@RequestParam(name = "order_id") int order_id) {
 		orderDao.delete(order_id);

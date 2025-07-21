@@ -132,77 +132,77 @@
             color: #666;
         }
         .btn_wrap {
-            display: flex;
-            justify-content: center;
-            margin-top: 10px;
+        	display: flex;
+        	justify-content: center;
+        	margin-top: 10px;
         }
         .cancle_btn {
-            background: #E6AA3A;
-            color: white;
-            width: 50%;
-            height: 50px;
-            border-radius: 20px;
-            border-style: none;
+        	background: #E6AA3A;
+        	color: white;
+        	width: 50%;
+        	height: 50px;
+        	border-radius: 20px;
+        	border-style: none;
         }
         .cancle_btn:hover {
-            background: #AB501F;
+        	background: #AB501F;
         }
         .action_btn {
-            background: #FFFFFF;
-            color: black;
-            width: 50%;
-            height: 50px;
-            border-radius: 20px;
-            border: 1px solid #BABABA;
+        	background: #FFFFFF;
+        	color: black;
+        	width: 50%;
+        	height: 50px;
+        	border-radius: 20px;
+        	border: 1px solid #BABABA;
         }
         .action_btn:hover {
-            border: 3px solid black;
+        	border: 3px solid black;
         }
         .action_text {
-            text-align: center;
-            background: #FFF1DB;
-            padding: 10px;
-            color: black;
-            font-weight: bold;
-            margin-top: 10px;
+        	text-align: center;
+        	background: #FFF1DB;
+        	padding: 10px;
+        	color: black;
+        	font-weight: bold;
+        	margin-top: 10px;
         }
         
-        .noorder {
-            text-align: center;
-            align-items: center;
-            margin-top: 110px;
-            margin-bottom: 100px;
-        }
-        
-        .noorder p {
-            font-size: 19px;
-            color: #504848;
-        }
+	.noorder {
+		text-align: center;
+	    align-items: center;
+	    margin-top: 110px;
+	    margin-bottom: 100px;
+	}
+	
+	.noorder p {
+		font-size: 19px;
+		color: #504848;
+	}
     </style>
     <script>
-        function orderCancel(order_id) {
-            if(confirm("주문을 취소하시겠습니까?")) {
-                location.href='/orders/cancel.do?order_id='+order_id;
-            }
-        }
-        
-        function refundRequest(order_id) {
-            if(confirm("환불 신청을 하시겠습니까?")) {
-                location.href='/orders/refund.do?order_id='+order_id;
-            }
-        }
-        
-        function selectDel(order_id) {
-            order_id = order_id - 1;
-            location.href = '/orders/delivery_detail.do?order_id='+order_id;
-        }
+    	function orderCancel(order_id) {
+    		if(confirm("주문을 취소하시겠습니까?")) {
+    			location.href='/orders/cancel.do?order_id='+order_id;
+    		}
+    	}
+    	
+    	function refundRequest(order_id) {
+    		if(confirm("환불 신청을 하시겠습니까?")) {
+    			location.href='/orders/refund.do?order_id='+order_id;
+    		}
+    	}
+    	
+    	function selectDel(order_id) {
+    		order_id = order_id - 1;
+    		location.href = '/orders/delivery_detail.do?order_id='+order_id;
+    	}
     </script>
 </head>
 <body>
 <c:if test="${param.message == 'success_cancel'}">
-    <script>
-        alert("주문이 정상적으로 취소되었습니다.");
-    </script>
+	<script>
+		alert("주문이 정상적으로 취소되었습니다.");
+	</script>
 </c:if>
 
 <%@ include file="../../include/menu.jsp" %>
@@ -227,33 +227,33 @@
                     <c:if test="${prevOrderId != -1}">
                         </div> <!-- order-items 닫기 -->
                         <c:choose>
-                            <c:when test="${prevOrderStatus eq '결제진행중'}">
-                                <div class="btn_wrap">
-                                    <button class="action_btn"
-                                    onclick="orderCancel(${prevOrderId})">주문취소</button>
-                                </div>
-                            </c:when>
-                            <c:when test="${prevOrderStatus eq '배송준비중' or prevOrderStatus eq '배송중'}">
-                                <div class="btn_wrap">
-                                    <button class="action_btn" onclick="selectDel(${orderItem.ORDER_ID})">배송조회</button>
-                                </div>
-                            </c:when>
-                            <c:when test="${prevOrderStatus eq '환불완료'}">
-                                <p class="action_text">환불이 완료되었습니다.</p>
-                            </c:when>
-                            <c:when test="${prevOrderStatus eq '배송완료'}">
-                                <p class="action_text">배송이 완료되었습니다.</p>
-                            </c:when>
-                            <c:when test="${prevOrderStatus eq '환불요청'}">
-                                <p class="action_text">환불 요청 중인 주문 건입니다.</p>
-                            </c:when>
-                            <c:otherwise>
-                                <div class="btn_wrap">
-                                    <button class="action_btn" onclick="refundRequest(${prevOrderId})">
-                                        환불요청
-                                    </button>
-                                </div>
-                            </c:otherwise>
+                        	<c:when test="${prevOrderStatus eq '결제진행중'}">
+                        		<div class="btn_wrap">
+                        			<button class="action_btn"
+                        			onclick="orderCancel(${prevOrderId})">주문취소</button>
+                        		</div>
+                        	</c:when>
+                        	<c:when test="${prevOrderStatus eq '배송준비중' or prevOrderStatus eq '배송중'}">
+	                        	<div class="btn_wrap">
+	                        		<button class="action_btn" onclick="selectDel(${orderItem.ORDER_ID})">배송조회</button>
+	                        	</div>
+                        	</c:when>
+                        	<c:when test="${prevOrderStatus eq '환불완료'}">
+                        		<p class="action_text">환불이 완료되었습니다.</p>
+                        	</c:when>
+                        	<c:when test="${prevOrderStatus eq '배송완료'}">
+                        		<p class="action_text">배송이 완료되었습니다.</p>
+                        	</c:when>
+                        	<c:when test="${prevOrderStatus eq '환불요청'}">
+                        		<p class="action_text">환불 요청 중인 주문 건입니다.</p>
+                        	</c:when>
+                        	<c:otherwise>
+                        		<div class="btn_wrap">
+                        			<button class="action_btn" onclick="refundRequest(${prevOrderId})">
+                        				환불요청
+                        			</button>
+                        		</div>
+                        	</c:otherwise>
                         </c:choose>
                         </div> <!-- order-group 닫기 -->
                         <hr class="divider" />
@@ -290,33 +290,33 @@
                 <c:if test="${status.last}">
                         </div> <!-- order-items 닫기 -->
                         <c:choose>
-                            <c:when test="${prevOrderStatus eq '결제진행중'}">
-                                <div class="btn_wrap">
-                                    <button class="action_btn"
-                                    onclick="orderCancel(${prevOrderId})">주문취소</button>
-                                </div>
-                            </c:when>
-                            <c:when test="${prevOrderStatus eq '배송준비중' or prevOrderStatus eq '배송중'}">
-                                <div class="btn_wrap">
-                                    <button class="action_btn" onclick="selectDel(${orderItem.ORDER_ID})">배송조회</button>
-                                </div>
-                            </c:when>
-                            <c:when test="${prevOrderStatus eq '환불완료'}">
-                                <p class="action_text">환불이 완료되었습니다.</p>
-                            </c:when>
-                            <c:when test="${prevOrderStatus eq '배송완료'}">
-                                <p class="action_text">배송이 완료되었습니다.</p>
-                            </c:when>
-                            <c:when test="${prevOrderStatus eq '환불요청'}">
-                                <p class="action_text">환불 요청 중인 주문 건입니다.</p>
-                            </c:when>
-                            <c:otherwise>
-                                <div class="btn_wrap">
-                                    <button class="action_btn" onclick="refundRequest(${prevOrderId})">
-                                        환불요청
-                                    </button>
-                                </div>
-                            </c:otherwise>
+                        	<c:when test="${prevOrderStatus eq '결제진행중'}">
+                        		<div class="btn_wrap">
+                        			<button class="action_btn"
+                        			onclick="orderCancel(${prevOrderId})">주문취소</button>
+                        		</div>
+                        	</c:when>
+                        	<c:when test="${prevOrderStatus eq '배송준비중' or prevOrderStatus eq '배송중'}">
+                        		<div class="btn_wrap">
+	                        		<button class="action_btn" onclick="selectDel(${orderItem.ORDER_ID})">배송조회</button>
+                        		</div>
+                        	</c:when>
+                        	<c:when test="${prevOrderStatus eq '환불완료'}">
+                        		<p class="action_text">환불이 완료되었습니다.</p>
+                        	</c:when>
+                        	<c:when test="${prevOrderStatus eq '배송완료'}">
+                        		<p class="action_text">배송이 완료되었습니다.</p>
+                        	</c:when>
+                        	<c:when test="${prevOrderStatus eq '환불요청'}">
+                        		<p class="action_text">환불 요청 중인 주문 건입니다.</p>
+                        	</c:when>
+                        	<c:otherwise>
+                        		<div class="btn_wrap">
+                        			<button class="action_btn" onclick="refundRequest(${prevOrderId})">
+                        				환불요청
+                        			</button>
+                        		</div>
+                        	</c:otherwise>
                         </c:choose>
                     </div> <!-- order-group 닫기 -->
                 </c:if>
@@ -324,47 +324,10 @@
         </c:when>
         <c:otherwise>
             <div class="noorder">
-                <p>주문 내역이 없습니다.</p>
-            </div>
+				<p>주문 내역이 없습니다.</p>
+			</div>
         </c:otherwise>
     </c:choose>
-
-    <!-- 페이지네이션 추가 -->
-    <div style="text-align:center; margin-top: 30px; font-weight: 600; user-select:none;">
-        <c:set var="startPage" value="${(currentPage - 1) / 5 * 5 + 1}" />
-        <c:set var="endPage" value="${startPage + 4}" />
-        <c:if test="${endPage > totalPages}">
-            <c:set var="endPage" value="${totalPages}" />
-        </c:if>
-
-        <!-- 이전 버튼 -->
-        <c:if test="${currentPage > 1}">
-            <a href="${baseUrl}?page=${currentPage - 1}" style="margin: 0 10px; text-decoration:none; color: black;">&lt;</a>
-        </c:if>
-        <c:if test="${currentPage == 1}">
-            <span style="margin: 0 10px; color: #ccc;">&lt;</span>
-        </c:if>
-
-        <!-- 페이지 번호 -->
-        <c:forEach begin="${startPage}" end="${endPage}" var="i">
-            <c:choose>
-                <c:when test="${i == currentPage}">
-                    <span style="margin: 0 6px; color: #E6AA3A; font-weight: 700;">${i}</span>
-                </c:when>
-                <c:otherwise>
-                    <a href="${baseUrl}?page=${i}" style="margin: 0 6px; color: black; text-decoration:none;">${i}</a>
-                </c:otherwise>
-            </c:choose>
-        </c:forEach>
-
-        <!-- 다음 버튼 -->
-        <c:if test="${currentPage < totalPages}">
-            <a href="${baseUrl}?page=${currentPage + 1}" style="margin: 0 10px; text-decoration:none; color: black;">&gt;</a>
-        </c:if>
-        <c:if test="${currentPage == totalPages}">
-            <span style="margin: 0 10px; color: #ccc;">&gt;</span>
-        </c:if>
-    </div>
 </div>
 </body>
 </html>

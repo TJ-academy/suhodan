@@ -1,5 +1,6 @@
 package com.example.suhodan.orders;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -69,5 +70,19 @@ public class OrderDAOImpl implements OrderDAO {
 	@Override
 	public int getTotalCountSearch(Map<String, Object> param) {
 	    return sqlSession.selectOne("orders.getTotalCountSearch", param);
+	}
+	
+	@Override
+	public int countUserOrders(String user_id) {
+		return sqlSession.selectOne("orders.countUserOrders", user_id);
+	}
+	
+	@Override
+	public List<Map<String, Object>> getUserOrdersPaged(String user_id, int offset, int limit) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("userId", user_id);
+        params.put("offset", offset);
+        params.put("limit", limit);
+        return sqlSession.selectList("orders.getUserOrdersPaged", params);
 	}
 }

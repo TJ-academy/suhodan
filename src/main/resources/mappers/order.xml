@@ -128,4 +128,30 @@
 		)
 		WHERE rnum BETWEEN #{start} AND #{end}
 	</select>
+	<select id="countUserOrders" resultType="int">
+	    SELECT COUNT(*)
+	    FROM suho_orders
+	    WHERE user_id = #{userId}
+	</select>
+	<select id="getUserOrdersPaged" resultType="map">
+	    SELECT * FROM (
+	        SELECT ROWNUM AS rnum, inner_query.*
+	        FROM (
+	            SELECT 
+	                o.order_id, o.order_status, o.pay_method, o.order_date,
+	                oi.item_id, oi.product_name, oi.quantity, oi.unit_price,
+	                g.img
+	            FROM suho_orders o
+	            INNER JOIN suho_order_items oi ON o.order_id = oi.order_id
+	            INNER JOIN suho_goods g ON oi.product_name = g.name
+	            WHERE o.user_id = #{userId}
+	            ORDER BY o.order_id DESC
+	        ) inner_query
+	        WHERE ROWNUM &lt;= #{offset} + #{limit}
+	    )
+	    WHERE rnum &gt; #{offset}
+	</select>
+
+	
+	
 </mapper>

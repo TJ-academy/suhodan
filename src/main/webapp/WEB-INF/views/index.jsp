@@ -12,8 +12,8 @@
 <%@ include file="include/menu.jsp" %>
 <%@ include file="include/carousel.jsp" %>
 <div class="donation_con">
-	<img src="/resources/images/donation.PNG" width="100%" height="100%">
-	<button class="done_btn" onclick="location.href='/donation/list.do'">선물하기</button>
+   <img src="/resources/images/donation.PNG" width="100%" height="100%">
+   <button class="done_btn" onclick="location.href='/donation/list.do'">선물하기</button>
 </div>
 <div style="clear:both;"></div>
 <%@ include file="include/footer.jsp" %>
