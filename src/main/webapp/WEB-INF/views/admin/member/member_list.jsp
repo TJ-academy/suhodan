@@ -9,6 +9,14 @@
 <title>회원 관리</title>
 <link rel="stylesheet" href="/css/admin.css">
 <style>
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px; 
+  box-sizing: border-box;
+   transform: translateX(-150px);
+}
+
 .toggle-details {
 	background-color: #d6a77a;
 	color: white;
@@ -71,6 +79,7 @@
 </head>
 <body>
 	<%@ include file="../../include/admin_menu.jsp"%>
+	
 	<h2>회원 관리</h2>
 	<br>
 
@@ -95,7 +104,7 @@
         </form>
     </div>
 	<br>
-
+<div class = "container">
 	<table border="1">
 		<tr>
 			<td>아이디</td>
@@ -167,8 +176,9 @@
 			</tr>
 		</c:if>
 	</table>
-
+</div>
 	<%@ include file="../../include/admin_paging.jsp"%>
+	
 </body>
 </html>
 

@@ -10,6 +10,15 @@
 <title>기부 프로젝트 관리</title>
 <link rel="stylesheet" href="/css/admin.css">
 <link rel="stylesheet" href="/css/popup.css">
+<style>
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  box-sizing: border-box;
+  transform: translateX(-450px); /* ✅ 살짝 왼쪽으로 */
+}
+</style>
 </head>
 <body>
 	<%@ include file="../../include/admin_menu.jsp"%>
@@ -40,7 +49,7 @@
         </form>
     </div>
 	<br>
-	
+	<div class="container">
 	<table border="1" width="700px">
 		<tr>
 			<td>No.</td>
@@ -84,7 +93,7 @@
 				</tr>
 			</c:forEach>
 		</c:if>
-	</table>
+	</table></div>
 	<%@ include file="../../include/admin_paging.jsp"%>
 	<div id="overlay" class="overlay"></div>
 
