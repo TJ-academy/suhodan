@@ -150,7 +150,7 @@
 									href="donation_list.do?searchType=donor_id&searchKeyword=${row.user_id}"><button
 										type="button">기부 내역 보기</button></a>
 							</p>
-							<p>보유 배지 : 보유 배지</p>
+							<!-- <p>보유 배지 : 보유 배지</p>  -->
 							<p>주소 : ${row.address1} ${row.address2}</p>
 							<p>휴대폰 번호 : ${row.phone1} - ${row.phone2} - ${row.phone3}</p>
 							<div class="detail-buttons">

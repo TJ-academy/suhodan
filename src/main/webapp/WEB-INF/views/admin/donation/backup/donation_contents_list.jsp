@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,7 +66,7 @@
 					<td><fmt:formatDate value="${row.created_at}"
 							pattern="yyyy-MM-dd" /></td>
 					<td>${row.location}</td>
-					<td>${fn:substring(row.filename, 0, 14)}<c:if test="${fn:length(row.filename) > 1}">...</c:if></td>
+					<td>${row.filename}</td>
 					<td>
 						<button class="edit-button" data-content-id="${row.content_id}"
 							data-title="${row.title}" data-content="${row.content}"
@@ -146,12 +145,13 @@
 					function openEditRewardPopup(contentId, rewardAName, rewardBName, rewardCName, rewardDName) {
 						$('#edit_reward_popup').show();
 						$('#overlay').show();
-						$('#edit_reward_popup_content_id').val(contentId);
+						$('#edit_popup_content_id').val(contentId);
 						
 						$('#edit_popup_rewardaname').val(rewardAName);
 						$('#edit_popup_rewardbname').val(rewardBName);
 						$('#edit_popup_rewardcname').val(rewardCName);
 						$('#edit_popup_rewarddname').val(rewardDName);
+						
 					}
 
 					function closeEditRewardPopup() {
@@ -173,7 +173,6 @@
 					});
 					$('.close-reg-popup').on('click', closeRegPopup);
 					$('.close-edit-popup').on('click', closeEditPopup);
-					$('.close-edit-reward-popup').on('click', closeEditRewardPopup);
 					$('table').on('click', '.edit-button', function() {
 						const contentId = $(this).data('content-id');
 						const title = $(this).data('title');

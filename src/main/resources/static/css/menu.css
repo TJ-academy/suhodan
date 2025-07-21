@@ -1,118 +1,319 @@
+/* ============================================== */
+/* 기본 스타일 - 모든 화면 크기에 적용 */
+/* ============================================== */
 body {
-	background: #F7EAD9;
-	width: 1280px;
-	margin: 0 auto;
-	font-family: 'Noto Sans KR', sans-serif;
+    background: #F7EAD9;
+    /* 고정 너비 제거. 모든 화면에 꽉 차도록 설정 */
+    width: 100%; 
+    margin: 0; /* 중앙 정렬 위한 margin: 0 auto; 제거 */
+    font-family: 'Noto Sans KR', sans-serif;
+    /* 패딩과 보더가 너비/높이에 포함되도록 설정 */
+    box-sizing: border-box; 
 }
 
 .nav {
-	background-color: #f5e9d9;
-	width: 100%;
-	height: 109px;
-	display: flex;
-	align-items: center;
-	padding: 0 20px;
-	box-sizing: border-box;
-	border-bottom: 1px solid #ddd;
+    background-color: #f5e9d9;
+    width: 100%;
+    height: 109px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ddd;
+    position: relative; /* 햄버거 메뉴 위치를 위해 추가 */
+    z-index: 1001; /* 다른 요소 위에 오도록 */
 }
 
 .nav ul {
-	display: flex;
-	width: 100%;
-	padding: 0;
-	margin: 0;
-	list-style: none;
-	align-items: center;
+    display: flex;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    align-items: center;
 }
 
+/* 햄버거 메뉴 아이콘 (모바일에서만 보임) */
+.hamburger-menu {
+    display: none; /* 기본적으로 숨김 */
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+    margin-left: auto; /* 우측에 배치 */
+    padding: 5px;
+}
+
+.hamburger-menu span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #2E2E2E;
+    border-radius: 2px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* 햄버거 메뉴 클릭 시 애니메이션 (JavaScript로 'open' 클래스 토글) */
+.hamburger-menu.open span:nth-child(1) {
+    transform: translateY(11px) rotate(45deg);
+}
+.hamburger-menu.open span:nth-child(2) {
+    opacity: 0;
+}
+.hamburger-menu.open span:nth-child(3) {
+    transform: translateY(-11px) rotate(-45deg);
+}
+
+
+/* 메뉴 항목 공통 스타일 */
 .nav ul li {
-	display: flex;
-	align-items: center;
-	font-size: 18px;
-	color: #2E2E2E;
-	margin-right: 30px;
-	white-space: nowrap;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    color: #2E2E2E;
+    margin-right: 30px;
+    white-space: nowrap;
 }
 
+/* 마지막 메뉴 항목은 오른쪽에 정렬 */
 .nav ul li:last-child {
-	margin-left: auto;
-	margin-right: 0;
+    margin-left: auto;
+    margin-right: 0;
 }
 
 .nav ul li a {
-	text-decoration: none;
-	color: #2E2E2E;
-	padding: 8px 10px;
-	transition: color 0.3s ease;
+    text-decoration: none;
+    color: #2E2E2E;
+    padding: 8px 10px;
+    transition: color 0.3s ease;
 }
 
 .nav ul li a:hover {
-	color: black;
-	font-weight: 600;
+    color: black;
+    font-weight: 600;
 }
 
+/* 로고 스타일 */
 .nav ul li.logo {
-	width: 297px;
-	padding-right: 20px;
+    width: 297px; /* 데스크톱에서 로고 영역 너비 */
+    padding-right: 20px;
+    margin-right: 0; /* 로고 옆에 불필요한 마진 제거 */
 }
 
 .nav ul li.logo a img {
-	width: 200px;
-	height: auto;
-	display: block;
+    width: 200px;
+    height: auto;
+    display: block;
 }
 
 .nav ul li.menu-item {
-	width: auto;
+    width: auto;
+}
+
+/* 사용자 메뉴 (로그인/회원가입 등) */
+.nav ul li.user-menu {
+    /* 기존 margin-left: auto; 에 의해 자동으로 가장 우측으로 이동 */
+    margin-left: auto; 
+    margin-right: 0;
 }
 
 .nav ul li.user-menu a {
-	margin-left: 15px;
-	display: flex;
-	align-items: center;
+    margin-left: 15px; /* 사용자 메뉴 항목 간 간격 */
+    display: flex;
+    align-items: center;
 }
 
+/* 현재 활성화된 메뉴 항목 */
 .nav .menu-item a.active {
-	font-weight: bold !important; /* 현재 페이지에 해당하는 링크를 bold 처리 */
-	text-decoration: underline;
+    font-weight: bold !important;
+    text-decoration: underline;
 }
 
 /* 서브 메뉴 스타일링 */
 .nav ul li.menu-item {
-	position: relative; /* 부모 메뉴 항목에 relative 추가 */
+    position: relative; /* 부모 메뉴 항목에 relative 추가 */
 }
 
 .nav ul li .submenu {
-	display: none; /* 기본적으로 서브 메뉴는 숨깁니다 */
-	position: absolute; /* 부모 메뉴 아래에 서브 메뉴를 위치시킵니다 */
-	left: 0;
-	top: 100%; /* 부모 메뉴 항목 바로 아래에 위치 */
-	background-color: #ffffff; /* 배경을 흰색으로 설정 */
-	list-style: none;
-	padding: 0;
-	margin: 0;
-	width: 200px;
-	z-index: 1000; /* 서브 메뉴가 다른 요소 위로 오도록 z-index 추가 */
+    display: none; /* 기본적으로 서브 메뉴는 숨깁니다 */
+    position: absolute; /* 부모 메뉴 아래에 서브 메뉴를 위치시킵니다 */
+    left: 0;
+    top: 100%; /* 부모 메뉴 항목 바로 아래에 위치 */
+    background-color: #ffffff; /* 배경을 흰색으로 설정 */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 200px;
+    z-index: 1000; /* 서브 메뉴가 다른 요소 위로 오도록 z-index 추가 */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 그림자 추가 */
 }
 
 .nav ul li:hover .submenu {
-	display: block; /* 부모 메뉴에 hover 시 서브 메뉴가 보이도록 설정 */
+    display: block; /* 부모 메뉴에 hover 시 서브 메뉴가 보이도록 설정 */
 }
 
 .nav ul li .submenu li {
-	padding: 10px;
-	border-bottom: 1px solid #ddd;
+    padding: 0; /* 서브 메뉴 li 자체 패딩 제거 */
+    border-bottom: 1px solid #ddd;
+    margin-right: 0; /* 기본 li 마진 제거 */
+}
+
+.nav ul li .submenu li:last-child {
+    border-bottom: none; /* 마지막 항목 하단 보더 제거 */
 }
 
 .nav ul li .submenu li a {
-	color: #2E2E2E;
-	padding: 10px;
-	text-decoration: none;
-	display: block;
-	transition: background-color 0.3s ease;
-	font-size: 14px; /* 글자 크기 설정 */
+    color: #2E2E2E;
+    padding: 10px; /* 서브 메뉴 링크에 패딩 적용 */
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s ease;
+    font-size: 14px; /* 글자 크기 설정 */
 }
 
 .nav ul li .submenu li a:hover {
-	background-color: #ddd; /* 서브 메뉴 항목에 hover 시 배경색 변경 */
+    background-color: #f0f0f0; /* 서브 메뉴 항목에 hover 시 배경색 변경 */
+}
+
+
+/* ============================================== */
+/* 미디어 쿼리 - 태블릿 및 모바일 (max-width: 1024px) */
+/* ============================================== */
+@media (max-width: 1024px) {
+    .nav {
+        height: 80px; /* 높이 줄이기 */
+        padding: 0 15px;
+    }
+
+    .nav ul {
+        /* 햄버거 메뉴를 위해 모든 메뉴 항목을 기본적으로 숨김 */
+        display: none; 
+        flex-direction: column;
+        position: absolute;
+        top: 80px; /* nav 높이만큼 아래로 */
+        left: 0;
+        width: 100%;
+        background-color: #f5e9d9;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        z-index: 999; /* 햄버거 메뉴 자체보다 아래 */
+        align-items: flex-start; /* 항목들을 좌측 정렬 */
+        padding-bottom: 20px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    /* JavaScript로 'nav-open' 클래스가 추가될 때 메뉴를 보이게 함 */
+    .nav ul.nav-open {
+        display: flex;
+    }
+
+    .nav ul li {
+        width: 100%; /* 메뉴 항목 전체 너비 차지 */
+        margin-right: 0; /* 마진 제거 */
+        padding: 10px 20px; /* 패딩 추가 */
+        border-bottom: 1px solid #e0e0e0;
+        font-size: 16px; /* 폰트 크기 조정 */
+    }
+
+    .nav ul li:last-child {
+        margin-left: 0; /* user-menu의 auto 마진 제거 */
+        border-bottom: none; /* 마지막 항목의 하단 보더 제거 */
+    }
+    
+    .nav ul li a {
+        padding: 5px 0; /* 링크 패딩 조정 */
+        width: 100%; /* 링크가 전체 영역 클릭 가능하도록 */
+    }
+
+    .nav ul li.logo {
+        width: auto; /* 로고 너비 자동 */
+        padding-right: 0;
+        margin-right: auto; /* 햄버거 메뉴와 로고가 양 끝으로 가도록 */
+    }
+
+    .nav ul li.logo a img {
+        width: 150px; /* 모바일 로고 크기 조정 */
+    }
+
+    /* 햄버거 메뉴 아이콘 표시 */
+    .hamburger-menu {
+        display: flex; 
+    }
+
+    /* 서브 메뉴도 모바일에서는 팝업 형태가 아닌 하위로 펼쳐지도록 조정 */
+    .nav ul li .submenu {
+        position: static; /* 절대 위치 제거 */
+        width: 100%; /* 전체 너비 차지 */
+        box-shadow: none; /* 그림자 제거 */
+        background-color: #f0f0f0; /* 서브메뉴 배경색 변경 */
+        border-top: 1px solid #e0e0e0;
+        padding-left: 20px; /* 들여쓰기 */
+    }
+
+    .nav ul li:hover .submenu {
+        display: flex; /* hover 대신 JS로 토글하거나 클릭 시 보이도록 변경 필요 */
+        flex-direction: column;
+    }
+
+    .nav ul li .submenu li {
+        padding: 5px 0; /* 서브 메뉴 항목 패딩 */
+        border-bottom: none; /* 서브 메뉴 항목 자체 보더 제거 */
+    }
+
+    .nav ul li .submenu li a {
+        font-size: 13px; /* 서브 메뉴 폰트 크기 조정 */
+        padding: 8px 0;
+    }
+
+    .nav ul li.user-menu a {
+        margin-left: 0; /* 사용자 메뉴 항목 간 마진 제거 */
+    }
+}
+
+/* ============================================== */
+/* 미디어 쿼리 - 아주 작은 모바일 화면 (max-width: 480px) */
+/* ============================================== */
+@media (max-width: 480px) {
+    .nav {
+        height: 70px;
+        padding: 0 10px;
+    }
+
+    .nav ul {
+        top: 70px; /* nav 높이만큼 아래로 */
+    }
+
+    .nav ul li.logo a img {
+        width: 120px; /* 아주 작은 화면 로고 크기 조정 */
+    }
+
+    .hamburger-menu {
+        width: 25px;
+        height: 20px;
+    }
+
+    .hamburger-menu span {
+        height: 2px;
+    }
+
+    .hamburger-menu.open span:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+    }
+    .hamburger-menu.open span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+    }
+
+    .nav ul li {
+        font-size: 15px;
+        padding: 8px 15px;
+    }
+
+    .nav ul li .submenu {
+        padding-left: 15px;
+    }
+
+    .nav ul li .submenu li a {
+        font-size: 12px;
+    }
 }

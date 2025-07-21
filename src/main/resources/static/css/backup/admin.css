@@ -1,0 +1,298 @@
+body {
+	font-family: '맑은 고딕', sans-serif;
+	background-color: #fdf9f4;
+}
+
+h2 {
+	margin: 0; /* 기존 여백 제거 */
+	color: #3c2c1e;
+	/* 수평 중앙 정렬 */
+	text-align: center;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse; /* 테이블의 모든 경계선 합침 */
+	border: none; /* 테이블의 외부 경계선 제거 */
+	text-align: center; /* 테이블 내용 가운데 정렬 */
+}
+
+table tr:first-child {
+	border-bottom: 2px solid black; /* 첫 번째 tr에 실선 추가 */
+	font-weight: bold;
+}
+
+th, td {
+	padding: 10px; /* 셀 안의 여백 */
+	text-align: center; /* 테이블 내용 가운데 정렬 */
+}
+
+/* th {
+	background-color: #f4f0e9; 헤더 배경 색상
+	text-align: left; 좌측 정렬
+} */
+
+tr:hover {
+	background-color: #f9f9f9; /* 마우스 오버 시 배경 색상 */
+}
+
+button {
+	background-color: #c98f6f;
+	border: none;
+	color: white;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+button:hover {
+	background-color: #9e704f; /* 버튼 호버 시 색상 변경 */
+}
+
+/* 페이징 컨테이너 중앙 정렬 */
+.pagination {
+	display: flex; /* Flexbox로 중앙 정렬 */
+	justify-content: center; /* 항목들을 수평으로 중앙 정렬 */
+	margin-top: 20px;
+	padding: 10px;
+	width: 100%; /* 부모 요소를 전체 너비로 확장 */
+}
+
+/* 페이징 항목 스타일 */
+.pagination a, .pagination strong {
+	font-size: 14px;
+	color: #7d7d7d;
+	text-decoration: none;
+	padding: 5px 10px;
+	margin: 0 5px;
+	border-radius: 4px;
+	display: inline-block; /* 중앙 정렬을 위한 인라인 블록 */
+}
+
+/* 마우스 오버 시 링크 스타일 */
+.pagination a:hover {
+	background-color: #f1f1f1;
+}
+
+/* 현재 페이지 번호 강조 */
+.pagination #current-page {
+	background-color: #c98f6f;
+	color: white;
+}
+
+/* '이전' 버튼 스타일 */
+.pagination #prev-page {
+	font-weight: bold;
+	padding: 5px 10px;
+}
+
+/* '다음' 버튼 스타일 */
+.pagination #next-page {
+	font-weight: bold;
+	padding: 5px 10px;
+}
+
+#prev-page-disabled, #next-page-disabled {
+	color: #ddd; /* 비활성화된 버튼의 색상 */
+	cursor: not-allowed; /* 마우스 커서 변경 */
+}
+
+/* 헤더 컨테이너 스타일
+.header-container {
+	display: flex; Flexbox로 레이아웃을 수평으로 설정
+	justify-content: space-between; 버튼을 우측 끝으로 배치
+	align-items: center; 수직으로 중앙 정렬
+	width: 100%; 전체 너비
+	margin-bottom: 20px; 제목과 버튼 사이에 여백 추가
+} */
+
+h2 {
+    text-align: center;
+    font-size: 36px;
+    color: #3b2a1b;
+    margin-top: 30px;
+}
+
+/* 추가하기 버튼 스타일 */
+#addButton {
+	background-color: #c98f6f;
+	border: none;
+	color: white;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	cursor: pointer;
+	border-radius: 5px;
+	margin-right: 25px;
+}
+
+#addButton:hover {
+	background-color: #9e704f; /* 버튼 호버 시 색상 변경 */
+}
+
+.action-btn {
+	padding: 10px 20px;
+	font-size: 16px;
+	text-align: center;
+	cursor: pointer;
+	border-radius: 5px;
+	border: none;
+	font-weight: bold;
+	transition: background-color 0.3s ease;
+}
+
+/* 수정 버튼 스타일 */
+.edit-button {
+    background-color: #7bd56c; /* 연한 초록색 */
+    color: white;
+    border: 2px solid #6e9e47;
+    border-radius: 15px;
+    padding: 8px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.edit-button:hover {
+    background-color: #6e9e47; /* 어두운 초록색 */
+    border-color: #5b843a;
+}
+
+/* 삭제 버튼 스타일 */
+.delete-button {
+    background-color: #ff7b7b; /* 연한 빨간색 */
+    color: white;
+    border: 2px solid #d06c6c;
+    border-radius: 15px;
+    padding: 8px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: #d06c6c; /* 어두운 빨간색 */
+    border-color: #b25959;
+}
+
+.reward-mng-button {
+    background-color:  #d1a15d; /* 연한 갈색 */
+    color: white;
+    border: 2px solid #a87e47; /* 어두운 갈색 */
+    border-radius: 15px;
+    padding: 8px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.reward-mng-button:hover {
+    background-color: #a87e47; /* 어두운 갈색 */
+    border-color: #8f6d3a; /* 더 어두운 갈색 */
+}
+
+/*input + 원 한 줄로 CSS */
+.price-container {
+    display: flex;
+    align-items: center;
+}
+
+.price-container input {
+    width: 80%;
+    padding: 5px;
+    margin-right: 5px; /* 선택 사항: input과 '원' 사이에 간격 추가 */
+}
+
+.price-container .currency {
+    font-size: 16px;
+    padding: 5px;
+}
+
+/* reward_list 상품 선택 돋보기랑 한 줄로 CSS */
+.input-container {
+    display: flex;
+    align-items: center;
+}
+
+.price-container input {
+    width: 80%;
+    padding: 5px;
+    margin-right: 5px; /* 선택 사항: input과 '원' 사이에 간격 추가 */
+}
+
+.search-icon {
+    width: 20px; /* 아이콘 크기 */
+    height: 20px; /* 아이콘 크기 */
+    cursor: pointer;
+    margin-left: 10px; /* input과 아이콘 사이에 여백 추가 */
+}
+
+/* 추가하기 버튼 스타일 */
+.add-btn {
+    float: right;
+    background-color: #d6a77a;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: -50px;
+}
+
+.add-btn:hover {
+    background-color: #b87d53;
+}
+
+.cls-btn {
+    float: right;
+    background-color: #d6a77a;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: -50px;
+}
+
+.cls-btn:hover {
+    background-color: #b87d53;
+}
+
+/* 검색 옵션 스타일 */
+.search-box {
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f9f4ef;
+    border: 1px solid #d1c6b9;
+    border-radius: 10px;
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    align-items: center;
+}
+
+.search-box select, .search-box input, .search-box button {
+    font-size: 16px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.search-box button {
+    background-color: #d6a77a;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.search-box button:hover {
+    background-color: #b87d53;
+}

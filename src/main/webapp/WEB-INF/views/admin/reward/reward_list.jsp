@@ -16,6 +16,7 @@
     <button class="add-btn" id="addButton">추가하기</button>
     <br>
 
+	<div align="right">총 ${totalCount}개의 내역이 조회되었습니다.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
     <div class="search-box">
         <form method="get" action="member_list.do">
             <select name="searchType">
@@ -25,7 +26,7 @@
             <input type="text" name="searchKeyword" value="${searchKeyword}" />
             <select name="sortBy">
                 <option value="price_type" ${sortBy == 'price_type' ? 'selected' : ''}>금액</option>
-				<option value="reg_date" ${sortBy == 'reg_date' ? 'selected' : ''}>작성일자</option>
+				<option value="reg_date" ${sortBy == 'reg_date' ? 'selected' : ''}>등록일</option>
             </select>
             <select name="sortOrder">
                 <option value="asc" ${sortOrder == 'asc' ? 'selected' : ''}>오름차순</option>

@@ -1,44 +1,59 @@
-  body {
+/* 기본 스타일 - 모든 화면 크기에 적용 */
+body {
     background-color: #F7EAD9;
     margin: 0;
     font-family: 'Noto Sans KR', sans-serif;
     color: #6B4F3B;
-  }
+    box-sizing: border-box; /* 패딩과 보더가 너비/높이에 포함되도록 설정 */
+}
 
-	.login_text {
-		text-align: center;
-		color: #9C6B4F;
-		font-size: 30px;
-		margin-top: 70px;
-	}
-  /* 메뉴 포함된 상단 여백 조절 */
-  .login_box {
+.login_text {
+    text-align: center;
+    color: #9C6B4F;
+    font-size: 30px;
+    margin-top: 70px;
+    padding: 0 10px; /* 좌우 패딩 추가로 텍스트 잘림 방지 */
+    word-break: keep-all; /* 단어 단위 줄바꿈 시도 (한글에 유용) */
+}
+
+/* 메뉴 포함된 상단 여백 조절 */
+.login_box {
     display: flex;
     justify-content: center;
-  }
+    padding: 0 20px; /* 좌우 패딩 추가 */
+    box-sizing: border-box;
+}
 
-  .login_container {
-    width: 532px;
+.login_container {
+    width: 90%; /* 고정 너비 대신 유동적인 % 사용 */
+    max-width: 532px; /* 최대 너비 설정 */
     background: #F5F1EB;
     border-radius: 20px;
-    padding: 100px 80px;
+    padding: 100px 80px; /* 큰 화면에서의 패딩 유지 */
     box-sizing: border-box;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    text-align: center;
-  }
+    text-align: center; /* 전체 컨테이너는 중앙 정렬 */
+    margin-top: 50px; /* 상단 여백 추가 */
+    margin-bottom: 50px; /* 하단 여백 추가 */
+}
 
-  form {
+form {
     text-align: left;
-  }
+    /* 폼의 너비를 컨테이너에 맞추고 중앙 정렬 */
+    width: 100%;
+    max-width: 372px; /* 532px (컨테이너 너비) - 80px*2 (패딩) = 372px */
+    margin: 0 auto;
+}
 
-  label {
+label {
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
-  }
+    color: #000000; /* 라벨 색상 명시 */
+}
 
-  input[type="text"],
-  input[type="password"] {
+input[type="text"],
+input[type="password"] {
     width: 100%;
     height: 40px;
     padding: 8px 12px;
@@ -48,15 +63,15 @@
     font-size: 16px;
     box-sizing: border-box;
     transition: border-color 0.3s ease;
-  }
+}
 
-  input[type="text"]:focus,
-  input[type="password"]:focus {
+input[type="text"]:focus,
+input[type="password"]:focus {
     border-color: #9C6B4F;
     outline: none;
-  }
+}
 
-  #btnLogin {
+#btnLogin {
     width: 100%;
     height: 50px;
     background-color: #9C6B4F;
@@ -67,38 +82,120 @@
     border-radius: 25px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-  }
+}
 
-  #btnLogin:hover {
+#btnLogin:hover {
     background-color: #7a5239;
-  }
+}
 
-  .message {
+.message {
     margin-top: 15px;
     font-size: 14px;
     text-align: center;
-  }
+    color: #6B4F3B; /* 기본 메시지 색상 */
+}
 
-  .message.error {
-    color: #E64B4E;
-  }
+.message.error,
+.message.logout,
+.message.nologin {
+    color: #E64B4E; /* 에러/로그아웃/로그인 필요 메시지 색상 */
+}
 
-  .message.logout {
-    color: #E64B4E;
-  }
-
-  .message.nologin {
-    color: #E64B4E;
-  }
-
-  .signup-link {
+.signup-link {
     margin-top: 20px;
     text-align: center;
     font-size: 17px;
     color: #9C6B4F;
     cursor: pointer;
-  }
+}
 
-  .signup-link:hover {
+.signup-link:hover {
     text-decoration: underline;
-  }
+}
+
+/* --- 미디어 쿼리 --- */
+
+/* 태블릿 및 중간 크기 화면 (768px 이하) */
+@media (max-width: 768px) {
+    .login_text {
+        font-size: 26px; /* 폰트 사이즈 조정 */
+        margin-top: 50px;
+    }
+
+    .login_box {
+        padding: 0 10px; /* 좌우 패딩 조정 */
+    }
+
+    .login_container {
+        padding: 50px 30px; /* 패딩 조정 */
+        border-radius: 15px; /* 모서리 조정 */
+        margin-top: 30px; /* 상단 여백 조정 */
+        margin-bottom: 30px; /* 하단 여백 조정 */
+    }
+
+    form {
+        max-width: none; /* 폼의 최대 너비 제한 해제 */
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        height: 45px; /* 높이 약간 늘림 */
+        padding: 10px 15px; /* 패딩 조정 */
+        font-size: 17px; /* 폰트 사이즈 조정 */
+        margin-bottom: 20px; /* 마진 조정 */
+    }
+
+    #btnLogin {
+        height: 55px; /* 높이 약간 늘림 */
+        font-size: 19px; /* 폰트 사이즈 조정 */
+    }
+
+    .message {
+        font-size: 15px; /* 폰트 사이즈 조정 */
+    }
+
+    .signup-link {
+        font-size: 16px; /* 폰트 사이즈 조정 */
+    }
+}
+
+/* 모바일 화면 (480px 이하) */
+@media (max-width: 480px) {
+    .login_text {
+        font-size: 22px; /* 폰트 사이즈 조정 */
+        margin-top: 40px;
+    }
+
+    .login_container {
+        padding: 30px 20px; /* 패딩 조정 */
+        border-radius: 10px; /* 모서리 조정 */
+        margin-top: 20px; /* 상단 여백 조정 */
+        margin-bottom: 20px; /* 하단 여백 조정 */
+    }
+
+    label {
+        font-size: 14px; /* 라벨 폰트 사이즈 조정 */
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        height: 40px;
+        padding: 8px 12px;
+        font-size: 15px;
+        margin-bottom: 15px; /* 마진 조정 */
+    }
+
+    #btnLogin {
+        height: 50px;
+        font-size: 17px;
+    }
+
+    .message {
+        font-size: 13px;
+    }
+
+    .signup-link {
+        font-size: 15px;
+        margin-top: 15px; /* 마진 조정 */
+    }
+}

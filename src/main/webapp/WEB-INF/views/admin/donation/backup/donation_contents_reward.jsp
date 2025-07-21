@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <div id="edit_reward_popup" class="popup">
-	<h3>기부 프로젝트 리워드 관리</h3>
+	<h3>기부 프로젝트 수정</h3>
 	<form action="donation_contents_reward_update.do" method="post"
 		enctype="multipart/form-data"> 
 
@@ -39,10 +39,10 @@
         </div>
      
 
-		<input type="hidden" id="edit_reward_popup_content_id" name="content_id" />
+		<input type="hidden" id="edit_popup_content_id" name="content_id" />
 
 		<button type="submit" class="button">수정</button>
-		<button type="button" class="button close-edit-reward-popup">닫기</button>
+		<button type="button" class="button close-edit-popup">닫기</button>
 	</form>
 </div>
 

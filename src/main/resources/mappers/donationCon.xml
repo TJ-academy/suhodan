@@ -6,17 +6,10 @@
 		insert into suho_donation_content
 		(content_id, title,
 		content, target_amount, start_date, end_date, location, created_at,
-		filename, rewarda, rewardb, rewardc, rewardd)
+		filename)
 		values (donation_content_seq.nextval, #{title}, #{content},
 		#{target_amount}, #{start_date}, #{end_date}, #{location}, sysdate,
-		#{filename},(select reward_id from suho_reward where name = #{rewardaname}
-		and ROWNUM &lt;= 1),
-		(select reward_id from suho_reward where name =
-		#{rewardbname} and ROWNUM &lt;= 1),
-		(select reward_id from suho_goods
-		where name = #{rewardcname} and ROWNUM &lt;= 1),
-		(select reward_id from
-		suho_reward where name = #{rewarddname} and ROWNUM &lt;= 1))
+		#{filename})
 	</insert>
 
 	<update id="update">
@@ -25,10 +18,16 @@
 		content=#{content}, target_amount=#{target_amount},
 		start_date=#{start_date},
 		end_date=#{end_date}, location=#{location},
-		filename=#{filename}, rewarda=#{rewarda}, rewardb=#{rewardb}, rewardc=#{rewardc}, rewardd=#{rewardd}
+		filename=#{filename}
 		where content_id=#{content_id}
 	</update>
 
+	<update id="rewardUpdate">
+		update suho_donation_content
+		set rewarda=${rewarda}, rewardb=#{rewardb}, rewardc=#{rewardc}, rewardd=#{rewardd}
+		where content_id=#{content_id}
+	</update>
+	
 	<select id="file_info" resultType="String">
 		select filename from
 		suho_donation_content

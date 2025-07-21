@@ -1,0 +1,220 @@
+	.container {
+		position: relative;
+		width: 893px;
+		height: auto;
+		margin: 47px auto 47px auto;
+		text-align: center;
+		align-items: center;
+	}
+	
+	.rectangle {
+		width: 893px;
+		height: auto;
+		left: 50%;
+		transform: translateX(-50%);
+		background-color: #F5F1EB;
+		border: 1.67px solid #D8C2A6;
+		border-radius: 16.65px;
+		position: relative;
+		text-align: center;
+		align-items: center;
+	}
+	
+	.back-button {
+		position: absolute;
+		width: 14px; height: 28px;
+		border: none;
+		cursor: pointer;
+		top: 40px; left: 40px;
+		margin-top: 1px;
+		background: url('/resources/suhodan_images/icon/arrow_right.png') no-repeat center;
+		background-size: contain;
+		z-index: 10;
+		transform: rotate(180deg);
+	}
+	
+	.donationpage-title {
+		position: absolute;
+		top:40px; left: 40px;
+		display: flex;
+		align-items: center;
+	}
+	
+	.donationpage-title-img {
+		margin-left: 50px;
+		width: 25px; height: 25px;
+	}
+	
+	.donationpage-title-text {
+		margin-left: 10px;
+		font-size: 21px;
+		font-weight: bold;
+		color: #504848;
+	}
+	
+	/* .donationpage-logo {
+		flex-grow: 1; 로고가 남은 공간을 차지하도록 하여 중앙으로 이동
+		text-align: center; 로고 이미지 중앙 정렬
+	}
+	
+	.donationpage-logo img {
+		display: inline-block; text-align: center가 작동하도록
+		width: 120px; 로고 크기 조정
+		height: auto;
+	} */
+	
+	.nodonation {
+	    align-items: center;
+	    margin-top: 150px;
+	    margin-bottom: 100px;
+	}
+	
+	.nodonation p {
+		font-size: 19px;
+		color: #504848;
+	}
+	
+	.donationlist {
+	    display: flex;
+	    flex-direction: column;
+	    gap: 40px;
+	    align-items: center;
+	    margin-top: 130px;
+	    margin-bottom: 100px;
+	}
+	
+	/* 기부 날짜 */
+	.donation-date {
+	    align-self: center;
+	    margin-left: 10px;
+	    font-size: 17px;
+	    color: #6C6C6C;
+	    text-align: left;
+	}
+	
+	/* 외곽 박스 */
+	.donation-box {
+	    width: 802px;
+	    height: 191px;
+	    border: 1.67px solid #CECECE;
+	    border-radius: 16.65px;
+	    display: flex;
+	    position: relative;
+	    transition: border-color 0.3s;
+	}
+	
+	/* 프로젝트 이미지 */
+	.donation-project-image {
+	    position: relative;
+	    width: 143px;
+	    height: 143px;
+	    top: 50%;
+	    left: 24px;
+	    transform: translateY(-50%);
+	    border-radius: 15px;
+	    overflow: hidden;
+	    flex-shrink: 0;
+	}
+	
+	.donation-project-image img {
+	    width: 100%;
+	    height: 100%;
+	    object-fit: cover;
+	    transition: filter 0.3s;
+	}
+	
+	.donation-box:hover {
+	    border-color: #9C6B4F;
+	}
+	
+	.donation-box:hover .reward-project-image img {
+	    filter: brightness(60%);
+	}
+	
+	/* 자세히 보기 버튼 */
+	.donation-project-image button {
+	    position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%, -50%);
+	    background-color: #9C6B4F;
+	    border: 1px solid #9C6B4F;
+	    padding: 5px;
+	    font-size: 17px;
+	    width: 116px;
+	    color: #FFFFFF;
+	    border-radius: 16.65px;
+	    transition: opacity 0.3s;
+	    display: none;
+	}
+	
+	.donation-box:hover .donation-project-image button {
+	    display: block;
+	}
+	
+	/* 중앙 정보 */
+	.donation-project-info {
+	    display: flex;
+	    flex-direction: column;
+	    justify-content: center;
+	    text-align: left;
+	    margin-left: 45px;
+	    flex-grow: 1;
+	    /* gap: 4px; */
+	}
+	
+	.donation-project-info .location {
+		font-weight: bold;
+	    color: #2E2E2E;
+	    font-size: 19px;
+	}
+	
+	.donation-project-info .project-title {
+	    font-weight: bold;
+	    color: #2E2E2E;
+	    font-size: 21px;
+	}
+	
+	/* 오른쪽 상단 날짜 */
+	.donation-project-dates {
+	    position: absolute;
+	    top: 12px;
+	    right: 20px;
+	    font-size: 17px;
+	    color: #6C6C6C;
+	}
+	
+	/* 오른쪽 하단 금액 */
+	.donation-project-amount {
+	    position: absolute;
+	    bottom: 12px;
+	    right: 20px;
+	    font-size: 21px;
+	    font-weight: bold;
+	    color: #2E2E2E;
+	}
+	
+	.donation-project-amount span {
+	    color: #9C6B4F;
+	    font-weight: bold;
+	}
+
+	.pagination {
+		position: absolute;
+		text-align: center;
+		margin-top: 30px;
+		bottom: 15px;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		display: flex;
+	}
+	.pagination a {
+		justify-content: center;
+		margin: 0 5px;
+		padding: 6px 12px;
+		background-color: 'transparent';
+		text-decoration: none;
+		text-underline-offset: 4px;
+		text-underline-color: #2E2E2E;
+	}
+	

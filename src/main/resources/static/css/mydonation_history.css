@@ -1,220 +1,506 @@
-	.container {
-		position: relative;
-		width: 893px;
-		height: auto;
-		margin: 47px auto 47px auto;
-		text-align: center;
-		align-items: center;
-	}
-	
-	.rectangle {
-		width: 893px;
-		height: auto;
-		left: 50%;
-		transform: translateX(-50%);
-		background-color: #F5F1EB;
-		border: 1.67px solid #D8C2A6;
-		border-radius: 16.65px;
-		position: relative;
-		text-align: center;
-		align-items: center;
-	}
-	
-	.back-button {
-		position: absolute;
-		width: 14px; height: 28px;
-		border: none;
-		cursor: pointer;
-		top: 40px; left: 40px;
-		margin-top: 1px;
-		background: url('/resources/suhodan_images/icon/arrow_right.png') no-repeat center;
-		background-size: contain;
-		z-index: 10;
-		transform: rotate(180deg);
-	}
-	
-	.donationpage-title {
-		position: absolute;
-		top:40px; left: 40px;
-		display: flex;
-		align-items: center;
-	}
-	
-	.donationpage-title-img {
-		margin-left: 50px;
-		width: 25px; height: 25px;
-	}
-	
-	.donationpage-title-text {
-		margin-left: 10px;
-		font-size: 21px;
-		font-weight: bold;
-		color: #504848;
-	}
-	
-	/* .donationpage-logo {
-		flex-grow: 1; 로고가 남은 공간을 차지하도록 하여 중앙으로 이동
-		text-align: center; 로고 이미지 중앙 정렬
-	}
-	
-	.donationpage-logo img {
-		display: inline-block; text-align: center가 작동하도록
-		width: 120px; 로고 크기 조정
-		height: auto;
-	} */
-	
-	.nodonation {
-	    align-items: center;
-	    margin-top: 150px;
-	    margin-bottom: 100px;
-	}
-	
-	.nodonation p {
-		font-size: 19px;
-		color: #504848;
-	}
-	
-	.donationlist {
-	    display: flex;
-	    flex-direction: column;
-	    gap: 40px;
-	    align-items: center;
-	    margin-top: 130px;
-	    margin-bottom: 100px;
-	}
-	
-	/* 기부 날짜 */
-	.donation-date {
-	    align-self: center;
-	    margin-left: 10px;
-	    font-size: 17px;
-	    color: #6C6C6C;
-	    text-align: left;
-	}
-	
-	/* 외곽 박스 */
-	.donation-box {
-	    width: 802px;
-	    height: 191px;
-	    border: 1.67px solid #CECECE;
-	    border-radius: 16.65px;
-	    display: flex;
-	    position: relative;
-	    transition: border-color 0.3s;
-	}
-	
-	/* 프로젝트 이미지 */
-	.donation-project-image {
-	    position: relative;
-	    width: 143px;
-	    height: 143px;
-	    top: 50%;
-	    left: 24px;
-	    transform: translateY(-50%);
-	    border-radius: 15px;
-	    overflow: hidden;
-	    flex-shrink: 0;
-	}
-	
-	.donation-project-image img {
-	    width: 100%;
-	    height: 100%;
-	    object-fit: cover;
-	    transition: filter 0.3s;
-	}
-	
-	.donation-box:hover {
-	    border-color: #9C6B4F;
-	}
-	
-	.donation-box:hover .reward-project-image img {
-	    filter: brightness(60%);
-	}
-	
-	/* 자세히 보기 버튼 */
-	.donation-project-image button {
-	    position: absolute;
-	    top: 50%;
-	    left: 50%;
-	    transform: translate(-50%, -50%);
-	    background-color: #9C6B4F;
-	    border: 1px solid #9C6B4F;
-	    padding: 5px;
-	    font-size: 17px;
-	    width: 116px;
-	    color: #FFFFFF;
-	    border-radius: 16.65px;
-	    transition: opacity 0.3s;
-	    display: none;
-	}
-	
-	.donation-box:hover .donation-project-image button {
-	    display: block;
-	}
-	
-	/* 중앙 정보 */
-	.donation-project-info {
-	    display: flex;
-	    flex-direction: column;
-	    justify-content: center;
-	    text-align: left;
-	    margin-left: 45px;
-	    flex-grow: 1;
-	    /* gap: 4px; */
-	}
-	
-	.donation-project-info .location {
-		font-weight: bold;
-	    color: #2E2E2E;
-	    font-size: 19px;
-	}
-	
-	.donation-project-info .project-title {
-	    font-weight: bold;
-	    color: #2E2E2E;
-	    font-size: 21px;
-	}
-	
-	/* 오른쪽 상단 날짜 */
-	.donation-project-dates {
-	    position: absolute;
-	    top: 12px;
-	    right: 20px;
-	    font-size: 17px;
-	    color: #6C6C6C;
-	}
-	
-	/* 오른쪽 하단 금액 */
-	.donation-project-amount {
-	    position: absolute;
-	    bottom: 12px;
-	    right: 20px;
-	    font-size: 21px;
-	    font-weight: bold;
-	    color: #2E2E2E;
-	}
-	
-	.donation-project-amount span {
-	    color: #9C6B4F;
-	    font-weight: bold;
-	}
+/* ============================================== */
+/* 기본 스타일 - 모든 화면 크기에 적용 */
+/* ============================================== */
+body {
+    background: #F7EAD9;
+    width: 100%; /* 고정 너비 제거, 모든 화면에 꽉 차도록 설정 */
+    margin: 0; /* 중앙 정렬 위한 margin: 0 auto; 제거 (컨테이너에서 처리) */
+    font-family: 'Noto Sans KR', sans-serif;
+    box-sizing: border-box; /* 패딩과 테두리가 요소의 전체 너비 및 높이에 포함되도록 설정 */
+}
 
-	.pagination {
-		position: absolute;
-		text-align: center;
-		margin-top: 30px;
-		bottom: 15px;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		display: flex;
-	}
-	.pagination a {
-		justify-content: center;
-		margin: 0 5px;
-		padding: 6px 12px;
-		background-color: 'transparent';
-		text-decoration: none;
-		text-underline-offset: 4px;
-		text-underline-color: #2E2E2E;
-	}
+.container {
+    position: relative;
+    width: 90%; /* 고정 너비 대신 유동적인 % 사용 */
+    max-width: 893px; /* 최대 너비 설정 */
+    height: auto;
+    margin: 47px auto; /* 상하 여백 고정, 좌우 자동 (가운데 정렬) */
+    text-align: center;
+    display: flex; /* 내부 요소 정렬을 위해 Flexbox 사용 */
+    flex-direction: column;
+    align-items: center;
+    padding: 0 10px; /* 좌우 패딩 추가하여 내용이 가장자리에 붙지 않도록 */
+    box-sizing: border-box;
+}
 	
+.rectangle {
+    width: 100%; /* 부모 컨테이너의 100%를 차지하도록 변경 */
+    height: auto;
+    /* transform: translateX(-50%); 및 left: 50%;는 부모가 flex일 경우 필요 없음 */
+    background-color: #F5F1EB;
+    border: 1.67px solid #D8C2A6;
+    border-radius: 16.65px;
+    position: relative; /* 자식 요소의 absolute 위치 기준 */
+    text-align: center;
+    display: flex; /* 내부 요소 정렬을 위해 Flexbox 사용 */
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding-bottom: 50px; /* 페이지네이션 공간 확보를 위해 하단 패딩 추가 */
+}
+	
+.back-button {
+    position: absolute;
+    width: 14px; 
+    height: 28px;
+    border: none;
+    cursor: pointer;
+    top: 40px; 
+    left: 40px;
+    margin-top: 1px;
+    background: url('/resources/suhodan_images/icon/arrow_right.png') no-repeat center;
+    background-size: contain;
+    z-index: 10;
+    transform: rotate(180deg);
+}
+	
+.donationpage-title {
+    position: absolute;
+    top: 40px; 
+    left: 40px;
+    display: flex;
+    align-items: center;
+    /* 너비 제한을 주어 작은 화면에서 텍스트가 잘리지 않도록 */
+    max-width: calc(100% - 80px); 
+}
+	
+.donationpage-title-img {
+    margin-left: 50px;
+    width: 25px; 
+    height: 25px;
+    flex-shrink: 0; /* 이미지 크기 고정 */
+}
+	
+.donationpage-title-text {
+    margin-left: 10px;
+    font-size: 21px;
+    font-weight: bold;
+    color: #504848;
+    white-space: nowrap; /* 텍스트가 줄바꿈되지 않도록 (미디어쿼리에서 변경) */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+	
+/* .donationpage-logo 주석 처리된 부분은 반응형에 맞춰 HTML 구조 변경 권장 */
+/* 현재 CSS에서는 주석 처리 유지 */
+	
+.nodonation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 150px;
+    margin-bottom: 100px;
+    width: 100%; /* 전체 너비 사용 */
+}
+	
+.nodonation p {
+    font-size: 19px;
+    color: #504848;
+    padding: 0 15px; /* 작은 화면에서 텍스트가 잘리지 않도록 패딩 추가 */
+    word-break: keep-all; /* 단어 단위로 줄바꿈 */
+}
+	
+.donationlist {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center; /* 자식 요소 가운데 정렬 */
+    margin-top: 130px;
+    margin-bottom: 100px;
+    width: 100%; /* 전체 너비 사용 */
+    padding: 0 20px; /* 좌우 패딩 추가 */
+    box-sizing: border-box;
+}
+	
+/* 기부 날짜 (리스트 바깥의 개별 날짜) */
+.donation-date {
+    align-self: flex-start; /* 왼쪽 정렬 */
+    margin-left: 10px; /* donationlist의 패딩을 고려한 마진 */
+    font-size: 17px;
+    color: #6C6C6C;
+    text-align: left;
+    width: 100%; /* 날짜가 전체 너비 사용 */
+    box-sizing: border-box;
+}
+	
+/* 외곽 박스 (기부 카드) */
+.donation-box {
+    width: 100%; /* 부모(donationlist)의 100% 사용 */
+    max-width: 802px; /* 최대 너비 설정 */
+    height: auto; /* 높이 고정 대신 auto 사용 */
+    min-height: 191px; /* 최소 높이 설정 */
+    border: 1.67px solid #CECECE;
+    border-radius: 16.65px;
+    display: flex;
+    position: relative;
+    transition: border-color 0.3s;
+    padding: 15px; /* 내부 요소와의 간격을 위한 패딩 */
+    box-sizing: border-box;
+    flex-wrap: wrap; /* 작은 화면에서 줄바꿈되도록 */
+    justify-content: center; /* 내용이 가운데로 오도록 */
+    align-items: center; /* 수직 가운데 정렬 */
+}
+	
+/* 프로젝트 이미지 */
+.donation-project-image {
+    position: relative;
+    width: 143px;
+    height: 143px;
+    /* top/left/transform 제거 - flexbox가 배치 처리 */
+    border-radius: 15px;
+    overflow: hidden;
+    flex-shrink: 0; /* 이미지 크기 고정 */
+    margin-right: 20px; /* 정보와의 간격 */
+}
+	
+.donation-project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter 0.3s;
+}
+	
+.donation-box:hover {
+    border-color: #9C6B4F;
+}
+	
+.donation-box:hover .donation-project-image img { /* reward-project-image -> donation-project-image */
+    filter: brightness(60%);
+}
+	
+/* 자세히 보기 버튼 */
+.donation-project-image button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #9C6B4F;
+    border: 1px solid #9C6B4F;
+    padding: 5px;
+    font-size: 17px;
+    width: 116px;
+    color: #FFFFFF;
+    border-radius: 16.65px;
+    transition: opacity 0.3s;
+    display: none;
+    z-index: 2; /* 이미지 위에 오도록 */
+}
+	
+.donation-box:hover .donation-project-image button {
+    display: block;
+}
+	
+/* 중앙 정보 */
+.donation-project-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    /* margin-left 제거 - flexbox 간격으로 처리 */
+    flex-grow: 1; /* 남은 공간 차지 */
+    /* gap: 4px; (주석 해제하여 사용 가능) */
+    min-width: 200px; /* 정보가 너무 줄어들지 않도록 최소 너비 설정 */
+}
+	
+.donation-project-info .location {
+    font-weight: bold;
+    color: #2E2E2E;
+    font-size: 19px;
+    word-break: break-word; /* 단어가 길 경우 줄바꿈 */
+}
+	
+.donation-project-info .project-title {
+    font-weight: bold;
+    color: #2E2E2E;
+    font-size: 21px;
+    word-break: break-word;
+}
+	
+/* 오른쪽 상단 날짜 */
+.donation-project-dates {
+    position: absolute; /* 절대 위치 유지 */
+    top: 15px; /* 패딩 고려 */
+    right: 15px; /* 패딩 고려 */
+    font-size: 17px;
+    color: #6C6C6C;
+    white-space: nowrap; /* 줄바꿈 방지 (미디어쿼리에서 변경) */
+}
+	
+/* 오른쪽 하단 금액 */
+.donation-project-amount {
+    position: absolute; /* 절대 위치 유지 */
+    bottom: 15px; /* 패딩 고려 */
+    right: 15px; /* 패딩 고려 */
+    font-size: 21px;
+    font-weight: bold;
+    color: #2E2E2E;
+    white-space: nowrap; /* 줄바꿈 방지 (미디어쿼리에서 변경) */
+}
+	
+.donation-project-amount span {
+    color: #9C6B4F;
+    font-weight: bold;
+}
+
+/* 페이지네이션 */
+.pagination {
+    /* position: absolute; 제거 - rectangle 내부에서 flexbox로 처리 */
+    text-align: center;
+    margin-top: 30px;
+    /* bottom, left, transform 제거 - flexbox가 배치 처리 */
+    display: flex;
+    justify-content: center; /* 가운데 정렬 */
+    width: 100%; /* 부모 너비에 맞춤 */
+    flex-wrap: wrap; /* 작은 화면에서 줄바꿈되도록 */
+}
+
+.pagination a {
+    /* justify-content: center; 제거 - 부모 flex에 적용 */
+    margin: 0 5px;
+    padding: 6px 12px;
+    background-color: transparent;
+    text-decoration: none;
+    text-underline-offset: 4px;
+    text-underline-color: #2E2E2E;
+    color: #2E2E2E; /* 기본 링크 색상 설정 */
+    font-size: 16px; /* 기본 폰트 크기 */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination a.active, /* 현재 활성화된 페이지 */
+.pagination a:hover {
+    background-color: #D9C2AD;
+    color: white;
+    border-radius: 4px;
+}
+
+/* ============================================== */
+/* 미디어 쿼리 - 태블릿 및 중간 크기 화면 (max-width: 768px) */
+/* ============================================== */
+@media (max-width: 768px) {
+    .container {
+        width: 95%; /* 더 넓게 사용 */
+        margin: 30px auto;
+        padding: 0 5px;
+    }
+
+    .rectangle {
+        border-radius: 12px;
+        padding-bottom: 40px;
+    }
+
+    .back-button {
+        top: 25px; 
+        left: 25px;
+        width: 12px; 
+        height: 24px;
+    }
+
+    .donationpage-title {
+        top: 25px; 
+        left: 25px;
+        max-width: calc(100% - 50px);
+    }
+    
+    .donationpage-title-img {
+        margin-left: 30px; /* 로고 이미지 마진 조정 */
+        width: 20px; 
+        height: 20px;
+    }
+    
+    .donationpage-title-text {
+        font-size: 18px;
+        margin-left: 8px;
+        white-space: normal; /* 줄바꿈 허용 */
+    }
+
+    .nodonation {
+        margin-top: 100px;
+        margin-bottom: 70px;
+    }
+
+    .nodonation p {
+        font-size: 16px;
+        padding: 0 10px;
+    }
+
+    .donationlist {
+        margin-top: 80px;
+        margin-bottom: 70px;
+        gap: 30px;
+        padding: 0 15px;
+    }
+
+    .donation-date {
+        font-size: 15px;
+        margin-left: 5px;
+    }
+
+    .donation-box {
+        min-height: 160px; /* 높이 조정 */
+        border-radius: 12px;
+        padding: 10px;
+        flex-direction: column; /* 작은 화면에서 세로로 정렬 */
+        align-items: center; /* 세로 정렬 시 가로 가운데 정렬 */
+    }
+
+    .donation-project-image {
+        width: 120px;
+        height: 120px;
+        margin-right: 0; /* 세로 정렬 시 마진 제거 */
+        margin-bottom: 10px; /* 이미지 아래 마진 추가 */
+    }
+
+    .donation-project-image button {
+        width: 100px;
+        font-size: 15px;
+        padding: 4px;
+    }
+    
+    .donation-project-info {
+        margin-left: 0; /* 세로 정렬 시 마진 제거 */
+        text-align: center; /* 텍스트 가운데 정렬 */
+        flex-grow: unset; /* 더 이상 남은 공간 차지 안함 */
+        width: 100%; /* 전체 너비 사용 */
+    }
+
+    .donation-project-info .location {
+        font-size: 17px;
+    }
+
+    .donation-project-info .project-title {
+        font-size: 19px;
+    }
+
+    .donation-project-dates {
+        position: static; /* 절대 위치 해제 */
+        margin-top: 10px; /* 정보 아래로 이동 */
+        font-size: 15px;
+        text-align: center; /* 가운데 정렬 */
+        width: 100%;
+    }
+
+    .donation-project-amount {
+        position: static; /* 절대 위치 해제 */
+        margin-top: 5px; /* 날짜 아래로 이동 */
+        font-size: 19px;
+        text-align: center; /* 가운데 정렬 */
+        width: 100%;
+    }
+
+    .pagination {
+        margin-top: 20px;
+    }
+    .pagination a {
+        padding: 5px 10px;
+        font-size: 14px;
+    }
+}
+
+/* ============================================== */
+/* 미디어 쿼리 - 모바일 화면 (max-width: 480px) */
+/* ============================================== */
+@media (max-width: 480px) {
+    .container {
+        width: 100%; /* 모바일에서 꽉 채우기 */
+        margin: 20px auto;
+        padding: 0 5px;
+    }
+
+    .rectangle {
+        border-radius: 10px;
+        padding-bottom: 30px;
+    }
+
+    .back-button {
+        top: 20px; 
+        left: 20px;
+        width: 10px; 
+        height: 20px;
+    }
+
+    .donationpage-title {
+        top: 20px; 
+        left: 20px;
+        max-width: calc(100% - 40px);
+    }
+
+    .donationpage-title-img {
+        margin-left: 15px; /* 로고 이미지 마진 조정 */
+        width: 18px; 
+        height: 18px;
+    }
+    
+    .donationpage-title-text {
+        font-size: 16px;
+        margin-left: 5px;
+    }
+
+    .nodonation {
+        margin-top: 80px;
+        margin-bottom: 50px;
+    }
+
+    .nodonation p {
+        font-size: 15px;
+    }
+
+    .donationlist {
+        margin-top: 60px;
+        margin-bottom: 50px;
+        gap: 20px;
+        padding: 0 10px;
+    }
+
+    .donation-date {
+        font-size: 14px;
+        margin-left: 0;
+    }
+
+    .donation-box {
+        min-height: 140px;
+        border-radius: 10px;
+        padding: 8px;
+    }
+
+    .donation-project-image {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 8px;
+    }
+
+    .donation-project-image button {
+        width: 80px;
+        font-size: 14px;
+        padding: 3px;
+        border-radius: 10px;
+    }
+
+    .donation-project-info .location {
+        font-size: 15px;
+    }
+
+    .donation-project-info .project-title {
+        font-size: 17px;
+    }
+
+    .donation-project-dates {
+        font-size: 14px;
+        margin-top: 8px;
+    }
+
+    .donation-project-amount {
+        font-size: 17px;
+        margin-top: 3px;
+    }
+
+    .pagination {
+        margin-top: 15px;
+    }
+    .pagination a {
+        padding: 4px 8px;
+        font-size: 12px;
+        margin: 0 3px;
+    }
+}
