@@ -215,7 +215,7 @@ public class DonationConController {
 	        String location = null;
 	        if (tx.getAmount() >= 50000) {
 	            userBadgeDao.insertBadgeForQualifiedUsers(ti);
-	            location = userBadgeDao.getBadgeLocationForUser(userId);  // 지역 이름 가져오기
+	            location = userBadgeDao.getBadgeLocation(ti);  // 지역 이름 가져오기
 	            badgeMessage = location + " 뱃지가 발급되었습니다."; // 지역 뱃지 발급 메시지
 	        }
 	        
