@@ -24,6 +24,10 @@ public class DonationConDAOImpl implements DonationConDAO {
 	}
 
 	@Override
+	public void updateReward(DonationConDTO dto) {
+		sqlSession.update("donationCon.updateReward", dto);
+	}
+	@Override
 	public void update(DonationConDTO dto) {
 		sqlSession.update("donationCon.update", dto);
 	}

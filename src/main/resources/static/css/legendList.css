@@ -1,206 +1,456 @@
+/* 기본 스타일 - 모든 화면 크기에 적용 */
 body {
-	background-color: #F7EAD9;
-	font-family: 'Noto Sans KR', sans-serif;
-	margin: 0;
-	padding: 0;
+    background-color: #F7EAD9;
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* 패딩과 보더가 너비/높이에 포함되도록 설정 */
 }
 
 .outer-box {
-	max-width: 1000px;
-	margin: 50px auto;
-	background-color: #F5F1EB;
-	border: 1px solid #D8C2A6;
-	border-radius: 20px;
-	padding: 50px;
-	position: relative;
+    width: 90%; /* 고정 너비 대신 유동적인 % 사용 */
+    max-width: 1000px; /* 최대 너비 설정 */
+    margin: 50px auto; /* 상하 여백은 고정, 좌우는 자동 */
+    background-color: #F5F1EB;
+    border: 1px solid #D8C2A6;
+    border-radius: 20px;
+    padding: 50px;
+    position: relative;
+    box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
 }
 
 .back-button {
-	position: absolute;
-top: 50px; left: 50px;
-	display: flex;
-	align-items: center;
-	background-color: transparent;
-	border: none;
-	color: #3e2d17;
-	font-size: 16px;
-	cursor: pointer;
+    position: absolute;
+    top: 30px; /* 상단 여백 조정 */
+    left: 30px; /* 좌측 여백 조정 */
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    color: #3e2d17;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 5px; /* 클릭 영역 확보 */
+    z-index: 10; /* 다른 요소 위에 오도록 z-index 설정 */
 }
 
 .back-button img {
-	width: 15px;
-	height: 25px;
-	margin-top: 40px;
+    width: 15px;
+    height: 25px;
+    margin-right: 5px; /* 텍스트와의 간격 조정 */
+    margin-top: 0; /* 불필요한 마진 제거 */
 }
 
 .list {
-	text-align: center;
-	margin-bottom: 40px;
+    text-align: center;
+    margin-bottom: 40px;
+    padding-top: 20px; /* back-button과의 겹침 방지를 위해 패딩 추가 */
 }
 
 .list img {
-	width: 130px;
-	margin-bottom: 10px;
+    width: 130px;
+    max-width: 80%; /* 이미지가 컨테이너를 넘지 않도록 */
+    height: auto; /* 비율 유지 */
+    margin-bottom: 10px;
 }
 
 .list h2 {
-	font-size: 24px;
-	font-weight: bold;
-	color: #3e2d17;
+    font-size: 24px;
+    font-weight: bold;
+    color: #3e2d17;
+    word-break: keep-all; /* 단어 단위 줄바꿈 시도 */
+    padding: 0 10px; /* 좌우 패딩 추가 */
 }
-
-.card-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(395px, 1fr));
-	gap: 24px;
-	justify-content: center;
-}
-
-.legend-card {
-	width: 100%;
-	max-width: 395px;
-	height: 348px;
-	position: relative;
-	background-color: #F5F1EB;
-	border: 1px solid #D8C2A6;
-	border-radius: 12px;
-	overflow: hidden;
-	margin: 0 auto;
-}
-
-.legend-data {
-	position: absolute;
-	top: 10px;
-	right: 12px;
-	font-size: 13px;
-	color: #5c5241;
-	z-index: 2;
-}
-
-.image-container {
-	position: relative;
-	width: 100%;
-	height: 150px;
-	overflow: hidden;
-	margin-top: 30px;
-}
-
-.image-container img {
-	width: 354px;
-	height: 150px;
-	object-fit: cover;
-	display: block;
-	margin: 0 auto;
-	border-radius: 10px;
-}
-
-.image-container:hover img {
-	opacity: 0.4;
-}
-
-.hover-button {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	background-color: #9C6B4F;
-	color: white;
-	padding: 6px 16px;
-	border: none;
-	border-radius: 6px;
-	font-size: 14px;
-	cursor: pointer;
-	z-index: 3;
-	opacity: 0;
-	pointer-events: none;
-	transition: opacity 0.3s ease;
-}
-
-.image-container:hover .hover-button {
-	opacity: 1;
-	pointer-events: auto;
-}
-
-.legend-content {
-	padding: 18px;
-	margin-top: 10px;
-	text-align: center;
-}
-
-.legend-title {
-	font-size: 19px;
-	font-weight: bold;
-	color: #2E2E2E;
-	margin-bottom: 6px;
-}
-
-.legend-location {
-	font-size: 17px;
-	color: #2E2E2E;
-	font-weight: bold;
-}
-
-.legend-desc {
-	font-size: 13px;
-	color: #2E2E2E;
-	margin-top: 15px;
-	
-	display: -webkit-box;              /* 줄 수 제한을 위한 필수 설정 */
-	-webkit-line-clamp: 2;             /* 최대 2줄만 보이게 */
-	-webkit-box-orient: vertical;      /* 수직 방향 설정 */
-	overflow: hidden;                  /* 넘치는 내용 숨기기 */
-	text-overflow: ellipsis;           /* ... 처리 */
-	line-height: 1.6em;                /* 줄 간격 (기본 글꼴 기준) */
-	height: 3.2em;                     /* 1.6em * 2줄 = 3.2em */
-	word-break: break-word;            /* 단어 중간 줄바꿈 허용 */
-}
-
 
 .search-bar {
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	margin-bottom: 30px;
-	gap: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 30px;
+    gap: 10px;
+    flex-wrap: wrap; /* 요소가 넘칠 경우 다음 줄로 넘어가도록 설정 */
+    padding: 0 10px; /* 좌우 패딩 추가 */
 }
 
 .search-bar input[type="text"] {
-	padding: 6px 12px;
-	border: 1px solid #ccc;
-	border-radius: 20px;
-	font-size: 14px;
-	width: 250px;
-	background-color: #fff;
+    padding: 8px 15px; /* 패딩 조정 */
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 14px;
+    width: 250px; /* 기본 너비 유지 */
+    max-width: 100%; /* 부모 너비를 넘지 않도록 */
+    background-color: #fff;
+    box-sizing: border-box;
 }
 
 .search-bar button {
-	background-color: transparent;
-	border: none;
-	cursor: pointer;
-	padding: 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px; /* 클릭 영역 확보 */
+    flex-shrink: 0; /* 버튼이 줄어들지 않도록 */
 }
 
 .search-bar button img {
-	width: 18px;
-	height: 18px;
+    width: 18px;
+    height: 18px;
 }
 
 .search_style {
-	width: 70px;
-	height: 35px;
-	border-radius: 20px;
-	text-align: center;
-	border: 1px solid #ccc;
-}
-.page_btn {
-	width: 60px;
-	height: 40px;
-	border-radius: 10px;
-	border: 1px solid #908F60;
-	background: #908F60;
-	color: white;
-}
-.page_btn:hover {
-	background: #526415;
+    width: 70px; /* 고정 너비 유지 */
+    height: 35px;
+    border-radius: 20px;
+    text-align: center;
+    border: 1px solid #ccc;
+    background-color: #fff; /* 배경색 통일 */
+    font-size: 14px; /* 폰트 사이즈 조정 */
+    box-sizing: border-box;
+    cursor: pointer;
 }
 
+/* 카드 그리드 */
+.card-grid {
+    display: grid;
+    /* 반응형 그리드: 최소 300px, 최대 1fr로 조절되며 자동 배치 */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    justify-content: center; /* 그리드 항목들을 중앙으로 정렬 */
+    padding: 0 10px; /* 좌우 패딩 추가 */
+}
+
+.legend-card {
+    width: 100%; /* 부모 그리드 셀 너비에 맞춤 */
+    max-width: 395px; /* 최대 너비 설정 */
+    height: auto; /* 고정 높이 대신 auto 사용 (내용에 따라 조절) */
+    min-height: 348px; /* 최소 높이 설정 (원래 높이 유지) */
+    position: relative;
+    background-color: #F5F1EB;
+    border: 1px solid #D8C2A6;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 0 auto; /* 그리드 내에서 개별 카드 중앙 정렬 */
+    padding-bottom: 10px; /* 하단 패딩 추가 */
+    box-sizing: border-box;
+}
+
+.legend-data {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    font-size: 13px;
+    color: #5c5241;
+    z-index: 2;
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    margin-top: 30px;
+}
+
+.image-container img {
+    width: 90%; /* 이미지 너비를 컨테이너에 맞게 조정 */
+    height: 150px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    border-radius: 10px;
+    transition: opacity 0.3s ease; /* 호버 효과 부드럽게 */
+}
+
+.image-container:hover img {
+    opacity: 0.4;
+}
+
+.hover-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #9C6B4F;
+    color: white;
+    padding: 8px 18px; /* 패딩 조정 */
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    z-index: 3;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.image-container:hover .hover-button {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.legend-content {
+    padding: 18px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.legend-title {
+    font-size: 19px;
+    font-weight: bold;
+    color: #2E2E2E;
+    margin-bottom: 6px;
+    word-break: break-word; /* 긴 단어 줄바꿈 허용 */
+}
+
+.legend-location {
+    font-size: 17px;
+    color: #2E2E2E;
+    font-weight: bold;
+    word-break: break-word; /* 긴 단어 줄바꿈 허용 */
+}
+
+.legend-desc {
+    font-size: 13px;
+    color: #2E2E2E;
+    margin-top: 15px;
+    
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.6em;
+    height: 3.2em;
+    word-break: break-word;
+}
+
+/* 페이지네이션 버튼 스타일 */
+.page_btn {
+    width: 60px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #908F60;
+    background: #908F60;
+    color: white;
+    font-size: 16px; /* 폰트 사이즈 조정 */
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin: 5px; /* 버튼 간격 추가 */
+    box-sizing: border-box;
+}
+.page_btn:hover {
+    background: #526415;
+}
+
+/* 페이지네이션 컨테이너 (필요하다면 추가) */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    flex-wrap: wrap; /* 버튼이 넘칠 경우 다음 줄로 넘어가도록 */
+    gap: 10px; /* 버튼 간의 간격 */
+}
+
+/* --- 미디어 쿼리 --- */
+
+/* 태블릿 및 중간 크기 화면 (768px 이하) */
+@media (max-width: 768px) {
+    .outer-box {
+        margin: 30px auto; /* 상하 여백 조정 */
+        padding: 30px; /* 패딩 조정 */
+    }
+
+    .back-button {
+        top: 20px;
+        left: 20px;
+        font-size: 15px;
+    }
+
+    .back-button img {
+        width: 12px;
+        height: 20px;
+    }
+
+    .list {
+        margin-bottom: 30px;
+        padding-top: 10px;
+    }
+
+    .list img {
+        width: 100px; /* 이미지 크기 조정 */
+    }
+
+    .list h2 {
+        font-size: 20px; /* 폰트 사이즈 조정 */
+    }
+
+    .search-bar {
+        flex-direction: column; /* 세로로 쌓이도록 변경 */
+        align-items: flex-end; /* 오른쪽 정렬 유지 */
+        gap: 8px; /* 간격 조정 */
+    }
+
+    .search-bar input[type="text"] {
+        width: 100%; /* 너비 100%로 설정 */
+        max-width: none; /* 최대 너비 제한 해제 */
+    }
+
+    .search-bar button {
+        align-self: flex-end; /* 검색 아이콘만 오른쪽 정렬 */
+    }
+
+    .search_style {
+        width: 80px; /* 버튼 너비 조정 */
+        height: 32px;
+        font-size: 13px;
+    }
+
+    .card-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* 그리드 컬럼 조정 */
+        gap: 20px; /* 간격 조정 */
+    }
+
+    .legend-card {
+        min-height: 320px; /* 최소 높이 조정 */
+        padding-bottom: 8px;
+    }
+
+    .image-container {
+        height: 130px; /* 이미지 컨테이너 높이 조정 */
+    }
+
+    .image-container img {
+        height: 130px;
+    }
+
+    .legend-content {
+        padding: 15px;
+        margin-top: 8px;
+    }
+
+    .legend-title {
+        font-size: 17px; /* 폰트 사이즈 조정 */
+    }
+
+    .legend-location {
+        font-size: 15px; /* 폰트 사이즈 조정 */
+    }
+
+    .legend-desc {
+        font-size: 12px; /* 폰트 사이즈 조정 */
+        line-height: 1.5em;
+        height: 3em; /* 1.5em * 2줄 = 3em */
+    }
+
+    .hover-button {
+        padding: 7px 15px;
+        font-size: 13px;
+    }
+
+    .page_btn {
+        width: 50px; /* 버튼 너비 조정 */
+        height: 35px;
+        font-size: 14px;
+    }
+}
+
+/* 모바일 화면 (480px 이하) */
+@media (max-width: 480px) {
+    .outer-box {
+        margin: 20px auto;
+        padding: 20px;
+        border-radius: 15px;
+    }
+
+    .back-button {
+        top: 15px;
+        left: 15px;
+        font-size: 14px;
+    }
+
+    .back-button img {
+        width: 10px;
+        height: 18px;
+    }
+
+    .list {
+        margin-bottom: 20px;
+        padding-top: 0px;
+    }
+
+    .list img {
+        width: 80px;
+    }
+
+    .list h2 {
+        font-size: 18px;
+    }
+
+    .search-bar {
+        gap: 6px;
+    }
+
+    .search-bar input[type="text"] {
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+
+    .search_style {
+        width: 70px;
+        height: 30px;
+        font-size: 12px;
+    }
+
+    .card-grid {
+        grid-template-columns: 1fr; /* 한 줄에 카드 하나만 배치 */
+        gap: 15px;
+    }
+
+    .legend-card {
+        min-height: 280px; /* 최소 높이 더 줄임 */
+        padding-bottom: 5px;
+    }
+
+    .image-container {
+        height: 100px; /* 이미지 컨테이너 높이 더 줄임 */
+    }
+
+    .image-container img {
+        height: 100px;
+    }
+
+    .legend-content {
+        padding: 10px;
+        margin-top: 5px;
+    }
+
+    .legend-title {
+        font-size: 16px;
+    }
+
+    .legend-location {
+        font-size: 14px;
+    }
+
+    .legend-desc {
+        font-size: 11px;
+        line-height: 1.4em;
+        height: 2.8em; /* 1.4em * 2줄 = 2.8em */
+        margin-top: 10px;
+    }
+
+    .hover-button {
+        padding: 5px 12px;
+        font-size: 12px;
+    }
+
+    .page_btn {
+        width: 40px; /* 버튼 너비 더 줄임 */
+        height: 30px;
+        font-size: 12px;
+    }
+
+    .pagination-container {
+        margin-top: 30px;
+        gap: 5px;
+    }
+}

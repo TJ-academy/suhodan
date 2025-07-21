@@ -1,159 +1,371 @@
+/* 기본 스타일 - 모든 화면 크기에 적용 */
 body {
-	background-color: #fdf4ec;
-	font-family: 'Noto Sans KR', sans-serif;
-	margin: 0;
-	padding: 0;
+    background-color: #fdf4ec;
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* 패딩과 보더가 너비/높이에 포함되도록 설정 */
 }
+
 .outer-box {
-	max-width: 1000px;
-	margin: 60px auto;
-	background-color: #F5F1EB;
-	border: 1px solid #D8C2A6;
-	border-radius: 20px;
-	padding: 50px 60px;
-	box-sizing: border-box;
+    max-width: 1000px;
+    margin: 60px auto;
+    background-color: #F5F1EB;
+    border: 1px solid #D8C2A6;
+    border-radius: 20px;
+    padding: 50px 60px;
+    box-sizing: border-box;
 }
+
 .section-title {
-	font-size: 32px;
-	font-weight: bold;
-	color: #5e3c19;
-	margin-bottom: 20px;
+    font-size: 32px;
+    font-weight: bold;
+    color: #5e3c19;
+    margin-bottom: 20px;
+    text-align: center; /* 제목 중앙 정렬 */
 }
+
 .section-header {
-	display: flex;
-	align-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 헤더 요소들 중앙 정렬 */
+    flex-wrap: wrap; /* 요소가 넘칠 경우 다음 줄로 넘어가도록 설정 */
+    margin-bottom: 20px;
 }
+
 .load-info-btn {
-	padding: 5px 13px;
-	font-size: 13px;
-	color: #FFFFFF;
-	background-color: #9C6B4F;
-	border: 1px solid #9C6B4F;
-	cursor: pointer;
-	border-radius: 16.65px;
-	margin-left: 10px;
-	margin-bottom: 10px;
+    padding: 8px 18px; /* 패딩 조정 */
+    font-size: 14px; /* 폰트 사이즈 조정 */
+    color: #FFFFFF;
+    background-color: #9C6B4F;
+    border: 1px solid #9C6B4F;
+    cursor: pointer;
+    border-radius: 20px; /* 라운드 조정 */
+    margin-left: 10px;
+    margin-bottom: 10px; /* 하단 여백 추가 */
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
 }
+
 .input-row {
-	display: flex;
-	align-items: center;
-	margin-bottom: 16px;
-	gap: 10px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    gap: 10px;
+    flex-wrap: wrap; /* 요소가 넘칠 경우 다음 줄로 넘어가도록 설정 */
 }
+
 .input-row label {
-	width: 100px;
-	font-weight: bold;
-	color: #3f2b18;
+    width: 100px;
+    min-width: 80px; /* 최소 너비 설정 */
+    font-weight: bold;
+    color: #3f2b18;
+    flex-shrink: 0; /* 라벨이 줄어들지 않도록 설정 */
 }
+
 .input-row input,
 .input-inline input,
 .input-inline button,
 .input-row select {
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 10px;
-	box-sizing: border-box;
-	font-family: 'Noto Sans KR', sans-serif;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 16px; /* 폰트 사이즈 일관성 유지 */
 }
+
 .input-inline {
-	display: flex;
-	gap: 10px;
-	flex: 1;
+    display: flex;
+    gap: 10px;
+    flex: 1; /* 남은 공간을 채우도록 설정 */
+    flex-wrap: wrap; /* 내부 요소가 넘칠 경우 다음 줄로 넘어가도록 설정 */
 }
-.input-inline input { flex: 1; }
+
+.input-inline input {
+    flex: 1; /* 남은 공간을 채우도록 설정 */
+    min-width: 120px; /* 최소 너비 설정 */
+}
+
 .input-inline button {
-	padding: 10px 16px;
-	background-color: #fff;
-	border: 1px solid #aaa;
-	cursor: pointer;
-	border-radius: 16.65px;
+    padding: 10px 16px;
+    background-color: #fff;
+    border: 1px solid #aaa;
+    cursor: pointer;
+    border-radius: 20px; /* 라운드 조정 */
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
 }
+
 .input-row.full-inline {
-	align-items: flex-start;
+    align-items: flex-start;
 }
+
 .input-row.full-inline .input-inline {
-	flex: 1;
+    flex: 1;
 }
+
 .no-label label {
-	visibility: hidden;
-	width: 100px;
+    visibility: hidden;
+    width: 0; /* 너비를 0으로 설정하여 공간 차지하지 않도록 */
+    margin: 0;
+    padding: 0;
 }
+
 .input-inline.phone-group input {
-	width: 10px;
+    width: 100%; /* 유연하게 설정 */
+    max-width: 80px; /* 최대 너비 설정 */
+    flex: 1; /* 남은 공간을 채우도록 설정 */
 }
+
 .order-summary {
-	background-color: #f8eee4;
-	border: 1px solid #d7c4b0;
-	border-radius: 12px;
-	padding: 20px;
-	margin-top: 30px;
+    background-color: #f8eee4;
+    border: 1px solid #d7c4b0;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 30px;
 }
+
 .order-item {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    flex-wrap: wrap; /* 요소가 넘칠 경우 다음 줄로 넘어가도록 설정 */
+    gap: 10px; /* 요소 간 간격 설정 */
 }
+
 .order-item img {
-	width: 50px;
-	height: 50px;
-	border-radius: 8px;
-	object-fit: cover;
-	margin-right: 15px;
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-right: 15px;
+    flex-shrink: 0; /* 이미지가 줄어들지 않도록 설정 */
 }
+
 .item-info {
-	display: flex;
-	align-items: center;
+    display: flex;
+    align-items: center;
+    flex-grow: 1; /* 남은 공간을 채우도록 설정 */
+    flex-basis: 0; /* flex-grow와 함께 사용 시 유연성 증대 */
+    min-width: 150px; /* 최소 너비 설정 */
 }
+
+.item-info span {
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    overflow: hidden; /* 넘치는 텍스트 숨김 */
+    text-overflow: ellipsis; /* 넘치는 텍스트 ...으로 표시 */
+}
+
 .total-price {
-	font-size: 22px;
-	font-weight: bold;
-	color: #8b5c38;
-	text-align: right;
-	margin-top: 20px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #8b5c38;
+    text-align: right;
+    margin-top: 20px;
+    width: 100%; /* 전체 너비 차지 */
 }
+
 .submit-btn {
-	display: block;
-	width: 100%;
-	max-width: 430px;
-	margin: 0 auto;
-	padding: 14px 0;
-	text-align: center;
-	background-color: #D9C2AD;
-	color: #fff;
-	font-weight: bold;
-	font-size: 19px;
-	border: none;
-	border-radius: 10px;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
+    display: block;
+    width: 100%;
+    max-width: 430px;
+    margin: 0 auto;
+    padding: 14px 0;
+    text-align: center;
+    background-color: #D9C2AD;
+    color: #fff;
+    font-weight: bold;
+    font-size: 19px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
+
 .submit-btn:hover {
-	background-color: #9C6B4F;
+    background-color: #9C6B4F;
 }
+
 .payment-method {
-	margin-top: 40px;
+    margin-top: 40px;
 }
+
 .payment-method h3 {
-	font-size: 32px;
-	font-weight: bold;
-	color: #5e3c19;
-	margin-bottom: 14px;
+    font-size: 32px;
+    font-weight: bold;
+    color: #5e3c19;
+    margin-bottom: 14px;
+    text-align: center; /* 제목 중앙 정렬 */
 }
+
 .radio-group {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-	font-size: 15px;
-	color: #3f2b18;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 15px;
+    color: #3f2b18;
 }
+
 .radio-group label {
-	display: flex;
-	align-items: flex-start;
-	gap: 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    flex-wrap: wrap; /* 라벨 내용이 길면 줄바꿈 되도록 설정 */
 }
+
 .radio-group small {
-	color: #a0522d;
-	font-size: 13px;
-	margin-left: 24px;
+    color: #a0522d;
+    font-size: 13px;
+    margin-left: 24px;
+    flex-basis: 100%; /* 다음 줄로 넘어가도록 설정 */
+}
+
+/* --- 미디어 쿼리 --- */
+
+/* 태블릿 및 중간 크기 화면 (768px 이하) */
+@media (max-width: 768px) {
+    .outer-box {
+        margin: 30px 20px; /* 좌우 여백 조정 */
+        padding: 30px 20px; /* 패딩 조정 */
+    }
+
+    .section-title, .payment-method h3 {
+        font-size: 26px; /* 폰트 사이즈 조정 */
+    }
+
+    .load-info-btn {
+        padding: 6px 15px;
+        font-size: 13px;
+    }
+
+    .input-row {
+        flex-direction: column; /* 세로로 쌓이도록 변경 */
+        align-items: flex-start; /* 왼쪽 정렬 */
+    }
+
+    .input-row label {
+        width: 100%; /* 라벨 너비 100% */
+        margin-bottom: 5px; /* 라벨 아래 여백 추가 */
+    }
+
+    .input-row input,
+    .input-inline input,
+    .input-inline button,
+    .input-row select {
+        width: 100%; /* 입력 필드 너비 100% */
+        max-width: none; /* 최대 너비 제한 해제 */
+    }
+
+    .input-inline {
+        width: 100%; /* 인라인 그룹 너비 100% */
+        flex-direction: column; /* 내부 요소 세로로 쌓이도록 변경 */
+    }
+
+    .input-inline input {
+        width: 100%;
+        min-width: unset; /* 최소 너비 제한 해제 */
+    }
+
+    .input-inline button {
+        width: 100%;
+    }
+
+    .no-label label {
+        display: none; /* 라벨 숨김 */
+    }
+
+    .input-inline.phone-group {
+        flex-direction: row; /* 전화번호는 여전히 가로로 유지 */
+        flex-wrap: nowrap; /* 전화번호는 줄바꿈 안되도록 */
+        justify-content: space-between; /* 요소 간의 공간 분배 */
+    }
+
+    .input-inline.phone-group input {
+        max-width: 100px; /* 최대 너비 다시 제한 */
+        min-width: 60px; /* 최소 너비 설정 */
+    }
+
+    .order-item {
+        flex-direction: column; /* 세로로 쌓이도록 변경 */
+        align-items: flex-start; /* 왼쪽 정렬 */
+    }
+
+    .order-item img {
+        margin-bottom: 10px; /* 이미지 아래 여백 추가 */
+        margin-right: 0; /* 오른쪽 여백 제거 */
+    }
+
+    .item-info {
+        width: 100%; /* 정보 영역 너비 100% */
+        justify-content: space-between; /* 상품명과 수량 분리 */
+    }
+
+    .total-price {
+        font-size: 19px; /* 폰트 사이즈 조정 */
+    }
+
+    .submit-btn {
+        padding: 12px 0;
+        font-size: 17px;
+    }
+}
+
+/* 모바일 화면 (480px 이하) */
+@media (max-width: 480px) {
+    .outer-box {
+        margin: 20px 10px; /* 더 좁은 여백 */
+        padding: 20px 15px; /* 더 좁은 패딩 */
+    }
+
+    .section-title, .payment-method h3 {
+        font-size: 22px; /* 폰트 사이즈 조정 */
+    }
+
+    .load-info-btn {
+        padding: 5px 12px;
+        font-size: 12px;
+    }
+
+    .input-row label {
+        font-size: 14px; /* 라벨 폰트 사이즈 조정 */
+    }
+
+    .input-row input,
+    .input-inline input,
+    .input-inline button,
+    .input-row select {
+        padding: 8px; /* 패딩 조정 */
+        font-size: 14px; /* 폰트 사이즈 조정 */
+    }
+
+    .input-inline.phone-group input {
+        max-width: 80px; /* 전화번호 필드 최대 너비 다시 제한 */
+        min-width: 50px; /* 최소 너비 설정 */
+    }
+
+    .order-item img {
+        width: 40px; /* 이미지 크기 축소 */
+        height: 40px;
+    }
+
+    .item-info {
+        font-size: 14px; /* 상품 정보 폰트 사이즈 조정 */
+    }
+
+    .total-price {
+        font-size: 17px; /* 최종 가격 폰트 사이즈 조정 */
+    }
+
+    .submit-btn {
+        padding: 10px 0;
+        font-size: 15px;
+    }
+
+    .radio-group label {
+        font-size: 14px; /* 라디오 버튼 폰트 사이즈 조정 */
+    }
+
+    .radio-group small {
+        font-size: 12px; /* 설명 텍스트 폰트 사이즈 조정 */
+    }
 }

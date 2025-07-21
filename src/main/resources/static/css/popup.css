@@ -1,118 +1,112 @@
-.popup {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 500px; /* 팝업 너비를 500px로 통일 */
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* 그림자 크기 통일 */
-    z-index: 1000;
-    max-height: 80vh; /* 팝업 최대 높이 설정 */
-    overflow-y: auto; /* 내부 내용이 많으면 세로 스크롤 가능 */
+/*
+ * Responsive Popup & Form CSS
+ * This stylesheet defines styles for various popups (e.g., edit, register)
+ * and their internal form elements, buttons, and image previews.
+ * It's designed to be fully responsive, adapting to different screen sizes
+ * using flexible sizing, relative units, Flexbox, and media queries.
+ */
+
+/* ============================================== */
+/* Base Styles - Apply to all screen sizes */
+/* ============================================== */
+@charset "UTF-8"; /* Ensure proper character encoding */
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #fdf4ec;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Include padding and border in element's total width/height */
 }
 
+/* Overlay for popups */
 .overlay {
-    display: none;
+    display: none; /* Hidden by default */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
     z-index: 999;
 }
 
-.form-item {
-    margin-bottom: 20px; /* margin-bottom 값 통일 */
-}
-
-.form-item label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.form-item input, .form-item textarea, .form-item select {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #D1C6B9;
-    border-radius: 8px;
-    box-sizing: border-box;
-}
-
-.form-item input[type="file"] {
-    padding: 0;
-}
-
-.button {
-    padding: 10px 20px;
-    background-color: #ff7043;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-.button:hover {
-    background-color: #ff5722;
-}
-
-/* 팝업 스타일 */
-#edit_popup {
-    background-color: #F5E9D9;
-    padding: 30px;
+/* Generic Popup Styles (for #edit_popup, #reg_popup) */
+/* These styles are consolidated and applied to both popups */
+.popup {
+    display: none; /* Hidden by default, JavaScript toggles display */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the popup precisely */
+    width: 90%; /* Responsive width */
+    max-width: 500px; /* Max width for general popups, will be overridden for edit/reg if wider */
+    height: auto;
+    max-height: 80vh; /* Max height to prevent popup from exceeding viewport */
+    overflow-y: auto; /* Enable vertical scroll if content overflows */
+    background-color: #F5E9D9; /* Specific background for this popup type */
+    padding: 30px; /* Base padding */
     border-radius: 15px;
-    width: 500px; /* 팝업 너비를 500px로 통일 */
-    margin: 0 auto;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Consistent shadow */
     font-family: 'Noto Sans KR', sans-serif;
+    z-index: 1000; /* Above overlay */
+    box-sizing: border-box; /* Include padding in width/height calculation */
 }
 
-/* 제목 스타일 */
-#edit_popup h3 {
+/* Specific styles for registration/edit popups that need wider dimensions */
+#reg_popup,
+#edit_popup {
+    max-width: 900px; /* Wider max-width for these specific popups */
+}
+
+/* Popup title style */
+.popup h3 {
     text-align: center;
-    font-size: 24px;
+    font-size: 1.5rem; /* Relative font size */
     color: #2E2E2E;
     margin-bottom: 20px;
 }
 
-/* 각 입력 필드 스타일 */
+/* Form item layout */
 .form-item {
-    margin-bottom: 20px;
+    margin-bottom: 20px; /* Consistent bottom margin */
 }
 
 .form-item label {
-    font-size: 16px;
-    color: #2E2E2E;
-    margin-bottom: 5px;
     display: block;
+    margin-bottom: 5px;
+    font-size: 1rem; /* Relative font size */
+    color: #2E2E2E;
 }
 
+/* Input fields, textareas, selects */
 .form-item input,
-.form-item select,
-.form-item textarea {
-    width: 100%;
+.form-item textarea,
+.form-item select {
+    width: 100%; /* Take full width of parent */
     padding: 10px;
-    font-size: 16px;
+    font-size: 1rem; /* Relative font size */
     border: 1px solid #D1C6B9;
     border-radius: 8px;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Include padding in width */
 }
 
-/* 상품 입력 부분 */
+/* File input specific style */
+.form-item input[type="file"] {
+    padding: 0; /* Remove padding for file input */
+}
+
+/* Input container for search fields with icon */
 .input-container {
     position: relative;
+    width: 100%; /* Ensure it takes full width */
+    box-sizing: border-box;
 }
 
 .input-container input {
-    width: calc(100% - 40px);
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #D1C6B9;
-    border-radius: 8px;
-    box-sizing: border-box;
+    /* Adjusted width to accommodate the search icon without overflow */
+    width: calc(100% - 40px); 
+    padding-right: 35px; /* Space for the icon */
 }
 
 .input-container .search-icon {
@@ -121,39 +115,52 @@
     right: 10px;
     transform: translateY(-50%);
     width: 20px;
+    height: 20px; /* Ensure height for proper scaling */
     cursor: pointer;
+    flex-shrink: 0; /* Prevent icon from shrinking */
 }
 
-/* 이미지 미리보기 부분 */
+/* Image preview section */
 #current_image_container {
     margin-top: 10px;
+    text-align: center; /* Center the image */
 }
 
 #current_image {
-    width: 100px;
+    width: 100px; /* Fixed width for preview */
     height: auto;
     margin-top: 5px;
+    display: inline-block; /* Allows text-align: center on parent */
+    max-width: 100%; /* Ensure it doesn't overflow on small screens */
 }
 
-/* 버튼 스타일 */
-button.button {
+/* Button styles (shared) */
+.button-group {
+    display: flex;
+    justify-content: center; /* Center buttons horizontally */
+    gap: 10px; /* Space between buttons */
+    margin-top: 20px;
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+}
+
+.button-group button {
     background-color: #D9C2AD;
     color: white;
     border: none;
-    padding: 12px 50px;
-    font-size: 16px;
+    padding: 12px 30px; /* Adjusted padding for general buttons */
+    font-size: 1rem; /* Relative font size */
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    display: inline-block;
-    margin-top: 20px;
-    margin-right: 10px;
+    flex-shrink: 0; /* Prevent buttons from shrinking too much */
+    min-width: 120px; /* Minimum width for buttons */
 }
 
-button.button:hover {
+.button-group button:hover {
     background-color: #9C6B4F;
 }
 
+/* Specific button styles */
 button.close-edit-popup {
     background-color: #8B5E3C;
     color: white;
@@ -163,24 +170,125 @@ button.close-edit-popup:hover {
     background-color: #6F4728;
 }
 
-/* 버튼을 한 줄로 배치 */
-button.button, button.close-edit-popup {
-    display: inline-block;
-    margin-top: 20px;
+/* ============================================== */
+/* Media Queries */
+/* ============================================== */
+
+/* --- Tablet and Medium Screens (max-width: 768px) --- */
+@media (max-width: 768px) {
+    .popup {
+        width: 95%; /* Make popup slightly wider on tablets */
+        padding: 25px;
+        border-radius: 12px;
+        max-height: 85vh; /* Allow slightly more height */
+    }
+
+    .popup h3 {
+        font-size: 1.3rem; /* Slightly smaller title */
+        margin-bottom: 15px;
+    }
+
+    .form-item {
+        margin-bottom: 15px;
+    }
+
+    .form-item label {
+        font-size: 0.95rem;
+    }
+
+    .form-item input,
+    .form-item textarea,
+    .form-item select {
+        padding: 8px;
+        font-size: 0.95rem;
+        border-radius: 6px;
+    }
+
+    .input-container input {
+        width: calc(100% - 35px); /* Adjust width for smaller icon */
+        padding-right: 30px;
+    }
+
+    .input-container .search-icon {
+        width: 18px;
+        height: 18px;
+        right: 8px;
+    }
+
+    #current_image {
+        width: 80px; /* Smaller image preview */
+    }
+
+    .button-group {
+        margin-top: 15px;
+        gap: 8px; /* Slightly less gap between buttons */
+    }
+
+    .button-group button {
+        padding: 10px 25px;
+        font-size: 0.95rem;
+        border-radius: 6px;
+        min-width: 100px;
+    }
 }
 
-#reg_popup, #edit_popup {
-    display: none;
-    width: 80%; /* 팝업 너비 80% */
-    max-width: 900px; /* 최대 너비 900px */
-    height: auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    position: fixed; /* 화면에서 고정 */
-    top: 50%; /* 화면의 세로 중앙에 위치 */
-    left: 50%; /* 화면의 가로 중앙에 위치 */
-    transform: translate(-50%, -50%); /* 정확히 중앙에 맞추기 위한 트랜스폼 */
-    z-index: 1001;
+/* --- Mobile Screens (max-width: 480px) --- */
+@media (max-width: 480px) {
+    .popup {
+        width: 95%; /* Keep similar width for mobile */
+        padding: 20px;
+        border-radius: 10px;
+        max-height: 90vh; /* Allow more height on very small screens */
+    }
+
+    .popup h3 {
+        font-size: 1.2rem; /* Even smaller title */
+        margin-bottom: 12px;
+    }
+
+    .form-item {
+        margin-bottom: 12px;
+    }
+
+    .form-item label {
+        font-size: 0.9rem;
+    }
+
+    .form-item input,
+    .form-item textarea,
+    .form-item select {
+        padding: 6px;
+        font-size: 0.9rem;
+        border-radius: 5px;
+    }
+
+    .input-container input {
+        width: calc(100% - 30px); /* Adjust width for smallest icon */
+        padding-right: 25px;
+    }
+
+    .input-container .search-icon {
+        width: 16px;
+        height: 16px;
+        right: 6px;
+    }
+
+    #current_image {
+        width: 60px; /* Smallest image preview */
+    }
+
+    .button-group {
+        margin-top: 12px;
+        flex-direction: column; /* Stack buttons vertically on small screens */
+        gap: 8px; /* Gap between stacked buttons */
+        align-items: stretch; /* Stretch buttons to full width */
+    }
+
+    .button-group button {
+        padding: 10px 15px; /* Adjust padding for stacked buttons */
+        font-size: 0.9rem;
+        border-radius: 5px;
+        min-width: unset; /* Remove min-width when stacked */
+        width: 100%; /* Make buttons take full width when stacked */
+    }
 }

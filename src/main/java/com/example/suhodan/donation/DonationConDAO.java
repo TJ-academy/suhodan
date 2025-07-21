@@ -8,6 +8,8 @@ public interface DonationConDAO {
 	
 	DonationConDTO detail(int content_id);
 	
+	void updateReward(DonationConDTO dto);
+	
 	void update(DonationConDTO dto);
 	
 	void delete(int content_id);

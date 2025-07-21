@@ -1,241 +1,153 @@
+/* Base Styles - Apply to all screen sizes */
 body {
-	font-family: '맑은 고딕', sans-serif;
-	background-color: #fdf9f4;
+    font-family: '맑은 고딕', sans-serif;
+    background-color: #fdf9f4;
+    margin: 0; /* Ensure no default body margin */
+    padding: 0; /* Ensure no default body padding */
 }
 
 h2 {
-	margin: 0; /* 기존 여백 제거 */
-	color: #3c2c1e;
-	/* 수평 중앙 정렬 */
-	text-align: center;
+    margin: 0;
+    color: #3c2c1e;
+    text-align: center;
+    font-size: 36px;
+    margin-top: 30px;
+    padding: 10px 0; /* Add some padding for better spacing */
 }
 
 table {
-	width: 100%;
-	border-collapse: collapse; /* 테이블의 모든 경계선 합침 */
-	border: none; /* 테이블의 외부 경계선 제거 */
-	text-align: center; /* 테이블 내용 가운데 정렬 */
+    width: 100%;
+    border-collapse: collapse;
+    border: none;
+    text-align: center;
+    margin-bottom: 20px; /* Add margin below the table */
+    overflow-x: auto; /* Enable horizontal scrolling for tables on small screens */
+    display: block; /* Make table a block element to allow overflow-x */
 }
 
 table tr:first-child {
-	border-bottom: 2px solid black; /* 첫 번째 tr에 실선 추가 */
-	font-weight: bold;
+    border-bottom: 2px solid black;
+    font-weight: bold;
 }
 
 th, td {
-	padding: 10px; /* 셀 안의 여백 */
-	text-align: center; /* 테이블 내용 가운데 정렬 */
+    padding: 10px;
+    text-align: center;
+    white-space: nowrap; /* Prevent text from wrapping in table cells */
 }
 
-/* th {
-	background-color: #f4f0e9; 헤더 배경 색상
-	text-align: left; 좌측 정렬
-} */
-
 tr:hover {
-	background-color: #f9f9f9; /* 마우스 오버 시 배경 색상 */
+    background-color: #f9f9f9;
 }
 
 button {
-	background-color: #c98f6f;
-	border: none;
-	color: white;
-	padding: 10px 20px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	cursor: pointer;
-	border-radius: 5px;
+    background-color: #c98f6f;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease; /* Add transition for hover effect */
 }
 
 button:hover {
-	background-color: #9e704f; /* 버튼 호버 시 색상 변경 */
+    background-color: #9e704f;
 }
 
-/* 페이징 컨테이너 중앙 정렬 */
-.pagination {
-	display: flex; /* Flexbox로 중앙 정렬 */
-	justify-content: center; /* 항목들을 수평으로 중앙 정렬 */
-	margin-top: 20px;
-	padding: 10px;
-	width: 100%; /* 부모 요소를 전체 너비로 확장 */
-}
-
-/* 페이징 항목 스타일 */
-.pagination a, .pagination strong {
-	font-size: 14px;
-	color: #7d7d7d;
-	text-decoration: none;
-	padding: 5px 10px;
-	margin: 0 5px;
-	border-radius: 4px;
-	display: inline-block; /* 중앙 정렬을 위한 인라인 블록 */
-}
-
-/* 마우스 오버 시 링크 스타일 */
-.pagination a:hover {
-	background-color: #f1f1f1;
-}
-
-/* 현재 페이지 번호 강조 */
-.pagination #current-page {
-	background-color: #c98f6f;
-	color: white;
-}
-
-/* '이전' 버튼 스타일 */
-.pagination #prev-page {
-	font-weight: bold;
-	padding: 5px 10px;
-}
-
-/* '다음' 버튼 스타일 */
-.pagination #next-page {
-	font-weight: bold;
-	padding: 5px 10px;
-}
-
-#prev-page-disabled, #next-page-disabled {
-	color: #ddd; /* 비활성화된 버튼의 색상 */
-	cursor: not-allowed; /* 마우스 커서 변경 */
-}
-
-/* 헤더 컨테이너 스타일
-.header-container {
-	display: flex; Flexbox로 레이아웃을 수평으로 설정
-	justify-content: space-between; 버튼을 우측 끝으로 배치
-	align-items: center; 수직으로 중앙 정렬
-	width: 100%; 전체 너비
-	margin-bottom: 20px; 제목과 버튼 사이에 여백 추가
-} */
-
-h2 {
-    text-align: center;
-    font-size: 36px;
-    color: #3b2a1b;
-    margin-top: 30px;
-}
-
-/* 추가하기 버튼 스타일 */
-#addButton {
-	background-color: #c98f6f;
-	border: none;
-	color: white;
-	padding: 10px 20px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	cursor: pointer;
-	border-radius: 5px;
-	margin-right: 25px;
-}
-
-#addButton:hover {
-	background-color: #9e704f; /* 버튼 호버 시 색상 변경 */
-}
-
+/* Action Buttons (Edit, Delete, Reward Mng) */
 .action-btn {
-	padding: 10px 20px;
-	font-size: 16px;
-	text-align: center;
-	cursor: pointer;
-	border-radius: 5px;
-	border: none;
-	font-weight: bold;
-	transition: background-color 0.3s ease;
+    padding: 8px 15px; /* Slightly reduce padding for smaller buttons */
+    font-size: 14px; /* Slightly reduce font size for smaller buttons */
+    text-align: center;
+    cursor: pointer;
+    border-radius: 15px; /* More rounded corners */
+    border: 2px solid; /* Add a border for better visual separation */
+    font-weight: bold;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    margin: 2px; /* Add a small margin between buttons */
 }
 
-/* 수정 버튼 스타일 */
 .edit-button {
-    background-color: #7bd56c; /* 연한 초록색 */
+    background-color: #7bd56c;
     color: white;
-    border: 2px solid #6e9e47;
-    border-radius: 15px;
-    padding: 8px 15px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+    border-color: #6e9e47;
 }
 
 .edit-button:hover {
-    background-color: #6e9e47; /* 어두운 초록색 */
+    background-color: #6e9e47;
     border-color: #5b843a;
 }
 
-/* 삭제 버튼 스타일 */
 .delete-button {
-    background-color: #ff7b7b; /* 연한 빨간색 */
+    background-color: #ff7b7b;
     color: white;
-    border: 2px solid #d06c6c;
-    border-radius: 15px;
-    padding: 8px 15px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+    border-color: #d06c6c;
 }
 
 .delete-button:hover {
-    background-color: #d06c6c; /* 어두운 빨간색 */
+    background-color: #d06c6c;
     border-color: #b25959;
 }
 
 .reward-mng-button {
-    background-color:  #d1a15d; /* 연한 갈색 */
+    background-color: #d1a15d;
     color: white;
-    border: 2px solid #a87e47; /* 어두운 갈색 */
-    border-radius: 15px;
-    padding: 8px 15px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+    border-color: #a87e47;
 }
 
 .reward-mng-button:hover {
-    background-color: #a87e47; /* 어두운 갈색 */
-    border-color: #8f6d3a; /* 더 어두운 갈색 */
+    background-color: #a87e47;
+    border-color: #8f6d3a;
 }
 
-/*input + 원 한 줄로 CSS */
+/* Price Container */
 .price-container {
     display: flex;
     align-items: center;
+    justify-content: center; /* Center content within the container */
 }
 
 .price-container input {
-    width: 80%;
-    padding: 5px;
-    margin-right: 5px; /* 선택 사항: input과 '원' 사이에 간격 추가 */
+    width: 70%; /* Adjust width for responsiveness */
+    max-width: 150px; /* Set a max-width to prevent excessive growth */
+    padding: 8px; /* Slightly more padding */
+    margin-right: 5px;
+    box-sizing: border-box; /* Include padding in the element's total width and height */
 }
 
 .price-container .currency {
     font-size: 16px;
-    padding: 5px;
+    padding: 8px; /* Consistent padding */
 }
 
-/* reward_list 상품 선택 돋보기랑 한 줄로 CSS */
+/* Input Container (for search icon) */
 .input-container {
     display: flex;
     align-items: center;
+    justify-content: center; /* Center content within the container */
 }
 
-.price-container input {
-    width: 80%;
-    padding: 5px;
-    margin-right: 5px; /* 선택 사항: input과 '원' 사이에 간격 추가 */
+.input-container input {
+    flex-grow: 1; /* Allow input to grow and take available space */
+    padding: 8px;
+    margin-right: 5px;
+    box-sizing: border-box;
 }
 
 .search-icon {
-    width: 20px; /* 아이콘 크기 */
-    height: 20px; /* 아이콘 크기 */
+    width: 24px; /* Slightly larger icon */
+    height: 24px;
     cursor: pointer;
-    margin-left: 10px; /* input과 아이콘 사이에 여백 추가 */
+    margin-left: 10px;
 }
 
-/* 추가하기 버튼 스타일 */
-.add-btn {
-    float: right;
+/* Add/Close Buttons */
+.add-btn, .cls-btn {
+    float: right; /* Maintain float for desktop layout */
     background-color: #d6a77a;
     color: white;
     padding: 10px 20px;
@@ -243,47 +155,37 @@ h2 {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    margin-top: -50px;
+    margin-top: -50px; /* Adjust as needed for specific layout */
+    transition: background-color 0.3s ease;
 }
 
-.add-btn:hover {
+.add-btn:hover, .cls-btn:hover {
     background-color: #b87d53;
 }
 
-.cls-btn {
-    float: right;
-    background-color: #d6a77a;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: -50px;
-}
-
-.cls-btn:hover {
-    background-color: #b87d53;
-}
-
-/* 검색 옵션 스타일 */
+/* Search Box */
 .search-box {
     width: 100%;
     margin-top: 20px;
-    padding: 10px;
+    padding: 15px; /* Increase padding */
     background-color: #f9f4ef;
     border: 1px solid #d1c6b9;
     border-radius: 10px;
     display: flex;
-    justify-content: flex-end; /* 오른쪽 정렬 */
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    justify-content: flex-end;
     align-items: center;
+    gap: 10px; /* Add gap between search elements */
+    box-sizing: border-box;
 }
 
 .search-box select, .search-box input, .search-box button {
     font-size: 16px;
-    padding: 5px 10px;
+    padding: 8px 12px; /* Adjust padding */
     border-radius: 5px;
-    margin-right: 10px;
+    margin-right: 0; /* Remove right margin for flexbox gap */
+    flex-shrink: 0; /* Prevent shrinking on smaller screens */
+    box-sizing: border-box;
 }
 
 .search-box button {
@@ -295,4 +197,147 @@ h2 {
 
 .search-box button:hover {
     background-color: #b87d53;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 10px;
+    width: 100%;
+    flex-wrap: wrap; /* Allow pagination items to wrap */
+    gap: 5px; /* Add small gap between items */
+}
+
+.pagination a, .pagination strong {
+    font-size: 14px;
+    color: #7d7d7d;
+    text-decoration: none;
+    padding: 8px 12px; /* Slightly more padding */
+    margin: 0; /* Remove individual margins for flexbox gap */
+    border-radius: 4px;
+    display: inline-block;
+    white-space: nowrap; /* Prevent page numbers from wrapping */
+}
+
+.pagination a:hover {
+    background-color: #f1f1f1;
+}
+
+.pagination #current-page {
+    background-color: #c98f6f;
+    color: white;
+}
+
+.pagination #prev-page, .pagination #next-page {
+    font-weight: bold;
+    padding: 8px 12px;
+}
+
+#prev-page-disabled, #next-page-disabled {
+    color: #ddd;
+    cursor: not-allowed;
+}
+
+/* --- Media Queries --- */
+
+/* For screens smaller than 768px (e.g., tablets and large phones) */
+@media (max-width: 768px) {
+    h2 {
+        font-size: 28px;
+        margin-top: 20px;
+    }
+
+    th, td {
+        padding: 8px; /* Reduce cell padding */
+    }
+
+    .action-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+        border-radius: 10px; /* Slightly less rounded */
+    }
+
+    .add-btn, .cls-btn {
+        float: none; /* Remove float */
+        display: block; /* Make them block elements */
+        width: fit-content; /* Adjust width to content */
+        margin: 15px auto; /* Center them horizontally */
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+
+    .search-box {
+        flex-direction: column; /* Stack search elements vertically */
+        align-items: stretch; /* Stretch items to fill container */
+        padding: 10px;
+    }
+
+    .search-box select, .search-box input, .search-box button {
+        width: 100%; /* Full width for search elements */
+        margin-right: 0; /* Remove right margin */
+        margin-bottom: 10px; /* Add bottom margin for spacing */
+    }
+
+    .pagination a, .pagination strong {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+}
+
+/* For screens smaller than 480px (e.g., mobile phones) */
+@media (max-width: 480px) {
+    h2 {
+        font-size: 22px;
+        margin-top: 15px;
+        padding: 5px 0;
+    }
+
+    th, td {
+        padding: 5px; /* Further reduce cell padding */
+        font-size: 12px; /* Reduce font size in table cells */
+    }
+
+    .action-btn {
+        padding: 5px 10px;
+        font-size: 10px;
+        border-radius: 8px;
+    }
+
+    button {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+
+    .price-container input {
+        width: 60%;
+        padding: 5px;
+    }
+
+    .price-container .currency {
+        font-size: 14px;
+        padding: 5px;
+    }
+
+    .search-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .add-btn, .cls-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+        margin-top: 10px; /* Adjust margin for mobile */
+    }
+
+    .search-box select, .search-box input, .search-box button {
+        font-size: 14px;
+        padding: 6px 10px;
+    }
+
+    .pagination a, .pagination strong {
+        font-size: 10px;
+        padding: 5px 8px;
+    }
 }

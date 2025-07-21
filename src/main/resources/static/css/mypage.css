@@ -1,30 +1,50 @@
-@charset "UTF-8";
+/*
+ * Responsive My Page CSS
+ * This stylesheet provides responsive styles for the My Page container,
+ * menu boxes, forms, and modals. It adapts layout and font sizes
+ * across desktop, tablet, and mobile screens using relative units,
+ * Flexbox, and media queries.
+ */
+
+/* ============================================== */
+/* Base Styles - Apply to all screen sizes */
+/* ============================================== */
+@charset "UTF-8"; /* Ensure proper character encoding */
 
 body {
     font-family: 'Noto Sans KR', sans-serif;
     background-color: #fdf4ec;
     margin: 0;
     padding: 0;
+    box-sizing: border-box; /* Include padding and border in element's total width/height */
 }
 
 h2 {
     text-align: center;
-    /* margin-top: 40px; */
     color: #3f2e1d;
+    margin-top: 40px; /* Adjusted margin-top for consistency */
+    font-size: 2em; /* Relative font size */
 }
 
 .mypage-container {
-    width: 567px; height: 644px;
-    margin: 47px auto;
+    width: 90%; /* Responsive width */
+    max-width: 567px; /* Max width for larger screens */
+    height: auto; /* Auto height to accommodate content */
+    min-height: 644px; /* Minimum height for consistency */
+    margin: 47px auto; /* Center align with vertical margin */
     background-color: #F5F1EB;
-    padding: 30px 40px;
+    padding: 30px 40px; /* Base padding */
     border-radius: 16px;
     border: 1.67px solid #D8C2A6;
     text-align: center;
+    box-sizing: border-box; /* Include padding and border in element's total width/height */
+    display: flex; /* Use flexbox for internal layout */
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
 }
 
 .mypage-container h3 {
-    font-size: 18px;
+    font-size: 1.2em; /* Relative font size */
     color: #3f2e1d;
     margin-bottom: 25px;
     display: flex;
@@ -33,10 +53,12 @@ h2 {
 }
 
 .mypage-container h3::before {
-    content: url('/resources/suhodan_images/icon/user.png');
+    content: url('/resources/suhodan_images/icon/user.png'); /* Ensure path is correct */
     width: 20px;
     height: 20px;
     margin-right: 8px;
+    display: inline-block; /* Treat as block for width/height */
+    vertical-align: middle; /* Align with text */
 }
 
 .menu-box {
@@ -44,6 +66,8 @@ h2 {
     border: 1px solid #e5d2bd;
     border-radius: 12px;
     padding: 20px;
+    width: 100%; /* Take full width of parent */
+    box-sizing: border-box;
 }
 
 .menu-box ul {
@@ -66,44 +90,54 @@ h2 {
 .menu-box img {
     width: 20px;
     margin-right: 10px;
+    flex-shrink: 0; /* Prevent image from shrinking */
 }
 
 .menu-box a {
     text-decoration: none;
     color: #3f2e1d;
     font-weight: 500;
-    flex: 1;
+    flex: 1; /* Take remaining space */
     text-align: left;
+    display: block; /* Make the whole link clickable */
 }
 
 .mypage-container .title {
-	align-items: center;
-	display: flex;
-	gap: 10px;
-	margin-bottom: 20px;
-	margin-top: 10px;
+    align-items: center;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    width: 100%; /* Ensure title takes full width for alignment */
+    justify-content: flex-start; /* Align content to the start */
 }
 
 .mypage-container .back-button {
-	width: 14px; height: 28px;
-	border: none;
-	cursor: pointer;
-	margin-right: 10px;
-	background: url('/resources/images/back.png') no-repeat center;
-	background-size: contain;
-	z-index: 10;
+    width: 14px; 
+    height: 28px;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+    background: url('/resources/images/back.png') no-repeat center; /* Ensure path is correct */
+    background-size: contain;
+    z-index: 10;
+    flex-shrink: 0; /* Prevent button from shrinking */
 }
 
 .mypage-container .title span {
-	font-size: 21px;
-	font-weight: bold;
-	color: #504848;
+    font-size: 1.3em; /* Relative font size */
+    font-weight: bold;
+    color: #504848;
+    white-space: nowrap; /* Prevent title from wrapping on desktop */
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .logout {
     margin-top: 20px;
     text-align: center;
     color: #5c4531;
+    width: 100%; /* Take full width */
 }
 
 .logout a {
@@ -116,36 +150,42 @@ h2 {
     text-decoration: underline;
 }
 
-/* Form style */
+/* Form style (for profile editing, etc.) */
 .form-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-left: 20px;
-    margin-right: 20px;
-    padding: 12px 20px;
-    font-size: 16px;
+    /* margin-left/right: 20px; removed to use padding of parent for responsiveness */
+    padding: 12px 0; /* Adjusted padding */
+    font-size: 1em; /* Relative font size */
     color: #504848;
     border-bottom: 1px solid #BABABA;
+    width: 100%; /* Take full width of parent */
+    box-sizing: border-box;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
 
-.form-row input[type="text"] {
-	width: 214px;
-	padding: 4px 10px;
-	border: 1px solid #CFCFCF;
-    border-radius: 5px;
-    background-color:#FFFFFF;
+.form-row label {
+    flex-shrink: 0; /* Prevent label from shrinking */
+    margin-right: 10px; /* Space between label and input */
+    text-align: left; /* Ensure label text is left-aligned */
 }
+
+.form-row input[type="text"],
 .form-row input[type="date"] {
-    width: 214px;
+    width: calc(100% - 100px); /* Adjust width considering label/radio buttons */
+    max-width: 214px; /* Max width for larger screens */
     padding: 4px 10px;
     border: 1px solid #CFCFCF;
     border-radius: 5px;
     background-color:#FFFFFF;
+    box-sizing: border-box;
+    flex-grow: 1; /* Allow input to grow */
 }
 
 .form-row input[type="radio"] {
     margin-left: 20px;
+    flex-shrink: 0; /* Prevent radio button from shrinking */
 }
 
 .form-row span label {
@@ -155,11 +195,13 @@ h2 {
 .form-row a img {
     height: 23px;
     margin-right: 10px;
+    flex-shrink: 0;
 }
 
 .buttons {
     text-align: center;
     margin-top: 28px;
+    width: 100%; /* Take full width */
 }
 
 .save-btn {
@@ -168,18 +210,22 @@ h2 {
     border: none;
     padding: 8px 24px;
     border-radius: 16.65px;
-    font-size: 20px;
+    font-size: 1.2em; /* Relative font size */
     cursor: pointer;
+    transition: background-color 0.3s;
+    min-width: 120px; /* Ensure button has minimum width */
 }
 
 .withdraw-btn {
     background: none;
     border: none;
     color: #504848;
-    font-size: 21px;
+    font-size: 1.1em; /* Relative font size */
     margin-top: 12px;
     cursor: pointer;
     text-decoration: none;
+    display: block; /* Make it block to take full line */
+    width: 100%; /* Ensure it's centered */
 }
 
 .save-btn:hover {
@@ -191,9 +237,9 @@ h2 {
     text-decoration: underline;
 }
 
-/* 모달 배경 */
+/* Modals */
 .modal {
-    display: none;
+    display: none; /* Hidden by default */
     position: fixed;
     top: 0;
     left: 0;
@@ -201,36 +247,40 @@ h2 {
     height: 100%;
 	background-color: rgba(0, 0, 0, 0.3);
     z-index: 1000;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
 }
 
-/* 모달 내용 영역 */
+/* Modal content area */
 .modal-content {
-    width: 488px; height: 471px;
-    /* max-width: 30%;  모달 너비를 80%로 설정하여 화면 크기에 맞게 좁게 조정 */
-    margin: auto;
-    top: 50%; left: 50%;
-	transform: translate(-50%, -50%);
+    width: 90%; /* Responsive width */
+    max-width: 488px; /* Max width for larger screens */
+    height: auto; /* Auto height to fit content */
+    min-height: 471px; /* Minimum height for consistency */
+    margin: auto; /* Center horizontally and vertically */
+    /* top/left/transform removed as flexbox handles centering */
     background-color: #F5F1EB;
 	border: 1.67px solid #D8C2A6;
 	border-radius: 16.65px;
     padding: 30px 24px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
     position: relative;
+    box-sizing: border-box;
 }
 
-/* 모달 제목 스타일 */
+/* Modal title style */
 .modal-content h4 {
-    font-size: 18px;
+    font-size: 1.1em; /* Relative font size */
     margin-bottom: 20px;
     color: #3f2b1c;
     text-align: center;
 }
 
-/* 모달에서 입력 필드 스타일 */
+/* Modal input fields style */
 .modal-content input {
     width: 100%;
     padding: 12px;
-    font-size: 14px;
+    font-size: 0.9em; /* Relative font size */
     margin-bottom: 16px;
     border-radius: 8px;
     border: 1px solid #ccc;
@@ -238,20 +288,20 @@ h2 {
     box-sizing: border-box;
 }
 
-/* 버튼 영역 */
+/* Button area in modal */
 .modal-content .modal-buttons {
     text-align: center;
     margin-top: 20px;
 }
 
-/* 버튼 스타일 */
+/* Button style in modal */
 .modal-content .modal-buttons button {
     width: 100%;
     padding: 12px;
     background-color: #936f4d;
     color: white;
     border: none;
-    font-size: 16px;
+    font-size: 1em; /* Relative font size */
     border-radius: 18px;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -261,13 +311,13 @@ h2 {
     background-color: #7d5e3f;
 }
 
-/* 뒤로가기 아이콘 */
+/* Back icon in modal */
 .modal-content .back-icon {
     position: absolute;
     top: 16px;
     left: 16px;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 1.1em; /* Relative font size */
     color: #936f4d;
     transition: color 0.3s;
 }
@@ -276,60 +326,372 @@ h2 {
     color: #7d5e3f;
 }
 
-/* 주소 수정 모달 */
+/* Address edit modal specific styles */
 .modal-content .address-wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     margin-bottom: 16px;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
 
 .address-wrapper input[type="text"] {
     flex-grow: 1;
     margin-right: 8px;
     padding: 12px;
-    font-size: 14px;
+    font-size: 0.9em;
     border-radius: 8px;
     border: 1px solid #ccc;
     background-color: #fff;
+    box-sizing: border-box;
+    min-width: 120px; /* Minimum width to prevent input from becoming too small */
 }
 
-/* 우편번호 검색 버튼 */
+/* Postcode search button */
 .postcode-btn {
 	width: 80px;
     background-color: #D1D1D1;
     color: white;
-    font-size: 14px;
+    font-size: 0.9em;
     padding: 8px 12px;
     border-radius: 18px;
     border: none;
     cursor: pointer;
     transition: background-color 0.3s;
+    flex-shrink: 0; /* Prevent button from shrinking */
 }
 
 .postcode-btn:hover {
     background-color: #A5A5A5;
 }
 
-/* 모달 안에 있는 텍스트 및 버튼 스타일 */
-.modal-buttons button {
-    width: 100%;
-    padding: 12px;
-    background-color: #936f4d;
-    color: white;
-    border: none;
-    font-size: 16px;
-    border-radius: 18px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
+/* Flip icon (for back button, etc.) */
 .flip-icon {
     transform: rotate(180deg);
 }
 
-/* 버튼 hover 효과 */
-.modal-content .modal-buttons button:hover {
-    background-color: #7d5e3f;
+
+/* ============================================== */
+/* Media Queries */
+/* ============================================== */
+
+/* --- Tablet and Medium Screens (max-width: 768px) --- */
+@media (max-width: 768px) {
+    h2 {
+        margin-top: 30px;
+        font-size: 1.8em;
+    }
+
+    .mypage-container {
+        margin: 30px auto;
+        padding: 25px 30px;
+        border-radius: 14px;
+        min-height: 550px;
+    }
+
+    .mypage-container h3 {
+        font-size: 1.1em;
+        margin-bottom: 20px;
+    }
+
+    .mypage-container h3::before {
+        width: 18px;
+        height: 18px;
+        margin-right: 6px;
+    }
+
+    .menu-box {
+        padding: 15px;
+        border-radius: 10px;
+    }
+
+    .menu-box li {
+        padding: 10px 0;
+    }
+
+    .menu-box img {
+        width: 18px;
+        margin-right: 8px;
+    }
+
+    .menu-box a {
+        font-size: 0.9em;
+    }
+
+    .mypage-container .title {
+        gap: 8px;
+        margin-bottom: 18px;
+        margin-top: 8px;
+    }
+
+    .mypage-container .back-button {
+        width: 12px; 
+        height: 24px;
+    }
+
+    .mypage-container .title span {
+        font-size: 1.2em;
+        white-space: normal; /* Allow title to wrap on smaller screens */
+    }
+
+    .logout {
+        margin-top: 15px;
+    }
+
+    .logout a {
+        font-size: 0.9em;
+    }
+
+    .form-row {
+        padding: 10px 0;
+        font-size: 0.9em;
+        flex-direction: column; /* Stack label and input vertically */
+        align-items: flex-start; /* Align items to the start */
+    }
+
+    .form-row label {
+        margin-bottom: 5px; /* Space between label and input */
+    }
+
+    .form-row input[type="text"],
+    .form-row input[type="date"] {
+        width: 100%; /* Take full width in column layout */
+        max-width: none; /* Remove max-width restriction */
+        padding: 8px 10px;
+    }
+
+    .form-row input[type="radio"] {
+        margin-left: 0; /* Adjust margin */
+        margin-top: 5px; /* Space above radio buttons */
+    }
+    
+    .form-row span {
+        width: 100%; /* Ensure radio button group takes full width */
+        display: flex; /* Arrange radio buttons horizontally */
+        align-items: center;
+    }
+
+    .form-row span label {
+        margin-left: 5px; /* Space between radio and its label */
+    }
+
+    .form-row a img {
+        height: 20px;
+        margin-right: 8px;
+    }
+
+    .buttons {
+        margin-top: 20px;
+    }
+
+    .save-btn {
+        padding: 7px 20px;
+        font-size: 1.1em;
+        min-width: 100px;
+    }
+
+    .withdraw-btn {
+        font-size: 1em;
+        margin-top: 10px;
+    }
+
+    .modal-content {
+        padding: 25px 20px;
+        border-radius: 14px;
+        min-height: 400px;
+    }
+
+    .modal-content h4 {
+        font-size: 1em;
+        margin-bottom: 15px;
+    }
+
+    .modal-content input {
+        padding: 10px;
+        font-size: 0.8em;
+        margin-bottom: 12px;
+    }
+
+    .modal-content .modal-buttons {
+        margin-top: 15px;
+    }
+
+    .modal-content .modal-buttons button {
+        padding: 10px;
+        font-size: 0.9em;
+        border-radius: 16px;
+    }
+
+    .modal-content .back-icon {
+        top: 12px;
+        left: 12px;
+        font-size: 1em;
+    }
+
+    .modal-content .address-wrapper {
+        flex-direction: column; /* Stack address input and button vertically */
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .address-wrapper input[type="text"] {
+        margin-right: 0;
+        width: 100%;
+        min-width: unset; /* Remove min-width for mobile */
+    }
+
+    .postcode-btn {
+        width: 100%; /* Take full width when stacked */
+        font-size: 0.8em;
+        padding: 10px 12px;
+        border-radius: 16px;
+    }
+}
+
+/* --- Mobile Screens (max-width: 480px) --- */
+@media (max-width: 480px) {
+    h2 {
+        margin-top: 25px;
+        font-size: 1.6em;
+    }
+
+    .mypage-container {
+        margin: 20px auto;
+        padding: 20px 20px;
+        border-radius: 12px;
+        min-height: 450px;
+    }
+
+    .mypage-container h3 {
+        font-size: 1em;
+        margin-bottom: 15px;
+    }
+
+    .mypage-container h3::before {
+        width: 16px;
+        height: 16px;
+        margin-right: 5px;
+    }
+
+    .menu-box {
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .menu-box li {
+        padding: 8px 0;
+    }
+
+    .menu-box img {
+        width: 16px;
+        margin-right: 6px;
+    }
+
+    .menu-box a {
+        font-size: 0.8em;
+    }
+
+    .mypage-container .title {
+        gap: 6px;
+        margin-bottom: 15px;
+        margin-top: 6px;
+    }
+
+    .mypage-container .back-button {
+        width: 10px; 
+        height: 20px;
+    }
+
+    .mypage-container .title span {
+        font-size: 1.1em;
+    }
+
+    .logout {
+        margin-top: 12px;
+    }
+
+    .logout a {
+        font-size: 0.8em;
+    }
+
+    .form-row {
+        padding: 8px 0;
+        font-size: 0.8em;
+    }
+
+    .form-row input[type="text"],
+    .form-row input[type="date"] {
+        padding: 6px 8px;
+        font-size: 0.8em;
+    }
+
+    .form-row input[type="radio"] {
+        margin-left: 0; /* Consistent margin */
+    }
+
+    .form-row a img {
+        height: 18px;
+        margin-right: 6px;
+    }
+
+    .buttons {
+        margin-top: 15px;
+    }
+
+    .save-btn {
+        padding: 6px 16px;
+        font-size: 1em;
+        border-radius: 14px;
+        min-width: 90px;
+    }
+
+    .withdraw-btn {
+        font-size: 0.9em;
+        margin-top: 8px;
+    }
+
+    .modal-content {
+        padding: 20px 15px;
+        border-radius: 12px;
+        min-height: 350px;
+    }
+
+    .modal-content h4 {
+        font-size: 0.9em;
+        margin-bottom: 10px;
+    }
+
+    .modal-content input {
+        padding: 8px;
+        font-size: 0.7em;
+        margin-bottom: 10px;
+    }
+
+    .modal-content .modal-buttons {
+        margin-top: 12px;
+    }
+
+    .modal-content .modal-buttons button {
+        padding: 8px;
+        font-size: 0.8em;
+        border-radius: 14px;
+    }
+
+    .modal-content .back-icon {
+        top: 10px;
+        left: 10px;
+        font-size: 0.9em;
+    }
+
+    .address-wrapper input[type="text"] {
+        padding: 8px;
+        font-size: 0.7em;
+    }
+
+    .postcode-btn {
+        padding: 8px 10px;
+        font-size: 0.7em;
+        border-radius: 14px;
+    }
 }

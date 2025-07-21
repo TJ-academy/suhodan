@@ -1,119 +1,251 @@
-	.info_container {
-		width: 841px;
-		height: auto;
-		background: #F5F1EB;
-		margin: 0 auto;
-		border-radius: 20px;
-		border: 1px solid #D8C2A6;
-		margin-top: 50px;
-		margin-bottom: 50px;
-		padding: 40px;
-	}
-	.img_style {
-		text-align: center;
-		margin-bottom: 40px;
-	}
-	.text_style {
-		font-size: 17px;
-		text-align: center;
-		color: #2E2E2E;
-		margin: 20px 0 40px 0;
-	}
-	.checkbox_con {
-		text-align:center;
-	}
-	.next_btn {
-		width: 474px;
-		height: 68px;
-		border-radius: 20px;
-		background: #D8C2A6;
-		color: white;
-		font-size: 21px;
-		text-align: center;
-		font-weight: 700;
-		line-height: 60px;
-		display: block;
-		margin: 0 auto;
-		margin-top: 30px;
-		border: none;
-box-shadow: none;
-		
-		
-	}
-	.next_btn:hover {
-		background: #9C6B4F;
-	}
-	    /* 새로 추가된 부분 */
-    .amount-table { /* 테이블 자체 스타일 */
-        width: 100%; /* 부모 컨테이너에 맞춤 */
-        border-collapse: collapse; /* 셀 사이의 간격 제거 */
-        margin-top: 20px; /* 위쪽 여백 */
+/* 기본 스타일 - 모든 화면 크기에 적용 */
+body {
+    background-color: #fdf4ec;
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* 패딩과 보더가 너비/높이에 포함되도록 설정 */
+}
+
+.info_container {
+    width: 90%; /* 고정 너비 대신 유동적인 % 사용 */
+    max-width: 841px; /* 최대 너비 설정 */
+    height: auto;
+    background: #F5F1EB;
+    margin: 50px auto; /* 상하 여백은 고정, 좌우는 자동 */
+    border-radius: 20px;
+    border: 1px solid #D8C2A6;
+    padding: 40px;
+    box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
+}
+
+.img_style {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.img_style img {
+    max-width: 100%; /* 이미지가 컨테이너를 넘지 않도록 */
+    height: auto; /* 이미지 비율 유지 */
+}
+
+.text_style {
+    font-size: 17px;
+    text-align: center;
+    color: #2E2E2E;
+    margin: 20px 0 40px 0;
+    padding: 0 10px; /* 좌우 패딩 추가로 텍스트 잘림 방지 */
+    word-break: keep-all; /* 단어 단위 줄바꿈 시도 (한글에 유용) */
+}
+
+.checkbox_con {
+    text-align: center;
+    padding: 0 10px; /* 좌우 패딩 추가 */
+}
+
+/* 다음 버튼 */
+.next_btn {
+    width: 90%; /* 유동적인 % 사용 */
+    max-width: 474px; /* 최대 너비 설정 */
+    height: 68px;
+    border-radius: 20px;
+    background: #D8C2A6;
+    color: white;
+    font-size: 21px;
+    text-align: center;
+    font-weight: 700;
+    line-height: 68px; /* height와 동일하게 설정하여 텍스트 수직 중앙 정렬 */
+    display: block;
+    margin: 30px auto 0 auto; /* 상단 여백은 고정, 좌우는 자동 */
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.next_btn:hover {
+    background: #9C6B4F;
+}
+
+/* 금액 테이블 스타일 */
+.amount-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    display: grid; /* Flexbox 대신 Grid 사용 (더 유연한 그리드 레이아웃) */
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* 반응형 그리드 */
+    gap: 10px; /* 셀 간의 간격 */
+}
+
+.amount-table td {
+    padding: 15px;
+    border: 1px solid #D8C2A6;
+    text-align: center;
+    background: white;
+    /* width: 151px; /* 고정 너비 대신 그리드가 조절하도록 */
+    height: 61px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex; /* 내부 텍스트 수직 중앙 정렬을 위해 flex 사용 */
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px; /* 셀에 둥근 모서리 추가 */
+}
+
+.amount-table td:hover {
+    background-color: #E8E2D9;
+}
+
+.amount-table input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.selected-amount {
+    background-color: #9C6B4F !important;
+    color: white;
+    font-weight: bold;
+}
+
+/* 금액 표시 input (본문처럼 보이게) */
+.amount-display-input {
+    display: inline-block;
+    border: none;
+    background: transparent;
+    font-size: inherit;
+    font-weight: bold;
+    color: #9C6B4F;
+    width: auto;
+    min-width: 80px;
+    text-align: right;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 확인 버튼 */
+.confirm_btn {
+    background: #D8C2A6;
+    text-align: center;
+    width: 146px; /* 고정 너비 유지, 필요시 미디어 쿼리로 조정 */
+    height: 57px;
+    color: white;
+    font-size: 21px;
+    border-radius: 15px;
+    line-height: 57px; /* height와 동일하게 설정하여 텍스트 수직 중앙 정렬 */
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    display: block; /* 블록 요소로 만들어서 마진 auto 적용 가능하게 */
+    margin: 20px auto; /* 중앙 정렬 */
+}
+
+.confirm_btn:hover {
+    background: #9C6B4F;
+}
+
+/* --- 미디어 쿼리 --- */
+
+/* 태블릿 및 중간 크기 화면 (768px 이하) */
+@media (max-width: 768px) {
+    .info_container {
+        margin: 30px auto; /* 상하 여백 조정 */
+        padding: 30px; /* 패딩 조정 */
     }
 
-    .amount-table td { /* 모든 td에 공통 스타일 */
-        padding: 15px; /* 내부 여백 */
-        border: 1px solid #D8C2A6; /* 테두리 */
-        text-align: center; /* 텍스트 가운데 정렬 */
-        background: white;
-        width:151px;
-        height: 61px;
-        font-size: 18px;
-        cursor: pointer; /* 클릭 가능한 요소임을 나타냄 */
-        transition: background-color 0.3s; /* 호버 효과 부드럽게 */
+    .text_style {
+        font-size: 16px; /* 폰트 사이즈 조정 */
+        margin: 15px 0 30px 0;
     }
 
-    .amount-table td:hover { /* 호버 시 스타일 */
-        background-color: #E8E2D9;
+    .next_btn {
+        width: 95%; /* 더 넓게 사용 */
+        height: 60px;
+        font-size: 19px;
+        line-height: 60px;
     }
 
-    .amount-table td:nth-child(even) { /* 짝수 번째 td에만 다른 스타일 (선택 사항) */
-        /* background-color: #F0EDE8; */
+    .amount-table {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* 그리드 컬럼 조정 */
+        gap: 8px; /* 간격 조정 */
     }
 
-    .amount-table input[type="number"] { /* 직접 입력 칸의 input 스타일 */
-        width: 100%; /* td 너비에 맞춰 조절 */
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        text-align: center;
+    .amount-table td {
+        padding: 12px;
+        height: 55px;
         font-size: 16px;
-        box-sizing: border-box; /* 패딩과 보더를 너비에 포함 */
     }
 
-    .selected-amount { /* 선택된 금액 td에 적용될 스타일 */
-        background-color: #9C6B4F !important; /* 클릭 시 배경색 */
-        color: white; /* 클릭 시 글자색 */
-        font-weight: bold;
+    .amount-table input[type="number"] {
+        font-size: 15px;
+        padding: 6px;
     }
-    /* 새로 추가된 스타일: 금액 표시 input을 본문처럼 보이게 함 */
-    .amount-display-input {
-        display: inline-block; /* 텍스트와 나란히 배치 */
-        border: none; /* 테두리 없앰 */
-        background: transparent; /* 배경 투명하게 */
-        font-size: inherit; /* 부모 p 태그의 글자 크기 상속 */
-        font-weight: bold; /* 금액을 강조 */
-        color: #9C6B4F; /* 금액 색상 변경 (예시) */
-        width: auto; /* 내용에 따라 너비 자동 조절 */
-        min-width: 80px; /* 최소 너비 지정 */
-        text-align: right; /* 금액을 오른쪽 정렬 */
-        padding: 0; /* 패딩 제거 */
-    }
-    
+
     .confirm_btn {
-		background: #D8C2A6;
-		text-align: center;
-		width: 146px;
-		height: 57px;
-		color: white;
-		font-size: 21px;
-		border-radius: 15px;
-		line-height: 57px;
-		border: none;
-box-shadow: none;
-		
-	}
+        width: 120px; /* 버튼 너비 조정 */
+        height: 50px;
+        font-size: 18px;
+        line-height: 50px;
+    }
+}
 
-	.confirm_btn:hover {
-		background: #9C6B4F;
-	}
-    
+/* 모바일 화면 (480px 이하) */
+@media (max-width: 480px) {
+    .info_container {
+        margin: 20px auto;
+        padding: 20px;
+        border-radius: 15px; /* 모서리 둥글게 */
+    }
+
+    .img_style {
+        margin-bottom: 25px;
+    }
+
+    .text_style {
+        font-size: 15px; /* 폰트 사이즈 조정 */
+        margin: 10px 0 25px 0;
+    }
+
+    .next_btn {
+        width: 95%; /* 거의 전체 너비 사용 */
+        height: 55px;
+        font-size: 17px;
+        line-height: 55px;
+        border-radius: 15px;
+    }
+
+    .amount-table {
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); /* 그리드 컬럼 더 작게 조정 */
+        gap: 6px; /* 간격 더 좁게 */
+    }
+
+    .amount-table td {
+        padding: 10px;
+        height: 45px;
+        font-size: 14px;
+        border-radius: 8px; /* 모서리 더 둥글게 */
+    }
+
+    .amount-table input[type="number"] {
+        font-size: 14px;
+        padding: 5px;
+    }
+
+    .amount-display-input {
+        min-width: 60px; /* 최소 너비 조정 */
+    }
+
+    .confirm_btn {
+        width: 100px; /* 버튼 너비 조정 */
+        height: 45px;
+        font-size: 16px;
+        line-height: 45px;
+        border-radius: 12px;
+    }
+}

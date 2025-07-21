@@ -1,61 +1,74 @@
-	.error {
-		color: #E64B4E;
-		font-size: 14px;
-		margin-bottom: 10px;
-		display: block;
-		margin-left:4px;
-	}
-	
-	  body {
+/* 기본 스타일 - 모든 화면 크기에 적용 */
+body {
     background-color: #F7EAD9;
     margin: 0;
     font-family: 'Noto Sans KR', sans-serif;
     color: #6B4F3B;
-  }
+    box-sizing: border-box; /* 패딩과 보더가 너비/높이에 포함되도록 설정 */
+}
 
-	.join_text {
-		text-align: center;
-		color: #9C6B4F;
-		font-size: 30px;
-		margin-top: 70px;
-		font-weight: bold;
-	}
-  /* 메뉴 포함된 상단 여백 조절 */
-  .join_box {
-    display: flex;
-    justify-content: center;
-  }
+.error {
+    color: #E64B4E;
+    font-size: 14px;
+    margin-bottom: 10px;
+    display: block;
+    margin-left: 4px; /* 기존 마진 유지 */
+    text-align: left; /* 에러 메시지 왼쪽 정렬 */
+}
 
-  .join_container {
-    width: 777px;
-    background: #F5F1EB;
-    border-radius: 20px;
-    padding: 100px 80px;
-    box-sizing: border-box;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+.join_text {
     text-align: center;
     color: #9C6B4F;
-  }
+    font-size: 30px;
+    margin-top: 70px;
+    font-weight: bold;
+    padding: 0 10px; /* 좌우 패딩 추가로 텍스트 잘림 방지 */
+}
 
-  form {
+/* 메뉴 포함된 상단 여백 조절 */
+.join_box {
+    display: flex;
+    justify-content: center;
+    padding: 0 20px; /* 좌우 패딩 추가 */
+    box-sizing: border-box;
+}
+
+.join_container {
+    width: 90%; /* 고정 너비 대신 유동적인 % 사용 */
+    max-width: 777px; /* 최대 너비 설정 */
+    background: #F5F1EB;
+    border-radius: 20px;
+    padding: 100px 80px; /* 큰 화면에서의 패딩 유지 */
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center; /* 전체 컨테이너는 중앙 정렬 */
+    color: #9C6B4F;
+    margin-top: 50px; /* 상단 여백 추가 */
+    margin-bottom: 50px; /* 하단 여백 추가 */
+}
+
+form {
     text-align: left;
-  }
+    margin: 0 auto; /* 폼을 중앙 정렬 */
+    max-width: 500px; /* 폼의 최대 너비 제한 (입력 필드 기준) */
+}
 
-  label {
+label {
     display: block;
     margin-bottom: 8px;
     color: #000000;
-  }
+}
 
-  .input-group {
-  	display: flex;
-  	align-items: center;
-  	gap: 10px;
-  	margin-bottom: 5px;
-  }
-  
-  input[type="text"],
-  input[type="password"] {
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px; /* 기존 마진 유지 */
+    flex-wrap: wrap; /* 요소가 넘칠 경우 다음 줄로 넘어가도록 설정 */
+}
+
+input[type="text"],
+input[type="password"] {
     height: 40px;
     padding: 8px 12px;
     border: 1.5px solid #C9B7A6;
@@ -63,59 +76,170 @@
     font-size: 16px;
     box-sizing: border-box;
     transition: border-color 0.3s ease;
-  }
+    flex: 1; /* 남은 공간을 채우도록 설정 */
+    min-width: 180px; /* 입력 필드의 최소 너비 설정 */
+}
 
-  input[type="text"]:focus,
-  input[type="password"]:focus {
+input[type="text"]:focus,
+input[type="password"]:focus {
     border-color: #9C6B4F;
     outline: none;
-  }
+}
 
-  .dupliBtn {
-  	width: 121px;
-  	height: 40px;
-  	background: #9C6B4F;
-  	color: white;
-  	border-radius: 20px;
-  	border: none;
-  	cursor: pointer;
-  	transition: background-color 0.3s ease;
-  }
-  
-  .dupliBtn:hover {
-  	background: #7a5239;
-  }
-  
-  .text1 {
-  	color: #999999;
-  	font-size: 16px;
-  	margin-top: 20px;
-  	margin-bottom: 0;
-  }
+.dupliBtn {
+    width: 121px; /* 고정 너비 유지, 필요시 미디어 쿼리로 조정 */
+    height: 40px;
+    background: #9C6B4F;
+    color: white;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    flex-shrink: 0; /* 버튼이 줄어들지 않도록 설정 */
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+}
 
-  #submitBtn {
-  margin-top: 30px;
-  width: 146px;
-  height: 57px;
-  background-color: #9C6B4F;
-  border-color: #9C6B4F;
-  border-radius: 15px;
-  font-size: 18px;
-  font-weight: 600;
-  color:white;
-  cursor: pointer;
-  align-items: center;
-  transition: background-color 0.3s ease;
-  margin-left: 100px;
+.dupliBtn:hover {
+    background: #7a5239;
+}
+
+.text1 {
+    color: #999999;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 0;
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+}
+
+#submitBtn {
+    margin-top: 30px;
+    width: 146px; /* 고정 너비 유지, 필요시 미디어 쿼리로 조정 */
+    height: 57px;
+    background-color: #9C6B4F;
+    border: 1px solid #9C6B4F; /* border-color 대신 border 속성 사용 */
+    border-radius: 15px;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    display: block; /* 블록 요소로 만들어서 마진 auto 적용 가능하게 */
+    margin-left: auto; /* 폼 내에서 중앙 정렬 */
+    margin-right: auto; /* 폼 내에서 중앙 정렬 */
+    transition: background-color 0.3s ease;
 }
 
 #submitBtn:disabled {
-  color: #9C6B4F;
-  background-color: #D9C2AD;
-  cursor: not-allowed;
+    color: #9C6B4F;
+    background-color: #D9C2AD;
+    cursor: not-allowed;
 }
 
 #submitBtn:not(:disabled):hover {
-  background-color: #602B0D;
+    background-color: #602B0D;
 }
 
+/* --- 미디어 쿼리 --- */
+
+/* 태블릿 및 중간 크기 화면 (768px 이하) */
+@media (max-width: 768px) {
+    .join_text {
+        font-size: 26px; /* 폰트 사이즈 조정 */
+        margin-top: 50px;
+    }
+
+    .join_box {
+        padding: 0 10px; /* 좌우 패딩 조정 */
+    }
+
+    .join_container {
+        padding: 50px 30px; /* 패딩 조정 */
+        border-radius: 15px; /* 모서리 조정 */
+        margin-top: 30px; /* 상단 여백 조정 */
+        margin-bottom: 30px; /* 하단 여백 조정 */
+    }
+
+    form {
+        margin-left: 0; /* 폼의 좌측 마진 제거 */
+        max-width: none; /* 최대 너비 제한 해제 */
+    }
+
+    .input-group {
+        flex-direction: column; /* 세로로 쌓이도록 변경 */
+        align-items: flex-start; /* 왼쪽 정렬 */
+        gap: 8px; /* 간격 조정 */
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        width: 100%; /* 너비 100%로 설정 */
+        min-width: unset; /* 최소 너비 제한 해제 */
+    }
+
+    .dupliBtn {
+        width: 100%; /* 버튼 너비 100%로 설정 */
+        height: 45px;
+        font-size: 16px;
+        border-radius: 10px; /* 모서리 조정 */
+        margin-top: 5px; /* 상단 마진 추가 */
+    }
+    
+    .text1 {
+        font-size: 14px; /* 폰트 사이즈 조정 */
+    }
+
+    #submitBtn {
+        width: 120px; /* 버튼 너비 조정 */
+        height: 50px;
+        font-size: 16px;
+        margin-left: auto; /* 중앙 정렬 */
+        margin-right: auto; /* 중앙 정렬 */
+        display: block; /* 중앙 정렬을 위해 블록 요소로 */
+    }
+}
+
+/* 모바일 화면 (480px 이하) */
+@media (max-width: 480px) {
+    .join_text {
+        font-size: 22px; /* 폰트 사이즈 조정 */
+        margin-top: 40px;
+    }
+
+    .join_container {
+        padding: 30px 20px; /* 패딩 조정 */
+        border-radius: 10px; /* 모서리 조정 */
+        margin-top: 20px; /* 상단 여백 조정 */
+        margin-bottom: 20px; /* 하단 여백 조정 */
+    }
+
+    label {
+        font-size: 14px; /* 라벨 폰트 사이즈 조정 */
+    }
+
+    .error {
+        font-size: 13px; /* 에러 메시지 폰트 사이즈 조정 */
+        margin-left: 0; /* 마진 제거 */
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        height: 35px;
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+
+    .dupliBtn {
+        height: 40px;
+        font-size: 14px;
+    }
+    
+    .text1 {
+        font-size: 13px;
+    }
+
+    #submitBtn {
+        width: 100px; /* 버튼 너비 조정 */
+        height: 45px;
+        font-size: 14px;
+        margin-top: 20px; /* 상단 마진 조정 */
+    }
+}

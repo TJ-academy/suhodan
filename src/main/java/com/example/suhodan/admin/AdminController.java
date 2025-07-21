@@ -732,49 +732,10 @@ public class AdminController {
 	}
 
 	@PostMapping("donation_contents_insert.do")
-	public String donation_contents_insert(@RequestParam("content_id") int content_id,
-	        @RequestParam("title") String title,
-	        @RequestParam("content") String content,
-	        @RequestParam("target_amount") int target_amount,
-	        @RequestParam("start_date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date start_date,
-	        @RequestParam("end_date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date end_date,
-	        @RequestParam("location") String location,
-	        // @RequestParam("created_at") Date created_at, // 이 필드는 보통 서버에서 생성하므로 폼에서 받지 않을 수 있습니다.
-	        // @RequestParam("filename") String filename, // 파일명도 서버에서 처리하므로 직접 받기보다 setFilename으로 처리합니다.
-	        @RequestParam(value = "file1", required = false) MultipartFile file1, // 파일은 필수 아닐 경우 required=false
-	        // @RequestParam("donated_amount") int donated_amount, // 누적 후원금액도 폼에서 직접 받기보다 DB에서 가져오는 경우가 많습니다.
-	        // @RequestParam("dday") long dday, // D-day도 계산되는 값일 확률이 높습니다.
-
-	        // 리워드 관련 필드 (DTO에 있다고 가정)
-	        @RequestParam(value = "rewardaname", required = false) String rewardaname,
-	        @RequestParam(value = "rewardbname", required = false) String rewardbname,
-	        @RequestParam(value = "rewardcname", required = false) String rewardcname,
-	        @RequestParam(value = "rewarddname", required = false) String rewarddname, HttpServletRequest request) {
+	public String donation_contents_insert(DonationConDTO dto, HttpServletRequest request) {
 		
 		String filename = "-";
 		
-		DonationConDTO dto = new DonationConDTO();
-        dto.setContent_id(content_id);
-        dto.setTitle(title);
-        dto.setContent(content);
-        dto.setTarget_amount(target_amount);
-        dto.setStart_date(start_date);
-        dto.setEnd_date(end_date);
-        dto.setLocation(location);
-        
-        if (rewardaname != null && !rewardaname.isEmpty()) {
-            dto.setRewarda(rewardDao.getRewardId(rewardaname));
-        }
-        if (rewardbname != null && !rewardbname.isEmpty()) {
-            dto.setRewardb(rewardDao.getRewardId(rewardbname));
-        }
-        if (rewardcname != null && !rewardcname.isEmpty()) {
-            dto.setRewardc(rewardDao.getRewardId(rewardcname));
-        }
-        if (rewarddname != null && !rewarddname.isEmpty()) {
-            dto.setRewardd(rewardDao.getRewardId(rewarddname));
-        }
-        
 		try {
 			if (!dto.getFile1().isEmpty()) {
 				String originalImgName = dto.getFile1().getOriginalFilename();
@@ -796,54 +757,15 @@ public class AdminController {
 	}
 
 	@PostMapping("donation_contents_update.do")
-	public String donation_contents_update(@RequestParam("content_id") int content_id,
-	        @RequestParam("title") String title,
-	        @RequestParam("content") String content,
-	        @RequestParam("target_amount") int target_amount,
-	        @RequestParam("start_date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date start_date,
-	        @RequestParam("end_date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date end_date,
-	        @RequestParam("location") String location,
-	        // @RequestParam("created_at") Date created_at, // 이 필드는 보통 서버에서 생성하므로 폼에서 받지 않을 수 있습니다.
-	        // @RequestParam("filename") String filename, // 파일명도 서버에서 처리하므로 직접 받기보다 setFilename으로 처리합니다.
-	        @RequestParam(value = "file1", required = false) MultipartFile file1, // 파일은 필수 아닐 경우 required=false
-	        // @RequestParam("donated_amount") int donated_amount, // 누적 후원금액도 폼에서 직접 받기보다 DB에서 가져오는 경우가 많습니다.
-	        // @RequestParam("dday") long dday, // D-day도 계산되는 값일 확률이 높습니다.
-
-	        // 리워드 관련 필드 (DTO에 있다고 가정)
-	        @RequestParam(value = "rewardaname", required = false) String rewardaname,
-	        @RequestParam(value = "rewardbname", required = false) String rewardbname,
-	        @RequestParam(value = "rewardcname", required = false) String rewardcname,
-	        @RequestParam(value = "rewarddname", required = false) String rewarddname, HttpServletRequest request) {
+	public String donation_contents_update(DonationConDTO dto, HttpServletRequest request) {
 		
 		String filename = "-";
-		
-		DonationConDTO dto = new DonationConDTO();
-        dto.setContent_id(content_id);
-        dto.setTitle(title);
-        dto.setContent(content);
-        dto.setTarget_amount(target_amount);
-        dto.setStart_date(start_date);
-        dto.setEnd_date(end_date);
-        dto.setLocation(location);
-        
-        if (rewardaname != null && !rewardaname.isEmpty()) {
-            dto.setRewarda(rewardDao.getRewardId(rewardaname));
-        }
-        if (rewardbname != null && !rewardbname.isEmpty()) {
-            dto.setRewardb(rewardDao.getRewardId(rewardbname));
-        }
-        if (rewardcname != null && !rewardcname.isEmpty()) {
-            dto.setRewardc(rewardDao.getRewardId(rewardcname));
-        }
-        if (rewarddname != null && !rewarddname.isEmpty()) {
-            dto.setRewardd(rewardDao.getRewardId(rewarddname));
-        }
 		
 		try {
 			// 기존 이미지 파일명을 받는다.
 			String currentImg = donationConDao.file_info(dto.getContent_id());
 
-			if (!file1.isEmpty()) {
+			if (!dto.getFile1().isEmpty()) {
 				if (currentImg != null && !currentImg.equals("-")) {
 					// 기존 이미지 삭제
 					ServletContext application = request.getSession().getServletContext();
@@ -855,14 +777,14 @@ public class AdminController {
 				}
 
 				// 새 이미지가 업로드되면 기존 파일명을 덮어씌운다.
-				String originalImgName =file1.getOriginalFilename();
+				String originalImgName = dto.getFile1().getOriginalFilename();
 				String imgUUID = UUID.randomUUID().toString(); // UUID 생성
 				String fileExtension = originalImgName.substring(originalImgName.lastIndexOf("."));
 				filename = imgUUID + fileExtension; // UUID를 붙인 파일명
 
 				ServletContext application = request.getSession().getServletContext();
 				String path = application.getRealPath("/resources/donation_img/");
-				file1.transferTo(new File(path + filename));
+				dto.getFile1().transferTo(new File(path + filename));
 			} else {
 				// 새 이미지가 없으면 기존 이미지를 유지한다.
 				filename = currentImg;
@@ -873,6 +795,16 @@ public class AdminController {
 			e.printStackTrace();
 			return "error"; // 예외 처리
 		}
+		return "redirect:/admin/donation_contents_list.do";
+	}
+	
+	@PostMapping("donation_contents_reward_update.do")
+	public String donation_contents_reward_update(DonationConDTO dto, HttpServletRequest request) {
+		dto.setRewarda(rewardDao.getRewardId(dto.getRewardaname()));
+		dto.setRewardb(rewardDao.getRewardId(dto.getRewardbname()));
+		dto.setRewardc(rewardDao.getRewardId(dto.getRewardcname()));
+		dto.setRewardd(rewardDao.getRewardId(dto.getRewarddname()));
+		
 		return "redirect:/admin/donation_contents_list.do";
 	}
 
