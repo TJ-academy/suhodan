@@ -18,4 +18,6 @@ public interface OrderDAO {
 	List<Map<String, Object>> detailDelivery(int order_id);
 	int getTotalCountSearch(Map<String, Object> param);
 	List<OrderDTO> listPagingSearch(Map<String, Object> param);
+	
+	void orderReward(OrderDTO dto);
 }

@@ -70,4 +70,9 @@ public class OrderDAOImpl implements OrderDAO {
 	public int getTotalCountSearch(Map<String, Object> param) {
 	    return sqlSession.selectOne("orders.getTotalCountSearch", param);
 	}
+	
+	@Override
+	public void orderReward(OrderDTO dto) {
+		sqlSession.insert("orders.orderReward", dto);
+	}
 }

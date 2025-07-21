@@ -82,4 +82,9 @@ public class RewardDAOImpl implements RewardDAO {
 	    map.put("imp_uid", imp_uid);
 		sqlSession.update("reward.updateUserReward", map);
 	}
+	
+	@Override
+	public RewardDTO selectedReward(int reward_id) {
+		return sqlSession.selectOne("reward.selectedReward", reward_id);
+	}
 }

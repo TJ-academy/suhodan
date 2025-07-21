@@ -4,13 +4,13 @@ import java.io.File;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,10 +20,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.suhodan.goods.GoodsDAO;
 import com.example.suhodan.mail.HtmlEmailService;
 import com.example.suhodan.member.MemberDAO;
 import com.example.suhodan.orders.OrderDAO;
 import com.example.suhodan.orders.OrderDTO;
+import com.example.suhodan.orders.OrderItemDAO;
+import com.example.suhodan.orders.OrderItemDTO;
 import com.example.suhodan.reward.RewardDAO;
 import com.example.suhodan.reward.RewardDTO;
 import com.example.suhodan.userbadge.UserBadgeDAO;
@@ -47,7 +50,11 @@ public class DonationConController {
 	@Autowired
     OrderDAO orderDao;
 	@Autowired
+    OrderItemDAO orderItemDao;
+	@Autowired
     DonationTransactionDAO dtDao;
+	@Autowired
+	GoodsDAO goodsDao;
 	@Autowired
 	HtmlEmailService htmlEmailService;
 	
@@ -196,8 +203,13 @@ public class DonationConController {
 
 	        donationConDao.insertTransaction(tx); // DAO 메서드 호출
 	        
+	        System.out.println("\n\ntx\n" + tx);
+	        
 	        result.put("imp_uid", tx.getImp_uid());
 	        int ti = dtDao.getTransactionId(tx.getImp_uid());
+	        
+	        System.out.println("\n\nti\n" + ti);
+	        
 	        // 뱃지 발급 (5만원 이상 결제 시)
 	        String badgeMessage = null;
 	        String location = null;
@@ -323,6 +335,9 @@ public class DonationConController {
 	        reward.setGoods_4_name("충주 복숭아 6구");
 	        reward.setReward_id(50);
 	    }
+	    
+	    System.out.println("\n\nreward\n" + reward);
+	    
 	    // 나머지 구간도 조건문으로 분기
 	    mav.addObject("dto", memberDao.detail(user_id));
 	    mav.setViewName("donation/buy"); // buy.jsp
@@ -331,14 +346,14 @@ public class DonationConController {
 	}
 	
 	@PostMapping("complete.do")
-    public String completeOrder(
+    public ModelAndView completeOrder(
             @RequestParam("order_address1") String address1,
             @RequestParam("order_address2") String address2,
             @RequestParam("phone") String phone,
             @RequestParam("imp_uid") String imp_uid,
             @RequestParam("reward_id") int reward_id,
             HttpSession session,
-            Model model) {
+            ModelAndView mav) {
     	String receiver = (String) session.getAttribute("name");
         String user_id = (String) session.getAttribute("user_id");
         
@@ -346,6 +361,7 @@ public class DonationConController {
         
         OrderDTO ot = new OrderDTO();
         ot.setUser_id(user_id);
+        ot.setOrder_status("결제완료");
         ot.setOrder_amount(0);
         ot.setPay_method("카드");
         ot.setRefund_bank("무료");
@@ -354,8 +370,63 @@ public class DonationConController {
         ot.setOrder_address2(address2);
         ot.setPhone(phone);
 
-        orderDao.order(ot);
-
-        return "member/mypage/myreward";
+        orderDao.orderReward(ot);
+        
+        RewardDTO reward = new RewardDTO();
+        reward = rewardDao.selectedReward(reward_id);
+        
+        List<OrderItemDTO> orderItems = new ArrayList<>();
+        
+        
+        if(reward.getGoods_1() != null) {
+        	OrderItemDTO item = new OrderItemDTO();
+            item.setOrderId(ot.getOrder_id());
+            item.setQuantity(1);
+            item.setUnitPrice(0);
+        	item.setProductId(reward.getGoods_1());
+        	item.setProductName(goodsDao.getGoodsName(reward.getGoods_1()));
+        	System.out.println("\n\ngoods_1: " + item);
+        	orderItems.add(item);
+        }
+        if(reward.getGoods_2() != null) {
+        	OrderItemDTO item = new OrderItemDTO();
+            item.setOrderId(ot.getOrder_id());
+            item.setQuantity(1);
+            item.setUnitPrice(0);
+        	item.setProductId(reward.getGoods_2());
+        	item.setProductName(goodsDao.getGoodsName(reward.getGoods_2()));
+        	System.out.println("\n\ngoods_2: " + item);
+        	orderItems.add(item);
+        }
+        if(reward.getGoods_3() != null) {
+        	OrderItemDTO item = new OrderItemDTO();
+            item.setOrderId(ot.getOrder_id());
+            item.setQuantity(1);
+            item.setUnitPrice(0);
+        	item.setProductId(reward.getGoods_3());
+        	item.setProductName(goodsDao.getGoodsName(reward.getGoods_3()));
+        	System.out.println("\n\ngoods_3: " + item);
+        	orderItems.add(item);
+        }
+        if(reward.getGoods_4() != null) {
+        	OrderItemDTO item = new OrderItemDTO();
+            item.setOrderId(ot.getOrder_id());
+            item.setQuantity(1);
+            item.setUnitPrice(0);
+        	item.setProductId(reward.getGoods_4());
+        	item.setProductName(goodsDao.getGoodsName(reward.getGoods_4()));
+        	System.out.println("\n\ngoods_4: " + item);
+        	orderItems.add(item);
+        }
+        
+        orderItemDao.insertItems(orderItems);
+        System.out.println("\n\norderItems: " + orderItems);
+        //사용자 주문목록 불러오기
+		List<Map<String, Object>> orders = orderDao.getUserOrders(user_id);
+		System.out.println("\n\norders: " + orders);
+		mav.addObject("orders", orders);
+		mav.setViewName("/member/mypage/myorders");
+		
+		return mav;
     }
 }

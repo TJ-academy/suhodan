@@ -197,4 +197,10 @@
 		set reward_id = #{reward_id}
 		where imp_uid = #{imp_uid}
 	</update>
+	
+	<select id="selectedReward" resultType="com.example.suhodan.reward.RewardDTO">
+		SELECT *
+        FROM suho_reward
+        WHERE reward_id = #{reward_id}
+	</select>
 </mapper>
