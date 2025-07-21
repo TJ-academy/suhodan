@@ -74,10 +74,11 @@
 							data-start-date="<fmt:formatDate value="${row.start_date}" pattern="yyyy-MM-dd" />"
 							data-end-date="<fmt:formatDate value="${row.end_date}" pattern="yyyy-MM-dd" />"
 							data-created-at="${row.created_at}"
-							data-rewardaname="${row.rewardaname}" data-rewardbname="${row.rewardbname}"
-							data-rewardcname="${row.rewardcname}" data-rewarddname="${row.rewarddname}"
 							data-location="${row.location}" data-filename="${row.filename}">수정</button>
 						<button class="delete-button" data-content-id="${row.content_id}">삭제</button>
+						<button class="edit-reward-button" data-content-id="${row.content_id}"
+						data-rewardaname="${row.rewardaname}" data-rewardbname="${row.rewardbname}"
+						data-rewardcname="${row.rewardcname}" data-rewarddname="${row.rewarddname}">리워드 관리</button>
 					</td>
 				</tr>
 			</c:forEach>
@@ -88,6 +89,7 @@
 
 	<%@ include file="donation_contents_reg.jsp"%>
 	<%@ include file="donation_contents_edit.jsp"%>
+	<%@ include file="donation_contents_reward.jsp"%>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
@@ -104,11 +106,6 @@
 						$('#reg_popup_end_date').val('2025-08-17');
 						$('#reg_popup_location').val('테스트');
 						
-						$('#reg_popup_rewardaname').val('정선 산들 약초 (오만냥 리워드)');
-						$('#reg_popup_rewardbname').val('정선 산들 약초 (오만냥 리워드)');
-						$('#reg_popup_rewardcname').val('정선 산들 약초 (오만냥 리워드)');
-						$('#reg_popup_rewarddname').val('정선 산들 약초 (오만냥 리워드)');
-						
 						$('#reg_popup_filename').val('');
 					}
 
@@ -117,7 +114,7 @@
 						$('#overlay').hide();
 					}
 
-					function openEditPopup(contentId, title, content, targetAmount, startDate, endDate, createdAt, location, filename, rewardAName, rewardBName, rewardCName, rewardDName) {
+					function openEditPopup(contentId, title, content, targetAmount, startDate, endDate, createdAt, location, filename) {
 						$('#edit_popup').show();
 						$('#overlay').show();
 						$('#edit_popup_content_id').val(contentId);
@@ -128,11 +125,6 @@
 						$('#edit_popup_end_date').val(endDate);
 						$('#edit_popup_created_at').val(createdAt);
 						$('#edit_popup_location').val(location);
-						
-						$('#edit_popup_rewardaname').val(rewardAName);
-						$('#edit_popup_rewardbname').val(rewardBName);
-						$('#edit_popup_rewardcname').val(rewardCName);
-						$('#edit_popup_rewarddname').val(rewardDName);
 						
 						$('#edit_popup_filename').val('');
 						
@@ -146,7 +138,24 @@
 					}
 
 					function closeEditPopup() {
-						$('#edit_popup').hide();
+						$('#edit_reward_popup').hide();
+						$('#overlay').hide();
+					}
+					
+					function openEditRewardPopup(contentId, rewardAName, rewardBName, rewardCName, rewardDName) {
+						$('#edit_reward_popup').show();
+						$('#overlay').show();
+						$('#edit_popup_content_id').val(contentId);
+						
+						$('#edit_popup_rewardaname').val(rewardAName);
+						$('#edit_popup_rewardbname').val(rewardBName);
+						$('#edit_popup_rewardcname').val(rewardCName);
+						$('#edit_popup_rewarddname').val(rewardDName);
+						
+					}
+
+					function closeEditPopup() {
+						$('#edit_reward_popup').hide();
 						$('#overlay').hide();
 					}
 
@@ -173,12 +182,16 @@
 						const endDate = $(this).data('end-date');
 						const createdAt = $(this).data('created-at');
 						const location = $(this).data('location');
+						const filename = $(this).data('filename');
+						openEditPopup(contentId, title, content, targetAmount, startDate, endDate, createdAt, location, filename);
+					});
+					$('table').on('click', '.edit-reward-button', function() {
+						const contentId = $(this).data('content-id');
 						const rewardAName = $(this).data('rewardaname');
 						const rewardBName = $(this).data('rewardbname');
 						const rewardCName = $(this).data('rewardcname');
 						const rewardDName = $(this).data('rewarddname');
-						const filename = $(this).data('filename');
-						openEditPopup(contentId, title, content, targetAmount, startDate, endDate, createdAt, location, filename, rewardAName, rewardBName, rewardCName, rewardDName);
+						openEditRewardPopup(contentId, rewardAName, rewardBName, rewardCName, rewardDName);
 					});
 
 					$('table').on('click', '.delete-button', function() {

@@ -1,19 +1,19 @@
 package com.example.suhodan.admin;
 
 import java.io.File;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -732,19 +732,49 @@ public class AdminController {
 	}
 
 	@PostMapping("donation_contents_insert.do")
-	public String donation_contents_insert(DonationConDTO dto, HttpServletRequest request) {
-		
-		
-		System.out.println("dto:"+dto);
+	public String donation_contents_insert(@RequestParam("content_id") int content_id,
+	        @RequestParam("title") String title,
+	        @RequestParam("content") String content,
+	        @RequestParam("target_amount") int target_amount,
+	        @RequestParam("start_date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date start_date,
+	        @RequestParam("end_date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date end_date,
+	        @RequestParam("location") String location,
+	        // @RequestParam("created_at") Date created_at, // 이 필드는 보통 서버에서 생성하므로 폼에서 받지 않을 수 있습니다.
+	        // @RequestParam("filename") String filename, // 파일명도 서버에서 처리하므로 직접 받기보다 setFilename으로 처리합니다.
+	        @RequestParam(value = "file1", required = false) MultipartFile file1, // 파일은 필수 아닐 경우 required=false
+	        // @RequestParam("donated_amount") int donated_amount, // 누적 후원금액도 폼에서 직접 받기보다 DB에서 가져오는 경우가 많습니다.
+	        // @RequestParam("dday") long dday, // D-day도 계산되는 값일 확률이 높습니다.
+
+	        // 리워드 관련 필드 (DTO에 있다고 가정)
+	        @RequestParam(value = "rewardaname", required = false) String rewardaname,
+	        @RequestParam(value = "rewardbname", required = false) String rewardbname,
+	        @RequestParam(value = "rewardcname", required = false) String rewardcname,
+	        @RequestParam(value = "rewarddname", required = false) String rewarddname, HttpServletRequest request) {
 		
 		String filename = "-";
 		
-		dto.setRewarda(rewardDao.getRewardId(dto.getRewardaname()));
-		dto.setRewardb(rewardDao.getRewardId(dto.getRewardbname()));
-		dto.setRewardc(rewardDao.getRewardId(dto.getRewardcname()));
-		dto.setRewardd(rewardDao.getRewardId(dto.getRewarddname()));
-		
-		System.out.println(dto);
+		DonationConDTO dto = new DonationConDTO();
+        dto.setContent_id(content_id);
+        dto.setTitle(title);
+        dto.setContent(content);
+        dto.setTarget_amount(target_amount);
+        dto.setStart_date(start_date);
+        dto.setEnd_date(end_date);
+        dto.setLocation(location);
+        
+        if (rewardaname != null && !rewardaname.isEmpty()) {
+            dto.setRewarda(rewardDao.getRewardId(rewardaname));
+        }
+        if (rewardbname != null && !rewardbname.isEmpty()) {
+            dto.setRewardb(rewardDao.getRewardId(rewardbname));
+        }
+        if (rewardcname != null && !rewardcname.isEmpty()) {
+            dto.setRewardc(rewardDao.getRewardId(rewardcname));
+        }
+        if (rewarddname != null && !rewarddname.isEmpty()) {
+            dto.setRewardd(rewardDao.getRewardId(rewarddname));
+        }
+        
 		try {
 			if (!dto.getFile1().isEmpty()) {
 				String originalImgName = dto.getFile1().getOriginalFilename();
@@ -766,16 +796,48 @@ public class AdminController {
 	}
 
 	@PostMapping("donation_contents_update.do")
-	public String donation_contents_update(@ModelAttribute DonationConDTO dto, MultipartFile file1, HttpServletRequest request) {
-		
-		System.out.println("dto:"+dto);
+	public String donation_contents_update(@RequestParam("content_id") int content_id,
+	        @RequestParam("title") String title,
+	        @RequestParam("content") String content,
+	        @RequestParam("target_amount") int target_amount,
+	        @RequestParam("start_date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date start_date,
+	        @RequestParam("end_date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date end_date,
+	        @RequestParam("location") String location,
+	        // @RequestParam("created_at") Date created_at, // 이 필드는 보통 서버에서 생성하므로 폼에서 받지 않을 수 있습니다.
+	        // @RequestParam("filename") String filename, // 파일명도 서버에서 처리하므로 직접 받기보다 setFilename으로 처리합니다.
+	        @RequestParam(value = "file1", required = false) MultipartFile file1, // 파일은 필수 아닐 경우 required=false
+	        // @RequestParam("donated_amount") int donated_amount, // 누적 후원금액도 폼에서 직접 받기보다 DB에서 가져오는 경우가 많습니다.
+	        // @RequestParam("dday") long dday, // D-day도 계산되는 값일 확률이 높습니다.
+
+	        // 리워드 관련 필드 (DTO에 있다고 가정)
+	        @RequestParam(value = "rewardaname", required = false) String rewardaname,
+	        @RequestParam(value = "rewardbname", required = false) String rewardbname,
+	        @RequestParam(value = "rewardcname", required = false) String rewardcname,
+	        @RequestParam(value = "rewarddname", required = false) String rewarddname, HttpServletRequest request) {
 		
 		String filename = "-";
 		
-		dto.setRewarda(rewardDao.getRewardId(dto.getRewardaname()));
-		dto.setRewardb(rewardDao.getRewardId(dto.getRewardbname()));
-		dto.setRewardc(rewardDao.getRewardId(dto.getRewardcname()));
-		dto.setRewardd(rewardDao.getRewardId(dto.getRewarddname()));
+		DonationConDTO dto = new DonationConDTO();
+        dto.setContent_id(content_id);
+        dto.setTitle(title);
+        dto.setContent(content);
+        dto.setTarget_amount(target_amount);
+        dto.setStart_date(start_date);
+        dto.setEnd_date(end_date);
+        dto.setLocation(location);
+        
+        if (rewardaname != null && !rewardaname.isEmpty()) {
+            dto.setRewarda(rewardDao.getRewardId(rewardaname));
+        }
+        if (rewardbname != null && !rewardbname.isEmpty()) {
+            dto.setRewardb(rewardDao.getRewardId(rewardbname));
+        }
+        if (rewardcname != null && !rewardcname.isEmpty()) {
+            dto.setRewardc(rewardDao.getRewardId(rewardcname));
+        }
+        if (rewarddname != null && !rewarddname.isEmpty()) {
+            dto.setRewardd(rewardDao.getRewardId(rewarddname));
+        }
 		
 		try {
 			// 기존 이미지 파일명을 받는다.
@@ -806,7 +868,7 @@ public class AdminController {
 				filename = currentImg;
 			}
 			dto.setFilename(filename);
-			//donationConDao.update(dto);
+			donationConDao.update(dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error"; // 예외 처리
@@ -890,10 +952,36 @@ public class AdminController {
 	}
 	
 	@GetMapping("order_list.do")
-	public ModelAndView order_list(ModelAndView mav) {
-		List<OrderDTO> list = orderDao.order_all();
-		mav.addObject("list", list);
+	public ModelAndView order_list(@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "searchType", defaultValue = "") String searchType,
+			@RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyword,
+			@RequestParam(value = "sortBy", defaultValue = "join_date") String sortBy,
+			@RequestParam(value = "sortOrder", defaultValue = "desc") String sortOrder, ModelAndView mav) {
+		// 검색과 정렬 조건을 param에 담기
+		Map<String, Object> param = new HashMap<>();
+		param.put("searchType", searchType);
+		param.put("searchKeyword", searchKeyword);
+		param.put("sortBy", sortBy);
+		param.put("sortOrder", sortOrder);
+
+		// 총 레코드 수 가져오기
+		int totalCount = orderDao.getTotalCountSearch(param);
+		PageUtil pu = new PageUtil(page, totalCount);
+
+		param.put("start", pu.getStart());
+		param.put("end", pu.getEnd());
+
+		List<OrderDTO> list = orderDao.listPagingSearch(param);
+
 		mav.setViewName("/admin/goods/order_list");
+		mav.addObject("totalCount", totalCount);
+		mav.addObject("list", list);
+		mav.addObject("currentPage", pu.getCurrentPage());
+		mav.addObject("totalPage", pu.getTotalPage());
+		mav.addObject("searchType", searchType);
+		mav.addObject("searchKeyword", searchKeyword);
+		mav.addObject("sortBy", sortBy);
+		mav.addObject("sortOrder", sortOrder);
 		return mav;
 	}
 	

@@ -27,10 +27,10 @@ th, td {
 	text-align: center; /* 테이블 내용 가운데 정렬 */
 }
 
-th {
-	background-color: #f4f0e9; /* 헤더 배경 색상 */
-	text-align: left; /* 좌측 정렬 */
-}
+/* th {
+	background-color: #f4f0e9; 헤더 배경 색상
+	text-align: left; 좌측 정렬
+} */
 
 tr:hover {
 	background-color: #f9f9f9; /* 마우스 오버 시 배경 색상 */
@@ -179,6 +179,22 @@ h2 {
 .delete-button:hover {
     background-color: #d06c6c; /* 어두운 빨간색 */
     border-color: #b25959;
+}
+
+.reward-mng-button {
+    background-color:  #d1a15d; /* 연한 갈색 */
+    color: white;
+    border: 2px solid #a87e47; /* 어두운 갈색 */
+    border-radius: 15px;
+    padding: 8px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.reward-mng-button:hover {
+    background-color: #a87e47; /* 어두운 갈색 */
+    border-color: #8f6d3a; /* 더 어두운 갈색 */
 }
 
 /*input + 원 한 줄로 CSS */
