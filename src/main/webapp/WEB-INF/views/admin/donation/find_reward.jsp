@@ -6,8 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>리워드 검색</title>
-    <link rel="stylesheet" href="/css/admin.css">
-    <link rel="stylesheet" href="/css/popup.css">
+    <link rel="stylesheet" href="/css/find_popup.css">
 </head>
 <body>
     <h2>리워드 검색</h2>

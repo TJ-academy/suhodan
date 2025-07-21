@@ -6,8 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>굿즈 검색</title>
-    <link rel="stylesheet" href="/css/admin.css">
-    <link rel="stylesheet" href="/css/popup.css">
+    <link rel="stylesheet" href="/css/find_popup.css">
 </head>
 <body>
     <h2>상품 검색</h2>

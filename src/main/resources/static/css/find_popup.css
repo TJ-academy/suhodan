@@ -1,0 +1,353 @@
+/*
+ * 특정 화면 크기 (600px ~ 800px)에 최적화된 CSS
+ * 이 스타일은 주로 가로 너비가 600px에서 800px 사이인 화면에 적용됩니다.
+ * 테이블 및 페이지네이션 요소들이 중앙에 배치되고 반응형으로 동작하도록 합니다.
+ */
+
+/* ============================================== */
+/* 기본 스타일 - 모든 화면 크기에 적용 (미디어 쿼리 밖) */
+/* ============================================== */
+body {
+	font-family: '맑은 고딕', sans-serif;
+	background-color: #fdf9f4;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box; /* 패딩과 테두리가 요소의 전체 너비 및 높이에 포함되도록 설정 */
+}
+
+/* h2 스타일은 미디어 쿼리 밖에서 정의하여 항상 적용되도록 합니다. */
+h2 {
+	margin: 30px 0 20px 0;
+	color: #3c2c1e; /* 기존 색상 유지 */
+	text-align: center; /* 수평 중앙 정렬 */
+	font-size: 2.25em; /* 반응형을 위한 상대적 폰트 크기 */
+}
+
+/* 버튼, 상세 보기 박스 등 공통적이고 일관된 스타일은 미디어 쿼리 밖에서 정의합니다. */
+button {
+	background-color: #c98f6f;
+	border: none;
+	color: white;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 1em; /* 상대적 폰트 크기 */
+	cursor: pointer;
+	border-radius: 5px;
+	transition: background-color 0.3s ease;
+	box-sizing: border-box;
+}
+
+button:hover {
+	background-color: #9e704f; /* 버튼 호버 시 색상 변경 */
+}
+
+.details-box {
+	background-color: #f9f4ef;
+	border: 1px solid #d1c6b9;
+	border-radius: 16px;
+	padding: 25px;
+	width: 400px;
+	margin: 20px auto;
+	text-align: center;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.details-box p {
+	margin: 10px 0;
+	color: #4e3d30;
+}
+
+.details-buttons {
+	margin-top: 20px;
+}
+
+.details-buttons button {
+	width: 80px;
+	margin: 0 10px;
+}
+
+.edit-btn {
+	background-color: #e0c7a3;
+	color: #3c2c1e;
+}
+
+.close-details {
+	background-color: #8b5e3c;
+	color: white;
+}
+
+/* 액션 버튼 (수정, 삭제, 보상 관리 등) */
+.action-btn {
+	padding: 8px 15px; /* 패딩 조정 */
+	font-size: 0.9em; /* 상대적 폰트 크기 */
+	text-align: center;
+	cursor: pointer;
+	border-radius: 15px; /* 둥근 모양 유지 */
+	border: none;
+	font-weight: bold;
+	transition: background-color 0.3s ease, border-color 0.3s ease;
+	box-sizing: border-box;
+	white-space: nowrap; /* 버튼 텍스트 줄바꿈 방지 */
+}
+
+/* 수정 버튼 스타일 */
+.edit-button {
+	background-color: #7bd56c; /* 연한 초록색 */
+	color: white;
+	border: 2px solid #6e9e47;
+}
+
+.edit-button:hover {
+	background-color: #6e9e47; /* 어두운 초록색 */
+	border-color: #5b843a;
+}
+
+/* 삭제 버튼 스타일 */
+.delete-button {
+	background-color: #ff7b7b; /* 연한 빨간색 */
+	color: white;
+	border: 2px solid #d06c6c;
+}
+
+.delete-button:hover {
+	background-color: #d06c6c; /* 어두운 빨간색 */
+	border-color: #b25959;
+}
+
+/* 보상 관리 버튼 스타일 */
+.reward-mng-button {
+	background-color: #d1a15d; /* 연한 갈색 */
+	color: white;
+	border: 2px solid #a87e47; /* 어두운 갈색 */
+}
+
+.reward-mng-button:hover {
+	background-color: #a87e47; /* 어두운 갈색 */
+	border-color: #8f6d3a; /* 더 어두운 갈색 */
+}
+
+/* input + 원 한 줄로 CSS (Form 내부에서 사용될 경우) */
+.price-container {
+	display: flex;
+	align-items: center;
+	width: 100%; /* 부모 요소의 너비에 맞춤 */
+}
+
+.price-container input {
+	width: calc(100% - 30px); /* '원' 텍스트와 간격을 고려한 너비 */
+	padding: 8px; /* 패딩 조정 */
+	margin-right: 5px;
+	box-sizing: border-box;
+	font-size: 0.95em;
+	border: 1px solid #ccc; /* 기본 보더 추가 */
+	border-radius: 5px;
+}
+
+.price-container .currency {
+	font-size: 0.95em; /* 상대적 폰트 크기 */
+	white-space: nowrap; /* '원' 텍스트 줄바꿈 방지 */
+	flex-shrink: 0; /* '원'이 줄어들지 않도록 */
+}
+
+/* reward_list 상품 선택 돋보기랑 한 줄로 CSS (Form 내부에서 사용될 경우) */
+.input-container {
+	display: flex;
+	align-items: center;
+	width: 100%; /* 부모 요소의 너비에 맞춤 */
+}
+
+.input-container input {
+	flex-grow: 1; /* 인풋이 남은 공간을 차지하도록 */
+	padding: 8px; /* 패딩 조정 */
+	margin-right: 5px;
+	box-sizing: border-box;
+	font-size: 0.95em;
+	border: 1px solid #ccc; /* 기본 보더 추가 */
+	border-radius: 5px;
+}
+
+.search-icon {
+	width: 24px; /* 아이콘 크기 약간 키움 */
+	height: 24px;
+	cursor: pointer;
+	margin-left: 5px; /* input과 아이콘 사이에 여백 추가 */
+	flex-shrink: 0; /* 아이콘이 줄어들지 않도록 */
+}
+
+/* ============================================== */
+/* 미디어 쿼리 - 특정 화면 크기 (600px ~ 800px) 에만 적용 */
+/* ============================================== */
+@media ( min-width : 600px) and (max-width: 800px) {
+	/* 테이블 컨테이너 (테이블을 감싸서 중앙 정렬 및 반응형 너비 제어) */
+	.table-container {
+		width: 90%; /* 90% 너비로 설정하여 화면에 더 잘 맞게끔 */
+		max-width: 800px; /* 최대 너비는 여전히 800px */
+		margin: 0 auto;
+		overflow-x: auto;
+		padding: 15px;
+		box-sizing: border-box;
+	}
+	table {
+		width: 100%; /* 부모 컨테이너에 맞게 너비 조절 */
+		border-collapse: collapse; /* 테이블의 모든 경계선 합침 */
+		border: none; /* 테이블의 외부 경계선 제거 */
+		text-align: center; /* 테이블 내용 가운데 정렬 */
+		min-width: unset; /* 특정 너비에서는 최소 너비 제한 해제 */
+	}
+	table tr:first-child {
+		border-bottom: 2px solid black; /* 첫 번째 tr에 실선 추가 */
+		font-weight: bold;
+	}
+	th, td {
+		padding: 12px; /* 셀 안의 여백 */
+		text-align: center; /* 테이블 내용 가운데 정렬 */
+		font-size: 0.95em; /* 상대적 폰트 크기 */
+		white-space: nowrap; /* 기본적으로 텍스트 줄바꿈 방지 */
+	}
+	tr:hover {
+		background-color: #f9f9f9; /* 마우스 오버 시 배경 색상 */
+	}
+
+	/* 페이징 컨테이너 중앙 정렬 */
+	.pagination {
+		display: flex; /* Flexbox로 중앙 정렬 */
+		justify-content: center; /* 항목들을 수평으로 중앙 정렬 */
+		margin-top: 30px; /* 테이블과의 간격 */
+		padding: 10px;
+		width: 100%; /* 부모 요소를 전체 너비로 확장 */
+		box-sizing: border-box;
+		flex-wrap: wrap; /* 작은 화면에서 페이지 번호 줄바꿈 허용 */
+		gap: 5px; /* 페이지 번호 간 간격 */
+	}
+
+	/* 페이징 항목 스타일 */
+	.pagination a, .pagination strong {
+		font-size: 0.9em; /* 상대적 폰트 크기 */
+		color: #7d7d7d;
+		text-decoration: none;
+		padding: 8px 12px; /* 패딩 조정 */
+		margin: 0 3px; /* 여백 조정 */
+		border-radius: 4px;
+		display: inline-block;
+		transition: background-color 0.2s ease, color 0.2s ease;
+	}
+
+	/* 마우스 오버 시 링크 스타일 */
+	.pagination a:hover {
+		background-color: #f1f1f1;
+		color: #555;
+	}
+
+	/* 현재 페이지 번호 강조 */
+	.pagination #current-page {
+		background-color: #c98f6f;
+		color: white;
+		font-weight: bold;
+	}
+
+	/* '이전', '다음' 버튼 스타일 */
+	.pagination #prev-page, .pagination #next-page {
+		font-weight: bold;
+		padding: 8px 12px;
+	}
+	#prev-page-disabled, #next-page-disabled {
+		color: #bbb; /* 비활성화된 버튼의 색상 조정 */
+		cursor: not-allowed; /* 마우스 커서 변경 */
+		background-color: transparent;
+	}
+	#prev-page-disabled:hover, #next-page-disabled:hover {
+		background-color: transparent; /* 호버 시 배경색 변경 없음 */
+		color: #bbb; /* 호버 시 색상 변경 없음 */
+	}
+
+	/* 헤더 컨테이너 스타일 */
+	.header-container {
+		display: flex; /* Flexbox로 레이아웃을 수평으로 설정 */
+		justify-content: flex-end; /* 버튼을 우측 끝으로 배치 */
+		align-items: center; /* 수직으로 중앙 정렬 */
+		width: 95%; /* 테이블 컨테이너와 동일한 너비 */
+		max-width: 800px; /* 이 범위 내에서는 800px이 최대 너비 */
+		margin: 20px auto; /* 중앙 정렬 */
+		padding: 0 15px; /* 좌우 여백 */
+		box-sizing: border-box;
+	}
+
+	/* 추가하기 버튼 스타일 */
+	#addButton {
+		background-color: #c98f6f;
+		margin-right: 0;
+	}
+
+	/* 추가하기 버튼 (추가 버튼) - 컨테이너가 별도로 있을 때 */
+	.add-btn {
+		background-color: #d6a77a;
+		color: white;
+		padding: 10px 20px;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+		font-size: 1em;
+		align-self: flex-end; /* Flex 컨테이너 내에서 우측 정렬 */
+		box-sizing: border-box;
+	}
+	.add-btn:hover {
+		background-color: #b87d53;
+	}
+
+	/* 닫기 버튼 (cls-btn) - 컨테이너가 별도로 있을 때 */
+	.cls-btn {
+		background-color: #d6a77a;
+		color: white;
+		padding: 10px 20px;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+		font-size: 1em;
+		align-self: flex-end; /* Flex 컨테이너 내에서 우측 정렬 */
+		box-sizing: border-box;
+	}
+	.cls-btn:hover {
+		background-color: #b87d53;
+	}
+
+	/* 검색 옵션 스타일 */
+	.search-box {
+		width: 95%; /* 컨테이너와 동일한 너비 */
+		max-width: 800px; /* 이 범위 내에서는 800px이 최대 너비 */
+		margin: 20px auto; /* 중앙 정렬 */
+		padding: 15px; /* 패딩 조정 */
+		background-color: #f9f4ef;
+		border: 1px solid #d1c6b9;
+		border-radius: 10px;
+		display: flex;
+		justify-content: flex-end; /* 오른쪽 정렬 */
+		align-items: center;
+		flex-wrap: wrap; /* 항목들이 줄바꿈되도록 허용 */
+		gap: 10px; /* 항목 간 간격 */
+		box-sizing: border-box;
+	}
+	.search-box select, .search-box input, .search-box button {
+		font-size: 0.9em; /* 상대적 폰트 크기 */
+		padding: 8px 12px; /* 패딩 조정 */
+		border-radius: 5px;
+		border: 1px solid #ccc; /* 기본 보더 추가 */
+		margin-right: 0; /* flex gap으로 대체 */
+		box-sizing: border-box;
+		flex-shrink: 0; /* 항목이 줄어들지 않도록 */
+	}
+	.search-box input[type="text"] {
+		flex-grow: 1; /* 검색 인풋이 남은 공간을 차지하도록 */
+		max-width: 250px; /* 최대 너비 설정 */
+	}
+	.search-box button {
+		background-color: #d6a77a;
+		color: white;
+		border: none;
+		cursor: pointer;
+	}
+	.search-box button:hover {
+		background-color: #b87d53;
+	}
+}
