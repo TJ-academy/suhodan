@@ -41,7 +41,17 @@
 	    )
 	    AND ROWNUM = 1
 	</select>
-
-    
+	
+    <select id="getBadgeLocation" resultType="String">
+	    SELECT
+	    	CASE 
+		        WHEN dc.location LIKE '%시' THEN SUBSTR(dc.location, 1, LENGTH(dc.location) - 1)
+		        WHEN dc.location LIKE '%군' THEN SUBSTR(dc.location, 1, LENGTH(dc.location) - 1)
+		        ELSE dc.location
+		    END AS location
+	    FROM suho_donation_content dc, donation_transaction dt
+	    where dc.content_id=dt.content_id
+	    	and dt.transaction_id=#{transaction_id}
+	</select>
 
 </mapper>
