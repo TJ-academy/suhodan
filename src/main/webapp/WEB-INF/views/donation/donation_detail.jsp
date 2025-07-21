@@ -95,28 +95,53 @@
 	<p class="content_style">
 	  <c:out value="${fn:replace(dto.content, '.', '.<br>')}" escapeXml="false" />
 	</p>
-	<!--  프로그레스바 영역 -->
-	<div style="margin: 20px 0; text-align:center;">
-		<span style="float:left; font-size: 15px;">
-			<fmt:formatNumber value="${dto.donated_amount}" />&nbsp;원
-		</span>
-		<c:set var="progressPercent" value="${dto.target_amount > 0 ? (dto.donated_amount * 100) / dto.target_amount : 0}" />
-		<div style="background:#7A9D54; border-radius: 8px; height: 20px; width: 100%; overflow: hidden;">
-			<div style="background:#4C6B3C; height: 100%; width: ${progressPercent}%;"></div>
-		</div>
-		<span style="display: block; text-align: right; color: #535353; font-size: 13px;">
-			<fmt:formatNumber value="${dto.target_amount}" />&nbsp;원
-		</span>
+
+<!-- 퍼센트 계산 -->
+<c:set var="progressPercentRaw" value="${dto.target_amount > 0 ? (dto.donated_amount * 100) / dto.target_amount : 0}" />
+<c:set var="progressPercent" value="${progressPercentRaw >= 100 ? 100 : progressPercentRaw}" />
+
+<!-- 표시 -->
+<div style="margin: 20px 0; text-align:center;">
+	<span style="float:left; font-size: 15px;">
+		<fmt:formatNumber value="${dto.donated_amount}" />&nbsp;원
+	</span>
+	<div style="background:#7A9D54; border-radius: 8px; height: 20px; width: 100%; overflow: hidden;">
+		<div style="background:#4C6B3C; height: 100%; width: ${progressPercent}%;"></div>
 	</div>
-	<c:choose>
-	    <c:when test="${empty sessionScope.user_id}">
-	        <button class="donation_btn" onclick="alert('로그인이 필요합니다.'); location.href='/login.do?message=nologin'">후원하기</button>
-	    </c:when>
-	    <c:otherwise>
-	        <button class="donation_btn" onclick="location.href='/donation/info/${dto.content_id}'">후원하기</button>
-	    </c:otherwise>
-	</c:choose>
-	
+	<span style="display: block; text-align: right; color: #535353; font-size: 13px;">
+		<fmt:formatNumber value="${dto.target_amount}" />&nbsp;원
+	</span>
+</div>
+
+<c:choose>
+  <c:when test="${progressPercentRaw >= 100}">
+      <div style="
+    margin-top: 40px;
+    background-color: #fff7ec;
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+    border: 1px solid #e0c9a6;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    font-family: 'Noto Sans KR', sans-serif;
+    animation: fadeIn 1s ease-in-out;
+  ">
+  
+    <p style="font-size: 20px; font-weight: 700; color: #5e3c19; margin-top: 30px;">
+      “따뜻한 손길이 큰 기적을 만들었습니다. 진심으로 감사드립니다.”
+    </p>
+      <div style="font-size: 32px; color: #C00000; margin-top: 20px;">♥</div>
+  </div>
+  
+  </c:when>
+  <c:when test="${empty sessionScope.user_id}">
+    <button class="donation_btn" onclick="alert('로그인이 필요합니다.'); location.href='/login.do?message=nologin'">후원하기</button>
+  </c:when>
+  <c:otherwise>
+    <button class="donation_btn" onclick="location.href='/donation/info/${dto.content_id}'">후원하기</button>
+  </c:otherwise>
+</c:choose>
+
 </div>
 </body>
 </html>

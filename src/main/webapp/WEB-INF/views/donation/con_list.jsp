@@ -108,7 +108,10 @@
 
   <div class="card-container" style="margin-top: 20px;">
     <c:forEach var="row" items="${list}">
-    <c:set var="progressPercent" value="${row.target_amount > 0 ? (row.donated_amount * 100) / row.target_amount : 0}" />
+    <c:set var="rawPercent" value="${row.target_amount > 0 ? (row.donated_amount * 100) / row.target_amount : 0}" />
+<c:set var="progressPercent" value="${rawPercent > 100 ? 100 : rawPercent}" />
+
+    
   <div class="card">
     <a href="/donation/detail/${row.content_id}">
       <img src="../../resources/donation_img/${row.filename}" class="card-img-top" alt="썸네일 이미지" />
