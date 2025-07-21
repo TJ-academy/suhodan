@@ -193,7 +193,7 @@
         }
         
         function selectDel(order_id) {
-            order_id = order_id - 1;
+            order_id = order_id;
             location.href = '/orders/delivery_detail.do?order_id='+order_id;
         }
     </script>
@@ -235,7 +235,7 @@
                             </c:when>
                             <c:when test="${prevOrderStatus eq '배송준비중' or prevOrderStatus eq '배송중'}">
                                 <div class="btn_wrap">
-                                    <button class="action_btn" onclick="selectDel(${orderItem.ORDER_ID})">배송조회</button>
+                                    <button class="action_btn" onclick="selectDel(${prevOrderId})">배송조회</button>
                                 </div>
                             </c:when>
                             <c:when test="${prevOrderStatus eq '환불완료'}">
@@ -298,7 +298,7 @@
                             </c:when>
                             <c:when test="${prevOrderStatus eq '배송준비중' or prevOrderStatus eq '배송중'}">
                                 <div class="btn_wrap">
-                                    <button class="action_btn" onclick="selectDel(${orderItem.ORDER_ID})">배송조회</button>
+                                    <button class="action_btn" onclick="selectDel(${prevOrderId})">배송조회</button>
                                 </div>
                             </c:when>
                             <c:when test="${prevOrderStatus eq '환불완료'}">
