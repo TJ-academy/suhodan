@@ -425,7 +425,7 @@ public class DonationConController {
 		List<Map<String, Object>> orders = orderDao.getUserOrders(user_id);
 		System.out.println("\n\norders: " + orders);
 		mav.addObject("orders", orders);
-		mav.setViewName("/member/mypage/myorders");
+		mav.setViewName("redirect:/orders/list.do");
 		
 		return mav;
     }
