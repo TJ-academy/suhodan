@@ -18,11 +18,13 @@ public interface OrderDAO {
 	List<Map<String, Object>> detailDelivery(int order_id);
 	int getTotalCountSearch(Map<String, Object> param);
 	List<OrderDTO> listPagingSearch(Map<String, Object> param);
-	
+
 	// 총 주문 개수 조회
 	public int countUserOrders(String userId);
 
 	// 페이징 주문 목록 조회(offset, limit 활용)
 	public List<Map<String, Object>> getUserOrdersPaged(String user_id, int offset, int limit);
+
+	void orderReward(OrderDTO dto);
 
 }

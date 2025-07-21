@@ -36,4 +36,9 @@ public class DonationTransactionDAOImpl implements DonationTransactionDAO {
 	    param.put("searchKeyword", searchKeyword);
 	    return sqlSession.selectOne("donationTrans.getTotalCount", param);
 	}
+	
+	@Override
+	public int getTransactionId(String imp_uid) {
+		return sqlSession.selectOne("donationTrans.getTransactionId", imp_uid);
+	}
 }

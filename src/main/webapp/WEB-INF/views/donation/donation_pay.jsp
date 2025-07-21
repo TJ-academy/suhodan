@@ -338,6 +338,7 @@ function showBadgeModal(message, callback) {
     document.body.classList.add("modal-open");
   }
 
+  let globalImpUid = null;
   // 리워드 페이지로 이동
 function goToReward() {
   const amount = document.getElementById("amount_for_payment").value;
@@ -346,7 +347,7 @@ function goToReward() {
   const urlParams = new URLSearchParams(window.location.search);
   const contentId = urlParams.get('content_id');
 
-  location.href = "/donation/reward/select.do?amount=" + amount + "&content_id=" + contentId;
+  location.href = "/donation/reward/select.do?amount=" + amount + "&content_id=" + contentId + "&imp_uid=" + globalImpUid;
 }
 
 
@@ -388,6 +389,7 @@ function goToReward() {
           buyer_name: document.getElementById("buyer_name").value,
       }, function(rsp) {
           if (rsp.success) {
+        	  globalImpUid = rsp.imp_uid;
         	  alert("결제가 완료되었습니다. 영수증 ID: " + rsp.imp_uid);
               fetch("/donation/payment/verify.do", {
                   method: "POST",

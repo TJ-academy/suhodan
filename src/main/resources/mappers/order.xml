@@ -32,7 +32,7 @@
 	    INNER JOIN suho_order_items oi ON o.order_id = oi.order_id
 	    INNER JOIN suho_goods g ON oi.product_name = g.name
 	    WHERE o.user_id = #{userId}
-	    ORDER BY o.order_id, oi.item_id
+	    ORDER BY o.order_id desc, oi.item_id
 	</select>
 	<delete id="orderCancel">
 		delete from suho_orders where order_id = #{order_id}
@@ -128,6 +128,7 @@
 		)
 		WHERE rnum BETWEEN #{start} AND #{end}
 	</select>
+
 	<select id="countUserOrders" resultType="int">
 	    SELECT COUNT(*)
 	    FROM suho_orders
@@ -151,7 +152,16 @@
 	    )
 	    WHERE rnum &gt; #{offset}
 	</select>
+	
+	<insert id="orderReward" parameterType="com.example.suhodan.orders.OrderDTO" useGeneratedKeys="true" keyProperty="order_id" keyColumn="order_id">
+	    insert into suho_orders (
+	        user_id, order_date, order_status, order_amount, pay_method, 
+	        refund_bank, refund_account, order_address1, order_address2, phone
+	    ) values (
+	        #{user_id}, sysdate, #{order_status}, #{order_amount},#{pay_method},
+	        #{refund_bank}, #{refund_account}, #{order_address1}, #{order_address2},
+	        #{phone}
+	    )
+	</insert>
 
-	
-	
 </mapper>

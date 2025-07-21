@@ -17,5 +17,7 @@ public interface RewardDAO {
 	
 	String getRewardName(Integer reward_id);
 	int getRewardId(String name);
+	void updateUserReward(int reward_id, String imp_uid);
+	RewardDTO selectedReward(int reward_id);
 }
 

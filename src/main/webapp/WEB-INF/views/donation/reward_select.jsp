@@ -17,7 +17,7 @@
 <head>
   <meta charset="UTF-8">
   <title>리워드 선택</title>
-  <link rel="stylesheet" href="/css/reward_select.css">
+  <!-- <link rel="stylesheet" href="/css/reward_select.css"> -->
   <style>
 body {
 	background-color: #fdf4ec;
@@ -90,6 +90,7 @@ body {
 </head>
 <body>
 <%@ include file="../include/menu.jsp" %>
+<%-- <% String imp_uid = request.getParameter("imp_uid");%> --%>
 
   <div class="outer-box">
    <div class="logo">
@@ -170,6 +171,8 @@ body {
 
   function goToBuyPage() {
     const amount = <%= amount %>;
+    const urlParams = new URLSearchParams(window.location.search);
+    const imp_uid = urlParams.get('imp_uid');
     if (!selectedRewardTier) {
       alert("리워드를 먼저 선택해주세요.");
       return;
@@ -182,6 +185,7 @@ body {
     params.append('rewardId', selectedRewardId); // 자동으로 인코딩됩니다.
     params.append('rewardName', selectedRewardName); // 자동으로 인코딩됩니다.
     params.append('rewardDescription', selectedRewardDescription); // 자동으로 인코딩됩니다.
+    params.append('imp_uid', imp_uid);
 
     // 최종 URL 생성
     const url = `/donation/buy.do?` + params.toString();

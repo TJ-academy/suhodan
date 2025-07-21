@@ -1,5 +1,6 @@
 package com.example.suhodan.reward;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -72,5 +73,18 @@ public class RewardDAOImpl implements RewardDAO {
 	@Override
 	public int getRewardId(String name) {
 		return sqlSession.selectOne("reward.getRewardId", name);
+	}
+	
+	@Override
+	public void updateUserReward(int reward_id, String imp_uid) {
+		Map<String, Object> map = new HashMap<>();
+	    map.put("reward_id", reward_id);
+	    map.put("imp_uid", imp_uid);
+		sqlSession.update("reward.updateUserReward", map);
+	}
+	
+	@Override
+	public RewardDTO selectedReward(int reward_id) {
+		return sqlSession.selectOne("reward.selectedReward", reward_id);
 	}
 }

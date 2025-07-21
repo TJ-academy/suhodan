@@ -85,4 +85,9 @@ public class OrderDAOImpl implements OrderDAO {
         params.put("limit", limit);
         return sqlSession.selectList("orders.getUserOrdersPaged", params);
 	}
+	
+	@Override
+	public void orderReward(OrderDTO dto) {
+		sqlSession.insert("orders.orderReward", dto);
+	}
 }

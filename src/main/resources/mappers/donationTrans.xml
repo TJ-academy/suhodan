@@ -80,5 +80,10 @@
 			</choose>
 		</where>
 	</select>
-
+	
+	<select id="getTransactionId" resultType="int">
+		select transaction_id
+		from donation_transaction
+		where imp_uid = #{imp_uid}
+	</select>
 </mapper>

@@ -145,12 +145,17 @@ body {
 	<form action="/donation/complete.do" method="post">
 		<input type="hidden" name="rewardTier" value="${param.tier}" />
 		<input type="hidden" name="amount" value="${param.amount}" />
+		<input type="hidden" name="reward_id" value="${reward.reward_id}" />
+		<input type="hidden" name="imp_uid" value="${param.imp_uid}" />
 <div class="section-header">
 		<div class="section-title">배송지</div>
 		<button type="button" class="load-info-btn" onclick="loadMyInfo()">내 정보 불러오기</button>
 			<input type="hidden" id="dtoName" value="${dto.name}" />
 			<input type="hidden" id="dtoAddress1" value="${dto.address1}" />
 			<input type="hidden" id="dtoAddress2" value="${dto.address2}" />
+			<input type="hidden" id="dtoPhone1" value="${dto.phone1}" />
+			<input type="hidden" id="dtoPhone2" value="${dto.phone2}" />
+			<input type="hidden" id="dtoPhone3" value="${dto.phone3}" />
 		</div>
 		
 		<div class="input-row">
@@ -161,7 +166,7 @@ body {
 		<div class="input-row">
 			<label for="address1">배송지</label>
 			<div class="input-inline">
-				<input type="text" id="address1" name="address1" readonly required>
+				<input type="text" id="address1" name="order_address1" readonly required>
 				<button type="button" onclick="execDaumPostcode()">우편번호 검색</button>
 			</div>
 		</div>
@@ -169,16 +174,17 @@ body {
 		<div class="input-row full-inline no-label">
 			<label></label>
 			<div class="input-inline">
-				<input type="text" id="address2" name="address2" placeholder="상세 주소를 입력해 주세요" required style="width: 95.3%;">
+				<input type="text" id="address2" name="order_address2" placeholder="상세 주소를 입력해 주세요" required style="width: 95.3%;">
 			</div>
 		</div>
 
 		<div class="input-row">
 			<label for="phone1">연락처</label>
 			<div class="input-inline">
-				<input type="tel" name="phone1" maxlength="3" required>
-				<input type="tel" name="phone2" maxlength="4" required>
-				<input type="tel" name="phone3" maxlength="4" required>
+				<input type="tel" id="phone1" maxlength="3" required>
+				<input type="tel" id="phone2" maxlength="4" required>
+				<input type="tel" id="phone3" maxlength="4" required>
+				<input type="hidden" name="phone" id="phone">
 			</div>
 		</div>
 
@@ -187,7 +193,7 @@ body {
 			<div class="order-item">
 				<div class="item-info">
 					<img src="/resources/images/리워드.png" alt="리워드 이미지" onerror="this.onerror=null; this.src='/resources/images/설화수 로고.png';" />
-					<span>${reward.name} (${param.tier}</span>
+					<span>${reward.name} (${param.tier})</span>
 				</div>
 				<div>0원</div>
 			</div>
@@ -227,6 +233,26 @@ function execDaumPostcode() {
 		}
 	}).open();
 }
+
+//전화번호 저장 코드
+function updatePhoneValue() {
+	const p1 = document.getElementById("phone1").value.trim();
+	const p2 = document.getElementById("phone2").value.trim();
+	const p3 = document.getElementById("phone3").value.trim();
+	
+	if(p1 && p2 && p3) {
+		document.getElementById("phone").value = p1+"-"+p2+"-"+p3;
+	} else {
+		document.getElementById("phone").value = "";
+	}
+}
+
+// 이벤트 등록
+  document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("phone1").addEventListener("input", updatePhoneValue);
+    document.getElementById("phone2").addEventListener("input", updatePhoneValue);
+    document.getElementById("phone3").addEventListener("input", updatePhoneValue);
+  });
 </script>
 
 </body>
