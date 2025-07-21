@@ -4,9 +4,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>배지획득 기록 페이지</title>
+<link rel="stylesheet" href="/css/admin.css">
+<link rel="stylesheet" href="/css/popup.css">
 </head>
 <body>
-배지획득 기록 페이지
+	<%@ include file="../../include/admin_menu.jsp"%>
+	<h2>배지획득 기록 페이지</h2>
+    <button class="add-btn" id="addButton">추가하기</button>
+	<br>
+	
+준비중입니다...
 </body>
 </html>

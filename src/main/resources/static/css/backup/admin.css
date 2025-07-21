@@ -1,150 +1,168 @@
+/*
+ * 반응형 테이블 및 페이지네이션 CSS
+ * 이 스타일 시트는 테이블 및 페이지네이션 요소들이 모든 화면 크기에서
+ * 중앙에 배치되고, 작은 화면에서도 가독성과 사용성을 유지하도록 설계되었습니다.
+ * Flexbox와 미디어 쿼리를 활용하여 유동적인 레이아웃을 제공합니다.
+ */
+
+/* ============================================== */
+/* 기본 스타일 - 모든 화면 크기에 적용 */
+/* ============================================== */
 body {
-	font-family: '맑은 고딕', sans-serif;
-	background-color: #fdf9f4;
+    font-family: '맑은 고딕', sans-serif;
+    background-color: #fdf9f4;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* 패딩과 테두리가 요소의 전체 너비 및 높이에 포함되도록 설정 */
 }
 
 h2 {
-	margin: 0; /* 기존 여백 제거 */
-	color: #3c2c1e;
-	/* 수평 중앙 정렬 */
-	text-align: center;
+    margin: 30px 0 20px 0; /* 상단 여백 추가, 하단 여백 조정 */
+    color: #3b2a1b; /* 기존 색상 유지 */
+    text-align: center; /* 수평 중앙 정렬 */
+    font-size: 2.25em; /* 반응형을 위한 상대적 폰트 크기 */
 }
 
+/* 테이블 컨테이너 (테이블을 감싸서 중앙 정렬 및 반응형 너비 제어) */
+.table-container {
+    width: 95%; /* 반응형 너비 */
+    max-width: 1200px; /* 테이블의 최대 너비 설정 */
+    margin: 0 auto; /* 좌우 자동 마진으로 중앙 정렬 */
+    overflow-x: auto; /* 테이블이 넘칠 경우 가로 스크롤 허용 */
+    padding: 15px; /* 컨테이너 내부 여백 */
+    box-sizing: border-box;
+}
+
+/* 테이블 스타일 */
 table {
-	width: 100%;
-	border-collapse: collapse; /* 테이블의 모든 경계선 합침 */
-	border: none; /* 테이블의 외부 경계선 제거 */
-	text-align: center; /* 테이블 내용 가운데 정렬 */
+    width: 100%; /* 부모 컨테이너에 맞게 너비 조절 */
+    border-collapse: collapse;
+    border: none;
+    text-align: center;
+    min-width: 600px; /* 최소 너비 설정 */
 }
 
 table tr:first-child {
-	border-bottom: 2px solid black; /* 첫 번째 tr에 실선 추가 */
-	font-weight: bold;
+    border-bottom: 2px solid black; /* 첫 번째 tr에 실선 추가 */
+    font-weight: bold;
 }
 
 th, td {
-	padding: 10px; /* 셀 안의 여백 */
-	text-align: center; /* 테이블 내용 가운데 정렬 */
+    padding: 12px; /* 셀 안의 여백 */
+    text-align: center; /* 테이블 내용 가운데 정렬 */
+    font-size: 0.95em; /* 상대적 폰트 크기 */
+    white-space: nowrap; /* 기본적으로 텍스트 줄바꿈 방지 */
 }
-
-/* th {
-	background-color: #f4f0e9; 헤더 배경 색상
-	text-align: left; 좌측 정렬
-} */
 
 tr:hover {
-	background-color: #f9f9f9; /* 마우스 오버 시 배경 색상 */
+    background-color: #f9f9f9; /* 마우스 오버 시 배경 색상 */
 }
 
+/* 공통 버튼 스타일 */
 button {
-	background-color: #c98f6f;
-	border: none;
-	color: white;
-	padding: 10px 20px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	cursor: pointer;
-	border-radius: 5px;
+    background-color: #c98f6f;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em; /* 상대적 폰트 크기 */
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    box-sizing: border-box;
 }
 
 button:hover {
-	background-color: #9e704f; /* 버튼 호버 시 색상 변경 */
+    background-color: #9e704f; /* 버튼 호버 시 색상 변경 */
 }
 
 /* 페이징 컨테이너 중앙 정렬 */
 .pagination {
-	display: flex; /* Flexbox로 중앙 정렬 */
-	justify-content: center; /* 항목들을 수평으로 중앙 정렬 */
-	margin-top: 20px;
-	padding: 10px;
-	width: 100%; /* 부모 요소를 전체 너비로 확장 */
+    display: flex; /* Flexbox로 중앙 정렬 */
+    justify-content: center; /* 항목들을 수평으로 중앙 정렬 */
+    margin-top: 30px; /* 테이블과의 간격 */
+    padding: 10px;
+    width: 100%; /* 부모 요소를 전체 너비로 확장 */
+    box-sizing: border-box;
+    flex-wrap: wrap; /* 작은 화면에서 페이지 번호 줄바꿈 허용 */
+    gap: 5px; /* 페이지 번호 간 간격 */
 }
 
 /* 페이징 항목 스타일 */
 .pagination a, .pagination strong {
-	font-size: 14px;
-	color: #7d7d7d;
-	text-decoration: none;
-	padding: 5px 10px;
-	margin: 0 5px;
-	border-radius: 4px;
-	display: inline-block; /* 중앙 정렬을 위한 인라인 블록 */
+    font-size: 0.9em; /* 상대적 폰트 크기 */
+    color: #7d7d7d;
+    text-decoration: none;
+    padding: 8px 12px; /* 패딩 조정 */
+    margin: 0 3px; /* 여백 조정 */
+    border-radius: 4px;
+    display: inline-block;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* 마우스 오버 시 링크 스타일 */
 .pagination a:hover {
-	background-color: #f1f1f1;
+    background-color: #f1f1f1;
+    color: #555;
 }
 
 /* 현재 페이지 번호 강조 */
 .pagination #current-page {
-	background-color: #c98f6f;
-	color: white;
+    background-color: #c98f6f;
+    color: white;
+    font-weight: bold;
 }
 
-/* '이전' 버튼 스타일 */
-.pagination #prev-page {
-	font-weight: bold;
-	padding: 5px 10px;
-}
-
-/* '다음' 버튼 스타일 */
+/* '이전', '다음' 버튼 스타일 */
+.pagination #prev-page,
 .pagination #next-page {
-	font-weight: bold;
-	padding: 5px 10px;
+    font-weight: bold;
+    padding: 8px 12px;
 }
 
 #prev-page-disabled, #next-page-disabled {
-	color: #ddd; /* 비활성화된 버튼의 색상 */
-	cursor: not-allowed; /* 마우스 커서 변경 */
+    color: #bbb; /* 비활성화된 버튼의 색상 조정 */
+    cursor: not-allowed; /* 마우스 커서 변경 */
+    background-color: transparent;
 }
 
-/* 헤더 컨테이너 스타일
-.header-container {
-	display: flex; Flexbox로 레이아웃을 수평으로 설정
-	justify-content: space-between; 버튼을 우측 끝으로 배치
-	align-items: center; 수직으로 중앙 정렬
-	width: 100%; 전체 너비
-	margin-bottom: 20px; 제목과 버튼 사이에 여백 추가
-} */
+#prev-page-disabled:hover, #next-page-disabled:hover {
+    background-color: transparent; /* 호버 시 배경색 변경 없음 */
+    color: #bbb; /* 호버 시 색상 변경 없음 */
+}
 
-h2 {
-    text-align: center;
-    font-size: 36px;
-    color: #3b2a1b;
-    margin-top: 30px;
+/* 헤더 컨테이너 스타일 (주석 해제 및 반응형으로 수정) */
+.header-container {
+    display: flex; /* Flexbox로 레이아웃을 수평으로 설정 */
+    justify-content: flex-end; /* 버튼을 우측 끝으로 배치 */
+    align-items: center; /* 수직으로 중앙 정렬 */
+    width: 95%; /* 테이블 컨테이너와 동일한 너비 */
+    max-width: 1200px;
+    margin: 20px auto; /* 중앙 정렬 */
+    padding: 0 15px; /* 좌우 여백 */
+    box-sizing: border-box;
 }
 
 /* 추가하기 버튼 스타일 */
 #addButton {
-	background-color: #c98f6f;
-	border: none;
-	color: white;
-	padding: 10px 20px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	cursor: pointer;
-	border-radius: 5px;
-	margin-right: 25px;
+    background-color: #c98f6f;
+    margin-right: 0; /* float: right 대신 flexbox로 처리되므로 마진 제거 */
 }
 
-#addButton:hover {
-	background-color: #9e704f; /* 버튼 호버 시 색상 변경 */
-}
-
+/* 액션 버튼 (수정, 삭제, 보상 관리 등) */
 .action-btn {
-	padding: 10px 20px;
-	font-size: 16px;
-	text-align: center;
-	cursor: pointer;
-	border-radius: 5px;
-	border: none;
-	font-weight: bold;
-	transition: background-color 0.3s ease;
+    padding: 8px 15px; /* 패딩 조정 */
+    font-size: 0.9em; /* 상대적 폰트 크기 */
+    text-align: center;
+    cursor: pointer;
+    border-radius: 15px; /* 둥근 모양 유지 */
+    border: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    box-sizing: border-box;
+    white-space: nowrap; /* 버튼 텍스트 줄바꿈 방지 */
 }
 
 /* 수정 버튼 스타일 */
@@ -152,11 +170,6 @@ h2 {
     background-color: #7bd56c; /* 연한 초록색 */
     color: white;
     border: 2px solid #6e9e47;
-    border-radius: 15px;
-    padding: 8px 15px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .edit-button:hover {
@@ -169,11 +182,6 @@ h2 {
     background-color: #ff7b7b; /* 연한 빨간색 */
     color: white;
     border: 2px solid #d06c6c;
-    border-radius: 15px;
-    padding: 8px 15px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .delete-button:hover {
@@ -181,15 +189,11 @@ h2 {
     border-color: #b25959;
 }
 
+/* 보상 관리 버튼 스타일 */
 .reward-mng-button {
-    background-color:  #d1a15d; /* 연한 갈색 */
+    background-color: #d1a15d; /* 연한 갈색 */
     color: white;
     border: 2px solid #a87e47; /* 어두운 갈색 */
-    border-radius: 15px;
-    padding: 8px 15px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .reward-mng-button:hover {
@@ -197,69 +201,87 @@ h2 {
     border-color: #8f6d3a; /* 더 어두운 갈색 */
 }
 
-/*input + 원 한 줄로 CSS */
+/* input + 원 한 줄로 CSS (Form 내부에서 사용될 경우) */
 .price-container {
     display: flex;
     align-items: center;
+    width: 100%; /* 부모 요소의 너비에 맞춤 */
 }
 
 .price-container input {
-    width: 80%;
-    padding: 5px;
-    margin-right: 5px; /* 선택 사항: input과 '원' 사이에 간격 추가 */
+    width: calc(100% - 30px); /* '원' 텍스트와 간격을 고려한 너비 */
+    padding: 8px; /* 패딩 조정 */
+    margin-right: 5px;
+    box-sizing: border-box;
+    font-size: 0.95em;
+    border: 1px solid #ccc; /* 기본 보더 추가 */
+    border-radius: 5px;
 }
 
 .price-container .currency {
-    font-size: 16px;
-    padding: 5px;
+    font-size: 0.95em; /* 상대적 폰트 크기 */
+    white-space: nowrap; /* '원' 텍스트 줄바꿈 방지 */
+    flex-shrink: 0; /* '원'이 줄어들지 않도록 */
 }
 
-/* reward_list 상품 선택 돋보기랑 한 줄로 CSS */
+/* reward_list 상품 선택 돋보기랑 한 줄로 CSS (Form 내부에서 사용될 경우) */
 .input-container {
     display: flex;
     align-items: center;
+    width: 100%; /* 부모 요소의 너비에 맞춤 */
 }
 
-.price-container input {
-    width: 80%;
-    padding: 5px;
-    margin-right: 5px; /* 선택 사항: input과 '원' 사이에 간격 추가 */
+.input-container input {
+    flex-grow: 1; /* 인풋이 남은 공간을 차지하도록 */
+    padding: 8px; /* 패딩 조정 */
+    margin-right: 5px;
+    box-sizing: border-box;
+    font-size: 0.95em;
+    border: 1px solid #ccc; /* 기본 보더 추가 */
+    border-radius: 5px;
 }
 
 .search-icon {
-    width: 20px; /* 아이콘 크기 */
-    height: 20px; /* 아이콘 크기 */
+    width: 24px; /* 아이콘 크기 약간 키움 */
+    height: 24px;
     cursor: pointer;
-    margin-left: 10px; /* input과 아이콘 사이에 여백 추가 */
+    margin-left: 5px; /* input과 아이콘 사이에 여백 추가 */
+    flex-shrink: 0; /* 아이콘이 줄어들지 않도록 */
 }
 
-/* 추가하기 버튼 스타일 */
+/* 추가하기 버튼 (추가 버튼) - 컨테이너가 별도로 있을 때 */
+/* float 속성은 반응형 레이아웃에서 문제가 될 수 있으므로, Flexbox 사용 권장 */
 .add-btn {
-    float: right;
+    /* float: right; 제거 */
     background-color: #d6a77a;
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
-    margin-top: -50px;
+    font-size: 1em;
+    /* margin-top: -50px; 제거 (부모 컨테이너의 flex/gap으로 조정) */
+    align-self: flex-end; /* Flex 컨테이너 내에서 우측 정렬 */
+    box-sizing: border-box;
 }
 
 .add-btn:hover {
     background-color: #b87d53;
 }
 
+/* 닫기 버튼 (cls-btn) - 컨테이너가 별도로 있을 때 */
 .cls-btn {
-    float: right;
+    /* float: right; 제거 */
     background-color: #d6a77a;
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
-    margin-top: -50px;
+    font-size: 1em;
+    /* margin-top: -50px; 제거 */
+    align-self: flex-end; /* Flex 컨테이너 내에서 우측 정렬 */
+    box-sizing: border-box;
 }
 
 .cls-btn:hover {
@@ -268,22 +290,36 @@ h2 {
 
 /* 검색 옵션 스타일 */
 .search-box {
-    width: 100%;
-    margin-top: 20px;
-    padding: 10px;
+    width: 95%; /* 컨테이너와 동일한 너비 */
+    max-width: 1200px;
+    margin: 20px auto; /* 중앙 정렬 */
+    padding: 15px; /* 패딩 조정 */
     background-color: #f9f4ef;
     border: 1px solid #d1c6b9;
     border-radius: 10px;
     display: flex;
     justify-content: flex-end; /* 오른쪽 정렬 */
     align-items: center;
+    flex-wrap: wrap; /* 항목들이 줄바꿈되도록 허용 */
+    gap: 10px; /* 항목 간 간격 */
+    box-sizing: border-box;
 }
 
-.search-box select, .search-box input, .search-box button {
-    font-size: 16px;
-    padding: 5px 10px;
+.search-box select, 
+.search-box input, 
+.search-box button {
+    font-size: 0.9em; /* 상대적 폰트 크기 */
+    padding: 8px 12px; /* 패딩 조정 */
     border-radius: 5px;
-    margin-right: 10px;
+    border: 1px solid #ccc; /* 기본 보더 추가 */
+    margin-right: 0; /* flex gap으로 대체 */
+    box-sizing: border-box;
+    flex-shrink: 0; /* 항목이 줄어들지 않도록 */
+}
+
+.search-box input[type="text"] {
+    flex-grow: 1; /* 검색 인풋이 남은 공간을 차지하도록 */
+    max-width: 250px; /* 최대 너비 설정 */
 }
 
 .search-box button {
@@ -295,4 +331,160 @@ h2 {
 
 .search-box button:hover {
     background-color: #b87d53;
+}
+
+/* ============================================== */
+/* 미디어 쿼리 - 태블릿 및 중간 화면 (max-width: 768px) */
+/* ============================================== */
+@media (max-width: 768px) {
+    h2 {
+        font-size: 1.8em;
+        margin-top: 25px;
+    }
+
+    .table-container {
+        padding: 10px;
+    }
+
+    th, td {
+        padding: 10px;
+        font-size: 0.9em;
+        white-space: normal; /* 태블릿부터는 텍스트 줄바꿈 허용 */
+    }
+
+    .header-container {
+        padding: 0 10px;
+        flex-direction: column; /* 버튼을 세로로 정렬 */
+        align-items: flex-end; /* 우측 정렬 유지 */
+        gap: 10px;
+    }
+
+    #addButton {
+        width: auto; /* 너비 자동 조정 */
+        padding: 8px 15px; /* 패딩 조정 */
+        font-size: 0.9em;
+    }
+
+    .action-btn {
+        padding: 6px 12px;
+        font-size: 0.85em;
+    }
+
+    .pagination {
+        margin-top: 20px;
+        padding: 5px;
+        gap: 3px;
+    }
+
+    .pagination a, .pagination strong {
+        font-size: 0.8em;
+        padding: 6px 9px;
+        margin: 0 2px;
+    }
+
+    .price-container input,
+    .input-container input {
+        padding: 6px;
+        font-size: 0.9em;
+    }
+
+    .price-container .currency,
+    .search-icon {
+        font-size: 0.9em;
+        width: 20px;
+        height: 20px;
+    }
+
+    .search-box {
+        flex-direction: column; /* 검색 항목들을 세로로 정렬 */
+        align-items: stretch; /* 항목들을 늘려 전체 너비 차지 */
+        padding: 10px;
+        gap: 8px;
+    }
+
+    .search-box select,
+    .search-box input,
+    .search-box button {
+        width: 100%; /* 전체 너비 차지 */
+        max-width: none; /* 최대 너비 제한 해제 */
+        padding: 8px 10px;
+        font-size: 0.85em;
+    }
+}
+
+/* ============================================== */
+/* 미디어 쿼리 - 모바일 화면 (max-width: 480px) */
+/* ============================================== */
+@media (max-width: 480px) {
+    h2 {
+        font-size: 1.5em;
+        margin-top: 20px;
+    }
+
+    .table-container {
+        padding: 5px;
+    }
+    
+    table {
+        min-width: unset; /* 모바일에서 최소 너비 제한 해제 */
+        /* 이 부분이 핵심입니다. */
+    }
+
+    th, td {
+        padding: 8px;
+        font-size: 0.8em;
+    }
+
+    .header-container {
+        padding: 0 5px;
+        gap: 8px;
+    }
+
+    #addButton {
+        padding: 6px 12px;
+        font-size: 0.8em;
+    }
+
+    .action-btn {
+        padding: 5px 10px;
+        font-size: 0.75em;
+        border-radius: 10px; /* 더 둥글게 */
+    }
+
+    .pagination {
+        margin-top: 15px;
+        padding: 0;
+        gap: 2px;
+    }
+
+    .pagination a, .pagination strong {
+        font-size: 0.75em;
+        padding: 5px 8px;
+        margin: 0 1px;
+    }
+
+    .price-container input,
+    .input-container input {
+        padding: 5px;
+        font-size: 0.8em;
+    }
+
+    .price-container .currency,
+    .search-icon {
+        font-size: 0.8em;
+        width: 18px;
+        height: 18px;
+    }
+
+    .search-box {
+        padding: 8px;
+        gap: 6px;
+    }
+
+    .search-box select,
+    .search-box input,
+    .search-box button {
+        padding: 6px 8px;
+        font-size: 0.8em;
+    }
 }
